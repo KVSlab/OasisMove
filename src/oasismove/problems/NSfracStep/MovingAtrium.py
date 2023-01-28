@@ -3,6 +3,7 @@ import pickle
 from pprint import pprint
 
 from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
+
 from .MovingAtriumCommon import *
 from ..NSfracStep import *
 
@@ -18,13 +19,14 @@ def problem_parameters(commandline_kwargs, NS_parameters, scalar_components, Sch
     else:
         backflow = bool(commandline_kwargs.get("backflow", True))
         backflow_beta = float(commandline_kwargs.get("backflow_beta", 0.5))
+
         # Override some problem specific parameters
         # Parameters are in mm and ms
         nu = 3.3018868e-3
         NS_parameters.update(
             # Atrium specific parameters
             flow_rate_type=None,  # Type of flow rate profile - [AF,SR,Rigid]
-            profile_power=2,  # Degree of velocity profile
+            profile_power=0,  # Degree of velocity profile
             movement_at_inlet_and_outlet=False,  # Adds movement to inlet and outlet boundaries
             dynamic_mesh=True,  # Run moving mesh simulation
             compute_velocity_and_pressure=True,  # Only solve mesh equations
@@ -37,14 +39,16 @@ def problem_parameters(commandline_kwargs, NS_parameters, scalar_components, Sch
             # Simulation parameters
             cycle=1000,  # Run simulation for 1 cardiac cycles [ms]
             no_of_cycles=2,  # Number of cycles
-            dt=1,  # dt=0.01 <=> 10 000 steps per cycle [ms]
+            dt=0.1,  # dt=0.01 <=> 10 000 steps per cycle [ms]
             checkpoint=20,  # Overwrite solution in Checkpoint folder each checkpoint
             save_step=1e10,  # Store solution each save_step
             # Frequencies to save data
-            save_solution_tstep=5,  # Store velocity at this freq
-            save_flow_metrics_tstep=5,  # Store flow metrics at this freq
-            save_volume_tstep=5e5,  # Compute and store volume at this freq
-            print_intermediate_info=10,
+            save_solution_after_cycle=0,  # Store solution after 1 cardiac cycle
+            save_solution_frequency=5,  # Store velocity at this freq
+            save_solution_frequency_xdmf=5E10,
+            save_flow_metrics_tstep=20,  # Store flow metrics at this freq
+            save_volume_tstep=5e10,  # Compute and store volume at this freq
+            print_intermediate_info=100,
             folder="results_moving_atrium",
             mesh_path=commandline_kwargs["mesh_path"],
             # Solver parameters
@@ -76,7 +80,7 @@ def scalar_source(**NS_namespace):
     return dict(blood=Constant(1.0))
 
 
-def mesh(mesh_path, **NS_namespace):
+def mesh(mesh_path, dt, **NS_namespace):
     # Read mesh and print mesh information
     mesh = Mesh(mesh_path)
     print_mesh_information(mesh)
@@ -99,7 +103,7 @@ def pre_boundary_condition(mesh, mesh_path, id_out, id_in, no_of_cycles, cycle, 
     id_wall = 0
     id_in[:] = info['inlet_ids']
     id_out[:] = info['outlet_id']
-    # FIXME: Not working in parallel
+    # FIXME: Not working in parallel?
     # backflow_facets[:] = info['outlet_id']
 
     # Find corresponding areas
@@ -114,12 +118,10 @@ def pre_boundary_condition(mesh, mesh_path, id_out, id_in, no_of_cycles, cycle, 
 
     # Load flow rate
     s_pv = 5E2
-
     if flow_rate_type == "AF_RIGID":
         flow_rate_data = np.loadtxt(path.join(mesh_path.rsplit("/", 1)[0], "AF_RIGID.txt"))
         weight = np.ones(len(flow_rate_data))
         weight[-47:] = 0.05
-
     elif flow_rate_type == "AF_MOVING":
         flow_rate_data = np.loadtxt(path.join(mesh_path.rsplit("/", 1)[0], "AF_MOVING.txt"))
         weight = np.ones(len(flow_rate_data))
@@ -171,7 +173,7 @@ def create_bcs(NS_expressions, cycle, x_, boundary, V, Q, mesh, mesh_path, id_in
         points = np.load(mesh_path.split(".")[0] + "_points.np", allow_pickle=True)
 
         # Define wall movement
-        wall_counter = Surface_counter(points, cycle, flow_rate_type, element=V.ufl_element())
+        wall_counter = Surface_counter(points, cycle, element=V.ufl_element())
         bc_tmp = DirichletBC(V, wall_counter, boundary, id_wall)
         bc_tmp.apply(x_["u0"])
         x_["u0"].zero()
@@ -180,7 +182,7 @@ def create_bcs(NS_expressions, cycle, x_, boundary, V, Q, mesh, mesh_path, id_in
         wall_motion = wall_counter.get_motion()
 
         # Define outlet movement
-        outlet_counter = Surface_counter(points, cycle, flow_rate_type, element=V.ufl_element())
+        outlet_counter = Surface_counter(points, cycle, element=V.ufl_element())
         bc_tmp = DirichletBC(V, outlet_counter, boundary, id_out[0])
         bc_tmp.apply(x_["u0"])
         x_["u0"].zero()
@@ -200,7 +202,7 @@ def create_bcs(NS_expressions, cycle, x_, boundary, V, Q, mesh, mesh_path, id_in
 
         for i, ID in enumerate(id_in):
             # Define inlet movement
-            inlet_counter = Surface_counter(points, cycle, flow_rate_type, element=V.ufl_element())
+            inlet_counter = Surface_counter(points, cycle, element=V.ufl_element())
             bc_tmp = DirichletBC(V, inlet_counter, boundary, ID)
             bc_tmp.apply(x_["u0"])
             x_["u0"].zero()
@@ -239,11 +241,12 @@ def create_bcs(NS_expressions, cycle, x_, boundary, V, Q, mesh, mesh_path, id_in
 
 
 def pre_solve_hook(mesh, V, id_in, id_out, id_wall, newfolder, u_components, velocity_degree, x_, boundary,
-                   dynamic_mesh, restart_folder, movement_at_inlet_and_outlet, **NS_namespace):
+                   dynamic_mesh, restart_folder, movement_at_inlet_and_outlet, cycle, save_solution_after_cycle,
+                   dt, **NS_namespace):
     # Create point for evaluation
     n = FacetNormal(mesh)
     quantities = ["pressure", "velocity"]
-    viz_p, viz_u = get_visualization_writers(newfolder, quantities)
+    viz_p, viz_U = get_visualization_writers(newfolder, quantities)
 
     # Extract dof map and coordinates
     VV = VectorFunctionSpace(mesh, "CG", velocity_degree)
@@ -311,8 +314,20 @@ def pre_solve_hook(mesh, V, id_in, id_out, id_wall, newfolder, u_components, vel
     with HDF5File(MPI.comm_world, files["mesh"], "w") as mesh_file:
         mesh_file.write(mesh, "mesh")
 
-    return dict(dof_map=dof_map, coordinates=coordinates, boundary=boundary, viz_u=viz_u, viz_p=viz_p, u_vec=u_vec, n=n,
-                bc_mesh=bc_mesh)
+    # Create vector function for storing velocity
+    Vv = VectorFunctionSpace(mesh, "CG", velocity_degree)
+    U = Function(Vv)
+    u_mean = Function(Vv)
+    u_mean0 = Function(V)
+    u_mean1 = Function(V)
+    u_mean2 = Function(V)
+
+    # Time step when solutions for post-processing should start being saved
+    save_solution_at_tstep = int(cycle * save_solution_after_cycle / dt)
+
+    return dict(dof_map=dof_map, coordinates=coordinates, boundary=boundary, viz_U=viz_U, viz_p=viz_p, u_vec=u_vec, n=n,
+                bc_mesh=bc_mesh, save_solution_at_tstep=save_solution_at_tstep, U=U, u_mean=u_mean, u_mean0=u_mean0,
+                u_mean1=u_mean1, u_mean2=u_mean2)
 
 
 def update_boundary_conditions(t, dynamic_mesh, NS_expressions, id_in, tstep, **NS_namespace):
@@ -327,27 +342,75 @@ def update_boundary_conditions(t, dynamic_mesh, NS_expressions, id_in, tstep, **
             NS_expressions["wall_{}".format(coord)].t = t
             NS_expressions["outlet_{}".format(coord)].t = t
             for i, ID in enumerate(id_in):
-                NS_expressions["inlet_%i_%s" % (ID, coord)].t = t
+                NS_expressions["inlet_{}_{}".format(ID, coord)].t = t
 
 
 def velocity_tentative_hook(mesh, boundary, u_ab, x_1, b, A, ui, u, v, backflow_facets, backflow_beta, **NS_namespace):
     add_backflow_stabilization(A, b, backflow_beta, backflow_facets, boundary, mesh, u, u_ab, ui, v, x_1)
 
 
-def temporal_hook(u_, mesh, newfolder, boundary, tstep, t, nu, dt, u_vec, viz_u, id_in, id_out, id_wall, outlet_area,
-                  cycle, D_mitral, p_, viz_p, save_solution_tstep, save_flow_metrics_tstep, save_volume_tstep,
-                  **NS_namespace):
+def temporal_hook(u_, mesh, newfolder, boundary, tstep, t, nu, dt, u_vec, viz_U, id_in, id_out, id_wall, outlet_area,
+                  cycle, D_mitral, p_, save_solution_frequency, save_solution_frequency_xdmf, U, u_mean0,
+                  u_mean1, u_mean2, save_flow_metrics_tstep, save_volume_tstep, nunn_, **NS_namespace):
     if tstep % save_volume_tstep == 0:
         compute_volume(mesh, t, newfolder)
 
-    if tstep % save_solution_tstep == 0:
+    if tstep % save_solution_frequency_xdmf == 0:
         assign(u_vec.sub(0), u_[0])
         assign(u_vec.sub(1), u_[1])
         assign(u_vec.sub(2), u_[2])
 
-        viz_u.write(u_vec, t)
+        viz_U.write(u_vec, t)
 
     if tstep % save_flow_metrics_tstep == 0:
         h = mesh.hmin()
         compute_flow_quantities(u_, D_mitral, nu, mesh, t, tstep, dt, h, outlet_area, boundary, id_out, id_in, id_wall,
                                 period=cycle, newfolder=newfolder, dynamic_mesh=False, write_to_file=True)
+
+    # Save velocity and pressure for post-processing
+    if tstep % save_solution_frequency == 0:
+        # Assign velocity components to vector solution
+        assign(U.sub(0), u_[0])
+        assign(U.sub(1), u_[1])
+        assign(U.sub(2), u_[2])
+
+        # Get save paths
+        files = NS_parameters['files']
+        # p_path = files['p']
+        u_path = files['u']
+        file_mode = "w" if not path.exists(u_path) else "a"
+
+        # Save pressure
+        # viz_p = HDF5File(MPI.comm_world, p_path, file_mode=file_mode)
+        # viz_p.write(p_, "/pressure", tstep)
+        # viz_p.close()
+
+        # Save velocity
+        viz_u = HDF5File(MPI.comm_world, u_path, file_mode=file_mode)
+        viz_u.write(U, "/velocity", tstep)
+        viz_u.close()
+
+        # Accumulate velocity
+        u_mean0.vector().axpy(1, u_[0].vector())
+        u_mean1.vector().axpy(1, u_[1].vector())
+        u_mean2.vector().axpy(1, u_[2].vector())
+
+
+def store_u_mean(T, dt, save_solution_at_tstep, save_solution_frequency, u_mean, u_mean0, u_mean1, u_mean2,
+                 NS_parameters):
+    # Get the file path
+    files = NS_parameters['files']
+    u_mean_path = files["u_mean"]
+
+    # Divide the accumulated velocity by the number of steps
+    NumTStepForAverage = (T / dt - save_solution_at_tstep) / save_solution_frequency + 1
+    u_mean0.vector()[:] = u_mean0.vector()[:] / NumTStepForAverage
+    u_mean1.vector()[:] = u_mean1.vector()[:] / NumTStepForAverage
+    u_mean2.vector()[:] = u_mean2.vector()[:] / NumTStepForAverage
+    assign(u_mean.sub(0), u_mean0)
+    assign(u_mean.sub(1), u_mean1)
+    assign(u_mean.sub(2), u_mean2)
+
+    # Save u_mean
+    with HDF5File(MPI.comm_world, u_mean_path, "w") as u_mean_file:
+        u_mean_file.write(u_mean, "u_mean")

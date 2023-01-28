@@ -3,6 +3,7 @@ from os import path, makedirs
 import numpy as np
 from dolfin import *
 from scipy.interpolate import splev, splrep
+from scipy.spatial import distance
 
 
 class Wall_motion(UserExpression):
@@ -69,11 +70,10 @@ def get_file_paths(folder):
 
 
 class Surface_counter(UserExpression):
-    def __init__(self, points, cycle, flow_rate_type, **kwargs):
+    def __init__(self, points, cycle, **kwargs):
         self.motion = {}
         self.counter = -1
         self.points = points
-        self.flow_rate_type = flow_rate_type
         self.time = np.linspace(0, cycle, self.points.shape[-1])
         super().__init__(**kwargs)
 
@@ -82,22 +82,12 @@ class Surface_counter(UserExpression):
 
     def eval(self, _, x):
         self.counter += 1
-        index = np.argmin(np.sqrt(np.sum((self.points[:, :, 0] - np.array(x)) ** 2, axis=1)))
-        # FIXME: Somehow predict good s to select?
-        if "AF" in self.flow_rate_type:
-            s = 0.01
-        elif "SR" in self.flow_rate_type:
-            s = 0.5
-        elif "LA5" in self.flow_rate_type:
-            s = 0.0025
-        else:
-            print("Not valid flow rate")
-            exit()
+        index = distance.cdist([x], self.points[:, :, 0]).argmin()
 
+        s = 1E-3
         x_ = splrep(self.time, self.points[index, 0, :], s=s, per=True)
         y_ = splrep(self.time, self.points[index, 1, :], s=s, per=True)
         z_ = splrep(self.time, self.points[index, 2, :], s=s, per=True)
-
         self.motion[self.counter] = [x_, y_, z_]
 
 
