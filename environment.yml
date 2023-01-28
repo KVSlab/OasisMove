@@ -1,0 +1,10 @@
+name: oasismove
+
+channels:
+  - conda-forge
+
+dependencies:
+  - fenics
+  - pip
+  - python >=3.8
+  - git
