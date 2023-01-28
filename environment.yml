@@ -11,5 +11,6 @@ dependencies:
   - matplotlib
   - scipy
   - pip:
+      - cppimport
       - git+https://github.com/mikaem/fenicstools
 
