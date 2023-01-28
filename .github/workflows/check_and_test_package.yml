@@ -94,10 +94,10 @@ jobs:
       - name: Run tests
         run: python3 -m pytest tests
 
-      - name: Upload coverage report to codecov
-        if: matrix.os == 'ubuntu-latest'
-        uses: codecov/codecov-action@v3
-        with:
-          fail_ci_if_error: true
-          files: ./coverage.xml
-          verbose: true
+#      - name: Upload coverage report to codecov
+#        if: matrix.os == 'ubuntu-latest'
+#        uses: codecov/codecov-action@v3
+#        with:
+#          fail_ci_if_error: true
+#          files: ./coverage.xml
+#          verbose: true
