@@ -61,7 +61,7 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Install VaMPy
+      - name: Install OasisMove
         run: python3 -m pip install .[test]
 
         # Build the book
