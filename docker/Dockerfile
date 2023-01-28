@@ -1,24 +1,20 @@
-# We choose ubuntu 22.04 as our base docker image
-FROM ubuntu:22.04
+FROM condaforge/mambaforge
 
-ARG REPO_BRANCH="main"
-ENV DEB_PYTHON_INSTALL_LAYOUT=deb_system
-
-# Install pip and git with apt
+ENV DEBIAN_FRONTEND=noninteractive
+WORKDIR /tmp
+# Install ssh (missing dependency to run conda envs)
 RUN apt-get update && \
-    apt-get install -y python3-pip git
+    apt-get install -y ssh build-essential libgl1-mesa-glx mesa-utils
 
-# We upgrade pip and setuptools
-RUN python3 -m pip install pip setuptools --upgrade
+# Upgrade mamba
+RUN mamba upgrade -y mamba
 
+# Copy environment and requirements files into docker env
+COPY . ${WORKDIR}
 
-# We set the working directory to install docker dependencies
-WORKDIR /tmp/
+RUN echo "source activate dockerenv" > ~/.bashrc
 
-# Install the Python-module
-RUN git clone --branch ${REPO_BRANCH} --single-branch https://github.com/KVSlab/OasisMove
-RUN python3 -m pip install ./oasismove[all]
+RUN mamba run -n dockerenv python -m pip install .[test]
 
-
-# We remove the contents of the temporary directory to minimize the size of the image
-RUN rm -rf /tmp
+SHELL ["mamba", "run", "-n", "dockerenv", "/bin/bash", "-c"]
+ENV MESA_LOADER_DRIVER_OVERRIDE=""
