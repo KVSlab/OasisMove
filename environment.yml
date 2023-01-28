@@ -8,3 +8,7 @@ dependencies:
   - pip
   - python >=3.8
   - git
+  - matplotlib
+  - pip:
+      - git+https://github.com/mikaem/fenicstools
+

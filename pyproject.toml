@@ -5,12 +5,12 @@ requires = ["setuptools>=61.0.0", "wheel"]
 name = "oasismove"
 version = "0.1.0"
 description = "Moving domain version of Oasis"
-authors = [{name = "Henrik A. Kjeldsberg", email = "henriakj@simula.no"}]
-license = {file = "LICENSE"}
+authors = [{ name = "Henrik A. Kjeldsberg", email = "henriakj@simula.no" }]
+license = { file = "LICENSE" }
 readme = "README.md"
 
 [project.scripts]
-oasismove = "oasismove.cli:main"
+oasism = "oasismove.run_oasis:main"
 
 [project.optional-dependencies]
 test = [
@@ -20,26 +20,26 @@ test = [
 dev = [
     "pdbpp",
     "ipython",
-"mypy",
+    "mypy",
     "flake8",
 ]
 docs = [
-   "jupyter-book",
-   "jupytext",
+    "jupyter-book",
+    "jupytext",
 ]
 all = [
-   "oasismove[test]",
-   "oasismove[dev]",
-   "oasismove[docs]"
+    "oasismove[test]",
+    "oasismove[dev]",
+    "oasismove[docs]"
 ]
 
 [tool.pytest.ini_options]
 addopts = [
-   "--import-mode=importlib",
-   "--cov=oasismove",
-   "--cov-report=html",
-   "--cov-report=term-missing",
-   "-v"
+    "--import-mode=importlib",
+    "--cov=oasismove",
+    "--cov-report=html",
+    "--cov-report=term-missing",
+    "-v"
 ]
 testpaths = [
     "tests"
@@ -54,6 +54,6 @@ exclude = [
 ]
 # Folder to check with mypy
 files = [
-    "src",
+    "oasis",
     "tests"
 ]
