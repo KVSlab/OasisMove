@@ -78,10 +78,10 @@ def scalar_source(**NS_namespace):
 
 def mesh(mesh_path, **NS_namespace):
     # Read mesh and print mesh information
-    atrium_mesh = Mesh(mesh_path)
-    print_mesh_information(atrium_mesh)
+    mesh = Mesh(mesh_path)
+    print_mesh_information(mesh)
 
-    return atrium_mesh
+    return mesh
 
 
 def pre_boundary_condition(mesh, mesh_path, id_out, id_in, no_of_cycles, cycle, flow_rate_type, backflow_facets,
@@ -113,26 +113,18 @@ def pre_boundary_condition(mesh, mesh_path, id_out, id_in, no_of_cycles, cycle, 
     T = no_of_cycles * cycle
 
     # Load flow rate
-    s_pv = 1E2
-    if flow_rate_type == "AFMoving":
-        flow_rate_data = np.loadtxt(path.join(mesh_path.rsplit("/", 1)[0], "../Q_AF_moving.txt"))
+    s_pv = 5E2
+
+    if flow_rate_type == "AF_RIGID":
+        flow_rate_data = np.loadtxt(path.join(mesh_path.rsplit("/", 1)[0], "AF_RIGID.txt"))
         weight = np.ones(len(flow_rate_data))
-        weight[-5:] = 0.01
-    elif flow_rate_type == "AFRigid":
-        flow_rate_data = np.loadtxt(path.join(mesh_path.rsplit("/", 1)[0], "../Q_AF_rigid.txt"))
+        weight[-47:] = 0.05
+
+    elif flow_rate_type == "AF_MOVING":
+        flow_rate_data = np.loadtxt(path.join(mesh_path.rsplit("/", 1)[0], "AF_MOVING.txt"))
         weight = np.ones(len(flow_rate_data))
-        weight[-20:] = 0.01
-    elif flow_rate_type == "SRMoving":
-        flow_rate_data = np.loadtxt(path.join(mesh_path.rsplit("/", 1)[0], "../Q_SR_moving.txt"))
-        weight = np.ones(len(flow_rate_data))
-    elif flow_rate_type == "SRRigid":
-        flow_rate_data = np.loadtxt(path.join(mesh_path.rsplit("/", 1)[0], "../Q_SR_rigid.txt"))
-        weight = np.ones(len(flow_rate_data))
-        weight[170:180] = 0.0001
-    elif flow_rate_type == "LA5":
-        flow_rate_data = np.loadtxt(path.join(mesh_path.rsplit("/", 1)[0], "LA5_flow_rate.txt"))
-        weight = np.ones(len(flow_rate_data))
-        s_pv = 50
+        weight[-32:] = 0.09
+        weight[-10:] = 0.02
     else:
         print("--- No flow rate type supplied. Exiting..")
         exit()
