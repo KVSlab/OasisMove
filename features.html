@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>OasisMove &#8212; OasisMove</title>
+    <title>Features and issues &#8212; OasisMove</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -52,7 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="next" title="Tutorials" href="tutorials.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -87,7 +88,7 @@ const thebe_selector_output = ".output, .cell_output"
 <div class="bd-sidebar noprint" id="site-navigation">
     <div class="bd-sidebar__content">
         <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="#">
+    <a class="navbar-brand text-wrap" href="index.html">
       
         <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
         
@@ -106,8 +107,8 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="bd-toc-item active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1 current active">
-                <a class="reference internal" href="#">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
                     OasisMove
                 </a>
             </li>
@@ -117,14 +118,14 @@ const thebe_selector_output = ".output, .cell_output"
   Installation
  </span>
 </p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="installation.html">
    Installation
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="features.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Features and issues
   </a>
  </li>
@@ -242,7 +243,7 @@ title="Source repository"
       </li>
       
       <li>
-        <a href="https://kvslab.github.io/OasisMove//issues/new?title=Issue%20on%20page%20%2Findex.html&body=Your%20issue%20content%20here."
+        <a href="https://kvslab.github.io/OasisMove//issues/new?title=Issue%20on%20page%20%2Ffeatures.html&body=Your%20issue%20content%20here."
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -270,7 +271,7 @@ title="Open an issue"
   <div class="menu-dropdown__content">
     <ul>
       <li>
-        <a href="_sources/index.md"
+        <a href="_sources/features.md"
    class="headerbtn"
    data-toggle="tooltip"
 data-placement="left"
@@ -307,64 +308,23 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#contents">
-   Contents
-  </a>
-  <ul class="nav section-nav flex-column">
-  </ul>
- </li>
-</ul>
-
-    </nav>
 </div>
     </div>
     <div class="article row">
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>OasisMove</h1>
+                <h1>Features and issues</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#contents">
-   Contents
-  </a>
-  <ul class="nav section-nav flex-column">
-  </ul>
- </li>
-</ul>
-
-                        </nav>
                     </div>
                 </div>
             </div>
@@ -372,34 +332,16 @@ title="Print to PDF"
                 
               <div>
                 
-  <section class="tex2jax_ignore mathjax_ignore" id="oasismove">
-<h1>OasisMove<a class="headerlink" href="#oasismove" title="Permalink to this headline">#</a></h1>
-<p><a class="reference external" href="https://github.com/KVSlab/OasisMove">OasisMove</a> is a high-level/high-performance open-source Navier-Stokes solver written in Python/<a class="reference external" href="https://fenicsproject.org/">FEniCS</a>, and is an extension of the computational fluid dynamics (CFD) solver <a class="reference external" href="https://github.com/mikaem/Oasis">Oasis</a>.
-In OasisMove the Navier-Stokes equations are expressed in the arbitrary Lagrangian-Eulerian formulation, which is suitable for handling moving domains.
-Through verification the solver has shown to follow theoretical convergence rates, begin second order accurate in time, and second and third order accurate in space with P1/P1 and P2/P1 finite elements.
-Through validation the solver has showed good agreement with existing benchmark results, and demonstrates the ability of the solver to capture vortex patterns in transitional and turbulent-like flow regimes.</p>
-<section id="contents">
-<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">#</a></h2>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Installation</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="features.html">Features and issues</a></li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
-</ul>
-</div>
-<div class="toctree-wrapper compound">
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
-</ul>
-</div>
-</section>
+  <section class="tex2jax_ignore mathjax_ignore" id="features-and-issues">
+<h1>Features and issues<a class="headerlink" href="#features-and-issues" title="Permalink to this headline">#</a></h1>
+<p>The tools provided by OasisMove provide many degrees of freedom, however, if you
+need a specific method or functionality, please do not hesitate to
+propose enhancements in the <a class="reference external" href="https://github.com/KVSlab/OasisMove/issues">issue
+tracker</a>, or create a <a class="reference external" href="https://github.com/KVSlab/OasisMove/pulls">pull
+request</a> with new features.
+Similarly, we highly appreciate that you report any bugs or other issues
+you may experience in the <a class="reference external" href="https://github.com/KVSlab/OasisMove/issues">issue
+tracker</a>.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -429,10 +371,17 @@ Through validation the solver has showed good agreement with existing benchmark 
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='right-next' id="next-link" href="installation.html" title="next page">
+    <a class='left-prev' id="prev-link" href="installation.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Installation</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="tutorials.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Installation</p>
+        <p class="prev-next-title">Tutorials</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

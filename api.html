@@ -52,7 +52,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Notebooks with MyST Markdown" href="markdown-notebooks.html" />
+    <link rel="prev" title="Tutorials" href="tutorials.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -107,30 +107,37 @@ const thebe_selector_output = ".output, .cell_output"
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
-                <a class="reference internal" href="intro.html">
-                    Welcome to your Jupyter Book
+                <a class="reference internal" href="index.html">
+                    OasisMove
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
-  TMP
+  Installation
  </span>
 </p>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="markdown.html">
-   Markdown Files
+  <a class="reference internal" href="installation.html">
+   Installation
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="notebooks.html">
-   Content with notebooks
+  <a class="reference internal" href="features.html">
+   Features and issues
   </a>
  </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="markdown-notebooks.html">
-   Notebooks with MyST Markdown
+  <a class="reference internal" href="tutorials.html">
+   Tutorials
   </a>
  </li>
 </ul>
@@ -300,12 +307,36 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-oasismove.solvers.NSfracStep.IPCS_ABCN_Move">
+   Solvers
+  </a>
+ </li>
+</ul>
+
+    </nav>
 </div>
     </div>
     <div class="article row">
@@ -317,6 +348,19 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-oasismove.solvers.NSfracStep.IPCS_ABCN_Move">
+   Solvers
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -324,9 +368,102 @@ title="Print to PDF"
                 
               <div>
                 
-  <section id="module-oasismove">
-<span id="api-reference"></span><h1>API Reference<a class="headerlink" href="#module-oasismove" title="Permalink to this headline">#</a></h1>
-<p>Top-level package for OasisMove.</p>
+  <section id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">#</a></h1>
+<section id="module-oasismove.solvers.NSfracStep.IPCS_ABCN_Move">
+<span id="solvers"></span><h2>Solvers<a class="headerlink" href="#module-oasismove.solvers.NSfracStep.IPCS_ABCN_Move" title="Permalink to this headline">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.assemble_first_inner_iter">
+<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">assemble_first_inner_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">les_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nn_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_scalar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nut_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nunn_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wx_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_ab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#assemble_first_inner_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.assemble_first_inner_iter" title="Permalink to this definition">#</a></dt>
+<dd><p>Called on first inner iteration of velocity/pressure system.</p>
+<p>Assemble convection matrix, compute rhs of tentative velocity and
+reset coefficient matrix for solve.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.get_solvers">
+<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">get_solvers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">use_krylov_solvers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">krylov_solvers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">krylov_solvers_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">velocity_krylov_solver</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressure_krylov_solver</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_krylov_solver</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh_velocity_krylov_solver</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#get_solvers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.get_solvers" title="Permalink to this definition">#</a></dt>
+<dd><p>Return linear solvers.</p>
+<dl>
+<dt>We are solving for</dt><dd><ul class="simple">
+<li><p>mesh velocity</p></li>
+<li><p>tentative velocity</p></li>
+<li><p>pressure correction</p></li>
+</ul>
+<p>and possibly:
+- scalars</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.mesh_velocity_assemble">
+<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">mesh_velocity_assemble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A_mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ui</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bc_mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A_cache</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#mesh_velocity_assemble"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.mesh_velocity_assemble" title="Permalink to this definition">#</a></dt>
+<dd><p>Assemble rhs of mesh velocity equation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.mesh_velocity_solve">
+<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">mesh_velocity_solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A_mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wx_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dof_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coordinates</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_sol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ui</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bc_mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">OasisTimer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#mesh_velocity_solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.mesh_velocity_solve" title="Permalink to this definition">#</a></dt>
+<dd><p>Solve mesh equation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.pressure_assemble">
+<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">pressure_assemble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">divu</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#pressure_assemble"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.pressure_assemble" title="Permalink to this definition">#</a></dt>
+<dd><p>Assemble rhs of pressure equation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.pressure_solve">
+<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">pressure_solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dp_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ap</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_sol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#pressure_solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.pressure_solve" title="Permalink to this definition">#</a></dt>
+<dd><p>Solve pressure equation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.print_velocity_pressure_info">
+<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">print_velocity_pressure_info</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num_iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">print_velocity_pressure_convergence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">norm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info_blue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inner_iter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">udiff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp_</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep.html#print_velocity_pressure_info"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.print_velocity_pressure_info" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.scalar_assemble">
+<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">scalar_assemble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a_scalar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Schmidt_T</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Schmidt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">les_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nn_model</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#scalar_assemble"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.scalar_assemble" title="Permalink to this definition">#</a></dt>
+<dd><p>Assemble scalar equation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.scalar_solve">
+<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">scalar_solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ci</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c_sol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Schmidt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#scalar_solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.scalar_solve" title="Permalink to this definition">#</a></dt>
+<dd><p>Solve scalar equation.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.setup">
+<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">les_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nut_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">velocity_update_solver</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">assemble_matrix</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">homogenize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">GradFunction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">DivFunction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LESsource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nn_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nunn_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NNsource</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.setup" title="Permalink to this definition">#</a></dt>
+<dd><p>Preassemble mass and diffusion matrices.</p>
+<p>Set up and prepare all equations to be solved. Called once, before
+going into time loop.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_tentative_assemble">
+<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">velocity_tentative_assemble</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ui</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#velocity_tentative_assemble"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_tentative_assemble" title="Permalink to this definition">#</a></dt>
+<dd><p>Add pressure gradient to rhs of tentative velocity system.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_tentative_solve">
+<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">velocity_tentative_solve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ui</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_sol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">udiff</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_krylov_solvers</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#velocity_tentative_solve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_tentative_solve" title="Permalink to this definition">#</a></dt>
+<dd><p>Linear algebra solve of tentative velocity component.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_update">
+<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">velocity_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gradp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dp_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#velocity_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_update" title="Permalink to this definition">#</a></dt>
+<dd><p>Update the velocity after regular pressure velocity iterations.</p>
+</dd></dl>
+
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -356,11 +493,11 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="markdown-notebooks.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="tutorials.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">Notebooks with MyST Markdown</p>
+            <p class="prev-next-title">Tutorials</p>
         </div>
     </a>
 </div>

@@ -1,0 +1,665 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>oasismove.solvers.NSfracStep.IPCS_ABCN_Move &#8212; OasisMove</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">OasisMove</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../index.html">
+                    OasisMove
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Installation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../installation.html">
+   Installation
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../features.html">
+   Features and issues
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../tutorials.html">
+   Tutorials
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Python API
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../api.html">
+   API Reference
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            See more at <a href="https://kvslab.github.io">KVSLab</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://kvslab.github.io/OasisMove/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://kvslab.github.io/OasisMove//issues/new?title=Issue%20on%20page%20%2F_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for oasismove.solvers.NSfracStep.IPCS_ABCN_Move</h1><div class="highlight"><pre>
+<span></span><span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Mikael Mortensen &lt;mikaem@math.uio.no&gt;&quot;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s2">&quot;2013-11-06&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright (C) 2013 &quot;</span> <span class="o">+</span> <span class="n">__author__</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;GNU Lesser GPL version 3 or any later version&quot;</span>
+
+<span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="kn">from</span> <span class="nn">..NSfracStep</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">..NSfracStep</span> <span class="kn">import</span> <span class="n">__all__</span>
+
+
+<div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">u_components</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">u_w</span><span class="p">,</span> <span class="n">v_w</span><span class="p">,</span> <span class="n">bcs</span><span class="p">,</span> <span class="n">les_model</span><span class="p">,</span> <span class="n">nut_</span><span class="p">,</span> <span class="n">scalar_components</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">p_</span><span class="p">,</span> <span class="n">u_</span><span class="p">,</span>
+          <span class="n">velocity_update_solver</span><span class="p">,</span> <span class="n">assemble_matrix</span><span class="p">,</span> <span class="n">homogenize</span><span class="p">,</span> <span class="n">GradFunction</span><span class="p">,</span> <span class="n">DivFunction</span><span class="p">,</span> <span class="n">LESsource</span><span class="p">,</span> <span class="n">nn_model</span><span class="p">,</span> <span class="n">nunn_</span><span class="p">,</span>
+          <span class="n">NNsource</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Preassemble mass and diffusion matrices.</span>
+
+<span class="sd">    Set up and prepare all equations to be solved. Called once, before</span>
+<span class="sd">    going into time loop.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Mass matrix</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">assemble_matrix</span><span class="p">(</span><span class="n">inner</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+
+    <span class="c1"># Stiffness matrix (without viscosity coefficient)</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">assemble_matrix</span><span class="p">(</span><span class="n">inner</span><span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">grad</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="o">*</span> <span class="n">dx</span><span class="p">)</span>
+
+    <span class="c1"># Allocate stiffness matrix for LES that changes with time</span>
+    <span class="n">KT</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">les_model</span> <span class="o">==</span> <span class="s2">&quot;NoModel&quot;</span> <span class="ow">and</span> <span class="n">nn_model</span> <span class="o">==</span> <span class="s2">&quot;NoModel&quot;</span> <span class="k">else</span> <span class="p">(</span>
+        <span class="n">Matrix</span><span class="p">(</span><span class="n">M</span><span class="p">),</span> <span class="n">inner</span><span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">grad</span><span class="p">(</span><span class="n">v</span><span class="p">)))</span>
+
+    <span class="c1"># Pressure Laplacian.</span>
+    <span class="n">Ap</span> <span class="o">=</span> <span class="n">assemble_matrix</span><span class="p">(</span><span class="n">inner</span><span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">q</span><span class="p">),</span> <span class="n">grad</span><span class="p">(</span><span class="n">p</span><span class="p">))</span> <span class="o">*</span> <span class="n">dx</span><span class="p">,</span> <span class="n">bcs</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span>
+
+    <span class="c1"># Mesh velocity Laplacian</span>
+    <span class="c1"># alpha = 1 / CellVolume(mesh)</span>
+    <span class="n">a_mesh</span> <span class="o">=</span> <span class="n">inner</span><span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">u_w</span><span class="p">),</span> <span class="n">grad</span><span class="p">(</span><span class="n">v_w</span><span class="p">))</span> <span class="o">*</span> <span class="n">dx</span>
+    <span class="n">A_mesh</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">assemble_matrix</span><span class="p">(</span><span class="n">a_mesh</span><span class="p">))</span>
+
+    <span class="c1"># Allocate coefficient matrix (needs reassembling)</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+
+    <span class="c1"># Allocate Function for holding and computing the velocity divergence on Q</span>
+    <span class="n">divu</span> <span class="o">=</span> <span class="n">DivFunction</span><span class="p">(</span><span class="n">u_</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;divu&#39;</span><span class="p">,</span>
+                       <span class="n">method</span><span class="o">=</span><span class="n">velocity_update_solver</span><span class="p">)</span>
+
+    <span class="c1"># Allocate a dictionary of Functions for holding and computing pressure gradients</span>
+    <span class="n">gradp</span> <span class="o">=</span> <span class="p">{</span><span class="n">ui</span><span class="p">:</span> <span class="n">GradFunction</span><span class="p">(</span><span class="n">p_</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;dpd&#39;</span> <span class="o">+</span> <span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">)[</span><span class="n">i</span><span class="p">],</span>
+                              <span class="n">bcs</span><span class="o">=</span><span class="n">homogenize</span><span class="p">(</span><span class="n">bcs</span><span class="p">[</span><span class="n">ui</span><span class="p">]),</span>
+                              <span class="n">method</span><span class="o">=</span><span class="n">velocity_update_solver</span><span class="p">)</span>
+             <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ui</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">u_components</span><span class="p">)}</span>
+
+    <span class="c1"># Create dictionary to be returned into global NS namespace</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">A</span><span class="o">=</span><span class="n">A</span><span class="p">,</span> <span class="n">M</span><span class="o">=</span><span class="n">M</span><span class="p">,</span> <span class="n">K</span><span class="o">=</span><span class="n">K</span><span class="p">,</span> <span class="n">Ap</span><span class="o">=</span><span class="n">Ap</span><span class="p">,</span> <span class="n">a_mesh</span><span class="o">=</span><span class="n">a_mesh</span><span class="p">,</span> <span class="n">A_mesh</span><span class="o">=</span><span class="n">A_mesh</span><span class="p">,</span> <span class="n">divu</span><span class="o">=</span><span class="n">divu</span><span class="p">,</span> <span class="n">gradp</span><span class="o">=</span><span class="n">gradp</span><span class="p">)</span>
+
+    <span class="c1"># Allocate coefficient matrix and work vectors for scalars. Matrix differs</span>
+    <span class="c1"># from velocity in boundary conditions only</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scalar_components</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">Ta</span><span class="o">=</span><span class="n">Matrix</span><span class="p">(</span><span class="n">M</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scalar_components</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># For more than one scalar we use the same linear algebra solver for all.</span>
+            <span class="c1"># For this to work we need some additional tensors. The extra matrix</span>
+            <span class="c1"># is required since different scalars may have different boundary conditions</span>
+            <span class="n">Tb</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+            <span class="n">bb</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="n">x_</span><span class="p">[</span><span class="n">scalar_components</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+            <span class="n">bx</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="n">x_</span><span class="p">[</span><span class="n">scalar_components</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span>
+            <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">Tb</span><span class="o">=</span><span class="n">Tb</span><span class="p">,</span> <span class="n">bb</span><span class="o">=</span><span class="n">bb</span><span class="p">,</span> <span class="n">bx</span><span class="o">=</span><span class="n">bx</span><span class="p">)</span>
+
+    <span class="c1"># Setup for solving convection</span>
+    <span class="n">u_ab</span> <span class="o">=</span> <span class="n">as_vector</span><span class="p">([</span><span class="n">Function</span><span class="p">(</span><span class="n">V</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">u_components</span><span class="p">))])</span>
+    <span class="n">a_conv</span> <span class="o">=</span> <span class="n">inner</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">dot</span><span class="p">(</span><span class="n">u_ab</span><span class="p">,</span> <span class="n">nabla_grad</span><span class="p">(</span><span class="n">u</span><span class="p">)))</span> <span class="o">*</span> <span class="n">dx</span>
+    <span class="n">a_scalar</span> <span class="o">=</span> <span class="n">a_conv</span>
+    <span class="n">LT</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">les_model</span> <span class="o">==</span> <span class="s2">&quot;NoModel&quot;</span> <span class="k">else</span> <span class="n">LESsource</span><span class="p">(</span>
+        <span class="n">nut_</span><span class="p">,</span> <span class="n">u_ab</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;LTd&#39;</span><span class="p">)</span>
+
+    <span class="n">NT</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">nn_model</span> <span class="o">==</span> <span class="s2">&quot;NoModel&quot;</span> <span class="k">else</span> <span class="n">NNsource</span><span class="p">(</span>
+        <span class="n">nunn_</span><span class="p">,</span> <span class="n">u_ab</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;NTd&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">bcs</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="p">[]:</span>
+        <span class="n">attach_pressure_nullspace</span><span class="p">(</span><span class="n">Ap</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">Q</span><span class="p">)</span>
+
+    <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">u_ab</span><span class="o">=</span><span class="n">u_ab</span><span class="p">,</span> <span class="n">a_conv</span><span class="o">=</span><span class="n">a_conv</span><span class="p">,</span> <span class="n">a_scalar</span><span class="o">=</span><span class="n">a_scalar</span><span class="p">,</span> <span class="n">LT</span><span class="o">=</span><span class="n">LT</span><span class="p">,</span> <span class="n">KT</span><span class="o">=</span><span class="n">KT</span><span class="p">,</span> <span class="n">NT</span><span class="o">=</span><span class="n">NT</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span></div>
+
+
+<div class="viewcode-block" id="get_solvers"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.get_solvers">[docs]</a><span class="k">def</span> <span class="nf">get_solvers</span><span class="p">(</span><span class="n">use_krylov_solvers</span><span class="p">,</span> <span class="n">krylov_solvers</span><span class="p">,</span> <span class="n">krylov_solvers_w</span><span class="p">,</span> <span class="n">scalar_components</span><span class="p">,</span> <span class="n">velocity_krylov_solver</span><span class="p">,</span>
+                <span class="n">pressure_krylov_solver</span><span class="p">,</span> <span class="n">scalar_krylov_solver</span><span class="p">,</span> <span class="n">mesh_velocity_krylov_solver</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return linear solvers.</span>
+
+<span class="sd">    We are solving for</span>
+<span class="sd">       - mesh velocity</span>
+<span class="sd">       - tentative velocity</span>
+<span class="sd">       - pressure correction</span>
+
+<span class="sd">       and possibly:</span>
+<span class="sd">       - scalars</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">use_krylov_solvers</span><span class="p">:</span>
+        <span class="c1"># tentative velocity solver</span>
+        <span class="n">u_prec</span> <span class="o">=</span> <span class="n">PETScPreconditioner</span><span class="p">(</span><span class="n">velocity_krylov_solver</span><span class="p">[</span><span class="s1">&#39;preconditioner_type&#39;</span><span class="p">])</span>
+        <span class="n">u_sol</span> <span class="o">=</span> <span class="n">PETScKrylovSolver</span><span class="p">(</span><span class="n">velocity_krylov_solver</span><span class="p">[</span><span class="s1">&#39;solver_type&#39;</span><span class="p">],</span> <span class="n">u_prec</span><span class="p">)</span>
+        <span class="n">u_sol</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">krylov_solvers</span><span class="p">)</span>
+
+        <span class="c1"># pressure solver</span>
+        <span class="n">p_prec</span> <span class="o">=</span> <span class="n">PETScPreconditioner</span><span class="p">(</span><span class="n">pressure_krylov_solver</span><span class="p">[</span><span class="s1">&#39;preconditioner_type&#39;</span><span class="p">])</span>
+        <span class="n">p_sol</span> <span class="o">=</span> <span class="n">PETScKrylovSolver</span><span class="p">(</span><span class="n">pressure_krylov_solver</span><span class="p">[</span><span class="s1">&#39;solver_type&#39;</span><span class="p">],</span> <span class="n">p_prec</span><span class="p">)</span>
+        <span class="n">p_sol</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">krylov_solvers</span><span class="p">)</span>
+        <span class="n">p_sol</span><span class="o">.</span><span class="n">set_reuse_preconditioner</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># mesh equation solver</span>
+        <span class="n">w_prec</span> <span class="o">=</span> <span class="n">PETScPreconditioner</span><span class="p">(</span><span class="n">mesh_velocity_krylov_solver</span><span class="p">[</span><span class="s1">&#39;preconditioner_type&#39;</span><span class="p">])</span>
+        <span class="n">w_sol</span> <span class="o">=</span> <span class="n">PETScKrylovSolver</span><span class="p">(</span><span class="n">mesh_velocity_krylov_solver</span><span class="p">[</span><span class="s1">&#39;solver_type&#39;</span><span class="p">],</span> <span class="n">w_prec</span><span class="p">)</span>
+        <span class="n">w_sol</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">krylov_solvers_w</span><span class="p">)</span>
+
+        <span class="n">sols</span> <span class="o">=</span> <span class="p">[</span><span class="n">u_sol</span><span class="p">,</span> <span class="n">p_sol</span><span class="p">,</span> <span class="n">w_sol</span><span class="p">]</span>
+        <span class="c1"># scalar solver</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scalar_components</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">c_prec</span> <span class="o">=</span> <span class="n">PETScPreconditioner</span><span class="p">(</span><span class="n">scalar_krylov_solver</span><span class="p">[</span><span class="s1">&#39;preconditioner_type&#39;</span><span class="p">])</span>
+            <span class="n">c_sol</span> <span class="o">=</span> <span class="n">PETScKrylovSolver</span><span class="p">(</span><span class="n">scalar_krylov_solver</span><span class="p">[</span><span class="s1">&#39;solver_type&#39;</span><span class="p">],</span> <span class="n">c_prec</span><span class="p">)</span>
+            <span class="n">c_sol</span><span class="o">.</span><span class="n">parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">krylov_solvers</span><span class="p">)</span>
+            <span class="n">sols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_sol</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># tentative velocity solver</span>
+        <span class="n">u_sol</span> <span class="o">=</span> <span class="n">LUSolver</span><span class="p">()</span>
+        <span class="c1"># pressure solver</span>
+        <span class="n">p_sol</span> <span class="o">=</span> <span class="n">LUSolver</span><span class="p">()</span>
+        <span class="n">sols</span> <span class="o">=</span> <span class="p">[</span><span class="n">u_sol</span><span class="p">,</span> <span class="n">p_sol</span><span class="p">]</span>
+        <span class="c1"># scalar solver</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scalar_components</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">c_sol</span> <span class="o">=</span> <span class="n">LUSolver</span><span class="p">()</span>
+            <span class="n">sols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c_sol</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sols</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">sols</span></div>
+
+
+<div class="viewcode-block" id="assemble_first_inner_iter"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.assemble_first_inner_iter">[docs]</a><span class="k">def</span> <span class="nf">assemble_first_inner_iter</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">a_conv</span><span class="p">,</span> <span class="n">bw0</span><span class="p">,</span> <span class="n">bw_tmp</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">scalar_components</span><span class="p">,</span> <span class="n">les_model</span><span class="p">,</span> <span class="n">nn_model</span><span class="p">,</span> <span class="n">a_scalar</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span>
+                              <span class="n">nut_</span><span class="p">,</span> <span class="n">nunn_</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">LT</span><span class="p">,</span> <span class="n">KT</span><span class="p">,</span> <span class="n">NT</span><span class="p">,</span> <span class="n">b_tmp</span><span class="p">,</span> <span class="n">b0</span><span class="p">,</span> <span class="n">x_1</span><span class="p">,</span> <span class="n">wx_</span><span class="p">,</span> <span class="n">x_2</span><span class="p">,</span> <span class="n">u_ab</span><span class="p">,</span> <span class="n">bcs</span><span class="p">,</span>
+                              <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called on first inner iteration of velocity/pressure system.</span>
+
+<span class="sd">    Assemble convection matrix, compute rhs of tentative velocity and</span>
+<span class="sd">    reset coefficient matrix for solve.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Timer</span><span class="p">(</span><span class="s2">&quot;Assemble first inner iter&quot;</span><span class="p">)</span>
+    <span class="c1"># Update u_ab used as convecting velocity</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ui</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">u_components</span><span class="p">):</span>
+        <span class="n">u_ab</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+        <span class="n">u_ab</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">x_1</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span>
+        <span class="n">u_ab</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">x_2</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span>
+        <span class="n">u_ab</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">wx_</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span>
+
+    <span class="n">A</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">a_conv</span><span class="p">,</span> <span class="n">tensor</span><span class="o">=</span><span class="n">A</span><span class="p">)</span>
+    <span class="n">A</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">0.5</span>  <span class="c1"># Negative convection on the rhs</span>
+    <span class="n">A</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">dt</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># Add mass</span>
+
+    <span class="c1"># Set up scalar matrix for rhs using the same convection as velocity</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scalar_components</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">Ta</span> <span class="o">=</span> <span class="n">NS_namespace</span><span class="p">[</span><span class="s1">&#39;Ta&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">a_scalar</span> <span class="ow">is</span> <span class="n">a_conv</span><span class="p">:</span>
+            <span class="n">Ta</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+            <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Add diffusion and compute rhs for all velocity components</span>
+    <span class="n">A</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">nu</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">les_model</span> <span class="o">!=</span> <span class="s2">&quot;NoModel&quot;</span><span class="p">:</span>
+        <span class="n">assemble</span><span class="p">(</span><span class="n">nut_</span> <span class="o">*</span> <span class="n">KT</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">dx</span><span class="p">,</span> <span class="n">tensor</span><span class="o">=</span><span class="n">KT</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">A</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">KT</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">nn_model</span> <span class="o">!=</span> <span class="s2">&quot;NoModel&quot;</span><span class="p">:</span>
+        <span class="n">assemble</span><span class="p">(</span><span class="n">nunn_</span> <span class="o">*</span> <span class="n">KT</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">dx</span><span class="p">,</span> <span class="n">tensor</span><span class="o">=</span><span class="n">KT</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">A</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">KT</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ui</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">u_components</span><span class="p">):</span>
+        <span class="c1"># Start with body force</span>
+        <span class="n">b_tmp</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+        <span class="n">b_tmp</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">b0</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span>
+        <span class="c1"># Add transient, convection and diffusion</span>
+        <span class="n">b_tmp</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">A</span> <span class="o">*</span> <span class="n">x_1</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">les_model</span> <span class="o">!=</span> <span class="s2">&quot;NoModel&quot;</span><span class="p">:</span>
+            <span class="n">LT</span><span class="o">.</span><span class="n">assemble_rhs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">b_tmp</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">LT</span><span class="o">.</span><span class="n">vector</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">nn_model</span> <span class="o">!=</span> <span class="s2">&quot;NoModel&quot;</span><span class="p">:</span>
+            <span class="n">NT</span><span class="o">.</span><span class="n">assemble_rhs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="n">b_tmp</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">NT</span><span class="o">.</span><span class="n">vector</span><span class="p">())</span>
+
+        <span class="n">bw_tmp</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+        <span class="n">bw_tmp</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">bw0</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span>
+    <span class="c1"># Reset matrix for lhs</span>
+    <span class="n">A</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.</span>
+    <span class="n">A</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">2.</span> <span class="o">/</span> <span class="n">dt</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="p">[</span><span class="n">bc</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="k">for</span> <span class="n">bc</span> <span class="ow">in</span> <span class="n">bcs</span><span class="p">[</span><span class="s1">&#39;u0&#39;</span><span class="p">]]</span></div>
+
+
+<span class="k">def</span> <span class="nf">attach_pressure_nullspace</span><span class="p">(</span><span class="n">Ap</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">Q</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create null space basis object and attach to Krylov solver.&quot;&quot;&quot;</span>
+    <span class="n">null_vec</span> <span class="o">=</span> <span class="n">Vector</span><span class="p">(</span><span class="n">x_</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span>
+    <span class="n">Q</span><span class="o">.</span><span class="n">dofmap</span><span class="p">()</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">null_vec</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+    <span class="n">null_vec</span> <span class="o">*=</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">null_vec</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="s1">&#39;l2&#39;</span><span class="p">)</span>
+    <span class="n">Aa</span> <span class="o">=</span> <span class="n">as_backend_type</span><span class="p">(</span><span class="n">Ap</span><span class="p">)</span>
+    <span class="n">null_space</span> <span class="o">=</span> <span class="n">VectorSpaceBasis</span><span class="p">([</span><span class="n">null_vec</span><span class="p">])</span>
+    <span class="n">Aa</span><span class="o">.</span><span class="n">set_nullspace</span><span class="p">(</span><span class="n">null_space</span><span class="p">)</span>
+    <span class="n">Aa</span><span class="o">.</span><span class="n">null_space</span> <span class="o">=</span> <span class="n">null_space</span>
+
+
+<div class="viewcode-block" id="velocity_tentative_assemble"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_tentative_assemble">[docs]</a><span class="k">def</span> <span class="nf">velocity_tentative_assemble</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">b_tmp</span><span class="p">,</span> <span class="n">p_</span><span class="p">,</span> <span class="n">gradp</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add pressure gradient to rhs of tentative velocity system.&quot;&quot;&quot;</span>
+    <span class="n">b</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+    <span class="n">b</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">b_tmp</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span>
+    <span class="n">gradp</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">assemble_rhs</span><span class="p">(</span><span class="n">p_</span><span class="p">)</span>
+    <span class="n">b</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">gradp</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">rhs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="velocity_tentative_solve"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_tentative_solve">[docs]</a><span class="k">def</span> <span class="nf">velocity_tentative_solve</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">bcs</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">x_2</span><span class="p">,</span> <span class="n">u_sol</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">udiff</span><span class="p">,</span>
+                             <span class="n">use_krylov_solvers</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Linear algebra solve of tentative velocity component.&quot;&quot;&quot;</span>
+    <span class="p">[</span><span class="n">bc</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span> <span class="k">for</span> <span class="n">bc</span> <span class="ow">in</span> <span class="n">bcs</span><span class="p">[</span><span class="n">ui</span><span class="p">]]</span>
+    <span class="c1"># x_2 only used on inner_iter 1, so use here as work vector</span>
+    <span class="n">x_2</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+    <span class="n">x_2</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">x_</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span>
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="s2">&quot;Tentative Linear Algebra Solve&quot;</span><span class="p">)</span>
+    <span class="n">u_sol</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">x_</span><span class="p">[</span><span class="n">ui</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span>
+    <span class="n">t1</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="n">udiff</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+=</span> <span class="n">norm</span><span class="p">(</span><span class="n">x_2</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="pressure_assemble"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.pressure_assemble">[docs]</a><span class="k">def</span> <span class="nf">pressure_assemble</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">Ap</span><span class="p">,</span> <span class="n">divu</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Assemble rhs of pressure equation.&quot;&quot;&quot;</span>
+    <span class="n">divu</span><span class="o">.</span><span class="n">assemble_rhs</span><span class="p">()</span>  <span class="c1"># Computes div(u_)*q*dx</span>
+    <span class="n">b</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">][:]</span> <span class="o">=</span> <span class="n">divu</span><span class="o">.</span><span class="n">rhs</span>
+    <span class="n">b</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">*=</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">dt</span><span class="p">)</span>
+    <span class="n">b</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">Ap</span> <span class="o">*</span> <span class="n">x_</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="pressure_solve"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.pressure_solve">[docs]</a><span class="k">def</span> <span class="nf">pressure_solve</span><span class="p">(</span><span class="n">dp_</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">Ap</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">p_sol</span><span class="p">,</span> <span class="n">bcs</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Solve pressure equation.&quot;&quot;&quot;</span>
+    <span class="p">[</span><span class="n">bc</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">bc</span> <span class="ow">in</span> <span class="n">bcs</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]]</span>
+    <span class="n">dp_</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+    <span class="n">dp_</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">x_</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span>
+    <span class="c1"># KrylovSolvers use nullspace for normalization of pressure</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">Ap</span><span class="p">,</span> <span class="s1">&#39;null_space&#39;</span><span class="p">):</span>
+        <span class="n">p_sol</span><span class="o">.</span><span class="n">null_space</span><span class="o">.</span><span class="n">orthogonalize</span><span class="p">(</span><span class="n">b</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span>
+
+    <span class="n">t1</span> <span class="o">=</span> <span class="n">Timer</span><span class="p">(</span><span class="s2">&quot;Pressure Linear Algebra Solve&quot;</span><span class="p">)</span>
+    <span class="n">p_sol</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Ap</span><span class="p">,</span> <span class="n">x_</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span>
+    <span class="n">t1</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+    <span class="c1"># LUSolver use normalize directly for normalization of pressure</span>
+    <span class="k">if</span> <span class="n">bcs</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="p">[]:</span>
+        <span class="n">normalize</span><span class="p">(</span><span class="n">x_</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span>
+
+    <span class="n">dpv</span> <span class="o">=</span> <span class="n">dp_</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span>
+    <span class="n">dpv</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">1.</span><span class="p">,</span> <span class="n">x_</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span>
+    <span class="n">dpv</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.</span></div>
+
+
+<div class="viewcode-block" id="velocity_update"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_update">[docs]</a><span class="k">def</span> <span class="nf">velocity_update</span><span class="p">(</span><span class="n">u_components</span><span class="p">,</span> <span class="n">bcs</span><span class="p">,</span> <span class="n">gradp</span><span class="p">,</span> <span class="n">dp_</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the velocity after regular pressure velocity iterations.&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">ui</span> <span class="ow">in</span> <span class="n">u_components</span><span class="p">:</span>
+        <span class="n">gradp</span><span class="p">[</span><span class="n">ui</span><span class="p">](</span><span class="n">dp_</span><span class="p">)</span>
+        <span class="n">x_</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="n">dt</span><span class="p">,</span> <span class="n">gradp</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">())</span>
+        <span class="p">[</span><span class="n">bc</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">x_</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span> <span class="k">for</span> <span class="n">bc</span> <span class="ow">in</span> <span class="n">bcs</span><span class="p">[</span><span class="n">ui</span><span class="p">]]</span></div>
+
+
+<div class="viewcode-block" id="mesh_velocity_assemble"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.mesh_velocity_assemble">[docs]</a><span class="k">def</span> <span class="nf">mesh_velocity_assemble</span><span class="p">(</span><span class="n">A_mesh</span><span class="p">,</span> <span class="n">ui</span><span class="p">,</span> <span class="n">bw</span><span class="p">,</span> <span class="n">bw_tmp</span><span class="p">,</span> <span class="n">a_mesh</span><span class="p">,</span> <span class="n">bc_mesh</span><span class="p">,</span> <span class="n">A_cache</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Assemble rhs of mesh velocity equation.&quot;&quot;&quot;</span>
+    <span class="n">A_mesh</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+    <span class="n">A_mesh</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">A_cache</span><span class="p">[(</span><span class="n">a_mesh</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">bc_mesh</span><span class="p">[</span><span class="n">ui</span><span class="p">]))],</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">bw</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+    <span class="n">bw</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">bw_tmp</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="mesh_velocity_solve"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.mesh_velocity_solve">[docs]</a><span class="k">def</span> <span class="nf">mesh_velocity_solve</span><span class="p">(</span><span class="n">A_mesh</span><span class="p">,</span> <span class="n">bw</span><span class="p">,</span> <span class="n">wx_</span><span class="p">,</span> <span class="n">w_</span><span class="p">,</span> <span class="n">dof_map</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">coordinates</span><span class="p">,</span> <span class="n">w_sol</span><span class="p">,</span> <span class="n">ui</span><span class="p">,</span> <span class="n">bc_mesh</span><span class="p">,</span> <span class="n">OasisTimer</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Solve mesh equation.&quot;&quot;&quot;</span>
+    <span class="p">[</span><span class="n">bc</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">bw</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span> <span class="k">for</span> <span class="n">bc</span> <span class="ow">in</span> <span class="n">bc_mesh</span><span class="p">[</span><span class="n">ui</span><span class="p">]]</span>
+    <span class="n">w_sol</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">A_mesh</span><span class="p">,</span> <span class="n">wx_</span><span class="p">[</span><span class="n">ui</span><span class="p">],</span> <span class="n">bw</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span>
+
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">w_</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">get_local</span><span class="p">(</span><span class="n">dof_map</span><span class="p">)</span>
+    <span class="n">mesh_tolerance</span> <span class="o">=</span> <span class="mf">1e-15</span>
+    <span class="k">if</span> <span class="n">mesh_tolerance</span> <span class="o">&lt;</span> <span class="nb">abs</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">+</span> <span class="nb">abs</span><span class="p">(</span><span class="n">arr</span><span class="o">.</span><span class="n">max</span><span class="p">()):</span>
+        <span class="n">coordinates</span><span class="p">[:,</span> <span class="nb">int</span><span class="p">(</span><span class="n">ui</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])]</span> <span class="o">+=</span> <span class="n">arr</span> <span class="o">*</span> <span class="n">dt</span></div>
+
+
+<div class="viewcode-block" id="scalar_assemble"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.scalar_assemble">[docs]</a><span class="k">def</span> <span class="nf">scalar_assemble</span><span class="p">(</span><span class="n">a_scalar</span><span class="p">,</span> <span class="n">a_conv</span><span class="p">,</span> <span class="n">Ta</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">scalar_components</span><span class="p">,</span> <span class="n">Schmidt_T</span><span class="p">,</span> <span class="n">KT</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">Schmidt</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x_1</span><span class="p">,</span> <span class="n">b0</span><span class="p">,</span>
+                    <span class="n">les_model</span><span class="p">,</span> <span class="n">nn_model</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Assemble scalar equation.&quot;&quot;&quot;</span>
+    <span class="c1"># Just in case you want to use a different scalar convection</span>
+    <span class="k">if</span> <span class="n">a_scalar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">a_conv</span><span class="p">:</span>
+        <span class="n">assemble</span><span class="p">(</span><span class="n">a_scalar</span><span class="p">,</span> <span class="n">tensor</span><span class="o">=</span><span class="n">Ta</span><span class="p">)</span>
+        <span class="n">Ta</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">0.5</span>  <span class="c1"># Negative convection on the rhs</span>
+        <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">dt</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># Add mass</span>
+
+    <span class="c1"># Compute rhs for all scalars</span>
+    <span class="k">for</span> <span class="n">ci</span> <span class="ow">in</span> <span class="n">scalar_components</span><span class="p">:</span>
+        <span class="c1"># Add diffusion</span>
+        <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">/</span> <span class="n">Schmidt</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">K</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">les_model</span> <span class="o">!=</span> <span class="s2">&quot;NoModel&quot;</span><span class="p">:</span>
+            <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">Schmidt_T</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">KT</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">nn_model</span> <span class="o">!=</span> <span class="s2">&quot;NoModel&quot;</span><span class="p">:</span>
+            <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">Schmidt_T</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">KT</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># Compute rhs</span>
+        <span class="n">b</span><span class="p">[</span><span class="n">ci</span><span class="p">]</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+        <span class="n">b</span><span class="p">[</span><span class="n">ci</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">Ta</span> <span class="o">*</span> <span class="n">x_1</span><span class="p">[</span><span class="n">ci</span><span class="p">])</span>
+        <span class="n">b</span><span class="p">[</span><span class="n">ci</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">b0</span><span class="p">[</span><span class="n">ci</span><span class="p">])</span>
+
+        <span class="c1"># Subtract diffusion</span>
+        <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">/</span> <span class="n">Schmidt</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">K</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">les_model</span> <span class="o">!=</span> <span class="s2">&quot;NoModel&quot;</span><span class="p">:</span>
+            <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">Schmidt_T</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">KT</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">nn_model</span> <span class="o">!=</span> <span class="s2">&quot;NoModel&quot;</span><span class="p">:</span>
+            <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">Schmidt_T</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">KT</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Reset matrix for lhs - Note scalar matrix does not contain diffusion</span>
+    <span class="n">Ta</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.</span>
+    <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">2.</span> <span class="o">/</span> <span class="n">dt</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="scalar_solve"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.scalar_solve">[docs]</a><span class="k">def</span> <span class="nf">scalar_solve</span><span class="p">(</span><span class="n">ci</span><span class="p">,</span> <span class="n">scalar_components</span><span class="p">,</span> <span class="n">Ta</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">bcs</span><span class="p">,</span> <span class="n">c_sol</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">Schmidt</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Solve scalar equation.&quot;&quot;&quot;</span>
+
+    <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">/</span> <span class="n">Schmidt</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">K</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># Add diffusion</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scalar_components</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># Reuse solver for all scalars. This requires the same matrix and vectors to be used by c_sol.</span>
+        <span class="n">Tb</span><span class="p">,</span> <span class="n">bb</span><span class="p">,</span> <span class="n">bx</span> <span class="o">=</span> <span class="n">NS_namespace</span><span class="p">[</span><span class="s1">&#39;Tb&#39;</span><span class="p">],</span> <span class="n">NS_namespace</span><span class="p">[</span><span class="s1">&#39;bb&#39;</span><span class="p">],</span> <span class="n">NS_namespace</span><span class="p">[</span><span class="s1">&#39;bx&#39;</span><span class="p">]</span>
+        <span class="n">Tb</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+        <span class="n">Tb</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">Ta</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">bb</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+        <span class="n">bb</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">b</span><span class="p">[</span><span class="n">ci</span><span class="p">])</span>
+        <span class="n">bx</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+        <span class="n">bx</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">x_</span><span class="p">[</span><span class="n">ci</span><span class="p">])</span>
+        <span class="p">[</span><span class="n">bc</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">Tb</span><span class="p">,</span> <span class="n">bb</span><span class="p">)</span> <span class="k">for</span> <span class="n">bc</span> <span class="ow">in</span> <span class="n">bcs</span><span class="p">[</span><span class="n">ci</span><span class="p">]]</span>
+        <span class="n">c_sol</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Tb</span><span class="p">,</span> <span class="n">bx</span><span class="p">,</span> <span class="n">bb</span><span class="p">)</span>
+        <span class="n">x_</span><span class="p">[</span><span class="n">ci</span><span class="p">]</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
+        <span class="n">x_</span><span class="p">[</span><span class="n">ci</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">bx</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="p">[</span><span class="n">bc</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">Ta</span><span class="p">,</span> <span class="n">b</span><span class="p">[</span><span class="n">ci</span><span class="p">])</span> <span class="k">for</span> <span class="n">bc</span> <span class="ow">in</span> <span class="n">bcs</span><span class="p">[</span><span class="n">ci</span><span class="p">]]</span>
+        <span class="n">c_sol</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Ta</span><span class="p">,</span> <span class="n">x_</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="n">ci</span><span class="p">])</span>
+    <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">/</span> <span class="n">Schmidt</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">K</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># Subtract diffusion</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Henrik A. Kjeldsberg<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
