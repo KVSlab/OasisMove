@@ -10,6 +10,8 @@ the implementations of the more complex optimized solvers.
 
 """
 from dolfin import *
+
+
 from ..NSfracStep import *
 from ..NSfracStep import __all__
 
@@ -27,10 +29,10 @@ def setup(u, q_, q_1, uc_comp, u_components, dt, v, U_AB, u_1, u_2, q_2,
         # Tentative velocity step
         if les_model != "NoModel":
             F[ui] = ((1. / dt) * inner(u - q_1[ui], v) * dx
-                      + inner(dot(U_AB, nabla_grad(U_CN[ui])), v) * dx
-                      + (nu + nut_) * inner(grad(U_CN[ui]), grad(v)) * dx
-                      + inner(p_.dx(i), v) * dx - inner(f[i], v) * dx
-                      + (nu + nut_) * inner(grad(v), U_AB.dx(i)) * dx)
+                     + inner(dot(U_AB, nabla_grad(U_CN[ui])), v) * dx
+                     + (nu + nut_) * inner(grad(U_CN[ui]), grad(v)) * dx
+                     + inner(p_.dx(i), v) * dx - inner(f[i], v) * dx
+                     + (nu + nut_) * inner(grad(v), U_AB.dx(i)) * dx)
         else:
             F[ui] = ((1. / dt) * inner(u - q_1[ui], v) * dx
                      + inner(dot(U_AB, nabla_grad(U_CN[ui])), v) * dx
@@ -46,16 +48,13 @@ def setup(u, q_, q_1, uc_comp, u_components, dt, v, U_AB, u_1, u_2, q_2,
           dx + (1. / dt) * div(u_) * q * dx)
 
     # Scalar with SUPG
-    h = CellDiameter(mesh)
-    #vw = v + h*inner(grad(v), U_AB)
     vw = v
-    n = FacetNormal(mesh)
     for ci in scalar_components:
         F[ci] = ((1. / dt) * inner(u - q_1[ci], vw) * dx +
                  + inner(dot(grad(U_CN[ci]), U_AB), vw) * dx
                  + (nu / Schmidt[ci] + nut_ / Schmidt_T[ci])
                  * inner(grad(U_CN[ci]), grad(vw)) * dx - inner(fs[ci], vw) * dx)
-            #-(nu/Schmidt[ci]+nut_/Schmidt_T[ci])*inner(dot(grad(U_CN[ci]), n), vw)*ds
+        # -(nu/Schmidt[ci]+nut_/Schmidt_T[ci])*inner(dot(grad(U_CN[ci]), n), vw)*ds
 
     return dict(F=F, Fu=Fu, Fp=Fp)
 

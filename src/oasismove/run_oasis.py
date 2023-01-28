@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
-import sys, os
+import os
+import sys
 
 sys.path.append(os.getcwd())
+
 
 def main():
     assert sys.argv[1] in ('NSfracStep', 'NSCoupled', 'NSfracStepMove')
@@ -19,6 +21,7 @@ def main():
     else:
         print(sys.argv[1])
         raise NotImplementedError
+
 
 if __name__ == '__main__':
     main()

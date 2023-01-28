@@ -3,13 +3,14 @@ __date__ = "2013-11-26"
 __copyright__ = "Copyright (C) 2013 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
-from os import makedirs, getcwd, listdir, remove, system, path
-from xml.etree import ElementTree as ET
+import glob
 import pickle
 import time
-import glob
-from dolfin import (MPI, Function, XDMFFile, HDF5File,
-    VectorFunctionSpace, FunctionAssigner)
+from os import makedirs, listdir, remove, system, path
+from xml.etree import ElementTree as ET
+
+from dolfin import (MPI, XDMFFile, HDF5File)
+
 from oasismove.problems import info_red
 
 __all__ = ["create_initial_folders", "save_solution", "save_tstep_solution_h5",
@@ -37,7 +38,7 @@ def create_initial_folders(folder, restart_folder, sys_comp, tstep, info_red,
         if not path.exists(newfolder):
             newfolder = path.join(newfolder, '1')
         else:
-            #previous = listdir(newfolder)
+            # previous = listdir(newfolder)
             previous = [f for f in listdir(newfolder) if not f.startswith('.')]
             previous = max(map(eval, previous)) if previous else 0
             newfolder = path.join(newfolder, str(previous + 1))
@@ -45,9 +46,9 @@ def create_initial_folders(folder, restart_folder, sys_comp, tstep, info_red,
     MPI.barrier(MPI.comm_world)
     if MPI.rank(MPI.comm_world) == 0:
         if not restart_folder:
-            #makedirs(path.join(newfolder, "Voluviz"))
-            #makedirs(path.join(newfolder, "Stats"))
-            #makedirs(path.join(newfolder, "VTK"))
+            # makedirs(path.join(newfolder, "Voluviz"))
+            # makedirs(path.join(newfolder, "Stats"))
+            # makedirs(path.join(newfolder, "VTK"))
             makedirs(path.join(newfolder, "Timeseries"))
             makedirs(path.join(newfolder, "Checkpoint"))
 
@@ -121,7 +122,7 @@ def save_tstep_solution_h5(tstep, q_, u_, newfolder, tstepfiles, constrained_dom
     if MPI.rank(MPI.comm_world) == 0:
         if not path.exists(path.join(timefolder, "params.dat")):
             f = open(path.join(timefolder, 'params.dat'), 'wb')
-            pickle.dump(NS_parameters,  f)
+            pickle.dump(NS_parameters, f)
 
 
 def save_checkpoint_solution_h5(tstep, q_, q_1, newfolder, u_components,
@@ -142,7 +143,7 @@ def save_checkpoint_solution_h5(tstep, q_, q_1, newfolder, u_components,
             system('cp {0} {1}'.format(path.join(checkpointfolder, "params.dat"),
                                        path.join(checkpointfolder, "params_old.dat")))
         f = open(path.join(checkpointfolder, "params.dat"), 'wb')
-        pickle.dump(NS_parameters,  f)
+        pickle.dump(NS_parameters, f)
 
     MPI.barrier(MPI.comm_world)
     for ui in q_:
@@ -196,7 +197,8 @@ def check_if_pause(folder):
     collective = MPI.sum(MPI.comm_world, found)
     if collective > 0:
         if MPI.rank(MPI.comm_world) == 0:
-            info_red('pauseoasis Found! Simulations paused. Remove ' + path.join(folder, 'pauseoasis') + ' to resume simulations...')
+            info_red('pauseoasis Found! Simulations paused. Remove '
+                     + path.join(folder, 'pauseoasis') + ' to resume simulations...')
         return True
     else:
         return False

@@ -1,14 +1,17 @@
 from __future__ import print_function
+
 __author__ = "Mikael Mortensen <mikaem@math.uio.no>"
 __date__ = "2013-06-25"
 __copyright__ = "Copyright (C) 2013 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
 from ..NSfracStep import *
+
 try:
     from matplotlib import pyplot as plt
-except:
+except ModuleNotFoundError:
     pass
+
 
 # Override some problem specific parameters
 def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
@@ -75,12 +78,12 @@ def initialize(q_, q_1, q_2, VV, t, nu, dt, initial_fields, **NS_namespace):
     """
     for ui in q_:
         if 'IPCS' in NS_parameters['solver']:
-            deltat = dt / 2. if ui is 'p' else 0.
+            deltat = dt / 2. if ui == 'p' else 0.
         else:
             deltat = 0.
         vv = interpolate(Expression((initial_fields[ui]),
-                                     element=VV[ui].ufl_element(),
-                                     t=t + deltat, nu=nu), VV[ui])
+                                    element=VV[ui].ufl_element(),
+                                    t=t + deltat, nu=nu), VV[ui])
         q_[ui].vector()[:] = vv.vector()[:]
         if not ui == 'p':
             q_1[ui].vector()[:] = vv.vector()[:]
@@ -106,14 +109,14 @@ def temporal_hook(q_, t, nu, VV, dt, plot_interval, initial_fields, tstep, sys_c
         plot(q_['p'], title='p')
         try:
             plt.show()
-        except:
+        except NameError:
             pass
 
     if tstep % compute_error == 0:
         err = {}
         for i, ui in enumerate(sys_comp):
             if 'IPCS' in NS_parameters['solver']:
-                deltat_ = dt / 2. if ui is 'p' else 0.
+                deltat_ = dt / 2. if ui == 'p' else 0.
             else:
                 deltat_ = 0.
             ue = Expression((initial_fields[ui]),
@@ -133,7 +136,7 @@ def theend_hook(mesh, q_, t, dt, nu, VV, sys_comp, total_error, initial_fields, 
     final_error = zeros(len(sys_comp))
     for i, ui in enumerate(sys_comp):
         if 'IPCS' in NS_parameters['solver']:
-            deltat = dt / 2. if ui is 'p' else 0.
+            deltat = dt / 2. if ui == 'p' else 0.
         else:
             deltat = 0.
         ue = Expression((initial_fields[ui]),

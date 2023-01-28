@@ -7,8 +7,10 @@ differencing solver with pressure correction in rotational form.
 
 """
 from dolfin import *
+
+
 from .IPCS_ABCN import *  # reuse code from IPCS_ABCN
-from .IPCS_ABCN import __all__, attach_pressure_nullspace
+from .IPCS_ABCN import attach_pressure_nullspace
 
 
 def setup(u_components, u, v, p, q, nu, nut_, LESsource,
@@ -30,7 +32,7 @@ def setup(u_components, u, v, p, q, nu, nut_, LESsource,
     # Pressure Laplacian. Either reuse K or assemble new
     Ap = assemble_matrix(inner(grad(q), grad(p)) * dx, bcs['p'])
 
-    #if les_model == "NoModel":
+    # if les_model == "NoModel":
     #    if not Ap.id() == K.id():
     #        Bp = Matrix()
     #        #Ap.compressed(Bp)
@@ -96,7 +98,7 @@ def assemble_first_inner_iter(A, a_conv, dt, M, scalar_components, KT, LT,
     reset coefficient matrix for solve.
 
     """
-    t0 = Timer("Assemble first inner iter")
+    Timer("Assemble first inner iter")
     # Update u_convecting used as convecting velocity
     for i, ui in enumerate(u_components):
         u_convecting[i].vector().zero()
@@ -116,7 +118,7 @@ def assemble_first_inner_iter(A, a_conv, dt, M, scalar_components, KT, LT,
 
     # Compute rhs for all velocity components
     for ui in u_components:
-        b_tmp[ui].zero()              # start with body force
+        b_tmp[ui].zero()  # start with body force
         b_tmp[ui].axpy(1., b0[ui])
         b_tmp[ui].axpy(4.0 / (beta(0) * dt), M * x_1[ui])
         b_tmp[ui].axpy(-1.0 / (beta(0) * dt), M * x_2[ui])
@@ -179,51 +181,7 @@ def pressure_solve(dp_, x_, Ap, b, p_sol, bcs, nu, divu, Q, beta, **NS_namespace
 def velocity_update(u_components, bcs, dp_, dt, x_, gradp, beta, **NS_namespace):
     """Update the velocity after regular pressure velocity iterations."""
     for ui in u_components:
-        gradp[ui](dp_)     # Computes gradient of pressure correction
+        gradp[ui](dp_)  # Computes gradient of pressure correction
         x_[ui].axpy(-dt, gradp[ui].vector())
         [bc.apply(x_[ui]) for bc in bcs[ui]]
     beta.assign(2.0)
-
-# def scalar_assemble(a_scalar, a_conv, Ta , dt, M, scalar_components,
-    # nu, Schmidt, b, K, x_1, b0, **NS_namespace):
-    #"""Assemble scalar equation."""
-    # Just in case you want to use a different scalar convection
-    # if not a_scalar is a_conv:
-    #Ta = assemble(a_scalar, tensor=Ta)
-    # Ta._scale(-1.)            # Negative convection on the rhs
-    # Ta.axpy(1./dt, M, True)   # Add mass
-
-    # Compute rhs for all scalars
-    # for ci in scalar_components:
-    # Ta.axpy(-0.5*nu/Schmidt[ci], K, True) # Add diffusion
-    # b[ci].zero()                          # Compute rhs
-    #b[ci].axpy(1., Ta*x_1[ci])
-    #b[ci].axpy(1., b0[ci])
-    # Ta.axpy(0.5*nu/Schmidt[ci], K, True)  # Subtract diffusion
-    # Reset matrix for lhs - Note scalar matrix does not contain diffusion
-    # Ta._scale(-1.)
-    #Ta.axpy(2./dt, M, True)
-
-# def scalar_solve(ci, scalar_components, Ta, b, x_, bcs, c_sol,
-    # nu, Schmidt, K, **NS_namespace):
-    #"""Solve scalar equation."""
-
-    # Ta.axpy(0.5*nu/Schmidt[ci], K, True) # Add diffusion
-    # if len(scalar_components) > 1:
-    # Reuse solver for all scalars. This requires the same matrix and vectors to be used by c_sol.
-    #Tb, bb, bx = NS_namespace['Tb'], NS_namespace['bb'], NS_namespace['bx']
-    # Tb.zero()
-    #Tb.axpy(1., Ta, True)
-    #bb.zero(); bb.axpy(1., b[ci])
-    #bx.zero(); bx.axpy(1., x_[ci])
-    #[bc.apply(Tb, bb) for bc in bcs[ci]]
-    #c_sol.solve(Tb, bx, bb)
-    #x_[ci].zero(); x_[ci].axpy(1., bx)
-
-    # else:
-    #[bc.apply(Ta, b[ci]) for bc in bcs[ci]]
-    #c_sol.solve(Ta, x_[ci], b[ci])
-    # Ta.axpy(-0.5*nu/Schmidt[ci], K, True) # Subtract diffusion
-    # x_[ci][x_[ci] < 0] = 0.               # Bounded solution
-    ##x_[ci].set_local(maximum(0., x_[ci].array()))
-    # x_[ci].apply("insert")

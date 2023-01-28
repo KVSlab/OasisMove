@@ -4,6 +4,8 @@ __copyright__ = "Copyright (C) 2014 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
 from dolfin import *
+
+
 from ..NSCoupled import *
 from ..NSCoupled import __all__
 
@@ -12,7 +14,7 @@ def setup(u_, p_, up_, up, u, p, v, q, nu, f, mesh, c, ct, q_,
           scalar_components, Schmidt, fs, **NS_namespace):
     """Set up all equations to be solved."""
     F = (inner(dot(grad(u_), u_), v) * dx + nu * inner(grad(u_), grad(v)) * dx
-        - inner(p_, div(v)) * dx - inner(q, div(u_)) * dx + inner(f, v) * dx)
+         - inner(p_, div(v)) * dx - inner(q, div(u_)) * dx + inner(f, v) * dx)
 
     J = derivative(F, up_, up)
     A = Matrix()
@@ -25,10 +27,10 @@ def setup(u_, p_, up_, up, u, p, v, q, nu, f, mesh, c, ct, q_,
     vw = ct + h * inner(grad(ct), u_)
     n = FacetNormal(mesh)
     for ci in scalar_components:
-        Fs[ci] = (inner(dot(grad(q_[ci]), u_), vw) * dx
-                + nu / Schmidt[ci] * inner(grad(q_[ci]), grad(vw)) * dx
-                - inner(fs[ci], vw) * dx
-                - nu / Schmidt[ci] * inner(dot(grad(q_[ci]), n), vw) * ds)
+        Fs[ci] = (inner(dot(grad(q_[ci]), u_), vw) * dx +
+                  nu / Schmidt[ci] * inner(grad(q_[ci]), grad(vw)) * dx -
+                  inner(fs[ci], vw) * dx -
+                  nu / Schmidt[ci] * inner(dot(grad(q_[ci]), n), vw) * ds)
         Js[ci] = derivative(Fs[ci], q_[ci], c)
         Ac[ci] = Matrix()
 

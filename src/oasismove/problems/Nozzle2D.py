@@ -1,5 +1,6 @@
-from dolfin import Mesh, AutoSubDomain, near, DOLFIN_EPS
 import os
+
+from dolfin import Mesh, DOLFIN_EPS
 
 if not os.path.isfile("mesh/nozzle_2d.xml"):
     try:

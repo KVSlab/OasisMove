@@ -1,25 +1,28 @@
 from __future__ import print_function
+
 __author__ = "Mikael Mortensen <mikaem@math.uio.no>"
 __date__ = "2013-06-25"
 __copyright__ = "Copyright (C) 2013 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
-from ..NSfracStep import *
-from fenicstools import StructuredGrid, Probes
-from numpy import arctan, array, cos, pi
-from os import getcwd, makedirs
 import pickle
 import random
+from os import getcwd, makedirs
+
+from fenicstools import StructuredGrid
+from numpy import arctan, pi
+
+from ..NSfracStep import *
 
 
 def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace):
     if "restart_folder" in commandline_kwargs.keys():
-         restart_folder = commandline_kwargs["restart_folder"]
-         restart_folder = path.join(getcwd(), restart_folder)
-         f = open(path.join(path.dirname(path.abspath(__file__)), restart_folder, 'params.dat'), 'r')
-         NS_parameters.update(pickle.load(f))
-         NS_parameters['restart_folder'] = restart_folder
-         globals().update(NS_parameters)
+        restart_folder = commandline_kwargs["restart_folder"]
+        restart_folder = path.join(getcwd(), restart_folder)
+        f = open(path.join(path.dirname(path.abspath(__file__)), restart_folder, 'params.dat'), 'r')
+        NS_parameters.update(pickle.load(f))
+        NS_parameters['restart_folder'] = restart_folder
+        globals().update(NS_parameters)
     else:
         Lx = 4. * pi
         Ly = 2.
@@ -39,7 +42,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             save_statistics=100,
             check_flux=10,
             checkpoint=100,
-            utau = nu * Re_tau,
+            utau=nu * Re_tau,
             save_step=100,
             nu=nu,
             Re_tau=Re_tau,
@@ -96,15 +99,18 @@ class PeriodicDomain(SubDomain):
             y[1] = x[1]
             y[2] = x[2] - self.Lz
 
+
 def inlet(x, on_bnd):
     return on_bnd and near(x[0], 0)
 
+
 # Specify body force
 def body_force(nu, Re_tau, utau, **NS_namespace):
-    return Constant((utau**2, 0., 0.))
+    return Constant((utau ** 2, 0., 0.))
+
 
 def pre_solve_hook(V, u_, mesh, AssignedVectorFunction, newfolder, MPI,
-                    Nx, Ny, Nz, Lx, Ly, Lz, **NS_namespace):
+                   Nx, Ny, Nz, Lx, Ly, Lz, **NS_namespace):
     """Called prior to time loop"""
     if MPI.rank(MPI.comm_world) == 0:
         makedirs(path.join(newfolder, "Stats"))
@@ -114,7 +120,7 @@ def pre_solve_hook(V, u_, mesh, AssignedVectorFunction, newfolder, MPI,
 
     # It's periodic so don't pick the same location twice for sampling statistics:
     stats = ChannelGrid(V, [Nx, Ny + 1, Nz], [tol, -Ly / 2., -Lz / 2. + tol], [[1., 0., 0.], [
-                        0., 1., 0.], [0., 0., 1.]], [Lx - Lx / Nx, Ly, Lz - Lz / Nz], statistics=True)
+        0., 1., 0.], [0., 0., 1.]], [Lx - Lx / Nx, Ly, Lz - Lz / Nz], statistics=True)
 
     # Create MeshFunction to compute flux
     Inlet = AutoSubDomain(inlet)
@@ -123,6 +129,7 @@ def pre_solve_hook(V, u_, mesh, AssignedVectorFunction, newfolder, MPI,
     normal = FacetNormal(mesh)
 
     return dict(uv=uv, stats=stats, facets=facets, normal=normal)
+
 
 def create_bcs(V, q_, q_1, q_2, sys_comp, u_components, Ly, **NS_namespace):
     def walls(x, on_bnd):
@@ -148,6 +155,7 @@ class RandomStreamVector(UserExpression):
     def value_shape(self):
         return (3,)
 
+
 def initialize(V, q_, q_1, q_2, bcs, restart_folder, utau, nu, **NS_namespace):
     if restart_folder is None:
         # Initialize using a perturbed flow. Create random streamfunction
@@ -163,7 +171,7 @@ def initialize(V, q_, q_1, q_2, bcs, restart_folder, utau, nu, **NS_namespace):
         y = interpolate(Expression("x[1] > 0 ? 1-x[1] : 1+x[1]",
                                    element=V.ufl_element()), V)
         uu = project((1.25 * (utau / 0.41 * ln(conditional(y < 1e-12, 1.e-12, y) *
-                     utau / nu) + 5. * utau)), V, bcs=bcs['u0'], solver_type='cg')
+                                               utau / nu) + 5. * utau)), V, bcs=bcs['u0'], solver_type='cg')
 
         # initialize vectors at two timesteps
         q_1['u0'].vector()[:] = uu.vector()[:]
@@ -189,9 +197,9 @@ def temporal_hook(q_, u_, V, tstep, uv, stats, update_statistics,
 
     if tstep % save_statistics == 0:
         statsfolder = path.join(newfolder, "Stats")
-        #stats.toh5(0, tstep, filename=statsfolder +
+        # stats.toh5(0, tstep, filename=statsfolder +
         #           "/dump_mean_{}.h5".format(tstep))
-        stats.tovtk(0, statsfolder+"/dump_mean_{}.vtk".format(tstep))
+        stats.tovtk(0, statsfolder + "/dump_mean_{}.vtk".format(tstep))
 
     if tstep % check_flux == 0:
         u1 = assemble(dot(u_, normal) * ds(1, domain=mesh, subdomain_data=facets))
@@ -201,8 +209,8 @@ def temporal_hook(q_, u_, V, tstep, uv, stats, update_statistics,
         if MPI.rank(MPI.comm_world) == 0:
             print("Flux = ", u1, " tstep = ", tstep, " norm = ", normv, normw)
 
+
 def theend(newfolder, tstep, stats, **NS_namespace):
     """Store statistics before exiting"""
     statsfolder = path.join(newfolder, "Stats")
-    stats.toh5(0, tstep, filename=statsfolder +
-               "/dump_mean_{}.h5".format(tstep))
+    stats.toh5(0, tstep, filename=statsfolder + "/dump_mean_{}.h5".format(tstep))

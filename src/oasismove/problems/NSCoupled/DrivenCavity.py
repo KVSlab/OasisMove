@@ -3,8 +3,9 @@ __date__ = "2014-04-08"
 __copyright__ = "Copyright (C) 2014 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
-from ..NSCoupled import *
 from ..DrivenCavity import *
+from ..NSCoupled import *
+
 
 # Override some problem specific parameters
 def problem_parameters(NS_parameters, **NS_namespace):
@@ -30,5 +31,5 @@ def theend_hook(u_, p_, mesh, **NS_namespace):
         psi = StreamFunction(u_, [], mesh, use_strong_bc=True)
         plot(psi, title='Streamfunction')
         plt.show()
-    except:
+    except ImportError:
         pass

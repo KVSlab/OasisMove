@@ -1,11 +1,13 @@
 from __future__ import print_function
+
 __author__ = "Mikael Mortensen <mikaem@math.uio.no>"
 __date__ = "2014-04-04"
 __copyright__ = "Copyright (C) 2014 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
-from ..NSCoupled import *
 from ..Cylinder import *
+from ..NSCoupled import *
+
 
 # Override some problem specific parameters
 def problem_parameters(NS_parameters, scalar_components, **NS_namespace):
@@ -40,9 +42,9 @@ def create_bcs(VQ, Um, CG, V, element, **NS_namespace):
         bc2 = DirichletBC(VQ.sub(0), (0, 0), Wall)
     return dict(up=[bc0, bc1, bc2],
                 c=[DirichletBC(CG, 1, Cyl),
-                    DirichletBC(CG, 0, Inlet)],
+                   DirichletBC(CG, 0, Inlet)],
                 d=[DirichletBC(CG, 2, Cyl),
-                    DirichletBC(CG, 0, Inlet)])
+                   DirichletBC(CG, 0, Inlet)])
 
 
 def theend_hook(u_, p_, up_, mesh, ds, VQ, nu, Umean, c_, testing, **NS_namespace):
@@ -58,7 +60,7 @@ def theend_hook(u_, p_, up_, mesh, ds, VQ, nu, Umean, c_, testing, **NS_namespac
     Cyl.mark(ff, 1)
     n = FacetNormal(mesh)
     ds = ds(subdomain_data=ff)
-    forces = assemble(dot(dot(tau, n), c) * ds(1)).get_local() * 2 / Umean**2 / D
+    forces = assemble(dot(dot(tau, n), c) * ds(1)).get_local() * 2 / Umean ** 2 / D
 
     try:
         print("Cd = {0:2.6e}, CL = {1:2.6e}".format(*forces))

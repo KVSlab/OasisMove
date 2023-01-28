@@ -3,12 +3,13 @@ __date__ = '2015-02-04'
 __copyright__ = 'Copyright (C) 2015 ' + __author__
 __license__ = 'GNU Lesser GPL version 3 or any later version'
 
-from dolfin import (Function, FunctionSpace, TestFunction, sym, grad, dx, inner,
-    sqrt, TrialFunction, project, CellVolume, as_vector, solve, Constant,
-    LagrangeInterpolator, assemble, MeshFunction, DirichletBC)
-from .DynamicModules import (tophatfilter, lagrange_average, compute_Lij,
-                            compute_Mij)
 import numpy as np
+from dolfin import (Function, FunctionSpace, TestFunction, sym, grad, dx, inner,
+                    sqrt, TrialFunction, project, CellVolume, as_vector, Constant,
+                    LagrangeInterpolator, assemble, MeshFunction, DirichletBC)
+
+from .DynamicModules import (tophatfilter, lagrange_average, compute_Lij,
+                             compute_Mij)
 
 __all__ = ['les_setup', 'les_update']
 
@@ -27,14 +28,14 @@ def les_setup(u_, mesh, assemble_matrix, CG1Function, nut_krylov_solver, bcs, **
     # Define delta and project delta**2 to CG1
     delta = pow(CellVolume(mesh), 1. / dim)
     delta_CG1_sq = project(delta, CG1, solver_type='cg')
-    delta_CG1_sq.vector().set_local(delta_CG1_sq.vector().array()**2)
+    delta_CG1_sq.vector().set_local(delta_CG1_sq.vector().array() ** 2)
     delta_CG1_sq.vector().apply("insert")
 
     # Define nut_
     Sij = sym(grad(u_))
     magS = sqrt(2 * inner(Sij, Sij))
     Cs = Function(CG1)
-    nut_form = Cs**2 * delta**2 * magS
+    nut_form = Cs ** 2 * delta ** 2 * magS
     # Create nut_ BCs
     ff = MeshFunction("size_t", mesh, mesh.topology().dim() - 1, 0)
     bcs_nut = []
@@ -87,12 +88,12 @@ def les_setup(u_, mesh, assemble_matrix, CG1Function, nut_krylov_solver, bcs, **
                 tensdim=tensdim, G_matr=G_matr, G_under=G_under, dummy=dummy,
                 uiuj_pairs=uiuj_pairs)
 
+
 def les_update(u_ab, nut_, nut_form, dt, CG1, delta, tstep,
                DynamicSmagorinsky, Cs, u_CG1, u_filtered, Lij, Mij,
                JLM, JMM, dim, tensdim, G_matr, G_under, ll,
                dummy, uiuj_pairs, Sijmats, Sijcomps, Sijfcomps, delta_CG1_sq,
                **NS_namespace):
-
     # Check if Cs is to be computed, if not update nut_ and break
     if tstep % DynamicSmagorinsky["Cs_comp_step"] != 0:
         # Update nut_
@@ -129,6 +130,6 @@ def les_update(u_ab, nut_, nut_form, dt, CG1, delta, tstep,
     Cs.vector().apply("insert")
 
     # Update nut_
-    nut_.vector().set_local(Cs.vector().array()**2 *
+    nut_.vector().set_local(Cs.vector().array() ** 2 *
                             delta_CG1_sq.vector().array() * magS)
     nut_.vector().apply("insert")

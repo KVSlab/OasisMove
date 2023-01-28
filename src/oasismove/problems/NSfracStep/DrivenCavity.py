@@ -3,10 +3,11 @@ __date__ = "2013-06-25"
 __copyright__ = "Copyright (C) 2013 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
-from ..NSfracStep import *
 from ..DrivenCavity import *
+from ..NSfracStep import *
 
-#set_log_active(False)
+
+# set_log_active(False)
 
 # Override some problem specific parameters
 def problem_parameters(NS_parameters, scalar_components, Schmidt, **NS_namespace):
@@ -25,7 +26,7 @@ def problem_parameters(NS_parameters, scalar_components, Schmidt, **NS_namespace
     Schmidt["alfa"] = 1.
     Schmidt["beta"] = 10.
 
-    #NS_parameters['krylov_solvers'] = {'monitor_convergence': False,
+    # NS_parameters['krylov_solvers'] = {'monitor_convergence': False,
     #                                   'report': False,
     #                                   'relative_tolerance': 1e-10,
     #                                   'absolute_tolerance': 1e-10}
@@ -83,5 +84,5 @@ def theend_hook(u_, p_, uv, mesh, testing, **NS_namespace):
             plot(psi, title='Streamfunction')
             import matplotlib.pyplot as plt
             plt.show()
-        except:
+        except ImportError:
             pass

@@ -14,7 +14,7 @@ def problem_parameters(NS_parameters, NS_expressions, commandline_kwargs, **NS_n
     A = 0.08  # Amplitude
     try:
         unstructured = commandline_kwargs["umesh"]
-    except:
+    except KeyError:
         unstructured = False
 
     NS_parameters.update(
@@ -97,7 +97,6 @@ def create_bcs(V, Q, t, dt, nu, sys_comp, boundary, initial_fields, **NS_namespa
     bcs = dict((ui, []) for ui in sys_comp)
     bc0 = DirichletBC(V, NS_expressions["bc_u0"], boundary, 1)
     bc1 = DirichletBC(V, NS_expressions["bc_u1"], boundary, 1)
-    bcp = DirichletBC(Q, NS_expressions['bc_p'], boundary, 1)
 
     bcs['u0'] = [bc0]
     bcs['u1'] = [bc1]
@@ -240,9 +239,9 @@ def temporal_hook(q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, in
                 deltat_ = dt / 2. if ui == 'p' else 0.
             else:
                 deltat_ = 0.
-            # ue = Expression((initial_fields[ui]),
-            #                 element=VV[ui].ufl_element(),
-            #                 t=t - deltat_, nu=nu)
+            ue = Expression((initial_fields[ui]),
+                            element=VV[ui].ufl_element(),
+                            t=t - deltat_, nu=nu)
 
             if ui == 'u0':
                 ue = uxx
@@ -259,11 +258,9 @@ def temporal_hook(q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, in
                 ues.append(ue)
             uen = norm(ue.vector())
             ue.vector().axpy(-1, q_[ui].vector())
-            uen_q = norm(q_[ui].vector())
             error = norm(ue.vector()) / uen
             err[ui] = "{0:2.6e}".format(norm(ue.vector()) / uen)
             total_error[i] += error * dt
-
 
 
 def theend_hook(newfolder, mesh, q_, t, dt, nu, VV, sys_comp, total_error, initial_fields, **NS_namespace):

@@ -3,8 +3,8 @@ __date__ = '2015-02-04'
 __copyright__ = 'Copyright (C) 2015 ' + __author__
 __license__ = 'GNU Lesser GPL version 3 or any later version'
 
-from dolfin import solve
 import numpy as np
+from dolfin import solve
 
 
 def lagrange_average(u_CG1, dt, CG1, tensdim, delta_CG1_sq, dim,
@@ -25,7 +25,7 @@ def lagrange_average(u_CG1, dt, CG1, tensdim, delta_CG1_sq, dim,
     """
 
     # Update eps
-    eps = (dt * (J1.vector().array() * J2.vector().array())**(1. / 8.)
+    eps = (dt * (J1.vector().array() * J2.vector().array()) ** (1. / 8.)
            / (1.5 * np.sqrt(delta_CG1_sq.vector().array())))
     eps = eps / (1.0 + eps)
 
@@ -102,7 +102,7 @@ def compute_Lij(Lij, uiuj_pairs, tensdim, G_matr, G_under,
         # Filter Lij[i] -> F(ujuk)
         tophatfilter(unfiltered=Lij[i], filtered=Lij[i], **vars())
         # Add to Qij if ScaleDep model
-        if Qij != None:
+        if Qij is None:
             Qij[i].vector().zero()
             Qij[i].vector().axpy(1.0, Lij[i].vector())
         # Axpy - F(uj)F(uk)
@@ -163,13 +163,13 @@ def compute_Mij(Mij, G_matr, G_under, Sijmats, Sijcomps, Sijfcomps, delta_CG1_sq
         tophatfilter(unfiltered=Mij[i], filtered=Mij[i], **vars())
 
         # Check if Nij, assign F(|S|Sij) if not None
-        if Nij != None:
+        if Nij is None:
             Nij[i].vector().zero()
             Nij[i].vector().axpy(1.0, Mij[i].vector())
 
         # Compute 2*delta**2*(F(|S|Sij) - alpha**2*F(|S|)F(Sij)) and add to Mij[i]
         Mij[i].vector().set_local(deltasq * (Mij[i].vector().array() -
-                                             (alpha**2) * magSf * Sijf[i].vector().array()))
+                                             (alpha ** 2) * magSf * Sijf[i].vector().array()))
         Mij[i].vector().apply("insert")
 
     # Return magS for use when updating nut_
@@ -226,7 +226,7 @@ def compute_Nij(Nij, G_matr, G_under, tensdim, Sijmats, Sijfcomps, delta_CG1_sq,
         tophatfilter(unfiltered=Nij[i], filtered=Nij[i], weight=1, **vars())
         # Compute 2*delta**2*(F(F(|S|Sij)) - alpha**2*F(F(|S))F(F(Sij)))
         Nij[i].vector().set_local(deltasq * (Nij[i].vector().array() -
-                                             (alpha**2) * magSf * Sijf[i].vector().array()))
+                                             (alpha ** 2) * magSf * Sijf[i].vector().array()))
         Nij[i].vector().apply("insert")
 
 

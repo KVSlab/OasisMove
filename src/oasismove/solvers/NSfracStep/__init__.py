@@ -27,7 +27,8 @@ def get_solvers(**NS_namespace):
        - scalars
 
     """
-    return (None, ) * 4
+    return (None,) * 4
+
 
 def assemble_first_inner_iter(**NS_namespace):
     """Called first thing on a new velocity/pressure iteration."""
@@ -53,6 +54,7 @@ def velocity_tentative_assemble(**NS_namespace):
     """Assemble remaining system for tentative velocity component."""
     pass
 
+
 def pressure_assemble(**NS_namespace):
     """Assemble rhs of pressure equation."""
     pass
@@ -66,6 +68,7 @@ def pressure_solve(**NS_namespace):
 def velocity_update(**NS_namespace):
     """Update the velocity after finishing pressure velocity iterations."""
     pass
+
 
 def print_velocity_pressure_info(num_iter, print_velocity_pressure_convergence, norm,
                                  info_blue, inner_iter, udiff, dp_, **NS_namespace):

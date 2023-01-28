@@ -4,11 +4,12 @@ __copyright__ = 'Copyright (C) 2015 ' + __author__
 __license__ = 'GNU Lesser GPL version 3 or any later version'
 
 import warnings
+
+
 from dolfin import MeshFunction, DirichletBC, Constant
 
 
 def derived_bcs(V, original_bcs, u_):
-
     new_bcs = []
 
     # Check first if user has declared subdomains

@@ -33,7 +33,7 @@ def setup(u_components, u, v, p, q, nu, nut_, les_model, LESsource,
     # Pressure Laplacian. Either reuse K or assemble new
     Ap = assemble_matrix(inner(grad(q), grad(p)) * dx, bcs['p'])
 
-    #if les_model == "NoModel":
+    # if les_model == "NoModel":
     #    if not Ap.id() == K.id():
     #        # Compress matrix (creates new matrix)
     #        Bp = Matrix()
@@ -106,23 +106,23 @@ def get_solvers(use_krylov_solvers, krylov_solvers, bcs,
 
     """
     if use_krylov_solvers:
-        ## tentative velocity solver ##
+        # tentative velocity solver
         u_prec = PETScPreconditioner(velocity_krylov_solver['preconditioner_type'])
         u_sol = PETScKrylovSolver(velocity_krylov_solver['solver_type'], u_prec)
-        #u_sol = KrylovSolver(velocity_krylov_solver['solver_type'],
+        # u_sol = KrylovSolver(velocity_krylov_solver['solver_type'],
         #                     velocity_krylov_solver['preconditioner_type'])
         u_sol.parameters.update(krylov_solvers)
 
-        ## pressure solver ##
+        # pressure solver
         p_prec = PETScPreconditioner(pressure_krylov_solver['preconditioner_type'])
         p_sol = PETScKrylovSolver(pressure_krylov_solver['solver_type'], p_prec)
-        #p_sol = KrylovSolver(pressure_krylov_solver['solver_type'],
+        # p_sol = KrylovSolver(pressure_krylov_solver['solver_type'],
         #                     pressure_krylov_solver['preconditioner_type'])
         p_sol.parameters.update(krylov_solvers)
         p_sol.set_reuse_preconditioner(True)
 
         sols = [u_sol, p_sol]
-        ## scalar solver ##
+        # scalar solver
         if len(scalar_components) > 0:
             c_prec = PETScPreconditioner(scalar_krylov_solver['preconditioner_type'])
             c_sol = PETScKrylovSolver(scalar_krylov_solver['solver_type'], c_prec)
@@ -131,14 +131,14 @@ def get_solvers(use_krylov_solvers, krylov_solvers, bcs,
         else:
             sols.append(None)
     else:
-        ## tentative velocity solver ##
+        # tentative velocity solver
         u_sol = LUSolver('mumps')
-        ## pressure solver ##
+        # pressure solver ##
         p_sol = LUSolver('mumps')
         if bcs['p'] == []:
             p_sol.normalize = True
         sols = [u_sol, p_sol]
-        ## scalar solver ##
+        # scalar solver
         if len(scalar_components) > 0:
             c_sol = LUSolver('mumps')
             sols.append(c_sol)
@@ -150,7 +150,7 @@ def get_solvers(use_krylov_solvers, krylov_solvers, bcs,
 
 def assemble_first_inner_iter(A, dt, M, nu, K, b0, b_tmp, A_conv, x_2, x_1, les_model, KT,
                               a_conv, u_components, bcs, u_ab, nut_, LT, **NS_namespace):
-    t0 = Timer("Assemble first inner iter")
+    Timer("Assemble first inner iter")
     A.zero()
     A.axpy(1. / dt, M, True)
     A.axpy(-0.5 * nu, K, True)  # Add diffusion
@@ -178,7 +178,7 @@ def assemble_first_inner_iter(A, dt, M, nu, K, b0, b_tmp, A_conv, x_2, x_1, les_
         # Add transient and diffusion
         b_tmp[ui].axpy(1.0, A * x_1[ui])
 
-    A.axpy(nu, K, True)        # Reset for lhs
+    A.axpy(nu, K, True)  # Reset for lhs
     A.axpy(1.5, A_conv, True)  # Remove convection
     [bc.apply(A) for bc in bcs['u0']]
 
@@ -199,8 +199,8 @@ def velocity_tentative_solve(ui, A, bcs, x_, x_2, u_sol, b, udiff,
 def scalar_assemble(Ta, a_scalar, dt, M, scalar_components, les_model, Schmidt_T,
                     b, nu, Schmidt, K, x_1, b0, KT, **NS_namespace):
     Ta = assemble(a_scalar, tensor=Ta)
-    Ta *= -1.                   # Negative convection on the rhs
-    Ta.axpy(1. / dt, M, True)   # Add mass
+    Ta *= -1.  # Negative convection on the rhs
+    Ta.axpy(1. / dt, M, True)  # Add mass
 
     # Compute rhs for all scalars
     for ci in scalar_components:

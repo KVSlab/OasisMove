@@ -10,10 +10,11 @@ the implementations of the more complex optimized solvers.
 
 """
 from dolfin import *
+
 from ..NSfracStep import *
 from ..NSfracStep import __all__
 
-__all__ += ["max_iter", "iters_on_first_timestep"]
+__all__ = __all__ + ["max_iter", "iters_on_first_timestep"]
 
 # Chorin is noniterative
 max_iter = 1
@@ -45,12 +46,11 @@ def setup(u, q_, q_1, uc_comp, u_components, dt, v, U_AB, u_1,
     # Scalar with SUPG
     h = CellDiameter(mesh)
     vw = v + h * inner(grad(v), U_AB)
-    n = FacetNormal(mesh)
     for ci in scalar_components:
-        F[ci] = ((1. / dt) * inner(u - q_1[ci], vw) * dx
-                 + inner(dot(grad(U_CN[ci]), U_AB), vw) * dx
-                 + nu / Schmidt[ci] * inner(grad(U_CN[ci]),
-                            grad(vw)) * dx - inner(fs[ci], vw) * dx)
+        F[ci] = ((1. / dt) * inner(u - q_1[ci], vw) * dx +
+                 inner(dot(grad(U_CN[ci]), U_AB), vw) * dx +
+                 nu / Schmidt[ci] * inner(grad(U_CN[ci]),
+                                          grad(vw)) * dx - inner(fs[ci], vw) * dx)
 
     return dict(F=F, Fu=Fu, Fp=Fp)
 

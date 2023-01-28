@@ -30,10 +30,10 @@ def setup(u_, p_, up_, up, u, p, v, q, nu, mesh, c, ct, q_,
     vw = ct + h * inner(grad(ct), u_)
     n = FacetNormal(mesh)
     for ci in scalar_components:
-        Fs[ci] = (inner(dot(grad(q_[ci]), u_), vw) * dx
-                + nu / Schmidt[ci] * inner(grad(q_[ci]), grad(vw)) * dx
-                - inner(fs[ci], vw) * dx
-                - nu / Schmidt[ci] * inner(dot(grad(q_[ci]), n), vw) * ds)
+        Fs[ci] = (inner(dot(grad(q_[ci]), u_), vw) * dx +
+                  nu / Schmidt[ci] * inner(grad(q_[ci]), grad(vw)) * dx -
+                  inner(fs[ci], vw) * dx -
+                  nu / Schmidt[ci] * inner(dot(grad(q_[ci]), n), vw) * ds)
         Js[ci] = derivative(Fs[ci], q_[ci], c)
         Ac[ci] = Matrix()
 

@@ -4,6 +4,7 @@ __copyright__ = 'Copyright (C) 2014 ' + __author__
 __license__ = 'GNU Lesser GPL version 3 or any later version'
 
 import importlib
+
 from oasismove.common import *
 
 """
@@ -32,10 +33,10 @@ problemspec = importlib.util.find_spec('.'.join(('oasis.problems.NSCoupled', pro
 if problemspec is None:
     problemspec = importlib.util.find_spec(problemname)
 if problemspec is None:
-    raise RuntimeError(problemname+' not found')
+    raise RuntimeError(problemname + ' not found')
 
 # Import the problem module
-print('Importing problem module '+problemname+':\n'+problemspec.origin)
+print('Importing problem module ' + problemname + ':\n' + problemspec.origin)
 problemmod = importlib.util.module_from_spec(problemspec)
 problemspec.loader.exec_module(problemmod)
 
@@ -49,7 +50,7 @@ vars().update(post_import_problem(**vars()))
 
 # Import chosen functionality from solvers
 solver = importlib.import_module('.'.join(('oasis.solvers.NSCoupled', solver)))
-vars().update({name:solver.__dict__[name] for name in solver.__all__})
+vars().update({name: solver.__dict__[name] for name in solver.__all__})
 
 # Create lists of components solved for
 u_components = ['u']
@@ -73,7 +74,7 @@ Q = FiniteElement(family['p'], mesh.ufl_cell(), degree['p'])
 # MINI element has bubble, add to V
 if bubble:
     B = VectorElement("Bubble", mesh.ufl_cell(), mesh.geometry().dim() + 1)
-    VQ = FunctionSpace(mesh, MixedElement(V+B, Q),
+    VQ = FunctionSpace(mesh, MixedElement(V + B, Q),
                        constrained_domain=constrained_domain)
 
 else:
@@ -97,14 +98,14 @@ q_ = dict((ui, Function(VV[ui], name=ui)) for ui in sys_comp)
 q_1 = dict((ui, Function(VV[ui], name=ui + '_1')) for ui in sys_comp)
 
 # Short forms
-up_ = q_['up']    # Solution at next iteration
+up_ = q_['up']  # Solution at next iteration
 up_1 = q_1['up']  # Solution at previous iteration
 u_, p_ = split(up_)
 u_1, p_1 = split(up_1)
 
 # Create short forms for accessing the solution vectors
-x_  = dict((ui, q_ [ui].vector()) for ui in sys_comp)     # Solution vectors
-x_1 = dict((ui, q_1[ui].vector()) for ui in sys_comp)     # Solution vectors previous iteration
+x_ = dict((ui, q_[ui].vector()) for ui in sys_comp)  # Solution vectors
+x_1 = dict((ui, q_1[ui].vector()) for ui in sys_comp)  # Solution vectors previous iteration
 
 # Create vectors to hold rhs of equations
 b = dict((ui, Vector(x_[ui])) for ui in sys_comp)
@@ -158,6 +159,7 @@ def iterate(iters=max_iter):
 
         iter += 1
 
+
 def iterate_scalar(iters=max_iter, errors=max_error):
     # Newton iterations for scalars
     if len(scalar_components) > 0:
@@ -173,7 +175,6 @@ def iterate_scalar(iters=max_iter, errors=max_error):
                 if MPI.rank(MPI.comm_world) == 0:
                     print('Iter {}, Error {} = {}'.format(citer, ci, err[ci]))
                 citer += 1
-
 
 
 timer = OasisTimer('Start Newton iterations flow', True)
@@ -205,7 +206,7 @@ total_initial_dolfin_memory = MPI.sum(MPI.comm_world, initial_memory_use)
 info_red('Memory use for importing dolfin = {} MB (RSS)'.format(
     total_initial_dolfin_memory))
 info_red('Total memory use of solver = ' +
-            str(oasis_memory.memory - total_initial_dolfin_memory) + ' MB (RSS)')
+         str(oasis_memory.memory - total_initial_dolfin_memory) + ' MB (RSS)')
 
 # Final hook
 theend_hook(**vars())

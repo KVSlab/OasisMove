@@ -4,8 +4,8 @@ __copyright__ = 'Copyright (C) 2015 ' + __author__
 __license__ = 'GNU Lesser GPL version 3 or any later version'
 
 from dolfin import (Function, FunctionSpace, assemble, TestFunction, sym, grad,
-    Vector, dx, inner, TrialFunction, sqrt, Matrix, dot, interpolate, Constant,
-    DirichletBC, KrylovSolver)
+                    Vector, dx, inner, TrialFunction, sqrt, Matrix, dot, interpolate, Constant,
+                    DirichletBC, KrylovSolver)
 
 from .common import derived_bcs
 
@@ -22,7 +22,7 @@ def les_setup(u_, mesh, KineticEnergySGS, assemble_matrix, CG1Function, nut_kryl
     delta = Function(DG)
     delta.vector().zero()
     delta.vector().axpy(1.0, assemble(TestFunction(DG) * dx))
-    delta.vector().set_local(delta.vector().array()**(1. / dim))
+    delta.vector().set_local(delta.vector().array() ** (1. / dim))
     delta.vector().apply('insert')
 
     Ck = KineticEnergySGS["Ck"]
@@ -36,7 +36,7 @@ def les_setup(u_, mesh, KineticEnergySGS, assemble_matrix, CG1Function, nut_kryl
     At = Matrix()
     bt = Vector(nut_.vector())
     ksgs_sol = KrylovSolver("bicgstab", "additive_schwarz")
-    #ksgs_sol.parameters["preconditioner"]["structure"] = "same_nonzero_pattern"
+    # ksgs_sol.parameters["preconditioner"]["structure"] = "same_nonzero_pattern"
     ksgs_sol.parameters["error_on_nonconvergence"] = False
     ksgs_sol.parameters["monitor_convergence"] = False
     ksgs_sol.parameters["report"] = False
@@ -46,7 +46,6 @@ def les_setup(u_, mesh, KineticEnergySGS, assemble_matrix, CG1Function, nut_kryl
 
 def les_update(nut_, nut_form, A_mass, At, u_, dt, bc_ksgs, bt, ksgs_sol,
                KineticEnergySGS, CG1, ksgs, delta, **NS_namespace):
-
     p, q = TrialFunction(CG1), TestFunction(CG1)
 
     Ck = KineticEnergySGS["Ck"]
@@ -54,12 +53,12 @@ def les_update(nut_, nut_form, A_mass, At, u_, dt, bc_ksgs, bt, ksgs_sol,
 
     Sij = sym(grad(u_))
     assemble((dt * inner(dot(u_, 0.5 * grad(p)), q) * dx
-             + inner((dt * Ce * sqrt(ksgs) / delta) * 0.5 * p, q) * dx
-             + inner(dt * Ck * sqrt(ksgs) * delta * grad(0.5 * p), grad(q)) * dx),
+              + inner((dt * Ce * sqrt(ksgs) / delta) * 0.5 * p, q) * dx
+              + inner(dt * Ck * sqrt(ksgs) * delta * grad(0.5 * p), grad(q)) * dx),
              tensor=At)
 
     assemble((dt * 2 * Ck * delta * sqrt(ksgs) *
-             inner(Sij, grad(u_)) * q * dx), tensor=bt)
+              inner(Sij, grad(u_)) * q * dx), tensor=bt)
     bt.axpy(1.0, A_mass * ksgs.vector())
     bt.axpy(-1.0, At * ksgs.vector())
     At.axpy(1.0, A_mass, True)

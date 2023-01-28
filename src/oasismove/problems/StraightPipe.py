@@ -1,19 +1,19 @@
-from fenics import MPI, Mesh, MeshValueCollection, XDMFFile, cpp, Measure, assemble, Constant
 import numpy as np
+from fenics import MPI, Mesh, MeshValueCollection, XDMFFile, cpp, Measure, assemble, Constant
 
 """
 Author : Kei Yamamoto <keiya@math.uio.no>
-Here, we assume that mesh files are placed inside mesh folder. 
+Here, we assume that mesh files are placed inside mesh folder.
 You can download mesh file from https://drive.google.com/drive/folders/1YWCEOJ5vnuNpcLkpiofD54xi56QH1cLQ?usp=sharing
 """
 
 mesh = Mesh()
 mvc = MeshValueCollection("size_t", mesh, mesh.topology().dim())
 with XDMFFile(MPI.comm_world, "mesh/StraightPipe/mesh.xdmf") as infile:
-   infile.read(mesh)
-   infile.read(mvc, "name_to_read")
+    infile.read(mesh)
+    infile.read(mvc, "name_to_read")
 
-mvc = MeshValueCollection("size_t", mesh, mesh.topology().dim()-1)
+mvc = MeshValueCollection("size_t", mesh, mesh.topology().dim() - 1)
 with XDMFFile(MPI.comm_world, "mesh/StraightPipe/mf.xdmf") as infile:
     infile.read(mvc, "name_to_read")
 
@@ -24,10 +24,10 @@ dx = Measure("dx")(subdomain_data=mf)
 outlet_mesh = Mesh()
 outlet_mvc = MeshValueCollection("size_t", outlet_mesh, outlet_mesh.topology().dim())
 with XDMFFile(MPI.comm_world, "mesh/Outlet/mesh.xdmf") as outlet_infile:
-   outlet_infile.read(outlet_mesh)
-   outlet_infile.read(outlet_mvc, "name_to_read")
+    outlet_infile.read(outlet_mesh)
+    outlet_infile.read(outlet_mvc, "name_to_read")
 
-outlet_mvc = MeshValueCollection("size_t", outlet_mesh, outlet_mesh.topology().dim()-1)
+outlet_mvc = MeshValueCollection("size_t", outlet_mesh, outlet_mesh.topology().dim() - 1)
 with XDMFFile(MPI.comm_world, "mesh/Outlet/mf.xdmf") as outlet_infile:
     outlet_infile.read(outlet_mvc, "name_to_read")
 

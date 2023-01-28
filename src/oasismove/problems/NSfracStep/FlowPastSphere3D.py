@@ -3,10 +3,10 @@ __date__ = "2013-06-25"
 __copyright__ = "Copyright (C) 2013 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
-from ..NSfracStep import *
-from numpy import cos, pi, cosh
-from os import getcwd
 import pickle
+from os import getcwd
+
+from ..NSfracStep import *
 
 
 # Create a mesh

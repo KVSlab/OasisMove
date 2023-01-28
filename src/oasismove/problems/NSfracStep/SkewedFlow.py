@@ -1,4 +1,5 @@
 from __future__ import print_function
+
 __author__ = "Mikael Mortensen <mikaem@math.uio.no>"
 __date__ = "2013-06-25"
 __copyright__ = "Copyright (C) 2013 " + __author__
@@ -6,7 +7,6 @@ __license__ = "GNU Lesser GPL version 3 or any later version"
 
 from ..NSfracStep import *
 from ..SkewedFlow import *
-from numpy import cos, pi, cosh
 
 print("""
 This problem does not work well with IPCS since the outflow
@@ -23,6 +23,7 @@ Need to use coupled solver with pseudo-traction
 or extrude outlet such that the outflow boundary condition
 becomes more realistic.
 """)
+
 
 # Override some problem specific parameters
 def problem_parameters(NS_parameters, **NS_namespace):
@@ -53,7 +54,7 @@ def create_bcs(V, Q, mesh, **NS_namespace):
         def eval(self, values, x):
             try:
                 values[0] = su(x)
-            except:
+            except Exception:
                 values[0] = 0
 
     bc0 = DirichletBC(V, 0, walls)
@@ -64,9 +65,9 @@ def create_bcs(V, Q, mesh, **NS_namespace):
                 u2=[bc0, bc2],
                 p=[DirichletBC(Q, 0, outlet)])
 
-def temporal_hook(u_, mesh, tstep, print_intermediate_info,
-                  plot_interval, **NS_namespace):
 
+def temporal_hook(u_, p_, mesh, tstep, print_intermediate_info,
+                  plot_interval, **NS_namespace):
     if tstep % print_intermediate_info == 0:
         print("Continuity ", assemble(dot(u_, FacetNormal(mesh)) * ds()))
 

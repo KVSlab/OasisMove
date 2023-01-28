@@ -7,6 +7,7 @@ from dolfin import Constant
 
 __all__ = ['nn_setup', 'nn_update']
 
+
 def nn_setup(**NS_namespace):
     return dict(nunn_=Constant(0))
 

@@ -1,4 +1,5 @@
 from __future__ import print_function
+
 __author__ = "Mikael Mortensen <mikaem@math.uio.no>"
 __date__ = "2013-06-25"
 __copyright__ = "Copyright (C) 2013 " + __author__
@@ -6,6 +7,7 @@ __license__ = "GNU Lesser GPL version 3 or any later version"
 
 from ..NSfracStep import *
 from ..Skewed2D import *
+
 
 # Override some problem specific parameters
 def problem_parameters(NS_parameters, **NS_namespace):
@@ -29,6 +31,7 @@ def create_bcs(V, Q, mesh, **NS_namespace):
 
 def pre_solve_hook(mesh, u_, AssignedVectorFunction, **NS_namespace):
     return dict(uv=AssignedVectorFunction(u_, "Velocity"), n=FacetNormal(mesh))
+
 
 def temporal_hook(u_, p_, mesh, tstep, print_intermediate_info,
                   uv, n, plot_interval, **NS_namespace):

@@ -4,7 +4,8 @@ __copyright__ = "Copyright (C) 2014 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
 from dolfin import *
-from oasis.solvers import *
+
+from oasismove.solvers import *
 
 """Define all functions required by coupled solver."""
 __all__ = ["NS_assemble", "NS_solve", "scalar_assemble",
@@ -27,11 +28,14 @@ elements = {
              bubble=False)
 }
 
+
 def NS_assemble(**NS_namespace):
     pass
 
+
 def NS_solve(**NS_namespace):
     pass
+
 
 def get_solvers(**NS_namespace):
     """Return 2 linear solvers.
@@ -44,9 +48,10 @@ def get_solvers(**NS_namespace):
 
     """
     up_sol, c_sol = LUSolver('mumps'), LUSolver('mumps')
-    #up_sol, c_sol = LUSolver('umfpack'), LUSolver('umfpack')
-    #up_sol, c_sol = LUSolver('petsc'), LUSolver('petsc')
+    # up_sol, c_sol = LUSolver('umfpack'), LUSolver('umfpack')
+    # up_sol, c_sol = LUSolver('petsc'), LUSolver('petsc')
     return up_sol, c_sol
+
 
 def print_velocity_pressure_info(iter, error, **NS_namespace):
     if MPI.rank(MPI.comm_world) == 0:

@@ -11,6 +11,8 @@ the implementations of the more complex optimized solvers.
 
 """
 from dolfin import *
+
+
 from ..NSfracStep import *
 from ..NSfracStep import __all__
 
@@ -20,7 +22,7 @@ def setup(u, q_, q_1, uc_comp, u_components, dt, v, U_AB, u_1, u_2, q_2,
           scalar_components, Q, DivFunction, GradFunction, **NS_namespace):
     """Set up all equations to be solved."""
     # Implicit Crank Nicolson velocity at t - dt/2
-    #U_CN = dict((ui, 0.5*(u+q_1[ui])) for ui in uc_comp)
+    # U_CN = dict((ui, 0.5*(u+q_1[ui])) for ui in uc_comp)
 
     F = {}
     Fu = {}
@@ -60,10 +62,7 @@ def setup(u, q_, q_1, uc_comp, u_components, dt, v, U_AB, u_1, u_2, q_2,
              for i, ui in enumerate(u_components)}
 
     # Scalar with SUPG
-    h = CellDiameter(mesh)
-    #vw = v + h*inner(grad(v), u_)
     vw = v
-    n = FacetNormal(mesh)
     U_CN = dict((ui, 0.5 * (u + q_1[ui])) for ui in uc_comp)
     for ci in scalar_components:
         F[ci] = ((1. / dt) * inner(u - q_1[ci], vw) * dx
@@ -71,7 +70,7 @@ def setup(u, q_, q_1, uc_comp, u_components, dt, v, U_AB, u_1, u_2, q_2,
                  + (nu / Schmidt[ci] + nut_ / Schmidt_T[ci])
                  * inner(grad(U_CN[ci]), grad(vw)) * dx
                  - inner(fs[ci], vw) * dx)
-            #-(nu/Schmidt[ci]+nut_/Schmidt_T[ci])*inner(dot(grad(U_CN[ci]), n), vw)*ds
+        # -(nu/Schmidt[ci]+nut_/Schmidt_T[ci])*inner(dot(grad(U_CN[ci]), n), vw)*ds
 
     return dict(F=F, Fu=Fu, Fp=Fp, divu=divu, beta=beta, gradp=gradp)
 

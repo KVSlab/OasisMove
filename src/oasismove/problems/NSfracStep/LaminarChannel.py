@@ -1,12 +1,13 @@
 from __future__ import print_function
+
 __author__ = "Mikael Mortensen <mikaem@math.uio.no>"
 __date__ = "2013-06-25"
 __copyright__ = "Copyright (C) 2013 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
-from ..NSfracStep import *
 from numpy import pi, arctan, array
-#set_log_active(False)
+
+from ..NSfracStep import *
 
 
 # Override some problem specific parameters
@@ -73,8 +74,8 @@ def reference(Re, t, num_terms=100):
     u = 1.0
     c = 1.0
     for n in range(1, 2 * num_terms, 2):
-        a = 32. / (pi**3 * n**3)
-        b = (0.25 / Re) * pi**2 * n**2
+        a = 32. / (pi ** 3 * n ** 3)
+        b = (0.25 / Re) * pi ** 2 * n ** 2
         c = -c
         u += a * exp(-b * t) * c
     return u
@@ -88,5 +89,5 @@ def temporal_hook(tstep, q_, t, Re, L, **NS_namespace):
         u_computed = q_['u0'](array([L, 0.]))
         u_exact = reference(Re, t)
         print("Error = ", (u_exact - u_computed) / u_exact)
-    except:
+    except Exception:
         pass

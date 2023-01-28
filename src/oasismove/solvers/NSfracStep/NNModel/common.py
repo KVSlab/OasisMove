@@ -8,7 +8,6 @@ from dolfin import MeshFunction, DirichletBC, Constant
 
 
 def derived_bcs(V, original_bcs, u_):
-
     new_bcs = []
 
     # Check first if user has declared subdomains

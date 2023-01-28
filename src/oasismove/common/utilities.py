@@ -154,7 +154,7 @@ class OasisFunction(Function):
         """
         Compute the projection
         """
-        timer = Timer("Projecting {}".format(self.name()))
+        Timer("Projecting {}".format(self.name()))
 
         if assemb_rhs:
             self.assemble_rhs()

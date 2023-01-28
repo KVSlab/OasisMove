@@ -4,6 +4,8 @@ __copyright__ = "Copyright (C) 2013 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
 from dolfin import *
+
+
 from ..NSfracStep import *
 from ..NSfracStep import __all__
 
@@ -31,7 +33,7 @@ def setup(u_components, u, v, p, q, u_w, v_w, bcs, les_model, nut_, scalar_compo
     Ap = assemble_matrix(inner(grad(q), grad(p)) * dx, bcs['p'])
 
     # Mesh velocity Laplacian
-    alpha = 1 / CellVolume(mesh)
+    # alpha = 1 / CellVolume(mesh)
     a_mesh = inner(grad(u_w), grad(v_w)) * dx
     A_mesh = Matrix(assemble_matrix(a_mesh))
 
@@ -95,24 +97,24 @@ def get_solvers(use_krylov_solvers, krylov_solvers, krylov_solvers_w, scalar_com
 
     """
     if use_krylov_solvers:
-        ## tentative velocity solver ##
+        # tentative velocity solver
         u_prec = PETScPreconditioner(velocity_krylov_solver['preconditioner_type'])
         u_sol = PETScKrylovSolver(velocity_krylov_solver['solver_type'], u_prec)
         u_sol.parameters.update(krylov_solvers)
 
-        ## pressure solver ##
+        # pressure solver
         p_prec = PETScPreconditioner(pressure_krylov_solver['preconditioner_type'])
         p_sol = PETScKrylovSolver(pressure_krylov_solver['solver_type'], p_prec)
         p_sol.parameters.update(krylov_solvers)
         p_sol.set_reuse_preconditioner(True)
 
-        ## mesh equation solver ##
+        # mesh equation solver
         w_prec = PETScPreconditioner(mesh_velocity_krylov_solver['preconditioner_type'])
         w_sol = PETScKrylovSolver(mesh_velocity_krylov_solver['solver_type'], w_prec)
         w_sol.parameters.update(krylov_solvers_w)
 
         sols = [u_sol, p_sol, w_sol]
-        ## scalar solver ##
+        # scalar solver
         if len(scalar_components) > 0:
             c_prec = PETScPreconditioner(scalar_krylov_solver['preconditioner_type'])
             c_sol = PETScKrylovSolver(scalar_krylov_solver['solver_type'], c_prec)
@@ -121,12 +123,12 @@ def get_solvers(use_krylov_solvers, krylov_solvers, krylov_solvers_w, scalar_com
         else:
             sols.append(None)
     else:
-        ## tentative velocity solver ##
+        # tentative velocity solver
         u_sol = LUSolver()
-        ## pressure solver ##
+        # pressure solver
         p_sol = LUSolver()
         sols = [u_sol, p_sol]
-        ## scalar solver ##
+        # scalar solver
         if len(scalar_components) > 0:
             c_sol = LUSolver()
             sols.append(c_sol)
@@ -145,7 +147,7 @@ def assemble_first_inner_iter(A, a_conv, bw0, bw_tmp, dt, M, scalar_components, 
     reset coefficient matrix for solve.
 
     """
-    t0 = Timer("Assemble first inner iter")
+    Timer("Assemble first inner iter")
     # Update u_ab used as convecting velocity
     for i, ui in enumerate(u_components):
         u_ab[i].vector().zero()
@@ -287,7 +289,7 @@ def scalar_assemble(a_scalar, a_conv, Ta, dt, M, scalar_components, Schmidt_T, K
                     les_model, nn_model, **NS_namespace):
     """Assemble scalar equation."""
     # Just in case you want to use a different scalar convection
-    if not a_scalar is a_conv:
+    if a_scalar is not a_conv:
         assemble(a_scalar, tensor=Ta)
         Ta *= -0.5  # Negative convection on the rhs
         Ta.axpy(1. / dt, M, True)  # Add mass

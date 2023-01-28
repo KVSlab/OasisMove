@@ -33,6 +33,7 @@ problems/NSfracStep/__init__.py for all possible parameters.
 
 """
 import importlib
+
 from oasismove.common import *
 
 commandline_kwargs = parse_command_line()
@@ -44,10 +45,10 @@ problemspec = importlib.util.find_spec('.'.join(('oasis.problems.NSfracStep', pr
 if problemspec is None:
     problemspec = importlib.util.find_spec(problemname)
 if problemspec is None:
-    raise RuntimeError(problemname+' not found')
+    raise RuntimeError(problemname + ' not found')
 
 # Import the problem module
-print('Importing problem module '+problemname+':\n'+problemspec.origin)
+print('Importing problem module ' + problemname + ':\n' + problemspec.origin)
 problemmod = importlib.util.module_from_spec(problemspec)
 problemspec.loader.exec_module(problemmod)
 
@@ -69,7 +70,7 @@ if restart_folder is not None:
 
 # Import chosen functionality from solvers
 solver = importlib.import_module('.'.join(('oasis.solvers.NSfracStep', solver)))
-vars().update({name:solver.__dict__[name] for name in solver.__all__})
+vars().update({name: solver.__dict__[name] for name in solver.__all__})
 
 # Create lists of components solved for
 dim = mesh.geometry().dim()
@@ -97,7 +98,7 @@ VV = dict((ui, V) for ui in uc_comp)
 VV['p'] = Q
 
 # Create dictionaries for the solutions at three timesteps
-q_  = dict((ui, Function(VV[ui], name=ui)) for ui in sys_comp)
+q_ = dict((ui, Function(VV[ui], name=ui)) for ui in sys_comp)
 q_1 = dict((ui, Function(VV[ui], name=ui + "_1")) for ui in sys_comp)
 q_2 = dict((ui, Function(V, name=ui + "_2")) for ui in u_components)
 
@@ -105,26 +106,26 @@ q_2 = dict((ui, Function(V, name=ui + "_2")) for ui in u_components)
 init_from_restart(**vars())
 
 # Create vectors of the segregated velocity components
-u_  = as_vector([q_ [ui] for ui in u_components]) # Velocity vector at t
-u_1 = as_vector([q_1[ui] for ui in u_components]) # Velocity vector at t - dt
-u_2 = as_vector([q_2[ui] for ui in u_components]) # Velocity vector at t - 2*dt
+u_ = as_vector([q_[ui] for ui in u_components])  # Velocity vector at t
+u_1 = as_vector([q_1[ui] for ui in u_components])  # Velocity vector at t - dt
+u_2 = as_vector([q_2[ui] for ui in u_components])  # Velocity vector at t - 2*dt
 
 # Adams Bashforth projection of velocity at t - dt/2
 U_AB = 1.5 * u_1 - 0.5 * u_2
 
 # Create short forms for accessing the solution vectors
-x_ = dict((ui, q_[ui].vector()) for ui in sys_comp)        # Solution vectors t
-x_1 = dict((ui, q_1[ui].vector()) for ui in sys_comp)      # Solution vectors t - dt
+x_ = dict((ui, q_[ui].vector()) for ui in sys_comp)  # Solution vectors t
+x_1 = dict((ui, q_1[ui].vector()) for ui in sys_comp)  # Solution vectors t - dt
 x_2 = dict((ui, q_2[ui].vector()) for ui in u_components)  # Solution vectors t - 2*dt
 
 # Create vectors to hold rhs of equations
-b = dict((ui, Vector(x_[ui])) for ui in sys_comp)      # rhs vectors (final)
+b = dict((ui, Vector(x_[ui])) for ui in sys_comp)  # rhs vectors (final)
 b_tmp = dict((ui, Vector(x_[ui])) for ui in sys_comp)  # rhs temp storage vectors
 
 # Short forms pressure and scalars
-p_ = q_['p']                # pressure at t
-p_1 = q_1['p']              # pressure at t - dt
-dp_ = Function(Q)           # pressure correction
+p_ = q_['p']  # pressure at t
+p_1 = q_1['p']  # pressure at t - dt
+dp_ = Function(Q)  # pressure correction
 for ci in scalar_components:
     exec("{}_   = q_ ['{}']".format(ci, ci))
     exec("{}_1  = q_1['{}']".format(ci, ci))
@@ -138,16 +139,16 @@ vars().update(pre_boundary_condition(**vars()))
 bcs = create_bcs(**vars())
 
 # LES setup
-#exec("from oasis.solvers.NSfracStep.LES.{} import *".format(les_model))
+# exec("from oasis.solvers.NSfracStep.LES.{} import *".format(les_model))
 lesmodel = importlib.import_module('.'.join(('oasis.solvers.NSfracStep.LES', les_model)))
-vars().update({name:lesmodel.__dict__[name] for name in lesmodel.__all__})
+vars().update({name: lesmodel.__dict__[name] for name in lesmodel.__all__})
 
 vars().update(les_setup(**vars()))
 
 # Non-Newtonian setup
-#exec("from oasis.solvers.NSfracStep.NNModel.{} import *".format(nn_model))
+# exec("from oasis.solvers.NSfracStep.NNModel.{} import *".format(nn_model))
 nnmodel = importlib.import_module('.'.join(('oasis.solvers.NSfracStep.NNModel', nn_model)))
-vars().update({name:nnmodel.__dict__[name] for name in nnmodel.__all__})
+vars().update({name: nnmodel.__dict__[name] for name in nnmodel.__all__})
 
 vars().update(nn_setup(**vars()))
 
@@ -159,13 +160,13 @@ u_sol, p_sol, c_sol = get_solvers(**vars())
 
 # Get constant body forces
 f = body_force(**vars())
-assert(isinstance(f, Coefficient))
+assert (isinstance(f, Coefficient))
 b0 = dict((ui, assemble(v * f[i] * dx)) for i, ui in enumerate(u_components))
 
 # Get scalar sources
 fs = scalar_source(**vars())
 for ci in scalar_components:
-    assert(isinstance(fs[ci], Coefficient))
+    assert (isinstance(fs[ci], Coefficient))
     b0[ci] = assemble(v * fs[ci] * dx)
 
 # Preassemble and allocate
@@ -244,7 +245,7 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
     # Print some information
     if tstep % print_intermediate_info == 0:
         toc = tx.stop()
-        info_green( 'Time = {0:2.4e}, timestep = {1:6d}, End time = {2:2.4e}'.format(t, tstep, T))
+        info_green('Time = {0:2.4e}, timestep = {1:6d}, End time = {2:2.4e}'.format(t, tstep, T))
         info_red('Total computing time on previous {0:d} timesteps = {1:f}'.format(
             print_intermediate_info, toc))
         list_timings(TimingClear.clear, [TimingType.wall])

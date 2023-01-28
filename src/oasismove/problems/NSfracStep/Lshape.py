@@ -3,8 +3,10 @@ __date__ = "2013-06-25"
 __copyright__ = "Copyright (C) 2013 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
-from ..NSfracStep import *
 import matplotlib.pyplot as plt
+
+from ..NSfracStep import *
+
 
 # Override some problem specific parameters
 def problem_parameters(NS_parameters, commandline_kwargs, NS_expressions, **NS_namespace):

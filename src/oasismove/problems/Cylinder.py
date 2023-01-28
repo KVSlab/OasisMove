@@ -3,9 +3,10 @@ __date__ = "2014-04-10"
 __copyright__ = "Copyright (C) 2014 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
-from dolfin import Mesh, AutoSubDomain, near
 import os
 import platform
+
+from dolfin import Mesh, AutoSubDomain, near
 
 if not os.path.isfile("cylinder.xml"):
     if platform.system() == "Linux":
@@ -16,12 +17,12 @@ if not os.path.isfile("cylinder.xml"):
         raise ImportError("Could not determine platform")
 
     # try:
-        #os.system("gmsh mesh/cylinder.geo -2 -o mesh/cylinder.msh")
-        #os.system("dolfin-convert mesh/cylinder.msh mesh/cylinder.xml")
-        #os.system("rm mesh/cylinder.msh")
+    # os.system("gmsh mesh/cylinder.geo -2 -o mesh/cylinder.msh")
+    # os.system("dolfin-convert mesh/cylinder.msh mesh/cylinder.xml")
+    # os.system("rm mesh/cylinder.msh")
     # except RuntimeError:
-        #os.system("wget -O cylinder.xml https://www.dropbox.com/s/d78g4cyjxl3ylay/cylinder.xml?dl=0")
-        ##raise "Gmsh is required to run this demo"
+    # os.system("wget -O cylinder.xml https://www.dropbox.com/s/d78g4cyjxl3ylay/cylinder.xml?dl=0")
+    # raise "Gmsh is required to run this demo"
 
 mesh = Mesh("cylinder.xml")
 
@@ -41,7 +42,7 @@ cases = {
 Inlet = AutoSubDomain(lambda x, on_bnd: on_bnd and x[0] < 1e-8)
 Wall = AutoSubDomain(lambda x, on_bnd: on_bnd and near(x[1] * (H - x[1]), 0))
 Cyl = AutoSubDomain(lambda x, on_bnd: (on_bnd and x[0] > 1e-6 and x[0] < 1
-                                      and x[1] < 3 * H / 4 and x[1] > H / 4))
+                                       and x[1] < 3 * H / 4 and x[1] > H / 4))
 Outlet = AutoSubDomain(lambda x, on_bnd: on_bnd and x[0] > L - 1e-8)
 
 

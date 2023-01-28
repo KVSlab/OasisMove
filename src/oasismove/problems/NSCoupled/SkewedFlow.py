@@ -5,6 +5,8 @@ __license__ = "GNU Lesser GPL version 3 or any later version"
 
 from ..NSCoupled import *
 from ..SkewedFlow import *
+
+
 # set_log_active(False)
 
 # Override some problem specific parameters
@@ -38,7 +40,7 @@ def create_bcs(V, VQ, mesh, **NS_namespace):
                 values[0] = su(x)
                 values[1] = 0
                 values[2] = 0
-            except:
+            except Exception:
                 values[:] = 0
 
         def value_shape(self):

@@ -176,16 +176,16 @@ def temporal_hook(t, St, F, A_ratio, tstep, save_step, forces, q_, U, diam, viz_
     f_o = F * f_v  # Frequency of harmonic oscillation
     y_max = A_ratio * diam  # Max displacement (Amplitude)
 
-    # Compute pressure values 
+    # Compute pressure values
     rho = 1000
     dy_current = y_max * np.sin(2 * np.pi * f_o * t)
     try:
         p_0 = q_["p"](-diam / 2, dy_current)
-    except:
+    except KeyError:
         p_0 = 0.0
     try:
         p_180 = q_["p"](diam / 2, dy_current)
-    except:
+    except KeyError:
         p_180 = 0.0
 
     C_pb = 1 + 2 * (p_180 - p_0) / (rho * U ** 2)

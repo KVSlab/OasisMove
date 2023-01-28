@@ -4,6 +4,8 @@ __copyright__ = "Copyright (C) 2014 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
 from dolfin import *
+
+
 from ..NSCoupled import *
 from ..NSCoupled import __all__
 
@@ -15,10 +17,10 @@ def setup(u_, p_, up_, up, u, p, v, q, nu, mesh, c, ct, q_,
     r = Expression("x[1]", domain=mesh, element=CG.ufl_element())
     n = FacetNormal(mesh)
     F_nonlinear = inner(dot(grad(u_), u_), v) * r * dx()
-    F_linear = (nu * inner(grad(u_), grad(v)) * r * dx() + nu * u_[1] * v[1] / r * dx()
-                - inner(p_, (r * v[1]).dx(1) + r * v[0].dx(0)) * dx()
-                - inner(q, (r * u_[1]).dx(1) + r * u_[0].dx(0)) * dx()
-                + nu * inner(grad(u_).T, grad(v)) * r * dx())
+    F_linear = (nu * inner(grad(u_), grad(v)) * r * dx() + nu * u_[1] * v[1] / r * dx() -
+                inner(p_, (r * v[1]).dx(1) + r * v[0].dx(0)) * dx() -
+                inner(q, (r * u_[1]).dx(1) + r * u_[0].dx(0)) * dx() +
+                nu * inner(grad(u_).T, grad(v)) * r * dx())
     #   - nu*inner(dot(grad(u_).T, n), v)*ds()
 
     F = F_linear + F_nonlinear
@@ -37,9 +39,9 @@ def setup(u_, p_, up_, up, u, p, v, q, nu, mesh, c, ct, q_,
     n = FacetNormal(mesh)
     for ci in scalar_components:
         Fs[ci] = (inner(dot(grad(q_[ci]), u_), vw) * dx
-                + nu / Schmidt[ci] * inner(grad(q_[ci]), grad(vw)) * r * dx
-                - inner(fs[ci], vw) * r * dx
-                - nu / Schmidt[ci] * inner(dot(grad(q_[ci]), n), vw) * r * ds)
+                  + nu / Schmidt[ci] * inner(grad(q_[ci]), grad(vw)) * r * dx
+                  - inner(fs[ci], vw) * r * dx
+                  - nu / Schmidt[ci] * inner(dot(grad(q_[ci]), n), vw) * r * ds)
         Js[ci] = derivative(Fs[ci], q_[ci], c)
         Ac[ci] = Matrix()
 

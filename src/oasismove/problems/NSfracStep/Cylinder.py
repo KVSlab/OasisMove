@@ -1,14 +1,18 @@
 from __future__ import print_function
+
 __author__ = "Mikael Mortensen <mikaem@math.uio.no>"
 __date__ = "2014-03-21"
 __copyright__ = "Copyright (C) 2014 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
-from ..NSfracStep import *
-from ..Cylinder import *
-from os import getcwd
 import pickle
+from os import getcwd
+
 import matplotlib.pyplot as plt
+
+from ..Cylinder import *
+from ..NSfracStep import *
+
 
 def problem_parameters(commandline_kwargs, NS_parameters, scalar_components,
                        Schmidt, **NS_namespace):
@@ -38,6 +42,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, scalar_components,
 
     scalar_components.append("alfa")
     Schmidt["alfa"] = 0.1
+
 
 def create_bcs(V, Q, Um, H, **NS_namespace):
     inlet = Expression(
@@ -70,12 +75,13 @@ def pre_solve_hook(mesh, V, newfolder, tstepfiles, tstep, ds, u_,
     omega = Function(V, name='omega')
     # Store omega each save_step
     add_function_to_tstepfiles(omega, newfolder, tstepfiles, tstep)
-    ff = MeshFunction("size_t", mesh, mesh.ufl_cell().geometric_dimension()-1)
+    ff = MeshFunction("size_t", mesh, mesh.ufl_cell().geometric_dimension() - 1)
     Cyl.mark(ff, 1)
     n = FacetNormal(mesh)
     ds = ds[ff]
 
     return dict(uv=uv, omega=omega, ds=ds, ff=ff, n=n)
+
 
 def temporal_hook(q_, u_, tstep, V, uv, p_, plot_interval, omega, ds,
                   save_step, mesh, nu, Umean, D, n, **NS_namespace):
@@ -92,7 +98,7 @@ def temporal_hook(q_, u_, tstep, V, uv, p_, plot_interval, omega, ds,
     R = VectorFunctionSpace(mesh, 'R', 0)
     c = TestFunction(R)
     tau = -p_ * Identity(2) + nu * (grad(u_) + grad(u_).T)
-    forces = assemble(dot(dot(tau, n), c) * ds(1)).get_local() * 2 / Umean**2 / D
+    forces = assemble(dot(dot(tau, n), c) * ds(1)).get_local() * 2 / Umean ** 2 / D
 
     print("Cd = {}, CL = {}".format(*forces))
 
@@ -100,9 +106,10 @@ def temporal_hook(q_, u_, tstep, V, uv, p_, plot_interval, omega, ds,
         try:
             from fenicstools import StreamFunction
             omega.assign(StreamFunction(u_, []))
-        except:
+        except Exception:
             omega.assign(project(curl(u_), V, solver_type='cg',
                                  bcs=[DirichletBC(V, 0, DomainBoundary())]))
+
 
 def theend_hook(q_, u_, p_, uv, mesh, ds, V, nu, Umean, D, **NS_namespace):
     uv()
@@ -112,11 +119,11 @@ def theend_hook(q_, u_, p_, uv, mesh, ds, V, nu, Umean, D, **NS_namespace):
     R = VectorFunctionSpace(mesh, 'R', 0)
     c = TestFunction(R)
     tau = -p_ * Identity(2) + nu * (grad(u_) + grad(u_).T)
-    ff = MeshFunction("size_t", mesh, mesh.ufl_cell().geometric_dimension()-1)
+    ff = MeshFunction("size_t", mesh, mesh.ufl_cell().geometric_dimension() - 1)
     Cyl.mark(ff, 1)
     n = FacetNormal(mesh)
     ds = ds[ff]
-    forces = assemble(dot(dot(tau, n), c) * ds(1)).get_local() * 2 / Umean**2 / D
+    forces = assemble(dot(dot(tau, n), c) * ds(1)).get_local() * 2 / Umean ** 2 / D
 
     print("Cd = {}, CL = {}".format(*forces))
 

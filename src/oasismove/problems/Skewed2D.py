@@ -3,8 +3,9 @@ __date__ = "2014-04-10"
 __copyright__ = "Copyright (C) 2014 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
-from dolfin import Mesh
 import os
+
+from dolfin import Mesh
 
 if not os.path.isfile("mesh/Skewed2D.xml"):
     try:
@@ -31,4 +32,6 @@ def outlet(x, on_bnd):
 
 
 def walls(x, on_bnd):
-    return on_bnd and (x[1] < tol or x[1] > 1 - tol or (x[1] > 0.2 - tol and x[0] < 0.5) or (x[1] < 0.8 + tol and x[0] > 0.5))
+    return on_bnd and (x[1] < tol or x[1] > 1 - tol
+                       or (x[1] > 0.2 - tol and x[0] < 0.5)
+                       or (x[1] < 0.8 + tol and x[0] > 0.5))
