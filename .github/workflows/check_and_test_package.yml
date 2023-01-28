@@ -47,7 +47,7 @@ jobs:
             label: osx-64
             prefix: /Users/runner/miniconda3/envs/oasismove
 
-    name: Test VaMPy on ${{ matrix.label }}
+    name: Test OasisMove on ${{ matrix.label }}
     runs-on: ${{ matrix.os }}
 
     # https://github.com/marketplace/actions/setup-miniconda#use-a-default-shell
@@ -88,7 +88,7 @@ jobs:
         run: mamba env update -n oasismove -f environment.yml
         if: steps.cache.outputs.cache-hit != 'true'
 
-      - name: Install VaMPy
+      - name: Install OasisMove
         run: python3 -m pip install .[test]
 
       - name: Run tests
