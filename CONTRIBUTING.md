@@ -1,56 +1,121 @@
-# Contributing
+# Contributing to OasisMove
 
-Contributions are welcome, and they are greatly appreciated! Every little bit
-helps, and credit will always be given. You can contribute in the ways listed below.
+When contributing to this repository, please first discuss the change you wish to make via issue,
+email, or any other method with the owners of this repository before making a change. 
 
-## Report Bugs
+### Testing 
 
-Report bugs using GitHub issues.
+Please provide unit tests for the new code you create, testing the main functionality or feature to be submitted. We can always use more test coverage! 
 
-If you are reporting a bug, please include:
+### Submitting changes
 
-* Your operating system name and version.
-* Any details about your local setup that might be helpful in troubleshooting.
-* Detailed steps to reproduce the bug.
+In order to submit you changes, please send a [GitHub Pull Request to OasisMove](https://github.com/KVSlab/OasisMove/pull/new/master) with a clear list of what you've done (read more about [pull requests](http://help.github.com/pull-requests/)). Please follow our coding conventions (below) and make sure all of your commits are atomic (one feature per commit).
 
-## Fix Bugs
+Always write a clear commit message when submitting your changes. One-line messages are fine for small changes, but bigger changes should look like this:
 
-Look through the GitHub issues for bugs. Anything tagged with "bug" and "help
-wanted" is open to whoever wants to implement it.
+    > $ git commit -m "A brief summary of the commit
+    > 
+    > A paragraph describing what changed and its impact."
 
-## Implement Features
+### Coding conventions
 
-Look through the GitHub issues for features. Anything tagged with "enhancement"
-and "help wanted" is open to whoever wants to implement it.
+#### Formatting 
+  * Avoid inline comments.
+  * Break long lines after 120 characters.
+  * Delete trailing whitespace.
+  * Don't include spaces after `(`, `[` or before `]`, `)`.
+  * Don't misspell.
+  * Use 4 space indentation.
+  * Use an empty line between methods.
+  * Use spaces around operators, except for unary operators, such as `!`.
+  * Use spaces after commas, after colons and semicolons, around `{` and before
+  `}`.
 
-## Write Documentation
+#### Naming
+  * Avoid abbreviations.
+  * Use snake case for variables and methods.
+  * Use camel case for classes.
+  * Name variables, methods, and classes to reveal intent.
 
-OasisMove could always use more documentation, whether as part of the
-official OasisMove docs, in docstrings, or even on the web in blog posts,
-articles, and such.
+#### Organization
+  * Order methods so that caller methods are earlier in the file than the methods
+  they call.
+  * Place methods receiving command line arguments at the bottom of the file, but above the top-level script environment check.
+  * Separate local and global imports of modules.
 
-## Submit Feedback
+### Code of Conduct
 
-The best way to send feedback is to file an issue on GitHub.
+### Our Pledge
 
-If you are proposing a feature:
+In the interest of fostering an open and welcoming environment, we as
+contributors and maintainers pledge to making participation in our project and
+our community a harassment-free experience for everyone, regardless of age, body
+size, disability, ethnicity, sex characteristics, gender identity and expression,
+level of experience, education, socio-economic status, nationality, personal
+appearance, race, religion, or sexual identity and orientation.
 
-* Explain in detail how it would work.
-* Keep the scope as narrow as possible, to make it easier to implement.
-* Remember that this is a volunteer-driven project, and that contributions
-  are welcome :)
+### Our Standards
 
-## Get Started
+Examples of behavior that contributes to creating a positive environment
+include:
 
-Ready to contribute? Here's how to set up `OasisMove` for local development.
+  * Using welcoming and inclusive language
+  * Being respectful of differing viewpoints and experiences
+  * Gracefully accepting constructive criticism
+  * Focusing on what is best for the community
+  * Showing empathy towards other community members
 
-1. Fork the repo on GitHub.
-2. Clone your fork locally.
-3. Install your local copy into a virtualenv, e.g., using `conda`.
-4. Create a branch for local development and make changes locally.
-5. Commit your changes and push your branch to GitHub.
-6. Submit a pull request through the GitHub website.
+Examples of unacceptable behavior by participants include:
 
-## Code of Conduct
+  * The use of sexualized language or imagery and unwelcome sexual attention or
+  advances
+  * Trolling, insulting/derogatory comments, and personal or political attacks
+  * Public or private harassment
+  * Publishing others' private information, such as a physical or electronic
+  address, without explicit permission
+  * Other conduct which could reasonably be considered inappropriate in a
+  professional setting
 
-Please note that the OasisMove project is released with a [Contributor Code of Conduct](CONDUCT.md). By contributing to this project you agree to abide by its terms.
+### Our Responsibilities
+
+Project maintainers are responsible for clarifying the standards of acceptable
+behavior and are expected to take appropriate and fair corrective action in
+response to any instances of unacceptable behavior.
+
+Project maintainers have the right and responsibility to remove, edit, or
+reject comments, commits, code, wiki edits, issues, and other contributions
+that are not aligned to this Code of Conduct, or to ban temporarily or
+permanently any contributor for other behaviors that they deem inappropriate,
+threatening, offensive, or harmful.
+
+### Scope
+
+This Code of Conduct applies both within project spaces and in public spaces
+when an individual is representing the project or its community. Examples of
+representing a project or community include using an official project e-mail
+address, posting via an official social media account, or acting as an appointed
+representative at an online or offline event. Representation of a project may be
+further defined and clarified by project maintainers.
+
+### Enforcement
+
+Instances of abusive, harassing, or otherwise unacceptable behavior may be
+reported by contacting the project team at henrik.kjeldsberg@live.no. All
+complaints will be reviewed and investigated and will result in a response that
+is deemed necessary and appropriate to the circumstances. The project team is
+obligated to maintain confidentiality with regard to the reporter of an incident.
+Further details of specific enforcement policies may be posted separately.
+
+Project maintainers who do not follow or enforce the Code of Conduct in good
+faith may face temporary or permanent repercussions as determined by other
+members of the project's leadership.
+
+### Attribution
+
+This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4,
+available at https://www.contributor-covenant.org/version/1/4/code-of-conduct.html
+
+For answers to common questions about this code of conduct, see
+https://www.contributor-covenant.org/faq
+
+[homepage]: https://www.contributor-covenant.org
