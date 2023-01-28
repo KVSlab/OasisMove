@@ -6,7 +6,7 @@
 _________________
 
 <p align="center">
-    <img src="figs/moving_ventricle.gif" width="640" height="315" alt="Left ventricle flow"/>
+    <img src="img/moving_ventricle.gif" width="640" height="315" alt="Left ventricle flow"/>
 </p>
 <p align="center">
     Fluid velocity (left) and mesh deformation (right) of an idealized left ventricle. 
@@ -25,7 +25,7 @@ elements. Although OasisMove was developed with cardiovascular flows in mind, it
 within CFD.
 
 <p align="center">
-    <img src=figs/verification_u_p.png width="630 height="470" alt="Convergence rate analysis"/>
+    <img src=img/verification_u_p.png width="630 height="470" alt="Convergence rate analysis"/>
 </p>
 <p align="center">
     Spatial convergence study of OasisMove performed by varying the characteristic edge length Δx. On the left, the L2 error for the
