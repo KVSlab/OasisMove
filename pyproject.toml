@@ -14,13 +14,9 @@ oasism = "oasismove.run_oasis:main"
 
 [project.optional-dependencies]
 test = [
+    "flake8",
     "pytest",
     "pytest-cov",
-]
-dev = [
-    "pdbpp",
-    "ipython",
-    "flake8",
 ]
 docs = [
     "jupyter-book",
@@ -28,7 +24,6 @@ docs = [
 ]
 all = [
     "oasismove[test]",
-    "oasismove[dev]",
     "oasismove[docs]"
 ]
 
@@ -44,15 +39,3 @@ testpaths = [
     "tests"
 ]
 
-[tool.mypy]
-ignore_missing_imports = true
-# Folders to exclude
-exclude = [
-    "docs/",
-    "build/"
-]
-# Folder to check with mypy
-files = [
-    "oasis",
-    "tests"
-]
