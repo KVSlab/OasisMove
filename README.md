@@ -16,8 +16,8 @@ _________________
 Description
 -----------
 OasisMove is a high-level/high-performance open-source Navier-Stokes solver for fluid flow in rigid and moving domains
-written in Python/[FEniCS](https://fenicsproject.org/>), and is an extension of the computational fluid dynamics (CFD)
-solver [Oasis](https://github.com/mikaem/Oasis>). In OasisMove the Navier-Stokes equations are expressed in the
+written in Python/[FEniCS](https://fenicsproject.org/), and is an extension of the computational fluid dynamics (CFD)
+solver [Oasis](https://github.com/mikaem/Oasis). In OasisMove the Navier-Stokes equations are expressed in the
 arbitrary Lagrangian-Eulerian formulation, which is suitable for handling moving domains. This moving domain solver has
 undergone rigorous verification and validation, and results have shown that OasisMove follows theoretical convergence
 rates, begin second order accurate in time, and second and third order accurate in space with P1/P1 and P2/P1 finite
