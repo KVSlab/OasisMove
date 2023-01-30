@@ -1,7 +1,6 @@
 import os
 import pickle
 
-from IPython import embed
 from scipy.interpolate import splrep, splev
 
 from oasismove.problems.NSfracStep import *
@@ -10,6 +9,17 @@ from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
 
 def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
+    """
+    Problem file for running CFD simulation in an idealized 3D left ventricle, based on the model presented by
+    Vedula et al.[1] A plug velocity profile is applied at the inlet (mitral valve), and the outlet (aortic valve)
+    is modelled as open wherea pressure condition is applied. Flow rates for the inlet condition is located in the
+    file LV_flowrate.txt. The simulation is run for two cycles (adjustable), where the cardiac cycle is set to 0.9.
+
+    [1] Vedula, V., Fortini, S., Seo, J. H., Querzoli, G., & Mittal, R. (2014). Computational modeling and validation
+    of intraventricular flow in a simple model of the left ventricle. Theoretical and Computational Fluid
+    Dynamics, 28, 589-604.
+    """
+
     if "restart_folder" in commandline_kwargs.keys():
         restart_folder = commandline_kwargs["restart_folder"]
         restart_folder = path.join(os.getcwd(), restart_folder)
@@ -41,7 +51,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
             number_of_cycles=number_of_cycles,
             cardiac_cycle=cardiac_cycle,  # s
             T=cardiac_cycle * number_of_cycles,
-            dt=0.9/500,
+            dt=0.9 / 500,
             nu=nu,  # cm^2/s
             dynamic_mesh=True,
             checkpoint=500,
@@ -68,7 +78,7 @@ def mesh(mesh_path, u_mean, dt, velocity_degree, **NS_namespace):
     dx = mesh.hmin()
     if MPI.rank(MPI.comm_world) == 0:
         print("N_cells/CPU = {} | CFL~{} | dx={} | dt = {} | dofs={}".format(mesh.num_cells(), u_mean * dt / dx, dx, dt,
-                                                                         dofs))
+                                                                             dofs))
     return mesh
 
 
@@ -258,13 +268,11 @@ def temporal_hook(d_mitral, save_flow_metrics_tstep, id_mitral, id_aorta, nu, bo
                   save_step_problem, u_vec, viz_files, t, tstep, u_, id_wall, save_step_problem_h5, NS_parameters,
                   cardiac_cycle, u_mean0, u_mean1, u_mean2, area_outlet, **NS_namespace):
     if tstep % save_step_problem == 0:
-        print("Saving")
         assign(u_vec.sub(0), u_[0])
         assign(u_vec.sub(1), u_[1])
         assign(u_vec.sub(2), u_[2])
 
         viz_files[0].write(u_vec, t)
-        print("Done")
 
     if tstep % save_step_problem_h5 == 0:
         assign(U.sub(0), u_[0])
