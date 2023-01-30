@@ -249,8 +249,8 @@ def pre_solve_hook(mesh, newfolder, V, velocity_degree, u_components, NS_express
                 u_mean2=u_mean2, U=U)
 
 
-# def velocity_tentative_hook(mesh, boundary, u_ab, x_1, b, A, ui, u, v, backflow_facets, backflow_beta, **NS_namespace):
-#     add_backflow_stabilization(A, b, backflow_beta, backflow_facets, boundary, mesh, u, u_ab, ui, v, x_1)
+def velocity_tentative_hook(mesh, boundary, u_ab, x_1, b, A, ui, u, v, backflow_facets, backflow_beta, **NS_namespace):
+    add_backflow_stabilization(A, b, backflow_beta, backflow_facets, boundary, mesh, u, u_ab, ui, v, x_1)
 
 
 def update_boundary_conditions(t, u_components, NS_expressions, tstep, **NS_namespace):
