@@ -1,6 +1,7 @@
 import os
 import pickle
 
+from IPython import embed
 from scipy.interpolate import splrep, splev
 
 from oasismove.problems.NSfracStep import *
@@ -22,7 +23,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
         u_mean = 15.516
         nu = 0.00191
         cardiac_cycle = 0.9
-        number_of_cycles = 5
+        number_of_cycles = 1
         Re_computed = u_mean * d_mitral / nu
         if MPI.rank(MPI.comm_world) == 0:
             print("Real RE={} | Computed RE={}".format(Re, Re_computed))
@@ -40,7 +41,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
             number_of_cycles=number_of_cycles,
             cardiac_cycle=cardiac_cycle,  # s
             T=cardiac_cycle * number_of_cycles,
-            dt=0.001,
+            dt=0.9/500,
             nu=nu,  # cm^2/s
             dynamic_mesh=True,
             checkpoint=500,
@@ -75,8 +76,6 @@ def pre_boundary_condition(mesh, id_aorta, id_mitral, **NS_namespace):
     # Variables needed during the simulation
     D = mesh.geometry().dim()
     boundary = MeshFunction("size_t", mesh, mesh.geometry().dim() - 1, mesh.domains())
-    boundary.set_values(boundary.array() + 1)
-
     ds = Measure("ds", domain=mesh, subdomain_data=boundary)
     ds_out = ds(id_aorta)
     ds_in = ds(id_mitral)
@@ -136,13 +135,12 @@ def create_bcs(mesh_path, V, Q, NS_expressions, boundary, area_inlet, id_wall, i
     inlet_mitral = InletPlug(tstep, dt, N, inlet_profile, area_inlet, cardiac_cycle, element=V.ufl_element())
     NS_expressions["inlet_mitral"] = inlet_mitral
 
-    # plot_volume_and_flow_rate(t_m, v_m, dVdt_m)
-    # Zero at aortic valve
+    # Set inlet flow profile at mitral valve
     bc_u_x = DirichletBC(V, 0, boundary, id_mitral)
     bc_u_y = DirichletBC(V, 0, boundary, id_mitral)
     bc_u_z = DirichletBC(V, inlet_mitral, boundary, id_mitral)
 
-    # Pressure at mitral valve
+    # Pressure at aortic valve
     bc_p = DirichletBC(Q, Constant(0.0), boundary, id_aorta)
 
     # Read points for wall surface
@@ -152,16 +150,16 @@ def create_bcs(mesh_path, V, Q, NS_expressions, boundary, area_inlet, id_wall, i
     points = np.load(mesh_path.split(".")[0] + ".np", allow_pickle=True)
 
     # Get mesh motion
-    surface_counter = Surface_counter(points, cardiac_cycle, element=V.ufl_element())
-    bc_tmp = DirichletBC(V, surface_counter, boundary, id_wall)
+    wall_counter = Surface_counter(points, cardiac_cycle, element=V.ufl_element())
+    bc_tmp = DirichletBC(V, wall_counter, boundary, id_wall)
     bc_tmp.apply(x_["u0"])
     x_["u0"].zero()
 
-    counter_max = surface_counter.counter
-    motion = surface_counter.get_motion()
+    counter_max = wall_counter.counter
+    motion = wall_counter.get_motion()
 
     # Remove points explicitly from memory.
-    del surface_counter
+    del wall_counter
     del points
 
     # Expressions
@@ -176,7 +174,6 @@ def create_bcs(mesh_path, V, Q, NS_expressions, boundary, area_inlet, id_wall, i
     wall_bc_0 = DirichletBC(V, wall0, boundary, id_wall)
     wall_bc_1 = DirichletBC(V, wall1, boundary, id_wall)
     wall_bc_2 = DirichletBC(V, wall2, boundary, id_wall)
-    print("BCs done")
     return dict(p=[bc_p],
                 u0=[wall_bc_0, bc_u_x],
                 u1=[wall_bc_1, bc_u_y],
@@ -261,11 +258,13 @@ def temporal_hook(d_mitral, save_flow_metrics_tstep, id_mitral, id_aorta, nu, bo
                   save_step_problem, u_vec, viz_files, t, tstep, u_, id_wall, save_step_problem_h5, NS_parameters,
                   cardiac_cycle, u_mean0, u_mean1, u_mean2, area_outlet, **NS_namespace):
     if tstep % save_step_problem == 0:
+        print("Saving")
         assign(u_vec.sub(0), u_[0])
         assign(u_vec.sub(1), u_[1])
         assign(u_vec.sub(2), u_[2])
 
         viz_files[0].write(u_vec, t)
+        print("Done")
 
     if tstep % save_step_problem_h5 == 0:
         assign(U.sub(0), u_[0])
