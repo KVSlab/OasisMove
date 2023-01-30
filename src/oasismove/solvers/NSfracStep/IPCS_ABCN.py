@@ -117,7 +117,7 @@ def get_solvers(use_krylov_solvers, krylov_solvers, bcs,
         p_sol.parameters.update(krylov_solvers)
         p_sol.set_reuse_preconditioner(True)
 
-        sols = [u_sol, p_sol]
+        sols = [u_sol, p_sol, None]
         # scalar solver
         if len(scalar_components) > 0:
             c_prec = PETScPreconditioner(scalar_krylov_solver['preconditioner_type'])
