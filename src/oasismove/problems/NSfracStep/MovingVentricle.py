@@ -2,9 +2,9 @@ import os
 import pickle
 
 from scipy.interpolate import splrep, splev
+from scipy.spatial import distance
 
 from oasismove.problems.NSfracStep import *
-from oasismove.problems.NSfracStep.MovingAtriumCommon import Surface_counter
 from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
 
@@ -19,7 +19,6 @@ def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
     of intraventricular flow in a simple model of the left ventricle. Theoretical and Computational Fluid
     Dynamics, 28, 589-604.
     """
-
     if "restart_folder" in commandline_kwargs.keys():
         restart_folder = commandline_kwargs["restart_folder"]
         restart_folder = path.join(os.getcwd(), restart_folder)
@@ -55,7 +54,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
             nu=nu,  # cm^2/s
             dynamic_mesh=True,
             checkpoint=500,
-            save_step_problem=1,
+            save_step_problem=2,
             save_step_problem_h5=20E10,
             save_flow_metrics_tstep=40E10,
             folder="results_moving_ventricle",
@@ -241,7 +240,7 @@ def pre_solve_hook(mesh, newfolder, V, velocity_degree, u_components, NS_express
     u_mean2 = Function(V)
     U = Function(Vv)
 
-    # Tstep when solutions for post processing should start being saved
+    # Tstep when solutions for post-processing should start being saved
     save_solution_at_tstep = 0
 
     return dict(viz_files=viz_files, coordinates=coordinates,
@@ -250,11 +249,11 @@ def pre_solve_hook(mesh, newfolder, V, velocity_degree, u_components, NS_express
                 u_mean2=u_mean2, U=U)
 
 
-def velocity_tentative_hook(mesh, boundary, u_ab, x_1, b, A, ui, u, v, backflow_facets, backflow_beta, **NS_namespace):
-    add_backflow_stabilization(A, b, backflow_beta, backflow_facets, boundary, mesh, u, u_ab, ui, v, x_1)
+# def velocity_tentative_hook(mesh, boundary, u_ab, x_1, b, A, ui, u, v, backflow_facets, backflow_beta, **NS_namespace):
+#     add_backflow_stabilization(A, b, backflow_beta, backflow_facets, boundary, mesh, u, u_ab, ui, v, x_1)
 
 
-def update_prescribed_motion(t, u_components, NS_expressions, tstep, **NS_namespace):
+def update_boundary_conditions(t, u_components, NS_expressions, tstep, **NS_namespace):
     # Update wall motion BCs
     for i, ui in enumerate(u_components):
         NS_expressions["expressions_wall"][i].t = t
@@ -271,8 +270,9 @@ def temporal_hook(d_mitral, save_flow_metrics_tstep, id_mitral, id_aorta, nu, bo
         assign(u_vec.sub(0), u_[0])
         assign(u_vec.sub(1), u_[1])
         assign(u_vec.sub(2), u_[2])
-
+        print("Saving")
         viz_files[0].write(u_vec, t)
+        print("Saved")
 
     if tstep % save_step_problem_h5 == 0:
         assign(U.sub(0), u_[0])
@@ -315,3 +315,26 @@ def get_file_paths(folder):
     files = {"u": file_u, "u_mean": file_u_mean, "p": file_p, "mesh": file_mesh}
 
     return files
+
+
+class Surface_counter(UserExpression):
+    def __init__(self, points, cycle, **kwargs):
+        self.motion = {}
+        self.counter = -1
+        self.points = points
+        self.time = np.linspace(0, cycle, self.points.shape[-1])
+        super().__init__(**kwargs)
+
+    def get_motion(self):
+        return self.motion
+
+    def eval(self, _, x):
+        self.counter += 1
+        index = distance.cdist([x], self.points[:, :, 0]).argmin()
+
+        s = 2E-5
+        x_ = splrep(self.time, self.points[index, 0, :], s=s, per=True)
+        y_ = splrep(self.time, self.points[index, 1, :], s=s, per=True)
+        z_ = splrep(self.time, self.points[index, 2, :], s=s * 10, per=True)
+
+        self.motion[self.counter] = [x_, y_, z_]
