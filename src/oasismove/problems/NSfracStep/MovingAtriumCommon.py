@@ -1,7 +1,7 @@
 from os import path, makedirs
 
 import numpy as np
-from dolfin import MPI, UserExpression, SpatialCoordinate, assemble, Constant, FacetNormal
+from dolfin import Measure, MPI, UserExpression, SpatialCoordinate, assemble, Constant, FacetNormal
 from scipy.interpolate import splev, splrep
 
 
@@ -156,7 +156,8 @@ def compute_boundary_geometry_acrn(mesh, ind, facet_domains):
     # Adapted from Womersley.py
     # Convenient information about mesh facets
     assert facet_domains is not None
-    dsi = ds(ind, domain=mesh, subdomain_data=facet_domains)
+    ds = Measure("ds", domain=mesh, subdomain_data=facet_domains)
+    dsi = ds(ind)
 
     d = mesh.geometry().dim()
     x = SpatialCoordinate(mesh)
