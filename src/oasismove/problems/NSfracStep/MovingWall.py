@@ -7,20 +7,20 @@ from oasismove.problems.NSfracStep.MovingCommon import get_visualization_files, 
 
 def problem_parameters(NS_parameters, **NS_namespace):
     """
-    Problem file for running CFD simulation for the MovingVortex problem inspired by the problem by Fehn et al.[1],
-    resembling the 2D Taylor-Green vortex. The problem solves the N-S equations in the absence of body forces, with a
-    manufactured velocity solution. The mesh velocity is also described by an analytic displacement field,
-    describing the oscillatory boundary movement.
-    The movement is mainly controlled by the amplitude A, and period length of the mesh motion T_G.
+    Problem file for running CFD simulation for the MovingWall problem inspired by the Wall-induced channel flow
+    presented by Chnafa [1]. The problem considers flow in a long, straight, time-dependent domain, where the flow is
+    induced by a moving wall at y=h(t). The motion is mainly controlled by the pulsation (sigma) and the ampliture
+     of oscillations (eps), with an initial height of h0. The flow has an analytic solution for small Reynolds numbers,
+     and may be used as a validation case.
 
-    [1] Fehn, N., Heinz, J., Wall, W. A., & Kronbichler, M. (2021). High-order arbitrary Lagrangian–Eulerian
-    discontinuousGalerkin methods for the incompressible Navier–Stokes equations.
-    Journal of Computational Physics, 430, 110040.
+    [1] Chnafa, C. (2014). Using image-based large-eddy simulations to investigate the intracardiac flow and its
+    turbulent nature (Doctoral dissertation, Université Montpellier II-Sciences et Techniques du Languedoc).
     """
-
     T = 1.0
-    h0 = 0.001
-    u_max = 0.01
+    h0 = 0.001  # Initial height of wall
+    eps = 0.05  # Amplitude
+    sigma = 2 * np.pi  # Pulsation of the movement
+    u_max = 0.01  #
     NS_parameters.update(
         # Mesh parameters
         scale=25,
@@ -30,8 +30,8 @@ def problem_parameters(NS_parameters, **NS_namespace):
         # Fluid properties
         nu=8 * 10 ** (-7),
         h0=h0,
-        eps=0.05,
-        sigma=2 * np.pi,
+        eps=eps,
+        sigma=sigma,
         # Simulation properties
         T=T,
         dt=0.005,
