@@ -8,7 +8,6 @@ def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
     L = 1.0
     T = 1.0
     T_G = 4 * T
-    T = 4
     dt = 5 * 10 ** (-2)
     A = 0.08  # Amplitude
 
@@ -204,7 +203,7 @@ def update_boundary_conditions(t, dt, NS_expressions, **NS_namespace):
 
 
 def temporal_hook(q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, initial_fields, tstep,
-                  sys_comp, compute_error, total_error, ue_x, ue_y, pe, **NS_namespace):
+                  sys_comp, compute_error, total_error, ue_x, ue_y, pe, testing, **NS_namespace):
     """Function called at end of timestep.
 
     Plot solution and compute error by comparing to analytical solution.
@@ -212,11 +211,12 @@ def temporal_hook(q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, in
 
     """
     # Save solution
-    assign(u_vec.sub(0), q_["u0"])
-    assign(u_vec.sub(1), q_["u1"])
+    if not testing:
+        assign(u_vec.sub(0), q_["u0"])
+        assign(u_vec.sub(1), q_["u1"])
 
-    viz_u.write(u_vec, t)
-    viz_p.write(p_, t)
+        viz_u.write(u_vec, t)
+        viz_p.write(p_, t)
 
     ue_x.t = t
     ue_y.t = t
@@ -256,7 +256,7 @@ def temporal_hook(q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, in
             total_error[i] += error * dt
 
 
-def theend_hook(mesh, q_, t, dt, nu, VV, sys_comp, total_error, initial_fields, **NS_namespace):
+def theend_hook(q_, t, dt, nu, VV, sys_comp, total_error, initial_fields, **NS_namespace):
     final_error = np.zeros(len(sys_comp))
     for i, ui in enumerate(sys_comp):
         if 'IPCS' in NS_parameters['solver'] and ui == "p":
@@ -264,15 +264,11 @@ def theend_hook(mesh, q_, t, dt, nu, VV, sys_comp, total_error, initial_fields, 
         else:
             deltat = 0.
         ue = Expression((initial_fields[ui]),
-                        degree=4,
-                        # element=VV[ui].ufl_element(),
+                        element=VV[ui].ufl_element(),
                         t=t - deltat, nu=nu)
         ue = interpolate(ue, VV[ui])
         final_error[i] = errornorm(q_[ui], ue)
 
-    hmin = mesh.hmin()
-    if MPI.rank(MPI.comm_world) == 0:
-        print("hmin = {}".format(hmin))
     s0 = "Total Error:"
     s1 = "Final Error:"
     for i, ui in enumerate(sys_comp):
