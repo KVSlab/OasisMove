@@ -137,3 +137,5 @@ _build/
 .idea
 .idea/workspace.xml
 
+# Mesh files
+src/oasismove/mesh

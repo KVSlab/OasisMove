@@ -1,25 +1,19 @@
 from pprint import pprint
 
-from .MovingCommon import get_visualization_writers, get_coordinate_map
-from ..NSfracStep import *
+from oasismove.problems.NSfracStep import *
+from oasismove.problems.NSfracStep.MovingCommon import get_coordinate_map, get_visualization_writers
 
 
-# Override some problem specific parameters
-def problem_parameters(NS_parameters, NS_expressions, commandline_kwargs, **NS_namespace):
+def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
     L = 1.0
     T = 1.0
     T_G = 4 * T
     T = 4
     dt = 5 * 10 ** (-2)
     A = 0.08  # Amplitude
-    try:
-        unstructured = commandline_kwargs["umesh"]
-    except KeyError:
-        unstructured = False
 
     NS_parameters.update(
         dynamic_mesh=True,
-        unstructured=unstructured,
         nu=0.025,
         T=T,
         A0=A,
@@ -89,7 +83,6 @@ def create_bcs(V, Q, t, dt, nu, sys_comp, boundary, initial_fields, **NS_namespa
         else:
             deltat = 0.
         ue = Expression((initial_fields[ui]),
-                        # element=VV[ui].ufl_element(),
                         degree=4,
                         t=t - deltat, nu=nu)
         NS_expressions["bc_%s" % ui] = ue
@@ -263,7 +256,7 @@ def temporal_hook(q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, in
             total_error[i] += error * dt
 
 
-def theend_hook(newfolder, mesh, q_, t, dt, nu, VV, sys_comp, total_error, initial_fields, **NS_namespace):
+def theend_hook(mesh, q_, t, dt, nu, VV, sys_comp, total_error, initial_fields, **NS_namespace):
     final_error = np.zeros(len(sys_comp))
     for i, ui in enumerate(sys_comp):
         if 'IPCS' in NS_parameters['solver'] and ui == "p":
@@ -289,16 +282,3 @@ def theend_hook(newfolder, mesh, q_, t, dt, nu, VV, sys_comp, total_error, initi
     if MPI.rank(MPI.comm_world) == 0:
         print(s0)
         print(s1)
-
-    err_u = final_error[0]
-    err_ux = final_error[0]
-    err_uy = final_error[1]
-    err_p = final_error[2]
-    err_p_h = final_error[2]
-
-    # Write errors to file
-    error_array = np.asarray([round(t, 4), err_u, err_ux, err_uy, err_p, err_p_h])
-    error_path = path.join(newfolder, "error_mms.txt")
-    with open(error_path, 'a') as filename:
-        filename.write(
-            f"{error_array[0]} {error_array[1]} {error_array[2]} {error_array[3]} {error_array[4]} {error_array[5]}\n")

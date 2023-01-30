@@ -1,7 +1,7 @@
 from os import path, makedirs
 
 import numpy as np
-from dolfin import *
+from dolfin import MPI, UserExpression, SpatialCoordinate, assemble, Constant, FacetNormal
 from scipy.interpolate import splev, splrep
 
 

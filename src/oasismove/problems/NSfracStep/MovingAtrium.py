@@ -2,9 +2,9 @@ import json
 import pickle
 from pprint import pprint
 
+from oasismove.problems.NSfracStep import *
+from oasismove.problems.NSfracStep.MovingAtriumCommon import *
 from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
-from .MovingAtriumCommon import *
-from ..NSfracStep import *
 
 set_log_level(50)
 
