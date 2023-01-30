@@ -270,9 +270,8 @@ def temporal_hook(d_mitral, save_flow_metrics_tstep, id_mitral, id_aorta, nu, bo
         assign(u_vec.sub(0), u_[0])
         assign(u_vec.sub(1), u_[1])
         assign(u_vec.sub(2), u_[2])
-        print("Saving")
+
         viz_files[0].write(u_vec, t)
-        print("Saved")
 
     if tstep % save_step_problem_h5 == 0:
         assign(U.sub(0), u_[0])
