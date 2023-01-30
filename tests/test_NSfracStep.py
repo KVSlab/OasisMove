@@ -66,7 +66,7 @@ def test_TaylorGreen2D(num_processors, solver):
         slow = "IPCS"
     elif "BDFPC" in solver:
         slow = "BDFPC"
-    if not slow is None:
+    if slow is not None:
         d2 = subprocess.check_output(cmd.format(1, slow), shell=True)
         match2 = re.search("Final Error: u0=" + number +
                            " u1=" + number + " p=" + number, str(d2))
