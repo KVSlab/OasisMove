@@ -39,7 +39,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
             print("Real RE={} | Computed RE={}".format(Re, Re_computed))
         NS_parameters.update(
             # Enable backflow stabilization
-            backflow_facets=[2],
+            backflow_facets=[1],
             backflow_beta=1.0,
             # Mesh parameters
             id_wall=0,
@@ -250,8 +250,8 @@ def pre_solve_hook(mesh, newfolder, V, velocity_degree, u_components, NS_express
                 u_mean2=u_mean2, U=U)
 
 
-# def velocity_tentative_hook(mesh, boundary, u_ab, x_1, b, A, ui, u, v, backflow_facets, backflow_beta, **NS_namespace):
-#     add_backflow_stabilization(A, b, backflow_beta, backflow_facets, boundary, mesh, u, u_ab, ui, v, x_1)
+def velocity_tentative_hook(mesh, boundary, u_ab, x_1, b, A, ui, u, v, backflow_facets, backflow_beta, **NS_namespace):
+    add_backflow_stabilization(A, b, backflow_beta, backflow_facets, boundary, mesh, u, u_ab, ui, v, x_1)
 
 
 def update_prescribed_motion(t, u_components, NS_expressions, tstep, **NS_namespace):
