@@ -6,6 +6,18 @@ from oasismove.problems.NSfracStep.MovingCommon import get_visualization_files, 
 
 
 def problem_parameters(NS_parameters, **NS_namespace):
+    """
+    Problem file for running CFD simulation for the MovingVortex problem inspired by the problem by Fehn et al.[1],
+    resembling the 2D Taylor-Green vortex. The problem solves the N-S equations in the absence of body forces, with a
+    manufactured velocity solution. The mesh velocity is also described by an analytic displacement field,
+    describing the oscillatory boundary movement.
+    The movement is mainly controlled by the amplitude A, and period length of the mesh motion T_G.
+
+    [1] Fehn, N., Heinz, J., Wall, W. A., & Kronbichler, M. (2021). High-order arbitrary Lagrangian–Eulerian
+    discontinuousGalerkin methods for the incompressible Navier–Stokes equations.
+    Journal of Computational Physics, 430, 110040.
+    """
+
     T = 1.0
     h0 = 0.001
     u_max = 0.01

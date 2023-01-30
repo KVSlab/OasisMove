@@ -33,6 +33,7 @@ problems/NSfracStep/__init__.py for all possible parameters.
 
 """
 import importlib
+from pprint import pprint
 
 from oasismove.common import *
 
@@ -56,6 +57,11 @@ vars().update(**vars(problemmod))
 
 # Update problem spesific parameters
 problem_parameters(**vars())
+
+if MPI.rank(MPI.comm_world) == 0:
+    print("=== Starting simulation for {} problem ===".format(problemname))
+    print("Running with the following parameters:")
+    pprint(NS_parameters)
 
 # Update current namespace with NS_parameters and commandline_kwargs ++
 vars().update(post_import_problem(**vars()))

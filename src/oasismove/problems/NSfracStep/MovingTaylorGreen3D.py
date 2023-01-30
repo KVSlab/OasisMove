@@ -3,6 +3,19 @@ from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
 
 def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
+    """
+    Problem file for running CFD simulation for the moving Taylor-Green problem in 3D as described by Fehn et al.[1].
+    The problem solves the N-S equations in the absence of body forces, and is commonly used to study transitional and
+    turbulent flows. The problem initializes the solution at the two previous time steps, and applies periodic boundary
+    condition on the domain walls in all coordinate directions. The domain boundaries are moving for the given mesh
+    motion, but the mesh deformation is defined periodically in order to ensure consistency with the periodic boundary
+    conditions. The main simulation parameters are the ampliture A, and period time duration T_G.
+
+    [1] Fehn, N., Heinz, J., Wall, W. A., & Kronbichler, M. (2021). High-order arbitrary Lagrangian–Eulerian
+    discontinuousGalerkin methods for the incompressible Navier–Stokes equations.
+    Journal of Computational Physics, 430, 110040.
+    """
+
     # Override some problem specific parameters
     T_G = 20
     L = 2 * np.pi
@@ -16,19 +29,18 @@ def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
         L=L,
         A0=A0,
         T_G=T_G,
-
         # Problem params
         nu=nu,
         T=T,
         dt=dt,
-        Nx=40,
-        Ny=40,
-        Nz=40,
+        Nx=32,
+        Ny=32,
+        Nz=32,
         folder="results_moving_taylor_green_3d",
         max_iter=2,
         velocity_degree=1,
         save_step=20E10,
-        save_solution_frequency=2,
+        save_solution_frequency=5,
         dynamic_mesh=True,
         checkpoint=10000,
         plot_interval=100000,
@@ -107,7 +119,7 @@ class PeriodicDomain(SubDomain):
             y[2] = x[2] - 2.0 * pi
 
 
-def pre_solve_hook(V, mesh, A0, T_G, L, t, newfolder, initial_fields_w, velocity_degree, wx_, u_components,
+def pre_solve_hook(V, mesh, A0, T_G, L, t, newfolder, initial_fields_w, velocity_degree, u_components,
                    boundary, NS_expressions,
                    **NS_namespace):
     # Visualization files

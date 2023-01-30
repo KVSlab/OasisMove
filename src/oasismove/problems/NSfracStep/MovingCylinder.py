@@ -1,13 +1,22 @@
 import os
 import pickle
 
-from .MovingCommon import get_visualization_files
-from ..NSfracStep import *
-
-set_log_level(99)
+from oasismove.problems.NSfracStep import *
+from oasismove.problems.NSfracStep.MovingCommon import get_visualization_files
 
 
 def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace):
+    """
+    Problem file for running CFD simulation for the oscillating cylinder in a rectangular 2D domain, as described
+    by Blackburn and Henderson [1].The cylinder is prescribed an oscillatory motion and is placed in a free stream,
+    with a diameter of D cm. The kinetmatic viscosity is computed from the free stream velocity of 1 m/s for a Reynolds
+    number of 500, which is well above the critical value for vortex shedding. Moreover, the oscillation is mainly
+    controlled by the amplitude ratio A_ratio, the Strouhal number St, and the frequency ratio F.
+
+    [1] Blackburn, H. M., & Henderson, R. D. (1999). A study of two-dimensional flow past an oscillating cylinder.
+    Journal of Fluid Mechanics, 385, 255-286.
+    """
+
     if "restart_folder" in commandline_kwargs.keys():
         restart_folder = commandline_kwargs["restart_folder"]
         restart_folder = path.join(os.getcwd(), restart_folder)
@@ -20,9 +29,10 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
         globals().update(NS_parameters)
 
     else:
-        Re = 500
-        D = 0.1
-        U = 1.0
+        T = 5  # End time
+        Re = 500  # Reynolds number
+        D = 0.1  # Cylinder diameter
+        U = 1.0  # Free stream velocity
         nu = U * D / Re
         NS_parameters.update(
             # Geometrical parameters
@@ -32,13 +42,11 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             A_ratio=0.25,  # Amplitude ratio
             St=0.2280,  # Strouhal number
             F=1.0,  # Frequency ratio
-
             # Simulation parameters
-            T=6,
-            # dt=0.00025,
+            T=T,
             dt=0.000125,
-            checkpoint=1000,
-            save_step=5,
+            checkpoint=500,
+            save_solution_frequency=5,
             print_intermediate_info=100,
             velocity_degree=1,
             pressure_degree=1,
@@ -91,7 +99,7 @@ def create_bcs(V, Q, U, St, F, diam, A_ratio, sys_comp, boundary, NS_expressions
     f_o = F * f_v  # Frequency of harmonic oscillation
     y_max = A_ratio * diam  # Max displacement (Amplitude)
     print("Frequency is %.4f" % f_o)
-    print("Amplitude %.4f " % y_max)
+    print("Amplitude is %.4f " % y_max)
 
     NS_expressions["circle_x"] = Constant(0)
     NS_expressions["circle_y"] = Expression('2 * pi * f_o * y_max* cos(2 * pi * f_o * t)', degree=2, t=0, y_max=y_max,
@@ -158,16 +166,18 @@ def update_boundary_conditions(t, NS_expressions, **NS_namespace):
     NS_expressions["circle_y"].t = t
 
 
-def temporal_hook(t, St, F, A_ratio, tstep, save_step, forces, q_, U, diam, viz_u, viz_p, u_vec, newfolder,
+def temporal_hook(t, St, F, A_ratio, tstep, save_solution_frequency, forces, q_, U, diam, viz_u, viz_p, u_vec,
+                  newfolder,
                   **NS_namespace):
     # Save fluid velocity and pressure solution
-    if tstep % save_step == 0:
+    if tstep % save_solution_frequency == 0:
         assign(u_vec.sub(0), q_["u0"])
         assign(u_vec.sub(1), q_["u1"])
 
         viz_u.write(u_vec, t)
         viz_p.write(q_["p"], t)
 
+    # Compute drag and lift coefficients
     rho = 1000
     factor = 0.5 * rho * U ** 2 * diam
     Dr = assemble(forces).get_local() * rho  # Times constant fluid density
@@ -179,14 +189,15 @@ def temporal_hook(t, St, F, A_ratio, tstep, save_step, forces, q_, U, diam, viz_
     # Compute pressure values
     rho = 1000
     dy_current = y_max * np.sin(2 * np.pi * f_o * t)
+    p_0 = p_180 = 0
     try:
         p_0 = q_["p"](-diam / 2, dy_current)
     except KeyError:
-        p_0 = 0.0
+        pass
     try:
         p_180 = q_["p"](diam / 2, dy_current)
     except KeyError:
-        p_180 = 0.0
+        pass
 
     C_pb = 1 + 2 * (p_180 - p_0) / (rho * U ** 2)
 

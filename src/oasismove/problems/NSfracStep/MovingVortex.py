@@ -1,10 +1,19 @@
-from pprint import pprint
-
 from oasismove.problems.NSfracStep import *
 from oasismove.problems.NSfracStep.MovingCommon import get_coordinate_map, get_visualization_writers
 
 
 def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
+    """
+    Problem file for running CFD simulation for the MovingVortex problem inspired by the problem by Fehn et al.[1],
+    resembling the 2D Taylor-Green vortex. The problem solves the N-S equations in the absence of body forces, with a
+    manufactured velocity solution. The mesh velocity is also described by an analytic displacement field,
+    describing the oscillatory boundary movement.
+    The movement is mainly controlled by the amplitude A, and period length of the mesh motion T_G.
+
+    [1] Fehn, N., Heinz, J., Wall, W. A., & Kronbichler, M. (2021). High-order arbitrary Lagrangian–Eulerian
+    discontinuousGalerkin methods for the incompressible Navier–Stokes equations.
+    Journal of Computational Physics, 430, 110040.
+    """
     L = 1.0
     T = 1.0
     T_G = 4 * T
@@ -51,13 +60,9 @@ def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
             w1='A*2*pi / T_G * cos(2*pi*t/T_G)*sin(2*pi*(x[0] + L/2)/L)'),
         total_error=np.zeros(3)))
 
-    if MPI.rank(MPI.comm_world) == 0:
-        print("=== Starting simulation for MovingVortex.py ===")
-        print("Running with the following parameters:")
-        pprint(NS_parameters)
-
 
 def mesh(Nx, Ny, L, dt, **params):
+    # Define mesh
     mesh = RectangleMesh(Point(-L / 2, -L / 2), Point(L / 2, L / 2), Nx, Ny)
 
     print("Mesh info: N_cells = {} |  dx={} | dt = {}".format(mesh.num_cells(), mesh.hmin(), dt))
@@ -75,7 +80,7 @@ def pre_boundary_condition(mesh, **NS_namespace):
     return dict(boundary=boundary)
 
 
-def create_bcs(V, Q, t, dt, nu, sys_comp, boundary, initial_fields, **NS_namespace):
+def create_bcs(V, t, dt, nu, sys_comp, boundary, initial_fields, **NS_namespace):
     for i, ui in enumerate(sys_comp):
         if 'IPCS' in NS_parameters['solver']:
             deltat = dt / 2. if ui == 'p' else 0.
@@ -124,6 +129,9 @@ def initialize(q_, q_1, q_2, VV, t, nu, dt, initial_fields, **NS_namespace):
 
 class Walls(UserExpression):
     def __init__(self, t, coor, A, L, T_G, x_hat_map, counter_max, **kwargs):
+        """
+        (User)Expression class for describing the wall motion.
+        """
         self.t = t
         self.map = x_hat_map
         self.max = counter_max
@@ -139,12 +147,9 @@ class Walls(UserExpression):
 
     def eval(self, values, _, **kwargs):
         self.counter += 1
-        if self.coor == 0:
-            values[:] = 2 * np.pi / self.T_G * self.A * np.cos(2 * np.pi * self.t / self.T_G) * sin(
-                2 * np.pi * (self.map[self.counter][1] + self.L / 2) / self.L)
-        else:
-            values[:] = 2 * np.pi / self.T_G * self.A * np.cos(2 * np.pi * self.t / self.T_G) * sin(
-                2 * np.pi * (self.map[self.counter][0] + self.L / 2) / self.L)
+        N = (self.coor + 1) % 2
+        values[:] = 2 * np.pi / self.T_G * self.A * np.cos(2 * np.pi * self.t / self.T_G) * sin(
+            2 * np.pi * (self.map[self.counter][N] + self.L / 2) / self.L)
         if self.counter == self.max:
             self.counter = -1
 

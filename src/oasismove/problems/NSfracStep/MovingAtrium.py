@@ -179,7 +179,7 @@ def create_bcs(NS_expressions, cycle, x_, boundary, V, Q, mesh, mesh_path, id_in
         points = np.load(mesh_path.split(".")[0] + "_points.np", allow_pickle=True)
 
         # Define wall movement
-        wall_counter = Surface_counter(points, cycle, flow_rate_type, element=V.ufl_element())
+        wall_counter = Surface_counter(points, cycle, element=V.ufl_element())
         bc_tmp = DirichletBC(V, wall_counter, boundary, id_wall)
         bc_tmp.apply(x_["u0"])
         x_["u0"].zero()
@@ -188,7 +188,7 @@ def create_bcs(NS_expressions, cycle, x_, boundary, V, Q, mesh, mesh_path, id_in
         wall_motion = wall_counter.get_motion()
 
         # Define outlet movement
-        outlet_counter = Surface_counter(points, cycle, flow_rate_type, element=V.ufl_element())
+        outlet_counter = Surface_counter(points, cycle, element=V.ufl_element())
         bc_tmp = DirichletBC(V, outlet_counter, boundary, id_out[0])
         bc_tmp.apply(x_["u0"])
         x_["u0"].zero()
@@ -208,7 +208,7 @@ def create_bcs(NS_expressions, cycle, x_, boundary, V, Q, mesh, mesh_path, id_in
 
         for i, ID in enumerate(id_in):
             # Define inlet movement
-            inlet_counter = Surface_counter(points, cycle, flow_rate_type, element=V.ufl_element())
+            inlet_counter = Surface_counter(points, cycle, element=V.ufl_element())
             bc_tmp = DirichletBC(V, inlet_counter, boundary, ID)
             bc_tmp.apply(x_["u0"])
             x_["u0"].zero()

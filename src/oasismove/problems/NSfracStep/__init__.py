@@ -29,7 +29,7 @@ NS_parameters.update(
     # Parameters used to tweek output
     plot_interval=10,
     checkpoint=10,  # Overwrite solution in Checkpoint folder each checkpoint
-    save_step=10,  # Store solution each save_step
+    save_step=10e10,  # Store solution each save_step
     restart_folder=None,  # If restarting solution, set the folder holding the solution to start from here
     output_timeseries_as_vector=True,  # Store velocity as vector in Timeseries
 
