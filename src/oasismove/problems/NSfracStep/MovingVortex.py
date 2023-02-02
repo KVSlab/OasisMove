@@ -7,34 +7,33 @@ def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
     Problem file for running CFD simulation for the MovingVortex problem inspired by the problem by Fehn et al.[1],
     resembling the 2D Taylor-Green vortex. The problem solves the N-S equations in the absence of body forces, with a
     manufactured velocity solution. The mesh velocity is also described by an analytic displacement field,
-    describing the oscillatory boundary movement.
-    The movement is mainly controlled by the amplitude A, and period length of the mesh motion T_G.
+    describing the oscillatory boundary movement. The movement is mainly controlled by the amplitude A0,
+    and period length of the mesh motion T_G.
 
     [1] Fehn, N., Heinz, J., Wall, W. A., & Kronbichler, M. (2021). High-order arbitrary Lagrangian–Eulerian
-    discontinuousGalerkin methods for the incompressible Navier–Stokes equations.
+    discontinuous Galerkin methods for the incompressible Navier–Stokes equations.
     Journal of Computational Physics, 430, 110040.
     """
-    L = 1.0
     T = 1.0
-    T_G = 4 * T
-    dt = 5 * 10 ** (-2)
-    A = 0.08  # Amplitude
-
     NS_parameters.update(
-        dynamic_mesh=True,
-        nu=0.025,
-        T=T,
-        A0=A,
-        T_G=T_G,
-        L=L,
-        dt=dt,
-        Nx=20, Ny=20,
+        # Problem specific parameters
+        T=T,  # Simulation time
+        A0=0.08,  # Amplitude
+        T_G=4 * T,  # Period time
+        L=1.0,  # Dimension of domain
+        Nx=20,  # Resolution in x-direction
+        Ny=20,  # Resolution in y-direction
+        # Fluid parameters
+        nu=0.025,  # Kinematic viscosity
+        # Simulation parameters
+        dt=5 * 10 ** (-2),  # Time step
         folder="results_moving_vortex",
         plot_interval=1000,
         save_step=10000,
         checkpoint=10000,
         print_intermediate_info=10000,
         compute_error=1,
+        dynamic_mesh=True,
         use_krylov_solvers=True,
         velocity_degree=1,
         pressure_degree=1,
@@ -65,7 +64,7 @@ def mesh(Nx, Ny, L, dt, **params):
     # Define mesh
     mesh = RectangleMesh(Point(-L / 2, -L / 2), Point(L / 2, L / 2), Nx, Ny)
 
-    print("Mesh info: N_cells = {} |  dx={} | dt = {}".format(mesh.num_cells(), mesh.hmin(), dt))
+    print_mesh_information(mesh, dt, u_mean=1.0, dim=2)
     return mesh
 
 
@@ -163,7 +162,7 @@ def pre_solve_hook(V, mesh, t, nu, L, w_, T_G, A0, newfolder, velocity_degree, u
     pe = Expression(exact_fields['p'], nu=nu, t=t, degree=4)
 
     # Visualization files
-    viz_p, viz_u, viz_ue = get_visualization_writers(newfolder, ["Pressure", "Velocity", "Exact"])
+    viz_p, viz_u, viz_ue = get_visualization_writers(newfolder, ["pressure", "velocity", "velocity_exact"])
 
     # Extract dof map and coordinates
     VV = VectorFunctionSpace(mesh, "CG", velocity_degree)
@@ -207,7 +206,7 @@ def update_boundary_conditions(t, dt, NS_expressions, **NS_namespace):
                 value.t = t - deltat_
 
 
-def temporal_hook(q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, initial_fields, tstep,
+def temporal_hook(u_, q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, initial_fields, tstep,
                   sys_comp, compute_error, total_error, ue_x, ue_y, pe, testing, **NS_namespace):
     """Function called at end of timestep.
 
@@ -217,8 +216,8 @@ def temporal_hook(q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, in
     """
     # Save solution
     if not testing:
-        assign(u_vec.sub(0), q_["u0"])
-        assign(u_vec.sub(1), q_["u1"])
+        assign(u_vec.sub(0), u_[0])
+        assign(u_vec.sub(1), u_[1])
 
         viz_u.write(u_vec, t)
         viz_p.write(p_, t)
@@ -250,7 +249,6 @@ def temporal_hook(q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, in
             elif ui == 'p':
                 ue = pp
                 pp.rename("p", 'p')
-                viz_ue.write(pp, t)
 
             if "u" in ui:
                 ues.append(ue)
@@ -259,6 +257,8 @@ def temporal_hook(q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, in
             error = norm(ue.vector()) / uen
             err[ui] = "{0:2.6e}".format(norm(ue.vector()) / uen)
             total_error[i] += error * dt
+
+        viz_ue.write(ue_vec, t)
 
 
 def theend_hook(q_, t, dt, nu, VV, sys_comp, total_error, initial_fields, **NS_namespace):
