@@ -8,34 +8,28 @@ def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
     The problem solves the N-S equations in the absence of body forces, and is commonly used to study transitional and
     turbulent flows. The problem initializes the solution at the two previous time steps, and applies periodic boundary
     condition on the domain walls in all coordinate directions. The domain boundaries are moving for the given mesh
-    motion, but the mesh deformation is defined periodically in order to ensure consistency with the periodic boundary
+    motion, while the fluid velocity is defined periodically in order to ensure consistency with the periodic boundary
     conditions. The main simulation parameters are the ampliture A, and period time duration T_G.
 
     [1] Fehn, N., Heinz, J., Wall, W. A., & Kronbichler, M. (2021). High-order arbitrary Lagrangian–Eulerian
-    discontinuousGalerkin methods for the incompressible Navier–Stokes equations.
+    discontinuous Galerkin methods for the incompressible Navier–Stokes equations.
     Journal of Computational Physics, 430, 110040.
     """
 
     # Override some problem specific parameters
-    T_G = 20
-    L = 2 * np.pi
-    A0 = np.pi / 6
-    Re = 1600
-    nu = 1 / Re
-    dt = 0.005
-    T = 5
     recursive_update(NS_parameters, dict(
-        # Mesh params
-        L=L,
-        A0=A0,
-        T_G=T_G,
-        # Problem params
-        nu=nu,
-        T=T,
-        dt=dt,
-        Nx=32,
-        Ny=32,
-        Nz=32,
+        # Problem specific parameters
+        L=2 * np.pi,  # Mesh size
+        A0=np.pi / 6,  # Amplitude
+        T_G=20,  # Period time
+        # Fluid parameters
+        Re=1600,
+        # Simulation parameters
+        T=5,  # End time
+        dt=0.005,  # Time step
+        Nx=32,  # Resolution in the x-direction
+        Ny=32,  # Resolution in the y-direction
+        Nz=32,  # Resolution in the z-direction
         folder="results_moving_taylor_green_3d",
         max_iter=2,
         velocity_degree=1,
@@ -61,9 +55,10 @@ def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
             p='1./16.*(cos(2*x[0])+cos(2*x[1]))*(cos(2*x[2])+2)')))
 
 
-def mesh(Nx, Ny, Nz, L, **params):
+def mesh(Nx, Ny, Nz, L, dt, **params):
     mesh = BoxMesh(Point(-L / 2, -L / 2, -L / 2), Point(L / 2, L / 2, L / 2), Nx, Ny, Nz)
-    print_mesh_information(mesh)
+
+    print_mesh_information(mesh, dt, u_mean=1)
     return mesh
 
 
@@ -71,7 +66,7 @@ def near(x, y, tol=1e-12):
     return bool(abs(x - y) < tol)
 
 
-def pre_boundary_condition(mesh, L, **NS_namespace):
+def pre_boundary_condition(mesh, L, Re, **NS_namespace):
     # Mark geometry
     boundary = MeshFunction("size_t", mesh, mesh.topology().dim() - 1)
     boundary.set_all(0)
@@ -79,7 +74,9 @@ def pre_boundary_condition(mesh, L, **NS_namespace):
     inlet = AutoSubDomain(lambda x, b: b)
     inlet.mark(boundary, 1)
 
-    return dict(boundary=boundary)
+    # Update viscosity
+    nu = 1 / Re
+    return dict(boundary=boundary, nu=nu)
 
 
 class PeriodicDomain(SubDomain):
@@ -172,11 +169,11 @@ def update_boundary_conditions(t, NS_expressions, **NS_namespace):
             value.t = t
 
 
-def temporal_hook(q_, save_solution_frequency, u_vec, viz_u, tstep, t, **NS_namespace):
+def temporal_hook(u_, save_solution_frequency, u_vec, viz_u, tstep, t, **NS_namespace):
     # Save velocity and pressure
     if tstep % save_solution_frequency == 0:
-        assign(u_vec.sub(0), q_["u0"])
-        assign(u_vec.sub(1), q_["u1"])
-        assign(u_vec.sub(2), q_["u2"])
+        assign(u_vec.sub(0), u_[0])
+        assign(u_vec.sub(1), u_[1])
+        assign(u_vec.sub(2), u_[2])
 
         viz_u.write(u_vec, t)
