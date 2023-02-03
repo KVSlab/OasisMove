@@ -43,17 +43,18 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             # Simulation parameters
             T=5,  # End time
             dt=0.000125,  # Time step
-            checkpoint=100,
-            save_solution_frequency=5,
-            print_intermediate_info=100,
-            dynamic_mesh=True,
-            velocity_degree=1,
-            pressure_degree=1,
             mesh_path=commandline_kwargs["mesh_path"],
             folder="results_moving_cylinder",
-            use_krylov_solvers=True,
+            # Oasis paramters
             max_iter=2,
-            max_error=1E-8)
+            dynamic_mesh=True,
+            save_solution_frequency=5,
+            checkpoint=500,
+            print_intermediate_info=100,
+            velocity_degree=1,
+            pressure_degree=1,
+            use_krylov_solvers=True
+        )
 
 
 def mesh(mesh_path, dt, u_inf, **NS_namespace):
@@ -92,8 +93,7 @@ def pre_boundary_condition(D, Re, u_inf, mesh, **NS_namespace):
     return dict(boundary=boundary, nu=nu)
 
 
-def create_bcs(V, Q, D, Re, u_inf, St, F, nu, A_ratio, sys_comp, boundary, NS_parameters, NS_expressions,
-               **NS_namespace):
+def create_bcs(V, Q, D, u_inf, St, F, A_ratio, sys_comp, boundary, NS_expressions, **NS_namespace):
     info_red("Creating boundary conditions")
 
     f_v = St * u_inf / D  # Fixed-cylinder vortex shredding frequency
@@ -170,7 +170,7 @@ def update_boundary_conditions(t, NS_expressions, **NS_namespace):
 
 
 def temporal_hook(t, St, F, A_ratio, tstep, save_solution_frequency, forces, q_, u_inf, D, viz_u, viz_p, u_vec,
-                  newfolder, mesh, p_, nu, u_, boundary, **NS_namespace):
+                  newfolder, p_, u_, **NS_namespace):
     # Save fluid velocity and pressure solution
     if tstep % save_solution_frequency == 0:
         assign(u_vec.sub(0), u_[0])

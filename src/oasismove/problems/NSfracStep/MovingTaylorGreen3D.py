@@ -31,13 +31,14 @@ def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
         Ny=32,  # Resolution in the y-direction
         Nz=32,  # Resolution in the z-direction
         folder="results_moving_taylor_green_3d",
+        # Oasis parameters
         max_iter=2,
-        velocity_degree=1,
-        save_step=20E10,
-        save_solution_frequency=5,
         dynamic_mesh=True,
-        checkpoint=10000,
-        plot_interval=100000,
+        save_solution_frequency=5,
+        checkpoint=500,
+        print_intermediate_info=100,
+        velocity_degree=1,
+        pressure_degree=1,
         use_krylov_solvers=True))
 
     NS_expressions.update(dict(
@@ -66,7 +67,7 @@ def near(x, y, tol=1e-12):
     return bool(abs(x - y) < tol)
 
 
-def pre_boundary_condition(mesh, L, Re, **NS_namespace):
+def pre_boundary_condition(mesh, Re, **NS_namespace):
     # Mark geometry
     boundary = MeshFunction("size_t", mesh, mesh.topology().dim() - 1)
     boundary.set_all(0)
@@ -117,8 +118,7 @@ class PeriodicDomain(SubDomain):
 
 
 def pre_solve_hook(V, mesh, A0, T_G, L, t, newfolder, initial_fields_w, velocity_degree, u_components,
-                   boundary, NS_expressions,
-                   **NS_namespace):
+                   boundary, NS_expressions, **NS_namespace):
     # Visualization files
     viz_p, viz_u = get_visualization_writers(newfolder, ["pressure", "velocity"])
 

@@ -17,7 +17,6 @@ def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
     T = 1.0
     NS_parameters.update(
         # Problem specific parameters
-        T=T,  # Simulation time
         A0=0.08,  # Amplitude
         T_G=4 * T,  # Period time
         L=1.0,  # Dimension of domain
@@ -26,25 +25,27 @@ def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
         # Fluid parameters
         nu=0.025,  # Kinematic viscosity
         # Simulation parameters
+        T=T,  # Simulation time
         dt=5 * 10 ** (-2),  # Time step
         folder="results_moving_vortex",
-        plot_interval=1000,
-        save_step=10000,
-        checkpoint=10000,
-        print_intermediate_info=10000,
-        compute_error=1,
+        # Oasis parameters
+        max_iter=2,
         dynamic_mesh=True,
-        use_krylov_solvers=True,
+        save_solution_frequency=5,
+        checkpoint=500,
+        print_intermediate_info=100,
+        compute_error=1,
         velocity_degree=1,
         pressure_degree=1,
-        max_iter=2,
-        krylov_report=False)
+        use_krylov_solvers=True
+    )
 
     NS_parameters['krylov_solvers'] = {'monitor_convergence': False,
                                        'report': False,
                                        'relative_tolerance': 1e-8,
                                        'absolute_tolerance': 1e-8}
 
+    # Define analytical and initial state expressions
     NS_expressions.update(dict(
         exact_fields=dict(
             u0='-sin(2*pi*x[1])*exp(-4*pi*pi*nu*t)',
@@ -207,7 +208,8 @@ def update_boundary_conditions(t, dt, NS_expressions, **NS_namespace):
 
 
 def temporal_hook(u_, q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, initial_fields, tstep,
-                  sys_comp, compute_error, total_error, ue_x, ue_y, pe, testing, **NS_namespace):
+                  save_solution_frequency, sys_comp, compute_error, total_error, ue_x, ue_y, pe, testing,
+                  **NS_namespace):
     """Function called at end of timestep.
 
     Plot solution and compute error by comparing to analytical solution.
@@ -215,7 +217,7 @@ def temporal_hook(u_, q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue
 
     """
     # Save solution
-    if not testing:
+    if not testing and tstep % save_solution_frequency == 0:
         assign(u_vec.sub(0), u_[0])
         assign(u_vec.sub(1), u_[1])
 
