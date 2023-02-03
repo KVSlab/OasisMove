@@ -1,0 +1,722 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Parameters &#8212; OasisMove</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Features and issues" href="features.html" />
+    <link rel="prev" title="Hooks" href="hooks.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">OasisMove</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    OasisMove
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Installation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="installation.html">
+   Installation
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Using OasisMove
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_started.html">
+   Getting started
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="hooks.html">
+   Hooks
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="features.html">
+   Features and issues
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tutorials.html">
+   Tutorials
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="movingwall.html">
+   Wall-driven channel flow
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="movingcylinder.html">
+   Oscillating cylinder in free stream
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="movingvortex.html">
+   Vortex problem with oscillating boundaries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="movingtg.html">
+   Moving 3D Taylor-Green vortex
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Python API
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="api.html">
+   API Reference
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            See more at <a href="https://kvslab.github.io">KVSLab</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://kvslab.github.io/OasisMove/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://kvslab.github.io/OasisMove//issues/new?title=Issue%20on%20page%20%2Fparameters.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/parameters.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview-of-parameters">
+   Overview of parameters
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mesh-parameters">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Mesh
+      </span>
+     </code>
+     parameters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fluid-parameters">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Fluid
+      </span>
+     </code>
+     parameters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simulation-parameters">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Simulation
+      </span>
+     </code>
+     parameters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#oasis-parameters">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Oasis
+      </span>
+     </code>
+     parameters
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#changing-parameters">
+   Changing parameters
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Parameters</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#overview-of-parameters">
+   Overview of parameters
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mesh-parameters">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Mesh
+      </span>
+     </code>
+     parameters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fluid-parameters">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Fluid
+      </span>
+     </code>
+     parameters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simulation-parameters">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Simulation
+      </span>
+     </code>
+     parameters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#oasis-parameters">
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       Oasis
+      </span>
+     </code>
+     parameters
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#changing-parameters">
+   Changing parameters
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="parameters">
+<h1>Parameters<a class="headerlink" href="#parameters" title="Permalink to this headline">#</a></h1>
+<p>Every problem will contain parameters that are both specific to the problem, but also general to Oasis. All parameters
+will be collected in the <code class="docutils literal notranslate"><span class="pre">NS_parameters</span></code> dictionary, and accessible in every OasisMove <a class="reference internal" href="hooks.html#gs-hooks"><span class="std std-ref">hook</span></a>. You can also
+adjust the parameters directly though the command line, by passing them as command line arguments.</p>
+<section id="overview-of-parameters">
+<h2>Overview of parameters<a class="headerlink" href="#overview-of-parameters" title="Permalink to this headline">#</a></h2>
+<p>To get an impression of what parameters you might come accross in the problem files included in OasisMove, we will
+consider the simplest rigid flow problem as an example: the
+default <a class="reference external" href="https://github.com/KVSlab/OasisMove/blob/main/src/oasismove/problems/NSfracStep/DrivenCavity.py">DrivenCavity</a>
+problem. By inspecting the problem file, the parameters are defined in the start of the script:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NS_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+    <span class="c1"># Mesh parameters</span>
+    <span class="n">Nx</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">Ny</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+
+    <span class="c1"># Fluid parameters</span>
+    <span class="n">nu</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+
+    <span class="c1"># Simulation parameters</span>
+    <span class="n">T</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+    <span class="n">dt</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span>
+    <span class="n">folder</span><span class="o">=</span><span class="s2">&quot;results_driven_cavity&quot;</span><span class="p">,</span>
+
+    <span class="c1"># Oasis parameters</span>
+    <span class="n">testing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">dynamic_mesh</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="n">save_solution_frequency</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+    <span class="n">checkpoint</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">print_intermediate_info</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+    <span class="n">velocity_degree</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">pressure_degree</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">use_krylov_solvers</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+<p>In the OasisMove problem files, we distinguish between <code class="docutils literal notranslate"><span class="pre">Mesh</span></code>, <code class="docutils literal notranslate"><span class="pre">Fluid</span></code>, <code class="docutils literal notranslate"><span class="pre">Simulation</span></code>, and <code class="docutils literal notranslate"><span class="pre">Oasis</span></code> parameters. In
+addition, some problems have parameters that are specific for the particular problems. The full dictionary of default
+parameters can be found in the top of the
+in <a class="reference external" href="https://github.com/KVSlab/OasisMove/blob/main/src/oasismove/problems/NSfracStep/__init__.py">problems/NSfracStep/__init__.py</a>
+script.</p>
+<section id="mesh-parameters">
+<h3><code class="docutils literal notranslate"><span class="pre">Mesh</span></code> parameters<a class="headerlink" href="#mesh-parameters" title="Permalink to this headline">#</a></h3>
+<p>Mesh parameters are related to the computational mesh, and typically the resolution. In regard to the <code class="docutils literal notranslate"><span class="pre">DrivenCavity</span></code>
+problem, the mesh parameters are:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Mesh parameters</span>
+<span class="n">Nx</span> <span class="o">=</span> <span class="mi">50</span>
+<span class="n">Ny</span> <span class="o">=</span> <span class="mi">50</span>
+</pre></div>
+</div>
+<p>By adjusting <code class="docutils literal notranslate"><span class="pre">Nx</span></code> and <code class="docutils literal notranslate"><span class="pre">Ny</span></code> we adjust the resolution of the computational domain, which for the <code class="docutils literal notranslate"><span class="pre">DrivenCavity</span></code> problem is
+a 2D unit square mesh consisting of triangular elements. The parameters <code class="docutils literal notranslate"><span class="pre">Nx</span></code> and <code class="docutils literal notranslate"><span class="pre">Ny</span></code> determine the number of uniform
+cell intervals in the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> direction, respectively. These parameters can also be used to compute the totan number
+of triangular cells (in 2D) or tetrehedral cells (in 3D) the computational domain consists of:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+    \text{Number of cells (2D) } &amp;= 2 \times N_x \times N_y \\[0.5em] 
+    \text{Number of cells (3D) } &amp;= 6 \times N_x \times N_y  \times N_z
+\end{align}\end{split}\]</div>
+</section>
+<section id="fluid-parameters">
+<h3><code class="docutils literal notranslate"><span class="pre">Fluid</span></code> parameters<a class="headerlink" href="#fluid-parameters" title="Permalink to this headline">#</a></h3>
+<p>Fluid parameters are related to the fluid properties. In regard to the <code class="docutils literal notranslate"><span class="pre">DrivenCavity</span></code>
+problem, the only fluid parameter is the kinematic viscosity (<span class="math notranslate nohighlight">\(\nu\)</span>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fluid parameters</span>
+<span class="n">nu</span> <span class="o">=</span> <span class="mf">0.001</span>
+</pre></div>
+</div>
+<p>Changing the kinematic viscosity will directly influence the Reynolds number, the ratio between inertial and viscous
+forces defined as:</p>
+<div class="math notranslate nohighlight" id="equation-eq-reynolds">
+<span class="eqno">(1)<a class="headerlink" href="#equation-eq-reynolds" title="Permalink to this equation">#</a></span>\[\begin{align}
+    \text{Re } = \frac{u L}{\nu}, 
+\end{align}\]</div>
+<p>where <span class="math notranslate nohighlight">\(u\)</span> is the flow speed and <span class="math notranslate nohighlight">\(L\)</span> is a characteristic linear dimension.</p>
+</section>
+<section id="simulation-parameters">
+<h3><code class="docutils literal notranslate"><span class="pre">Simulation</span></code> parameters<a class="headerlink" href="#simulation-parameters" title="Permalink to this headline">#</a></h3>
+<p>Simulation parameters are related to the computational fluid dynamics simulation. In regard to the <code class="docutils literal notranslate"><span class="pre">DrivenCavity</span></code>
+problem, the simulation parameters are:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Simulation parameters</span>
+<span class="n">T</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">0.005</span>
+<span class="n">folder</span> <span class="o">=</span> <span class="s2">&quot;results_driven_cavity&quot;</span>
+</pre></div>
+</div>
+<p>Here, <code class="docutils literal notranslate"><span class="pre">T</span></code> is the total simulation time, usually in seconds or milliseconds depending on the application and scale of the
+problem. The number of time steps is controlled by the value of <code class="docutils literal notranslate"><span class="pre">T</span></code>, and the time step size <code class="docutils literal notranslate"><span class="pre">dt</span></code>, which are related as
+follows:</p>
+<div class="math notranslate nohighlight" id="equation-eq-dt">
+<span class="eqno">(2)<a class="headerlink" href="#equation-eq-dt" title="Permalink to this equation">#</a></span>\[\begin{align}
+\text{Number of time steps } = \frac{T}{\Delta t}.
+\end{align}\]</div>
+<p>Hence, for the default <code class="docutils literal notranslate"><span class="pre">DrivenCavity</span></code> problem, the simulation is run for <code class="docutils literal notranslate"><span class="pre">T</span></code> / <code class="docutils literal notranslate"><span class="pre">dt</span></code> = 200 time steps. The <code class="docutils literal notranslate"><span class="pre">folder</span></code>
+parameter determines where the results are saved for the particular problem, and is intentionally different for every
+problem to easier distinguish the results. Also, the <code class="docutils literal notranslate"><span class="pre">**NS_namespace</span></code> parameter <code class="docutils literal notranslate"><span class="pre">newfolder</span></code> is a derivative of
+the <code class="docutils literal notranslate"><span class="pre">folder</span></code> location:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">newfolder = folder/data/[RUN NUMBER]/ </span>
+</pre></div>
+</div>
+<p>and is used to determine where the solution files, which are stored to:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">newfolder/Solutions </span>
+</pre></div>
+</div>
+</section>
+<section id="oasis-parameters">
+<h3><code class="docutils literal notranslate"><span class="pre">Oasis</span></code> parameters<a class="headerlink" href="#oasis-parameters" title="Permalink to this headline">#</a></h3>
+<p>Oasis parameters are miscellaneous parameters related to solver performance, printing simulation info, or parameters
+inherited from classical Oasis. In regard to the <code class="docutils literal notranslate"><span class="pre">DrivenCavity</span></code> problem, the Oasis parameters are:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Oasis parameters</span>
+<span class="n">testing</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">max_iter</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">dynamic_mesh</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">save_solution_frequency</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">checkpoint</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">print_intermediate_info</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">velocity_degree</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">pressure_degree</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">use_krylov_solvers</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">testing</span></code> flag is there to notify the program where or not it is run as a test. The <code class="docutils literal notranslate"><span class="pre">max_iter</span></code> parameter is set to 2
+for all moving domain simulations in order to ensure convergence of velocity and pressure, based on empirical evidence.
+By default <code class="docutils literal notranslate"><span class="pre">dynamic_mesh</span></code> is <code class="docutils literal notranslate"><span class="pre">False</span></code>, and controlls when the mesh equations are solved followed by mesh coordinate
+deformation. The <code class="docutils literal notranslate"><span class="pre">save_solution_frequency</span></code> parameter determines how often the velocity and pressure solution are stored.
+With the proposed value of <code class="docutils literal notranslate"><span class="pre">5</span></code>, the simulation will store the solution every 5th time step. <code class="docutils literal notranslate"><span class="pre">print_intermediate_info</span></code>
+determines the frequency of printing simulation info, here set to every 100 time step. Furthermore,
+the <code class="docutils literal notranslate"><span class="pre">velocity_degree</span></code> and <code class="docutils literal notranslate"><span class="pre">pressure_degree</span></code> parameters determine the finite element polynomial approximation order.
+If <code class="docutils literal notranslate"><span class="pre">use_krylov_solvers</span></code> is <code class="docutils literal notranslate"><span class="pre">True</span></code> the solver will use the PETSc Krylov solver, instead of a standard LU solver.</p>
+</section>
+</section>
+<section id="changing-parameters">
+<h2>Changing parameters<a class="headerlink" href="#changing-parameters" title="Permalink to this headline">#</a></h2>
+<p>Parameters can either be changed directly in the Python problem file, or directly though the command line, by passing
+them as command line arguments. For instance, if we want to increase the mesh resolution and extend the simulation end
+time to <span class="math notranslate nohighlight">\(T=20\)</span> for the <code class="docutils literal notranslate"><span class="pre">DrivenCavity</span></code> problem, you can execute the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>DrivenCavity<span class="w"> </span><span class="nv">Nx</span><span class="o">=</span><span class="m">100</span><span class="w"> </span><span class="nv">Ny</span><span class="o">=</span><span class="m">100</span><span class="w"> </span><span class="nv">T</span><span class="o">=</span><span class="m">20</span><span class="w">  </span>
+</pre></div>
+</div>
+<p>Similarly, you can change any of parameters mention here, the ones listed in
+the <a class="reference external" href="https://github.com/KVSlab/OasisMove/blob/main/src/oasismove/problems/NSfracStep/__init__.py">problems/NSfracStep/__init__.py</a>
+script, or that are specified in the Python problem script.</p>
+<span class="target" id="id1"></span></section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="hooks.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Hooks</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="features.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Features and issues</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Henrik A. Kjeldsberg<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

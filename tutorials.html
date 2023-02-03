@@ -50,11 +50,9 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API Reference" href="api.html" />
+    <link rel="next" title="Wall-driven channel flow" href="movingwall.html" />
     <link rel="prev" title="Features and issues" href="features.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -126,6 +124,28 @@ const thebe_selector_output = ".output, .cell_output"
    Installation
   </a>
  </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Using OasisMove
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_started.html">
+   Getting started
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="hooks.html">
+   Hooks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="parameters.html">
+   Parameters
+  </a>
+ </li>
  <li class="toctree-l1">
   <a class="reference internal" href="features.html">
    Features and issues
@@ -141,6 +161,26 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Tutorials
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="movingwall.html">
+   Wall-driven channel flow
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="movingcylinder.html">
+   Oscillating cylinder in free stream
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="movingvortex.html">
+   Vortex problem with oscillating boundaries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="movingtg.html">
+   Moving 3D Taylor-Green vortex
   </a>
  </li>
 </ul>
@@ -333,8 +373,8 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-moving-vortex-problem">
-   The Moving Vortex problem
+  <a class="reference internal nav-link" href="#link-to-tutorials">
+   Link to tutorials
   </a>
  </li>
 </ul>
@@ -357,8 +397,8 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-moving-vortex-problem">
-   The Moving Vortex problem
+  <a class="reference internal nav-link" href="#link-to-tutorials">
+   Link to tutorials
   </a>
  </li>
 </ul>
@@ -373,57 +413,23 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="tutorials">
 <h1>Tutorials<a class="headerlink" href="#tutorials" title="Permalink to this headline">#</a></h1>
-<p>Running simulations in OasisMove is performed using a solver based on a incremental pressure correction scheme, as
-presented in <span id="id1">[<a class="reference internal" href="#id3" title="JC Simo and F Armero. Unconditional stability and long-term behavior of transient algorithms for the incompressible navier-stokes and euler equations. Computer Methods in Applied Mechanics and Engineering, 111(1-2):111–154, 1994.">SA94</a>]</span>. The solver is intended for transient flows in moving domains, and
-implemented in the <a class="reference external" href="https://github.com/KVSlab/OasisMove/blob/master/oasis/NSCoupled.py">NSfracStepMove.py</a> Python file.
-Problems are solved by running <code class="docutils literal notranslate"><span class="pre">NSfracStepMove</span></code>, or by using
-the <a class="reference external" href="https://github.com/KVSlab/OasisMove/blob/master/oasis/run_oasis.py">oasism</a> executable. A problem keyword is
-required plus any other recognized parameters.</p>
-<section id="the-moving-vortex-problem">
-<h2>The Moving Vortex problem<a class="headerlink" href="#the-moving-vortex-problem" title="Permalink to this headline">#</a></h2>
-<p>To demonstrate how to run problems with OasisMove, we will consider a two-dimensional moving vortex problem inspired by
-the Taylor-Green vortex problem (
-see <a class="reference external" href="https://github.com/KVSlab/OasisMove/blob/master/oasis/problems/NSfracStep/MovingVortex.py">problems/NSfracStep/MovingVortex.py</a>
-. The problem has an analytical solution of the two-dimensional incompressible Navier–Stokes equations in the absence of
-body forces, <span class="math notranslate nohighlight">\(\mathbf{f} = 0\)</span>`, namely</p>
-<div class="math notranslate nohighlight" id="equation-eq-vortex">
-<span class="eqno">(1)<a class="headerlink" href="#equation-eq-vortex" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{align}
-    \mathbf u(\mathbf x,t) &amp;= (-\sin (2\pi  x_2), \sin(2\pi x_1))e^{-4\nu \pi^2 t}\\
-    p(\mathbf x,t) &amp;= -\cos(2\pi x_1)\cos(2\pi x_2)e^{-8\nu \pi^2 t}
-\end{align}\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf x = (x_1, x_2)\)</span> are the Euclidean coordinates, and <span class="math notranslate nohighlight">\(\nu = 0.025\)</span> <span class="math notranslate nohighlight">\(\text{m}^2\)</span>/s. Furthermore, the mesh
-velocity <span class="math notranslate nohighlight">\(\mathbf w\)</span> is determined by the following displacement field:</p>
-<div class="math notranslate nohighlight" id="equation-eq-vortex-d">
-<span class="eqno">(2)<a class="headerlink" href="#equation-eq-vortex-d" title="Permalink to this equation">#</a></span>\[\begin{split}    \begin{align}
-    \mathbf x(\mathbf \chi,t) &amp;= \mathbf \chi + A \sin \left(\frac{2 \pi t}{T_G}\right) \left(\sin\left(2\pi \frac{\chi_2 + L / 2}{L}\right),\sin\left(2\pi \frac{\chi_1 + L / 2}{L}\right)\right)\\
-    \mathbf w (\mathbf \chi, t) &amp;= \frac{\partial \mathbf x}{\partial t}
-    \end{align}\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf \chi = (\chi_1, \chi_2)\)</span> are the ALE coordinates, <span class="math notranslate nohighlight">\(A=0.08\)</span> is the amplitude, <span class="math notranslate nohighlight">\(T_G=4T\)</span> is the period
-length of the mesh motion, <span class="math notranslate nohighlight">\(T\)</span> is the length of one cycle, and :math:<span class="math notranslate nohighlight">\(L=1\)</span>. To simulate this flow problem in OasisMove
-you can simply type::</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingVortex
-</pre></div>
-</div>
-<p>or as an alternative::</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python<span class="w"> </span>NSfracStepMove.py<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingVortex
-</pre></div>
-</div>
-<p>and the simulation will start. When the simulation is finished, there will be a folder named <code class="docutils literal notranslate"><span class="pre">results_moving_vortex</span></code>,
-which contains all simulation results per run. Running the moving vortex problem should produce the following velocity
-field, here visualized in <a class="reference external" href="https://www.paraview.org/">ParaView</a> over four snapshots from <span class="math notranslate nohighlight">\(T=0.25\)</span> to <span class="math notranslate nohighlight">\(T=1\)</span>.</p>
-<figure class="align-default" id="vel-vortex">
-<img alt="_images/moving_vortex.png" src="_images/moving_vortex.png" />
-<figcaption>
-<p><span class="caption-number">Fig. 1 </span><span class="caption-text">Velocity field over four snapshots for the moving vortex problem on a moving mesh.</span><a class="headerlink" href="#vel-vortex" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<div class="docutils container" id="id2">
-<dl class="citation">
-<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">SA94</a></span></dt>
-<dd><p>JC Simo and F Armero. Unconditional stability and long-term behavior of transient algorithms for the incompressible navier-stokes and euler equations. <em>Computer Methods in Applied Mechanics and Engineering</em>, 111(1-2):111–154, 1994.</p>
-</dd>
-</dl>
-</div>
+<p>These tutorials are meant to guide the user through the basic steps of
+performing a computational fluid dynamic (CFD) simulation in OasisMove.
+It will give a short introduction and problem description, and visualize what the expected output from each simulation.
+The tutorials will also highlight different features and tweaks of OasisMove in order to improve generalization of the problems.</p>
+<p>We assume that you have OasisMove installed, meaning you have a working
+version of <em>FEniCS</em> on your computer. It is also
+beneficial, but not necessary, that you are familiar with the
+<a class="reference external" href="https://www.paraview.org/">ParaView</a> visualization software, which we
+will frequently be using to visualize the geometries and results.</p>
+<section id="link-to-tutorials">
+<h2>Link to tutorials<a class="headerlink" href="#link-to-tutorials" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="movingwall.html#tutorial-wall"><span class="std std-ref">Wall-driven channel flow</span></a></p></li>
+<li><p><a class="reference internal" href="movingcylinder.html#tutorial-cylinder"><span class="std std-ref">Cylinder in free stream</span></a></p></li>
+<li><p><a class="reference internal" href="movingvortex.html#tutorial-vortex"><span class="std std-ref">Vortex problem with oscillating boundaries</span></a></p></li>
+<li><p><a class="reference internal" href="movingtg.html#tutorial-movingtg"><span class="std std-ref">Moving 3D Taylor-Green vortex</span></a></p></li>
+</ul>
 </section>
 </section>
 
@@ -461,10 +467,10 @@ field, here visualized in <a class="reference external" href="https://www.paravi
             <p class="prev-next-title">Features and issues</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="api.html" title="next page">
+    <a class='right-next' id="next-link" href="movingwall.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">API Reference</p>
+        <p class="prev-next-title">Wall-driven channel flow</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

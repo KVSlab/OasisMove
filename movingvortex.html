@@ -1,0 +1,597 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Vortex problem with oscillating boundaries &#8212; OasisMove</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Moving 3D Taylor-Green vortex" href="movingtg.html" />
+    <link rel="prev" title="Oscillating cylinder in free stream" href="movingcylinder.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">OasisMove</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    OasisMove
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Installation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="installation.html">
+   Installation
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Using OasisMove
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="getting_started.html">
+   Getting started
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="hooks.html">
+   Hooks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="parameters.html">
+   Parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="features.html">
+   Features and issues
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="tutorials.html">
+   Tutorials
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="movingwall.html">
+   Wall-driven channel flow
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="movingcylinder.html">
+   Oscillating cylinder in free stream
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Vortex problem with oscillating boundaries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="movingtg.html">
+   Moving 3D Taylor-Green vortex
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Python API
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="api.html">
+   API Reference
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            See more at <a href="https://kvslab.github.io">KVSLab</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://kvslab.github.io/OasisMove/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://kvslab.github.io/OasisMove//issues/new?title=Issue%20on%20page%20%2Fmovingvortex.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/movingvortex.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-description">
+   Problem description
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simulation-in-oasismove">
+   Simulation in OasisMove
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#results">
+   Results
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#increasing-the-spatial-and-temporal-resolution">
+   Increasing the spatial and temporal resolution
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Vortex problem with oscillating boundaries</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#problem-description">
+   Problem description
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simulation-in-oasismove">
+   Simulation in OasisMove
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#results">
+   Results
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#increasing-the-spatial-and-temporal-resolution">
+   Increasing the spatial and temporal resolution
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="vortex-problem-with-oscillating-boundaries">
+<span id="tutorial-vortex"></span><h1>Vortex problem with oscillating boundaries<a class="headerlink" href="#vortex-problem-with-oscillating-boundaries" title="Permalink to this headline">#</a></h1>
+<p>In this tutorial we will consider a two-dimensional moving vortex problem inspired by the Taylor-Green vortex problem,
+and presented by Fehn et al. <span id="id1">[<a class="reference internal" href="#id5" title="Niklas Fehn, Johannes Heinz, Wolfgang A Wall, and Martin Kronbichler. High-order arbitrary lagrangian–eulerian discontinuous galerkin methods for the incompressible navier–stokes equations. Journal of Computational Physics, 430:110040, 2021.">FHWK21</a>]</span>. The problem is implemented in the
+file <a class="reference external" href="https://github.com/KVSlab/OasisMove/blob/main/src/oasismove/problems/NSfracStep/MovingVortex.py">MovingVortex.py</a>,
+but note that it has not been optimized for parallelization because of its intended use for code verification.</p>
+<section id="problem-description">
+<h2>Problem description<a class="headerlink" href="#problem-description" title="Permalink to this headline">#</a></h2>
+<p>The problem has an analytical solution of the two-dimensional incompressible Navier–Stokes equations in the absence of
+body forces, <span class="math notranslate nohighlight">\(\mathbf{f} = 0\)</span>, namely:</p>
+<div class="math notranslate nohighlight" id="equation-eq-vortex">
+<span class="eqno">(8)<a class="headerlink" href="#equation-eq-vortex" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{align}
+    \mathbf u(\mathbf x,t) &amp;= (-\sin (2\pi  x_2), \sin(2\pi x_1))e^{-4\nu \pi^2 t}\\
+    p(\mathbf x,t) &amp;= -\cos(2\pi x_1)\cos(2\pi x_2)e^{-8\nu \pi^2 t}
+\end{align}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf x = (x_1, x_2)\)</span> are the Euclidean coordinates, and <span class="math notranslate nohighlight">\(\nu = 0.025\)</span> <span class="math notranslate nohighlight">\(\text{m}^2\)</span>/s. Furthermore, the mesh
+velocity <span class="math notranslate nohighlight">\(\mathbf w\)</span> is determined by the following displacement field:</p>
+<div class="math notranslate nohighlight" id="equation-eq-vortex-d">
+<span class="eqno">(9)<a class="headerlink" href="#equation-eq-vortex-d" title="Permalink to this equation">#</a></span>\[\begin{split}    \begin{align}
+    \mathbf x(\mathbf \chi,t) &amp;= \mathbf \chi + A_0 \sin \left(\frac{2 \pi t}{T_G}\right) \left(\sin\left(2\pi \frac{\chi_2 + L / 2}{L}\right),\sin\left(2\pi \frac{\chi_1 + L / 2}{L}\right)\right)\\
+    \mathbf w (\mathbf \chi, t) &amp;= \frac{\partial \mathbf x}{\partial t}
+    \end{align}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf \chi = (\chi_1, \chi_2)\)</span> are the ALE coordinates, <span class="math notranslate nohighlight">\(A_0=0.08\)</span> is the amplitude, <span class="math notranslate nohighlight">\(T_G=4T\)</span> is the period
+length of the mesh motion, <span class="math notranslate nohighlight">\(T\)</span> is the length of one cycle, and <span class="math notranslate nohighlight">\(L=1\)</span>.</p>
+</section>
+<section id="simulation-in-oasismove">
+<h2>Simulation in OasisMove<a class="headerlink" href="#simulation-in-oasismove" title="Permalink to this headline">#</a></h2>
+<p>To simulate this flow problem in OasisMove using the default parameters you can run the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingVortex<span class="w"> </span>
+</pre></div>
+</div>
+<p>and the simulation will start. The simulation should only take a couple of seconds when running with the default
+parameters, as it is run on a relatively coarse mesh for only 20 time steps.</p>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this headline">#</a></h2>
+<p>When the simulation is finished, there will be a folder named <code class="docutils literal notranslate"><span class="pre">results_moving_vortex</span></code>, in the current working directory.
+The results-folder contains all simulation results per run. Running the moving vortex problem with the default
+parameters should produce three solution files located in the <code class="docutils literal notranslate"><span class="pre">Solutions</span></code>
+folder: <code class="docutils literal notranslate"><span class="pre">velocity.xdmf</span></code>, <code class="docutils literal notranslate"><span class="pre">pressure.xdmf</span></code>, and the exact velocity solution <code class="docutils literal notranslate"><span class="pre">velocity_exact.xdmf</span></code>. These solution files
+can be visualized in <a class="reference external" href="https://www.paraview.org/">ParaView</a> or any similar visualization software, and in
+<a class="reference internal" href="#vel-vortex"><span class="std std-numref">Fig. 7</span></a> we display the displaced grid, velocity and pressure solution at <span class="math notranslate nohighlight">\(T=1\)</span>.</p>
+<figure class="align-default" id="vel-vortex">
+<img alt="_images/vortex2d.png" src="_images/vortex2d.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">From left to right: The grid displacement, velocity solution and pressure field at <span class="math notranslate nohighlight">\(T=1\)</span>.</span><a class="headerlink" href="#vel-vortex" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="increasing-the-spatial-and-temporal-resolution">
+<h2>Increasing the spatial and temporal resolution<a class="headerlink" href="#increasing-the-spatial-and-temporal-resolution" title="Permalink to this headline">#</a></h2>
+<p>The default resolution for the vortex problem is using the resolution parameters <span class="math notranslate nohighlight">\(N_x=20\)</span> and <span class="math notranslate nohighlight">\(N_y=20\)</span> resulting in
+<span class="math notranslate nohighlight">\(2\times N_x \times N_y = 800\)</span> triangular cells in the mesh. To increase the mesh resolution, we can supply these
+parameters as command-line arguments to change their value. For instance, to create a mesh consisting of 20000 cells, we
+can run the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingVortex<span class="w"> </span><span class="nv">Nx</span><span class="o">=</span><span class="m">100</span><span class="w"> </span><span class="nv">Ny</span><span class="o">=</span><span class="m">100</span>
+</pre></div>
+</div>
+<p>Similarly, we can adjust the number of time steps the simulation should perform by adjusting the time step
+parameter <code class="docutils literal notranslate"><span class="pre">dt</span></code>, which by default is <span class="math notranslate nohighlight">\(\Delta t = 5\cdot 10^{-2}\)</span>. To simulate 1000 time steps between <span class="math notranslate nohighlight">\(t=0\)</span> and <span class="math notranslate nohighlight">\(t=T=1\)</span>,
+we can run the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingVortex<span class="w"> </span><span class="nv">T</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">dt</span><span class="o">=</span><span class="m">0</span>.001
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When adjusting spatial and temporal resolution is important to know relationship between the cell size and the time-step size, which are closely related through the Courant number (<span class="math notranslate nohighlight">\(C\)</span>) given by the Courant-Friedrichs-Lewy (CFL) condition:</p>
+<div class="math notranslate nohighlight">
+\[
+\begin{align}
+C ={\frac  {u\,\Delta t}{\Delta x}} &lt; C_{\max },
+\end{align}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(u\)</span> is the velocity magnitude, <span class="math notranslate nohighlight">\(\Delta t\)</span> is the time step size, and <span class="math notranslate nohighlight">\(\Delta x\)</span> is the length interval. The general consensus is that <span class="math notranslate nohighlight">\(C_{\max} = 1\)</span>.</p>
+</div>
+<div class="docutils container" id="id2">
+<dl class="citation">
+<dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id1">FHWK21</a></span></dt>
+<dd><p>Niklas Fehn, Johannes Heinz, Wolfgang A Wall, and Martin Kronbichler. High-order arbitrary lagrangian–eulerian discontinuous galerkin methods for the incompressible navier–stokes equations. <em>Journal of Computational Physics</em>, 430:110040, 2021.</p>
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="movingcylinder.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Oscillating cylinder in free stream</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="movingtg.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Moving 3D Taylor-Green vortex</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Henrik A. Kjeldsberg<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
