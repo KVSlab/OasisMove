@@ -16,9 +16,9 @@ A schematic of the domain showing the oscillating cylinder in a free-stream.
 ## Problem description
 
 The problem consists of a cylinder with diameter of $D=10$ cm oscillaing in fluid flow subject to a free-stream velocity
-$U = 1$ m/s, as shown in {numref}`cylinder-fig`. For this simulation we also require the domain mesh as a separate file,
-which is located in the `src/oasismove/mesh` folder named `cylinder.xdmf`. A visualization of the triangulated mesh, and
-a zoomed in view on the cylinder is shown in {numref}`cylinder-mesh`.
+$U_{\infty} = 1$ m/s, as shown in {numref}`cylinder-fig`. For this simulation we also require the domain mesh as a
+separate file, which is located in the `src/oasismove/mesh` folder named `cylinder.xdmf`. A visualization of the
+triangulated mesh, and a zoomed in view on the cylinder is shown in {numref}`cylinder-mesh`.
 
 ```{figure} figures/cylinder_mesh.png
 ---
@@ -37,7 +37,7 @@ frequency of the oscillations are defined as:
 ```{math}
 :label: eq-freq
 \begin{align}
-f = F \frac{St U_inf}{D}.
+f =  \frac{St U_{\infty}F}{D}.
 \end{align}
 ```
 
@@ -85,7 +85,7 @@ $C_L$) coefficient defined as:
 
 stored in the `forces.txt` file. In {numref}`vel-cylinder` we display the resulting velocity field, where we have added
 vectors scaled by the velocity magnitude. Furthermore, the values saved in the `forces.txt` file can be plotted to
-visualize the drag and lift coefficient over time, as exemplified in {numref}`forces`.
+visualize the drag and lift coefficient over time, as visualized in {numref}`forces`.
 
 ```{figure} figures/moving_cylinder.gif
 ---
@@ -103,35 +103,33 @@ Drag (left) and lift (right) coefficient visualized over the simulation duration
 
 ## Adjusting the Reynolds number
 
-The default Reynolds number for the oscillating cylinder problem is Re$=500$. However, this can easily be adjusted by
-adding it as a command line argument. For instance, we can run a simulation with Re=100 by running the following
-command:
+The default Reynolds number ($Re$) for the oscillating cylinder problem is $Re=500$. However, this can easily be
+adjusted by adding it as a command line argument. For instance, we can run a simulation with $Re=100$ by running the
+following command:
 
 ``` console
 $ oasism NSfracStepMove problem=MovingCylinder Re=100 mesh_path=src/oasismove/mesh/cylinder.xdmf
 ```
 
-As an example of adjusting the Reynolds number, we have run the simulation using Re=1, 20, 100, and 500. In
-{numref}`reynolds`, we have visualized the streamlines for the four velocity fields, with emphesis on region in the wake
-of the cylinder.
+As an example of adjusting the Reynolds number, we have run the simulation using $Re=1, 20, 100,$ and $500$. In
+{numref}`reynolds`, we have visualized the streamlines for the four velocity fields, with emphesis on the region in the
+wake of the cylinder.
 
 ```{figure} figures/reynolds.gif
 ---
 name: reynolds
 ---
-Streamlines for varying Reynolds numbers, raning from Re=1 to Re=500.
+Streamlines for varying Reynolds numbers, raning from $Re=1$ to $Re=500$, colored by velocity magnitude.
 ```
 
-```{note}
-Note that changing the Reynolds number will effectively adjust the kinematic viscosity $\nu$, which is related to the Reynolds number by definition:
+Note that changing the Reynolds number will effectively adjust the kinematic viscosity $\nu$, which is related to the
+Reynolds number by definition:
 
-    ```{math}
-    :label: eq-re
-    \begin{align}
-        \text{Re } = \frac{U_{inf} D}{\nu}
-    \end{align}
-    ```
-
+```{math}
+:label: eq-re
+\begin{align}
+    \text{Re } = \frac{U_{\infty} D}{\nu}
+\end{align}
 ```
 
 ```{bibliography}

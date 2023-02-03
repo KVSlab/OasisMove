@@ -2,11 +2,11 @@
 
 # Moving 3D Taylor-Green vortex
 
-In this tutorial we will consider the classical Taylor-Green problem in 3D as described by Taylor and
-Green {cite}`taylor1937mechanism`, with moving boundaries. The problem solves the N-S equations in the absence of body
-forces, and is commonly used to study transitional and turbulent flows. The problem initializes the solution at the two
-previous time steps, and applies periodic boundary condition on the domain walls in all coordinate directions.  
-The problem is implemented in the
+In this tutorial we will consider the classical Taylor-Green problem in 3D as described by Taylor and Green
+{cite}`taylor1937mechanism`, with moving boundaries. The problem solves the N-S equations in the absence of body forces,
+and is commonly used to study transitional and turbulent flows. The problem initializes the solution at the two previous
+time steps, and applies periodic boundary condition on the domain walls in all coordinate directions. The problem is
+implemented in the
 file [MovingTaylorGreen3D.py](https://github.com/KVSlab/OasisMove/blob/main/src/oasismove/problems/NSfracStep/MovingTaylorGreen3D.py)
 .
 
@@ -19,15 +19,15 @@ absence of body forces, $\mathbf{f} = 0$, namely:
 :label: eq-tg3d
 \begin{align}
     \mathbf u(\mathbf x,t = 0) &= (u(\mathbf x),v(\mathbf x),w(\mathbf x)\\
-    u(\mathbf x) &= \sin(x) \cos(y) \cos(z) \\
+    u(\mathbf x) &= + \sin(x) \cos(y) \cos(z) \\
     v(\mathbf x) &= -\cos(x) \sin(y) \cos(z) \\
     w(\mathbf x) &= 0 \\
     p(\mathbf x,t=0) &= \frac{1}{16}(\cos(2x) + \cos(2y)) (\cos(2z) + 2).
 \end{align}
 ```
 
-The domain boundaries are prescribed a movement described by the following mesh motion from Fehn et
-al. {cite}`fehn2021high`:
+The domain boundaries are prescribed a movement described by the following mesh motion from Fehn et al.
+{cite}`fehn2021high`:
 
 ```{math}
 :label: eq-tg3d-d
@@ -82,7 +82,7 @@ On the left, the deforming cube geometry, and on the right the corresponding vel
 
 ## Increasing the spatial resolution in 3D
 
-Similar to the [moving vortex](tutorial:vortex), The default resolution for the Taylor-Green vortex in 3D is a cube with
+Similar to the [moving vortex](tutorial:vortex), the default resolution for the Taylor-Green vortex in 3D is a cube with
 resolution parameters $N_x=32$, $N_y=32$, and $N_z=32$. In contrast to the 2D [moving vortex](tutorial:vortex) problem,
 the number of tetrahedral cells are now computed using the following formula:
 
