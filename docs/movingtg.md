@@ -3,7 +3,7 @@
 # Moving 3D Taylor-Green vortex
 
 In this tutorial we will consider the classical Taylor-Green problem in 3D as described by Taylor and
-Green{cite}`taylor1937mechanism`, with moving boundaries. The problem solves the N-S equations in the absence of body
+Green {cite}`taylor1937mechanism`, with moving boundaries. The problem solves the N-S equations in the absence of body
 forces, and is commonly used to study transitional and turbulent flows. The problem initializes the solution at the two
 previous time steps, and applies periodic boundary condition on the domain walls in all coordinate directions.  
 The problem is implemented in the
@@ -27,7 +27,7 @@ absence of body forces, $\mathbf{f} = 0$, namely:
 ```
 
 The domain boundaries are prescribed a movement described by the following mesh motion from Fehn et
-al.{cite}`fehn2021high`:
+al. {cite}`fehn2021high`:
 
 ```{math}
 :label: eq-tg3d-d

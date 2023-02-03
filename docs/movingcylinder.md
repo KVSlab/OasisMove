@@ -6,12 +6,19 @@ In this tutorial we will be investigating uniform flow around an oscillating cyl
 novel study by Blackburn and Henderson {cite}`blackburn1999study`, and is one of the fundamental problems in classical
 fluid dynamics as it demonstrates flow separation and vortex shedding.
 
+```{figure} figures/cylinder_fig.png
+---
+name: cylinder-fig
+---
+A schematic of the domain showing the oscillating cylinder in a free-stream. 
+```
+
 ## Problem description
 
 The problem consists of a cylinder with diameter of $D=10$ cm oscillaing in fluid flow subject to a free-stream velocity
-$U = 1$ m/s. For this simulation we also require the domain mesh as a separate file, which is located in
-the `src/oasismove/mesh` folder named `cylinder.xdmf`. A visualization of the triangulated mesh, and a zoomed in view on
-the cylinder is shown in {numref}`cylinder-mesh`.
+$U = 1$ m/s, as shown in {numref}`cylinder-fig`. For this simulation we also require the domain mesh as a separate file,
+which is located in the `src/oasismove/mesh` folder named `cylinder.xdmf`. A visualization of the triangulated mesh, and
+a zoomed in view on the cylinder is shown in {numref}`cylinder-mesh`.
 
 ```{figure} figures/cylinder_mesh.png
 ---
