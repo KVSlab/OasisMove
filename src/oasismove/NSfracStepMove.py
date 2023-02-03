@@ -268,7 +268,6 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
                 scalar_hook(**vars())
                 scalar_solve(**vars())
                 t1.stop()
-                print("")
 
     temporal_hook(**vars())
 
