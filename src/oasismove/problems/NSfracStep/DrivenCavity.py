@@ -1,14 +1,17 @@
 # Written by Mikael Mortensen <mikaem@math.uio.no> (2013)
 # Edited by Henrik Kjeldsberg <henrik.kjeldsberg@live.no> (2023)
 
-from oasismove.problems.DrivenCavity import *
 from oasismove.problems.NSfracStep import *
+from oasismove.problems.DrivenCavity import *
 from oasismove.problems.NSfracStep.MovingCommon import get_visualization_files
 
 
 # Override some problem specific parameters
 def problem_parameters(NS_parameters, **NS_namespace):
     NS_parameters.update(
+        # Mesh parameters
+        Nx=50,
+        Ny=50,
         # Fluid parameters
         nu=0.001,
         # Simulation parameters
@@ -19,13 +22,12 @@ def problem_parameters(NS_parameters, **NS_namespace):
         testing=False,
         max_iter=2,
         dynamic_mesh=False,
-        save_solution_frequency=1,
+        save_solution_frequency=5,
         checkpoint=500,
         print_intermediate_info=100,
         velocity_degree=1,
         pressure_degree=1,
-        use_krylov_solvers=True,
-        max_error=1e-8)
+        use_krylov_solvers=True)
 
 
 # Specify boundary conditions
