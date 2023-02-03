@@ -201,26 +201,30 @@ def write_data_to_file(save_path, data, filename):
         f.write(b'\n')
 
 
-def print_mesh_information(mesh):
+def print_mesh_information(mesh, dt=None, u_mean=None, dim=3):
     comm = MPI.comm_world
     local_xmin = mesh.coordinates()[:, 0].min()
     local_xmax = mesh.coordinates()[:, 0].max()
     local_ymin = mesh.coordinates()[:, 1].min()
     local_ymax = mesh.coordinates()[:, 1].max()
-    local_zmin = mesh.coordinates()[:, 2].min()
-    local_zmax = mesh.coordinates()[:, 2].max()
+    if dim == 3:
+        local_zmin = mesh.coordinates()[:, 2].min()
+        local_zmax = mesh.coordinates()[:, 2].max()
     xmin = comm.gather(local_xmin, 0)
     xmax = comm.gather(local_xmax, 0)
     ymin = comm.gather(local_ymin, 0)
     ymax = comm.gather(local_ymax, 0)
-    zmin = comm.gather(local_zmin, 0)
-    zmax = comm.gather(local_zmax, 0)
+    if dim == 3:
+        zmin = comm.gather(local_zmin, 0)
+        zmax = comm.gather(local_zmax, 0)
 
+    local_hmin = mesh.hmin()
     local_num_cells = mesh.num_cells()
     local_num_edges = mesh.num_edges()
     local_num_faces = mesh.num_faces()
     local_num_facets = mesh.num_facets()
     local_num_vertices = mesh.num_vertices()
+    h_min = comm.gather(local_hmin, 0)
     num_cells = comm.gather(local_num_cells, 0)
     num_edges = comm.gather(local_num_edges, 0)
     num_faces = comm.gather(local_num_faces, 0)
@@ -232,7 +236,8 @@ def print_mesh_information(mesh):
         print("=== Mesh information ===")
         print("X range: {} to {} (delta: {:.4f})".format(min(xmin), max(xmax), max(xmax) - min(xmin)))
         print("Y range: {} to {} (delta: {:.4f})".format(min(ymin), max(ymax), max(ymax) - min(ymin)))
-        print("Z range: {} to {} (delta: {:.4f})".format(min(zmin), max(zmax), max(zmax) - min(zmin)))
+        if dim == 3:
+            print("Z range: {} to {} (delta: {:.4f})".format(min(zmin), max(zmax), max(zmax) - min(zmin)))
         print("Number of cells: {}".format(sum(num_cells)))
         print("Number of cells per processor: {}".format(int(np.mean(num_cells))))
         print("Number of edges: {}".format(sum(num_edges)))
@@ -241,6 +246,8 @@ def print_mesh_information(mesh):
         print("Number of vertices: {}".format(sum(num_vertices)))
         print("Volume: {:.4f}".format(volume))
         print("Number of cells per volume: {:.4f}".format(sum(num_cells) / volume))
+        if u_mean is not None and dt is not None:
+            print("CFL number: {:.4f}".format(u_mean * dt / min(h_min)))
 
 
 def recursive_update(dst, src):
@@ -348,4 +355,4 @@ def add_backflow_stabilization(A, b, backflow_beta, backflow_facets, boundary, m
 def compute_volume(mesh, t, newfolder):
     volume = assemble(Constant(1.0) * dx(mesh))
     data = [t, volume]
-    write_data_to_file(newfolder, data, "atrium_volume.txt")
+    write_data_to_file(newfolder, data, "volume.txt")

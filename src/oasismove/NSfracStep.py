@@ -41,7 +41,7 @@ commandline_kwargs = parse_command_line()
 # Find the problem module
 default_problem = 'DrivenCavity'
 problemname = commandline_kwargs.get('problem', default_problem)
-problemspec = importlib.util.find_spec('.'.join(('oasis.problems.NSfracStep', problemname)))
+problemspec = importlib.util.find_spec('.'.join(('oasismove.problems.NSfracStep', problemname)))
 if problemspec is None:
     problemspec = importlib.util.find_spec(problemname)
 if problemspec is None:
@@ -69,7 +69,7 @@ if restart_folder is not None:
     tstep = params["tstep"]
 
 # Import chosen functionality from solvers
-solver = importlib.import_module('.'.join(('oasis.solvers.NSfracStep', solver)))
+solver = importlib.import_module('.'.join(('oasismove.solvers.NSfracStep', solver)))
 vars().update({name: solver.__dict__[name] for name in solver.__all__})
 
 # Create lists of components solved for
@@ -140,14 +140,14 @@ bcs = create_bcs(**vars())
 
 # LES setup
 # exec("from oasis.solvers.NSfracStep.LES.{} import *".format(les_model))
-lesmodel = importlib.import_module('.'.join(('oasis.solvers.NSfracStep.LES', les_model)))
+lesmodel = importlib.import_module('.'.join(('oasismove.solvers.NSfracStep.LES', les_model)))
 vars().update({name: lesmodel.__dict__[name] for name in lesmodel.__all__})
 
 vars().update(les_setup(**vars()))
 
 # Non-Newtonian setup
 # exec("from oasis.solvers.NSfracStep.NNModel.{} import *".format(nn_model))
-nnmodel = importlib.import_module('.'.join(('oasis.solvers.NSfracStep.NNModel', nn_model)))
+nnmodel = importlib.import_module('.'.join(('oasismove.solvers.NSfracStep.NNModel', nn_model)))
 vars().update({name: nnmodel.__dict__[name] for name in nnmodel.__all__})
 
 vars().update(nn_setup(**vars()))
@@ -156,7 +156,7 @@ vars().update(nn_setup(**vars()))
 initialize(**vars())
 
 #  Fetch linear algebra solvers
-u_sol, p_sol, c_sol = get_solvers(**vars())
+u_sol, p_sol, _, c_sol = get_solvers(**vars())
 
 # Get constant body forces
 f = body_force(**vars())

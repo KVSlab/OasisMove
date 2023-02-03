@@ -1,7 +1,7 @@
 # Installation
 ## Installing OasisMove using `conda`
 
-We recommend installing `OasisMove` and its dependencies through `conda`.  
+We recommend installing *OasisMove* and its dependencies through `conda`.  
 Start by cloning into the repository:
 
 ``` console
@@ -21,7 +21,7 @@ Next, can now activate your environment by running::
 $ conda activate your_environment
 ```
 
-Finally, install `OasisMove` inside your `conda` environment using `pip`: 
+Finally, install OasisMove inside your `conda` environment using `pip`: 
 
 ``` console
 $ python3 -m pip install .

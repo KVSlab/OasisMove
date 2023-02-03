@@ -50,15 +50,3 @@ def get_visualization_writers(newfolder, list_of_quantities):
         writers.append(viz)
 
     return writers
-
-
-def save_numerical_solution(u_vec, p_, mesh, newfolder):
-    # Write current solution
-    solution_path_u = path.join(newfolder, "velocity.h5")
-    solution_path_p = path.join(newfolder, "pressure.h5")
-    output_file_u = HDF5File(mesh.mpi_comm(), solution_path_u, "w")
-    output_file_p = HDF5File(mesh.mpi_comm(), solution_path_p, "w")
-    output_file_u.write(u_vec, "solution")
-    output_file_p.write(p_, "solution")
-    output_file_u.close()
-    output_file_p.close()

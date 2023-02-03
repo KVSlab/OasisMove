@@ -8,12 +8,22 @@ parts:
   - caption: Installation
     chapters:
       - file: installation
+
+  - caption: Using OasisMove
+    chapters:
+      - file: getting_started
+      - file: hooks
+      - file: parameters
       - file: features
 
   - caption: Tutorials
     chapters:
-    - file: tutorials
+      - file: tutorials
+      - file: movingwall
+      - file: movingcylinder
+      - file: movingvortex
+      - file: movingtg
 
   - caption: Python API
     chapters:
-    - file: api
+      - file: api
