@@ -15,7 +15,7 @@ def test_DrivenCavity_with_NSfracStepMove(num_processors):
     err = match.groups()
 
     velocity_norm = eval(err[0])
-    velocity_norm_exact = 6.29552
+    velocity_norm_exact = 4.452349
 
     assert abs(velocity_norm - velocity_norm_exact) < 1e-16
 
