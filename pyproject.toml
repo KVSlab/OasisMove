@@ -30,7 +30,7 @@ all = [
 [tool.pytest.ini_options]
 addopts = [
     "--import-mode=importlib",
-    "--cov=oasismove",
+    "--cov=./",
     "--cov-report=html",
     "--cov-report=term-missing",
     "-v"
