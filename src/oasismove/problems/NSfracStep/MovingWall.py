@@ -1,5 +1,3 @@
-from pprint import pprint
-
 from oasismove.problems.NSfracStep import *
 from oasismove.problems.NSfracStep.MovingCommon import get_visualization_files, \
     get_coordinate_map
@@ -16,53 +14,41 @@ def problem_parameters(NS_parameters, **NS_namespace):
     [1] Chnafa, C. (2014). Using image-based large-eddy simulations to investigate the intracardiac flow and its
     turbulent nature (Doctoral dissertation, Université Montpellier II-Sciences et Techniques du Languedoc).
     """
-    T = 1.0
-    h0 = 0.001  # Initial height of wall
-    eps = 0.05  # Amplitude
-    sigma = 2 * np.pi  # Pulsation of the movement
-    u_max = 0.01  #
     NS_parameters.update(
+        # Problem specifiic parameters
+        h0=0.001,  # Initial height of wall
+        eps=0.05,  # Amplitude
+        sigma=2 * np.pi,  # Pulsation of the movement
+        u_max=0.01,  # Maximum velocity
         # Mesh parameters
-        scale=25,
-        u_max=u_max,
-        Nx=250,
-        Ny=20,
-        # Fluid properties
-        nu=8 * 10 ** (-7),
-        h0=h0,
-        eps=eps,
-        sigma=sigma,
+        scale=25,  # Ratio between computational length of x-direction and y-direction
+        Nx=250,  # Resolution on x-direction
+        Ny=20,  # Resolution on x-direction
+        # Fluid parameters
+        nu=8 * 10 ** (-7),  # Kinematic viscosity
         # Simulation properties
-        T=T,
-        dt=0.005,
-        checkpoint=1000,
-        save_step=1,
+        T=1.0,  # End time
+        dt=0.001,  # Time step
+        folder="results_moving_wall",
+        # Oasis parameters
+        max_iter=2,
+        dynamic_mesh=True,
+        save_solution_frequency=1,
+        checkpoint=500,
         print_intermediate_info=100,
         velocity_degree=1,
         pressure_degree=1,
-        max_iter=2,
-        max_error=1e-8,
-        dynamic_mesh=True,
-        folder="results_moving_wall",
-        use_krylov_solvers=True)
-
-    if MPI.rank(MPI.comm_world) == 0:
-        print("=== Starting simulation for MovingWall.py ===")
-        print("Running with the following parameters:")
-        pprint(NS_parameters)
+        use_krylov_solvers=True,
+        max_error=1e-8
+    )
 
 
-def mesh(eps, h0, scale, dt, Nx, Ny, u_max, velocity_degree, **NS_namespace):
+def mesh(eps, h0, scale, dt, Nx, Ny, u_max, **NS_namespace):
     X = scale * h0
     Y = h0 * (1 + eps)
 
     mesh = RectangleMesh(Point(0, 0), Point(X, Y), Nx, Ny)
-
-    # Compute mesh information and CFL
-    V = VectorFunctionSpace(mesh, "CG", velocity_degree)
-    dofs = V.dim()
-    dx = mesh.hmin()
-    print("N_cells = {} | CFL~{} | dx={} | dt = {} | dofs={}".format(mesh.num_cells(), u_max * dt / dx, dx, dt, dofs))
+    print_mesh_information(mesh, dt, u_max, dim=2)
     return mesh
 
 
@@ -118,7 +104,7 @@ def create_bcs(V, Q, w_, sigma, h0, eps, sys_comp, boundary, NS_expressions, **N
     return bcs
 
 
-def pre_solve_hook(V, mesh, newfolder, velocity_degree, x_, u_components, boundary, **NS_namespace):
+def pre_solve_hook(V, mesh, newfolder, velocity_degree, u_components, boundary, **NS_namespace):
     # Visualization files
     viz_p, viz_u = get_visualization_files(newfolder)
 
@@ -203,11 +189,11 @@ def update_boundary_conditions(t, NS_expressions, **NS_namespace):
             value.update(t)
 
 
-def temporal_hook(t, tstep, save_step, p_, q_, viz_u, viz_p, u_vec, **NS_namespace):
+def temporal_hook(t, tstep, save_solution_frequency, p_, u_, viz_u, viz_p, u_vec, **NS_namespace):
     # Write solution at time t
-    if tstep % save_step == 0:
-        assign(u_vec.sub(0), q_["u0"])
-        assign(u_vec.sub(1), q_["u1"])
+    if tstep % save_solution_frequency == 0:
+        assign(u_vec.sub(0), u_[0])
+        assign(u_vec.sub(1), u_[1])
 
         viz_u.write(u_vec, t)
         viz_p.write(p_, t)
