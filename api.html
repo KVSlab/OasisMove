@@ -373,7 +373,17 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#module-oasismove.solvers.NSfracStep.IPCS_ABCN_Move">
-   Solvers
+   OasisMove Solvers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-oasismove.common.io">
+   Common methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-oasismove.problems.__init__">
+   OasisMove problems
   </a>
  </li>
 </ul>
@@ -397,7 +407,17 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#module-oasismove.solvers.NSfracStep.IPCS_ABCN_Move">
-   Solvers
+   OasisMove Solvers
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-oasismove.common.io">
+   Common methods
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-oasismove.problems.__init__">
+   OasisMove problems
   </a>
  </li>
 </ul>
@@ -413,7 +433,7 @@ title="Print to PDF"
   <section id="api-reference">
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">#</a></h1>
 <section id="module-oasismove.solvers.NSfracStep.IPCS_ABCN_Move">
-<span id="solvers"></span><h2>Solvers<a class="headerlink" href="#module-oasismove.solvers.NSfracStep.IPCS_ABCN_Move" title="Permalink to this headline">#</a></h2>
+<span id="oasismove-solvers"></span><h2>OasisMove Solvers<a class="headerlink" href="#module-oasismove.solvers.NSfracStep.IPCS_ABCN_Move" title="Permalink to this headline">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.assemble_first_inner_iter">
 <span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">assemble_first_inner_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">les_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nn_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_scalar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nut_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nunn_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wx_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_ab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#assemble_first_inner_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.assemble_first_inner_iter" title="Permalink to this definition">#</a></dt>
@@ -506,6 +526,649 @@ going into time loop.</p>
 </dd></dl>
 
 </section>
+<section id="module-oasismove.common.io">
+<span id="common-methods"></span><h2>Common methods<a class="headerlink" href="#module-oasismove.common.io" title="Permalink to this headline">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.common.io.check_if_kill">
+<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">check_if_kill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">killtime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_timer</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#check_if_kill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.check_if_kill" title="Permalink to this definition">#</a></dt>
+<dd><p>Check if user has put a file named killoasis in folder or if given killtime has been reached.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.common.io.check_if_reset_statistics">
+<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">check_if_reset_statistics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#check_if_reset_statistics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.check_if_reset_statistics" title="Permalink to this definition">#</a></dt>
+<dd><p>Check if user has put a file named resetoasis in folder.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.common.io.create_initial_folders">
+<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">create_initial_folders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">restart_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sys_comp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">info_red</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_timeseries_as_vector</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#create_initial_folders"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.create_initial_folders" title="Permalink to this definition">#</a></dt>
+<dd><p>Create necessary folders.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.common.io.init_from_restart">
+<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">init_from_restart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">restart_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sys_comp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uc_comp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#init_from_restart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.init_from_restart" title="Permalink to this definition">#</a></dt>
+<dd><p>Initialize solution from checkpoint files</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.common.io.merge_visualization_files">
+<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">merge_visualization_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">namesapce</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#merge_visualization_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.merge_visualization_files" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.common.io.merge_xml_files">
+<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">merge_xml_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">files</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#merge_xml_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.merge_xml_files" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.common.io.save_checkpoint_solution_h5">
+<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">save_checkpoint_solution_h5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#save_checkpoint_solution_h5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.save_checkpoint_solution_h5" title="Permalink to this definition">#</a></dt>
+<dd><p>Overwrite solution in Checkpoint folder.</p>
+<p>For safety reasons, in case the solver is interrupted, take backup of
+solution first.</p>
+<p>Must be restarted using the same mesh-partitioning. This will be fixed
+soon. (MM)</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.common.io.save_solution">
+<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">save_solution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_step</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstepfiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_timeseries_as_vector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constrained_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AssignedVectorFunction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">killtime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_timer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#save_solution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.save_solution" title="Permalink to this definition">#</a></dt>
+<dd><p>Called at end of timestep. Check for kill and save solution if required.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.common.io.save_tstep_solution_h5">
+<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">save_tstep_solution_h5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstepfiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constrained_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_timeseries_as_vector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AssignedVectorFunction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#save_tstep_solution_h5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.save_tstep_solution_h5" title="Permalink to this definition">#</a></dt>
+<dd><p>Store solution on current timestep to XDMF file.</p>
+</dd></dl>
+
+<span class="target" id="module-oasismove.common.utilities"></span><dl class="py class">
+<dt class="sig sig-object py" id="oasismove.common.utilities.AssignedVectorFunction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.common.utilities.</span></span><span class="sig-name descname"><span class="pre">AssignedVectorFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Assigned</span> <span class="pre">Vector</span> <span class="pre">Function'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#AssignedVectorFunction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.AssignedVectorFunction" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dolfin.function.function.Function</span></code></p>
+<p>Vector function used for postprocessing.</p>
+<p>Assign data from ListTensor components using FunctionAssigner.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="oasismove.common.utilities.CG1Function">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.common.utilities.</span></span><span class="sig-name descname"><span class="pre">CG1Function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'CG1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounded</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#CG1Function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.CG1Function" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#oasismove.common.utilities.OasisFunction" title="oasismove.common.utilities.OasisFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">oasismove.common.utilities.OasisFunction</span></code></a></p>
+<p>Function used for projecting a CG1 space, possibly using a weighted average.</p>
+<p>Typically used for computing turbulent viscosity in LES.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.common.utilities.CG1Function.bound">
+<span class="sig-name descname"><span class="pre">bound</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#CG1Function.bound"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.CG1Function.bound" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="oasismove.common.utilities.DivFunction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.common.utilities.</span></span><span class="sig-name descname"><span class="pre">DivFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'div'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#DivFunction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.DivFunction" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#oasismove.common.utilities.OasisFunction" title="oasismove.common.utilities.OasisFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">oasismove.common.utilities.OasisFunction</span></code></a></p>
+<p>Function used for projecting divergence of vector.</p>
+<p>Typically used for computing divergence of velocity on pressure function space.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.common.utilities.DivFunction.assemble_rhs">
+<span class="sig-name descname"><span class="pre">assemble_rhs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#DivFunction.assemble_rhs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.DivFunction.assemble_rhs" title="Permalink to this definition">#</a></dt>
+<dd><p>Assemble right hand side (form*test*dx) in projection</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="oasismove.common.utilities.GradFunction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.common.utilities.</span></span><span class="sig-name descname"><span class="pre">GradFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'grad'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#GradFunction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.GradFunction" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#oasismove.common.utilities.OasisFunction" title="oasismove.common.utilities.OasisFunction"><code class="xref py py-class docutils literal notranslate"><span class="pre">oasismove.common.utilities.OasisFunction</span></code></a></p>
+<p>Function used for projecting gradients.</p>
+<p>Typically used for computing pressure gradient on velocity function space.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.common.utilities.GradFunction.assemble_rhs">
+<span class="sig-name descname"><span class="pre">assemble_rhs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#GradFunction.assemble_rhs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.GradFunction.assemble_rhs" title="Permalink to this definition">#</a></dt>
+<dd><p>Assemble right hand side trial.dx(i)*test*dx.</p>
+<p>Possible Coefficient u may replace p and makes it possible
+to use this Function to compute both grad(p) and grad(dp), i.e.,
+the gradient of pressure correction.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="oasismove.common.utilities.LESsource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.common.utilities.</span></span><span class="sig-name descname"><span class="pre">LESsource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nut</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#LESsource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.LESsource" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dolfin.function.function.Function</span></code></p>
+<p>Function used for computing the transposed source to the LES equation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.common.utilities.LESsource.assemble_rhs">
+<span class="sig-name descname"><span class="pre">assemble_rhs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#LESsource.assemble_rhs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.LESsource.assemble_rhs" title="Permalink to this definition">#</a></dt>
+<dd><p>Assemble right hand side.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="oasismove.common.utilities.Mat_cache_dict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.common.utilities.</span></span><span class="sig-name descname"><span class="pre">Mat_cache_dict</span></span><a class="reference internal" href="_modules/oasismove/common/utilities.html#Mat_cache_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.Mat_cache_dict" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<p>Items in dictionary are matrices stored for efficient reuse.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.common.utilities.Mat_cache_dict.update_t">
+<span class="sig-name descname"><span class="pre">update_t</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#Mat_cache_dict.update_t"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.Mat_cache_dict.update_t" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="oasismove.common.utilities.NNsource">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.common.utilities.</span></span><span class="sig-name descname"><span class="pre">NNsource</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nunn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#NNsource"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.NNsource" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dolfin.function.function.Function</span></code></p>
+<p>Function used for computing the transposed source to the non-Newtonian equation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.common.utilities.NNsource.assemble_rhs">
+<span class="sig-name descname"><span class="pre">assemble_rhs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#NNsource.assemble_rhs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.NNsource.assemble_rhs" title="Permalink to this definition">#</a></dt>
+<dd><p>Assemble right hand side.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="oasismove.common.utilities.OasisFunction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.common.utilities.</span></span><span class="sig-name descname"><span class="pre">OasisFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Space</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'x'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">matvec</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[None,</span> <span class="pre">None]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">method</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'cg'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preconditioner_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'default'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#OasisFunction"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.OasisFunction" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dolfin.function.function.Function</span></code></p>
+<p>Function with more or less efficient projection methods
+of associated linear form.</p>
+<p>The matvec option is provided for letting the right hand side
+be computed through a fast matrix vector product. Both the matrix
+and the Coefficient of the required vector must be provided.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>method = “default”</dt><dd><p>Solve projection with regular linear algebra using solver_type
+and preconditioner_type</p>
+</dd>
+<dt>method = “lumping”</dt><dd><p>Solve through lumping of mass matrix</p>
+</dd>
+</dl>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.common.utilities.OasisFunction.assemble_rhs">
+<span class="sig-name descname"><span class="pre">assemble_rhs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#OasisFunction.assemble_rhs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.OasisFunction.assemble_rhs" title="Permalink to this definition">#</a></dt>
+<dd><p>Assemble right hand side (form*test*dx) in projection</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="oasismove.common.utilities.Solver_cache_dict">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.common.utilities.</span></span><span class="sig-name descname"><span class="pre">Solver_cache_dict</span></span><a class="reference internal" href="_modules/oasismove/common/utilities.html#Solver_cache_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.Solver_cache_dict" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></p>
+<p>Items in dictionary are Linear algebra solvers stored for efficient reuse.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.common.utilities.assemble_matrix">
+<span class="sig-prename descclassname"><span class="pre">oasismove.common.utilities.</span></span><span class="sig-name descname"><span class="pre">assemble_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">form</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#assemble_matrix"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.assemble_matrix" title="Permalink to this definition">#</a></dt>
+<dd><p>Assemble matrix using cache register.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.common.utilities.homogenize">
+<span class="sig-prename descclassname"><span class="pre">oasismove.common.utilities.</span></span><span class="sig-name descname"><span class="pre">homogenize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bcs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/utilities.html#homogenize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.utilities.homogenize" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="module-oasismove.problems.__init__">
+<span id="oasismove-problems"></span><h2>OasisMove problems<a class="headerlink" href="#module-oasismove.problems.__init__" title="Permalink to this headline">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.OasisMemoryUsage">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">OasisMemoryUsage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#OasisMemoryUsage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.OasisMemoryUsage" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.OasisTimer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">OasisTimer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">task</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#OasisTimer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.OasisTimer" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dolfin.common.timer.Timer</span></code></p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.OasisXDMFFile">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">OasisXDMFFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">comm</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#OasisXDMFFile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.OasisXDMFFile" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dolfin.cpp.io.XDMFFile</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.Omega">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">Omega</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#Omega"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.Omega" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.QC">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">QC</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#QC"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.QC" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.Strain">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">Strain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#Strain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.Strain" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.add_backflow_stabilization">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">add_backflow_stabilization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backflow_beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backflow_facets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_ab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ui</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#add_backflow_stabilization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.add_backflow_stabilization" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.add_function_to_tstepfiles">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">add_function_to_tstepfiles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstepfiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#add_function_to_tstepfiles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.add_function_to_tstepfiles" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.body_force">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">body_force</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#body_force"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.body_force" title="Permalink to this definition">#</a></dt>
+<dd><p>Specify body force</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.compute_flow_quantities">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">compute_flow_quantities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlet_area</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlet_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inlet_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_wall</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#compute_flow_quantities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.compute_flow_quantities" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute max and mean Reynolds number using velocities U_max &amp; U_mean,
+kinematic viscosity (nu) and characteristic length (L)
+Also computes the CFL number, and fluxes through boundaries</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.compute_volume">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">compute_volume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#compute_volume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.compute_volume" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.create_bcs">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">create_bcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sys_comp</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#create_bcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.create_bcs" title="Permalink to this definition">#</a></dt>
+<dd><p>Return dictionary of Dirichlet boundary conditions.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.getMemoryUsage">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">getMemoryUsage</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rss</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#getMemoryUsage"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.getMemoryUsage" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.info_blue">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">info_blue</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#info_blue"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.info_blue" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.info_green">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">info_green</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#info_green"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.info_green" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.info_red">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">info_red</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">check</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#info_red"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.info_red" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.initialize">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.initialize" title="Permalink to this definition">#</a></dt>
+<dd><p>Initialize solution.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.omega">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">omega</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#omega"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.omega" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.post_import_problem">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">post_import_problem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">commandline_kwargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#post_import_problem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.post_import_problem" title="Permalink to this definition">#</a></dt>
+<dd><p>Called after importing from problem.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.pre_solve_hook">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">pre_solve_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#pre_solve_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.pre_solve_hook" title="Permalink to this definition">#</a></dt>
+<dd><p>Called just prior to entering time-loop. Must return a dictionary.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.print_mesh_information">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">print_mesh_information</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_mean</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#print_mesh_information"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.print_mesh_information" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.problem_parameters">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">problem_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#problem_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.problem_parameters" title="Permalink to this definition">#</a></dt>
+<dd><p>Updates problem specific parameters, and handles restart</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.recursive_update">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">recursive_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dst</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#recursive_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.recursive_update" title="Permalink to this definition">#</a></dt>
+<dd><p>Update dict dst with items from src deeply (“deep update”).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.scalar_hook">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">scalar_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#scalar_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.scalar_hook" title="Permalink to this definition">#</a></dt>
+<dd><p>Called prior to scalar solve.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.scalar_source">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">scalar_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scalar_components</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#scalar_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.scalar_source" title="Permalink to this definition">#</a></dt>
+<dd><p>Return a dictionary of scalar sources.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.strain">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">strain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#strain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.strain" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.theend_hook">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">theend_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#theend_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.theend_hook" title="Permalink to this definition">#</a></dt>
+<dd><p>Called at the very end.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.u_dot_n">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">u_dot_n</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#u_dot_n"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.u_dot_n" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.__init__.write_data_to_file">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">write_data_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">save_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#write_data_to_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.write_data_to_file" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-oasismove.problems.NSfracStep.MovingCommon"></span><dl class="py class">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCommon.Counter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCommon.</span></span><span class="sig-name descname"><span class="pre">Counter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCommon.html#Counter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCommon.Counter" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dolfin.function.expression.UserExpression</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCommon.Counter.eval">
+<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCommon.html#Counter.eval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCommon.Counter.eval" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCommon.Counter.get_map">
+<span class="sig-name descname"><span class="pre">get_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCommon.html#Counter.get_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCommon.Counter.get_map" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCommon.get_coordinate_map">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCommon.</span></span><span class="sig-name descname"><span class="pre">get_coordinate_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facet_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCommon.html#get_coordinate_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCommon.get_coordinate_map" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCommon.get_visualization_files">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCommon.</span></span><span class="sig-name descname"><span class="pre">get_visualization_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCommon.html#get_visualization_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCommon.get_visualization_files" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCommon.get_visualization_writers">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCommon.</span></span><span class="sig-name descname"><span class="pre">get_visualization_writers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_of_quantities</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCommon.html#get_visualization_writers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCommon.get_visualization_writers" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-oasismove.problems.NSfracStep.MovingCylinder"></span><dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCylinder.create_bcs">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCylinder.</span></span><span class="sig-name descname"><span class="pre">create_bcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">St</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A_ratio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sys_comp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCylinder.html#create_bcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCylinder.create_bcs" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCylinder.mesh">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCylinder.</span></span><span class="sig-name descname"><span class="pre">mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_inf</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCylinder.html#mesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCylinder.mesh" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCylinder.pre_boundary_condition">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCylinder.</span></span><span class="sig-name descname"><span class="pre">pre_boundary_condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Re</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCylinder.html#pre_boundary_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCylinder.pre_boundary_condition" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCylinder.pre_solve_hook">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCylinder.</span></span><span class="sig-name descname"><span class="pre">pre_solve_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">velocity_degree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCylinder.html#pre_solve_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCylinder.pre_solve_hook" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCylinder.problem_parameters">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCylinder.</span></span><span class="sig-name descname"><span class="pre">problem_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commandline_kwargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCylinder.html#problem_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCylinder.problem_parameters" title="Permalink to this definition">#</a></dt>
+<dd><p>Problem file for running CFD simulation for the oscillating cylinder in a rectangular 2D domain, as described
+by Blackburn and Henderson [1].The cylinder is prescribed an oscillatory motion and is placed in a free stream,
+with a diameter of D cm. The kinetmatic viscosity is computed from the free stream velocity of 1 m/s for a Reynolds
+number of 500, which is well above the critical value for vortex shedding. Moreover, the oscillation is mainly
+controlled by the amplitude ratio A_ratio, the Strouhal number St, and the frequency ratio F.</p>
+<p>[1] Blackburn, H. M., &amp; Henderson, R. D. (1999). A study of two-dimensional flow past an oscillating cylinder.
+Journal of Fluid Mechanics, 385, 255-286.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCylinder.temporal_hook">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCylinder.</span></span><span class="sig-name descname"><span class="pre">temporal_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">St</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A_ratio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_solution_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_vec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCylinder.html#temporal_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCylinder.temporal_hook" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCylinder.update_boundary_conditions">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCylinder.</span></span><span class="sig-name descname"><span class="pre">update_boundary_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCylinder.html#update_boundary_conditions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCylinder.update_boundary_conditions" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-oasismove.problems.NSfracStep.MovingTaylorGreen3D"></span><dl class="py class">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingTaylorGreen3D.PeriodicDomain">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingTaylorGreen3D.</span></span><span class="sig-name descname"><span class="pre">PeriodicDomain</span></span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#PeriodicDomain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.PeriodicDomain" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dolfin.cpp.mesh.SubDomain</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingTaylorGreen3D.PeriodicDomain.inside">
+<span class="sig-name descname"><span class="pre">inside</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dolfin.cpp.mesh.SubDomain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">[</span></span><span class="pre">m</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#PeriodicDomain.inside"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.PeriodicDomain.inside" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingTaylorGreen3D.PeriodicDomain.map">
+<span class="sig-name descname"><span class="pre">map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dolfin.cpp.mesh.SubDomain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">[</span></span><span class="pre">m</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.float64</span><span class="p"><span class="pre">[</span></span><span class="pre">m</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">flags.writeable</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#PeriodicDomain.map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.PeriodicDomain.map" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingTaylorGreen3D.initialize">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingTaylorGreen3D.</span></span><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VV</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">OasisFunction</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.initialize" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingTaylorGreen3D.mesh">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingTaylorGreen3D.</span></span><span class="sig-name descname"><span class="pre">mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nz</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#mesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.mesh" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingTaylorGreen3D.near">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingTaylorGreen3D.</span></span><span class="sig-name descname"><span class="pre">near</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-12</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#near"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.near" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingTaylorGreen3D.pre_boundary_condition">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingTaylorGreen3D.</span></span><span class="sig-name descname"><span class="pre">pre_boundary_condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Re</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#pre_boundary_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.pre_boundary_condition" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingTaylorGreen3D.pre_solve_hook">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingTaylorGreen3D.</span></span><span class="sig-name descname"><span class="pre">pre_solve_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T_G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_fields_w</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">velocity_degree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#pre_solve_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.pre_solve_hook" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingTaylorGreen3D.problem_parameters">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingTaylorGreen3D.</span></span><span class="sig-name descname"><span class="pre">problem_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#problem_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.problem_parameters" title="Permalink to this definition">#</a></dt>
+<dd><p>Problem file for running CFD simulation for the moving Taylor-Green problem in 3D as described by Fehn et al.[1].
+The problem solves the N-S equations in the absence of body forces, and is commonly used to study transitional and
+turbulent flows. The problem initializes the solution at the two previous time steps, and applies periodic boundary
+condition on the domain walls in all coordinate directions. The domain boundaries are moving for the given mesh
+motion, while the fluid velocity is defined periodically in order to ensure consistency with the periodic boundary
+conditions. The main simulation parameters are the ampliture A, and period time duration T_G.</p>
+<p>[1] Fehn, N., Heinz, J., Wall, W. A., &amp; Kronbichler, M. (2021). High-order arbitrary Lagrangian–Eulerian
+discontinuous Galerkin methods for the incompressible Navier–Stokes equations.
+Journal of Computational Physics, 430, 110040.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingTaylorGreen3D.temporal_hook">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingTaylorGreen3D.</span></span><span class="sig-name descname"><span class="pre">temporal_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_solution_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_vec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#temporal_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.temporal_hook" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingTaylorGreen3D.update_boundary_conditions">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingTaylorGreen3D.</span></span><span class="sig-name descname"><span class="pre">update_boundary_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#update_boundary_conditions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.update_boundary_conditions" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-oasismove.problems.NSfracStep.MovingWall"></span><dl class="py class">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingWall.MovingSideWall">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingWall.</span></span><span class="sig-name descname"><span class="pre">MovingSideWall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_hat_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">counter_max</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#MovingSideWall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.MovingSideWall" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dolfin.function.expression.UserExpression</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingWall.MovingSideWall.eval">
+<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#MovingSideWall.eval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.MovingSideWall.eval" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingWall.MovingSideWall.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#MovingSideWall.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.MovingSideWall.update" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingWall.MovingWall">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingWall.</span></span><span class="sig-name descname"><span class="pre">MovingWall</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#MovingWall"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.MovingWall" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dolfin.function.expression.UserExpression</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingWall.MovingWall.eval">
+<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#MovingWall.eval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.MovingWall.eval" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingWall.MovingWall.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#MovingWall.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.MovingWall.update" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingWall.create_bcs">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingWall.</span></span><span class="sig-name descname"><span class="pre">create_bcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sys_comp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#create_bcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.create_bcs" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingWall.mesh">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingWall.</span></span><span class="sig-name descname"><span class="pre">mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_max</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#mesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.mesh" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingWall.pre_boundary_condition">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingWall.</span></span><span class="sig-name descname"><span class="pre">pre_boundary_condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#pre_boundary_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.pre_boundary_condition" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingWall.pre_solve_hook">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingWall.</span></span><span class="sig-name descname"><span class="pre">pre_solve_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">velocity_degree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#pre_solve_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.pre_solve_hook" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingWall.problem_parameters">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingWall.</span></span><span class="sig-name descname"><span class="pre">problem_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#problem_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.problem_parameters" title="Permalink to this definition">#</a></dt>
+<dd><p>Problem file for running CFD simulation for the MovingWall problem inspired by the Wall-induced channel flow
+presented by Chnafa [1]. The problem considers flow in a long, straight, time-dependent domain, where the flow is
+induced by a moving wall at y=h(t). The motion is mainly controlled by the pulsation (sigma) and the ampliture
+of oscillations (eps), with an initial height of h0. The flow has an analytic solution for small Reynolds numbers,
+and may be used as a validation case.</p>
+<p>[1] Chnafa, C. (2014). Using image-based large-eddy simulations to investigate the intracardiac flow and its
+turbulent nature (Doctoral dissertation, Université Montpellier II-Sciences et Techniques du Languedoc).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingWall.temporal_hook">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingWall.</span></span><span class="sig-name descname"><span class="pre">temporal_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_solution_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_vec</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#temporal_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.temporal_hook" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingWall.update_boundary_conditions">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingWall.</span></span><span class="sig-name descname"><span class="pre">update_boundary_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#update_boundary_conditions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.update_boundary_conditions" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-oasismove.problems.NSfracStep.MovingVortex"></span><dl class="py class">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingVortex.Walls">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingVortex.</span></span><span class="sig-name descname"><span class="pre">Walls</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T_G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_hat_map</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">counter_max</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingVortex.html#Walls"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingVortex.Walls" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">dolfin.function.expression.UserExpression</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingVortex.Walls.eval">
+<span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingVortex.html#Walls.eval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingVortex.Walls.eval" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingVortex.Walls.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingVortex.html#Walls.update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingVortex.Walls.update" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingVortex.create_bcs">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingVortex.</span></span><span class="sig-name descname"><span class="pre">create_bcs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sys_comp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_fields</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingVortex.html#create_bcs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingVortex.create_bcs" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingVortex.initialize">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingVortex.</span></span><span class="sig-name descname"><span class="pre">initialize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VV</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_fields</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingVortex.html#initialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingVortex.initialize" title="Permalink to this definition">#</a></dt>
+<dd><p>Initialize solution.</p>
+<p>Use t=dt/2 for pressure since pressure is computed in between timesteps.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingVortex.mesh">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingVortex.</span></span><span class="sig-name descname"><span class="pre">mesh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Nx</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ny</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingVortex.html#mesh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingVortex.mesh" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingVortex.pre_boundary_condition">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingVortex.</span></span><span class="sig-name descname"><span class="pre">pre_boundary_condition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingVortex.html#pre_boundary_condition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingVortex.pre_boundary_condition" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingVortex.pre_solve_hook">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingVortex.</span></span><span class="sig-name descname"><span class="pre">pre_solve_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">T_G</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">velocity_degree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exact_fields</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingVortex.html#pre_solve_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingVortex.pre_solve_hook" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingVortex.problem_parameters">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingVortex.</span></span><span class="sig-name descname"><span class="pre">problem_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingVortex.html#problem_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingVortex.problem_parameters" title="Permalink to this definition">#</a></dt>
+<dd><p>Problem file for running CFD simulation for the MovingVortex problem inspired by the problem by Fehn et al.[1],
+resembling the 2D Taylor-Green vortex. The problem solves the N-S equations in the absence of body forces, with a
+manufactured velocity solution. The mesh velocity is also described by an analytic displacement field,
+describing the oscillatory boundary movement. The movement is mainly controlled by the amplitude A0,
+and period length of the mesh motion T_G.</p>
+<p>[1] Fehn, N., Heinz, J., Wall, W. A., &amp; Kronbichler, M. (2021). High-order arbitrary Lagrangian–Eulerian
+discontinuous Galerkin methods for the incompressible Navier–Stokes equations.
+Journal of Computational Physics, 430, 110040.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingVortex.temporal_hook">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingVortex.</span></span><span class="sig-name descname"><span class="pre">temporal_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VV</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_vec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ue_vec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_ue</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_fields</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_solution_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sys_comp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">compute_error</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_error</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ue_x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ue_y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pe</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">testing</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingVortex.html#temporal_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingVortex.temporal_hook" title="Permalink to this definition">#</a></dt>
+<dd><p>Function called at end of timestep.</p>
+<p>Plot solution and compute error by comparing to analytical solution.
+Remember pressure is computed in between timesteps.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingVortex.theend_hook">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingVortex.</span></span><span class="sig-name descname"><span class="pre">theend_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">VV</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sys_comp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_error</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">initial_fields</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingVortex.html#theend_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingVortex.theend_hook" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingVortex.update_boundary_conditions">
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingVortex.</span></span><span class="sig-name descname"><span class="pre">update_boundary_conditions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingVortex.html#update_boundary_conditions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingVortex.update_boundary_conditions" title="Permalink to this definition">#</a></dt>
+<dd></dd></dl>
+
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -520,7 +1183,7 @@ going into time loop.</p>
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./."
         },
         predefinedOutput: true

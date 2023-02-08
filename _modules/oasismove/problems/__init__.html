@@ -1,0 +1,721 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>oasismove.problems.__init__ &#8212; OasisMove</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">OasisMove</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../index.html">
+                    OasisMove
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Installation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../installation.html">
+   Installation
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Using OasisMove
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../getting_started.html">
+   Getting started
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../hooks.html">
+   Hooks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../parameters.html">
+   Parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../features.html">
+   Features and issues
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../tutorials.html">
+   Tutorials
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../movingwall.html">
+   Wall-driven channel flow
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../movingcylinder.html">
+   Oscillating cylinder in free stream
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../movingvortex.html">
+   Vortex problem with oscillating boundaries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../movingtg.html">
+   Moving 3D Taylor-Green vortex
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Python API
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../api.html">
+   API Reference
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            See more at <a href="https://kvslab.github.io">KVSLab</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://kvslab.github.io/OasisMove/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://kvslab.github.io/OasisMove//issues/new?title=Issue%20on%20page%20%2F_modules/oasismove/problems/__init__.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for oasismove.problems.__init__</h1><div class="highlight"><pre>
+<span></span><span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Mikael Mortensen &lt;mikaem@math.uio.no&gt;&quot;</span>
+<span class="n">__date__</span> <span class="o">=</span> <span class="s2">&quot;2013-06-25&quot;</span>
+<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright (C) 2013 &quot;</span> <span class="o">+</span> <span class="n">__author__</span>
+<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;GNU Lesser GPL version 3 or any later version&quot;</span>
+
+<span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getpid</span><span class="p">,</span> <span class="n">path</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">maximum</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">savetxt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="getMemoryUsage"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.getMemoryUsage">[docs]</a><span class="k">def</span> <span class="nf">getMemoryUsage</span><span class="p">(</span><span class="n">rss</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="n">mypid</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">getpid</span><span class="p">())</span>
+    <span class="n">rss</span> <span class="o">=</span> <span class="s2">&quot;rss&quot;</span> <span class="k">if</span> <span class="n">rss</span> <span class="k">else</span> <span class="s2">&quot;vsz&quot;</span>
+    <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">([</span><span class="s1">&#39;ps&#39;</span><span class="p">,</span> <span class="s1">&#39;-o&#39;</span><span class="p">,</span> <span class="n">rss</span><span class="p">,</span> <span class="n">mypid</span><span class="p">],</span>
+                               <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">)</span>
+    <span class="n">out</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+    <span class="n">mymemory</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="n">mymemory</span><span class="p">)</span> <span class="o">/</span> <span class="mi">1024</span></div>
+
+
+<span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;linear_algebra_backend&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;PETSc&quot;</span>
+<span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;form_compiler&quot;</span><span class="p">][</span><span class="s2">&quot;optimize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;form_compiler&quot;</span><span class="p">][</span><span class="s2">&quot;cpp_optimize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;form_compiler&quot;</span><span class="p">][</span><span class="s2">&quot;representation&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;uflacs&quot;</span>
+<span class="c1"># parameters[&quot;form_compiler&quot;][&quot;quadrature_degree&quot;] = 4</span>
+<span class="c1"># parameters[&quot;form_compiler&quot;][&quot;cache_dir&quot;] = &quot;instant&quot;</span>
+<span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;form_compiler&quot;</span><span class="p">][</span><span class="s2">&quot;cpp_optimize_flags&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;-O3&quot;</span>
+<span class="c1"># parameters[&quot;mesh_partitioner&quot;] = &quot;ParMETIS&quot;</span>
+<span class="c1"># parameters[&quot;form_compiler&quot;].add(&quot;no_ferari&quot;, True)</span>
+<span class="c1"># set_log_active(False)</span>
+
+<span class="c1"># Default parameters for all solvers</span>
+<span class="n">NS_parameters</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="n">nu</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span>  <span class="c1"># Kinematic viscosity</span>
+    <span class="n">folder</span><span class="o">=</span><span class="s1">&#39;results&#39;</span><span class="p">,</span>  <span class="c1"># Relative folder for storing results</span>
+    <span class="n">velocity_degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>  <span class="c1"># default velocity degree</span>
+    <span class="n">pressure_degree</span><span class="o">=</span><span class="mi">1</span>  <span class="c1"># default pressure degree</span>
+<span class="p">)</span>
+
+<span class="n">NS_expressions</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="n">constrained_domain</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># To solve for scalars provide a list like [&#39;scalar1&#39;, &#39;scalar2&#39;]</span>
+<span class="n">scalar_components</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1"># With diffusivities given as a Schmidt number defined by:</span>
+<span class="c1">#   Schmidt = nu / D (= momentum diffusivity / mass diffusivity)</span>
+<span class="n">Schmidt</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">1.</span><span class="p">)</span>
+<span class="n">Schmidt_T</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="mf">0.7</span><span class="p">)</span>  <span class="c1"># Turbulent Schmidt number (LES)</span>
+
+<span class="n">Scalar</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="k">lambda</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">Schmidt</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                                  <span class="n">family</span><span class="o">=</span><span class="s2">&quot;CG&quot;</span><span class="p">,</span>
+                                  <span class="n">degree</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1"># The following helper functions are available in dolfin</span>
+<span class="c1"># They are redefined here for printing only on process 0.</span>
+<span class="n">RED</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[1;37;31m</span><span class="si">%s</span><span class="se">\033</span><span class="s2">[0m&quot;</span>
+<span class="n">BLUE</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[1;37;34m</span><span class="si">%s</span><span class="se">\033</span><span class="s2">[0m&quot;</span>
+<span class="n">GREEN</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[1;37;32m</span><span class="si">%s</span><span class="se">\033</span><span class="s2">[0m&quot;</span>
+
+
+<div class="viewcode-block" id="info_blue"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.info_blue">[docs]</a><span class="k">def</span> <span class="nf">info_blue</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">check</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">BLUE</span> <span class="o">%</span> <span class="n">s</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="info_green"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.info_green">[docs]</a><span class="k">def</span> <span class="nf">info_green</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">check</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">GREEN</span> <span class="o">%</span> <span class="n">s</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="info_red"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.info_red">[docs]</a><span class="k">def</span> <span class="nf">info_red</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">check</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">check</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">RED</span> <span class="o">%</span> <span class="n">s</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OasisTimer"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.OasisTimer">[docs]</a><span class="k">class</span> <span class="nc">OasisTimer</span><span class="p">(</span><span class="n">Timer</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">Timer</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">)</span>
+        <span class="n">info_blue</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="n">verbose</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="OasisMemoryUsage"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.OasisMemoryUsage">[docs]</a><span class="k">class</span> <span class="nc">OasisMemoryUsage</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory_vm</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">prev_vm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">memory_vm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">getMemoryUsage</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">memory_vm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">getMemoryUsage</span><span class="p">(</span><span class="kc">False</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">verbose</span><span class="p">:</span>
+            <span class="n">info_blue</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{0:26s}</span><span class="s1">  </span><span class="si">{1:10d}</span><span class="s1"> MB </span><span class="si">{2:10d}</span><span class="s1"> MB </span><span class="si">{3:10d}</span><span class="s1"> MB </span><span class="si">{4:10d}</span><span class="s1"> MB&#39;</span>
+                      <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">,</span>
+                              <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memory</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">prev</span><span class="p">),</span>
+                              <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memory</span><span class="p">),</span>
+                              <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memory_vm</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">prev_vm</span><span class="p">),</span>
+                              <span class="nb">int</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">memory_vm</span><span class="p">))</span>
+                      <span class="p">)</span></div>
+
+
+<span class="c1"># Print memory use up til now</span>
+<span class="n">initial_memory_use</span> <span class="o">=</span> <span class="n">getMemoryUsage</span><span class="p">()</span>
+<span class="n">oasis_memory</span> <span class="o">=</span> <span class="n">OasisMemoryUsage</span><span class="p">(</span><span class="s1">&#39;Start&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># Convenience functions</span>
+<div class="viewcode-block" id="strain"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.strain">[docs]</a><span class="k">def</span> <span class="nf">strain</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">+</span> <span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="omega"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.omega">[docs]</a><span class="k">def</span> <span class="nf">omega</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">-</span> <span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">)</span><span class="o">.</span><span class="n">T</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Omega"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.Omega">[docs]</a><span class="k">def</span> <span class="nf">Omega</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">inner</span><span class="p">(</span><span class="n">omega</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">omega</span><span class="p">(</span><span class="n">u</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="Strain"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.Strain">[docs]</a><span class="k">def</span> <span class="nf">Strain</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">inner</span><span class="p">(</span><span class="n">strain</span><span class="p">(</span><span class="n">u</span><span class="p">),</span> <span class="n">strain</span><span class="p">(</span><span class="n">u</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="QC"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.QC">[docs]</a><span class="k">def</span> <span class="nf">QC</span><span class="p">(</span><span class="n">u</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">Omega</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">-</span> <span class="n">Strain</span><span class="p">(</span><span class="n">u</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="compute_flow_quantities"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.compute_flow_quantities">[docs]</a><span class="k">def</span> <span class="nf">compute_flow_quantities</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">outlet_area</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">boundary</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outlet_ids</span><span class="o">=</span><span class="p">[],</span> <span class="n">inlet_ids</span><span class="o">=</span><span class="p">[],</span>
+                            <span class="n">id_wall</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">newfolder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dynamic_mesh</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Compute max and mean Reynolds number using velocities U_max &amp; U_mean,</span>
+<span class="sd">    kinematic viscosity (nu) and characteristic length (L)</span>
+<span class="sd">    Also computes the CFL number, and fluxes through boundaries</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Compute and printCFL number</span>
+    <span class="n">DG</span> <span class="o">=</span> <span class="n">FunctionSpace</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="s2">&quot;DG&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">project</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">inner</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">u</span><span class="p">)),</span> <span class="n">DG</span><span class="p">)</span>
+
+    <span class="n">U_mean</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">get_local</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="n">U_max</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">get_local</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+
+    <span class="n">re_mean</span> <span class="o">=</span> <span class="n">U_mean</span> <span class="o">*</span> <span class="n">L</span> <span class="o">/</span> <span class="n">nu</span>
+    <span class="n">re_max</span> <span class="o">=</span> <span class="n">U_max</span> <span class="o">*</span> <span class="n">L</span> <span class="o">/</span> <span class="n">nu</span>
+    <span class="n">flux_in</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">flux_out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">flux_wall</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">re_outlet</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">if</span> <span class="n">boundary</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Compute Reynolds number at outlet</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">Measure</span><span class="p">(</span><span class="s2">&quot;ds&quot;</span><span class="p">,</span> <span class="n">subdomain_data</span><span class="o">=</span><span class="n">boundary</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">FacetNormal</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+        <span class="n">u_dot_n</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+        <span class="n">flux_wall</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">assemble</span><span class="p">(</span><span class="n">u_dot_n</span> <span class="o">*</span> <span class="n">ds</span><span class="p">(</span><span class="n">id_wall</span><span class="p">)))</span>
+        <span class="k">for</span> <span class="n">inlet_id</span> <span class="ow">in</span> <span class="n">inlet_ids</span><span class="p">:</span>
+            <span class="n">flux_in</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">assemble</span><span class="p">(</span><span class="n">u_dot_n</span> <span class="o">*</span> <span class="n">ds</span><span class="p">(</span><span class="n">inlet_id</span><span class="p">)))</span>
+
+        <span class="k">for</span> <span class="n">outlet_id</span> <span class="ow">in</span> <span class="n">outlet_ids</span><span class="p">:</span>
+            <span class="n">flux_out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">assemble</span><span class="p">(</span><span class="n">u_dot_n</span> <span class="o">*</span> <span class="n">ds</span><span class="p">(</span><span class="n">outlet_id</span><span class="p">)))</span>
+
+        <span class="n">u_mean</span> <span class="o">=</span> <span class="n">flux_out</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">outlet_area</span>
+        <span class="n">re_outlet</span> <span class="o">=</span> <span class="n">u_mean</span> <span class="o">*</span> <span class="n">L</span> <span class="o">/</span> <span class="n">nu</span>
+
+    <span class="c1"># Compute Womersley number</span>
+    <span class="n">omega</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">period</span>
+    <span class="n">D_outlet</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">outlet_area</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+
+    <span class="n">womersley_number_outlet</span> <span class="o">=</span> <span class="n">D_outlet</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">omega</span> <span class="o">/</span> <span class="n">nu</span><span class="p">)</span>
+
+    <span class="c1"># Recompute edge length if mesh has moved</span>
+    <span class="k">if</span> <span class="n">dynamic_mesh</span><span class="p">:</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">hmin</span><span class="p">()</span>
+
+    <span class="n">cfl</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">get_local</span><span class="p">()</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">/</span> <span class="n">h</span>
+    <span class="n">max_cfl</span> <span class="o">=</span> <span class="n">cfl</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">mean_cfl</span> <span class="o">=</span> <span class="n">cfl</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">info_green</span><span class="p">(</span>
+            <span class="s1">&#39;Time = </span><span class="si">{0:2.4e}</span><span class="s1">, timestep = </span><span class="si">{1:6d}</span><span class="s1">, max Reynolds number=</span><span class="si">{2:2.3f}</span><span class="s1">, mean Reynolds number=</span><span class="si">{3:2.3f}</span><span class="s1">, outlet Reynolds number=</span><span class="si">{4:2.3f}</span><span class="s1">, Womersley number=</span><span class="si">{5:2.3f}</span><span class="s1">, max velocity=</span><span class="si">{6:2.3f}</span><span class="s1">, mean velocity=</span><span class="si">{7:2.3f}</span><span class="s1">, max CFL=</span><span class="si">{8:2.3f}</span><span class="s1">, mean CFL=</span><span class="si">{9:2.3f}</span><span class="s1">&#39;</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span> <span class="n">re_max</span><span class="p">,</span> <span class="n">re_mean</span><span class="p">,</span> <span class="n">re_outlet</span><span class="p">,</span> <span class="n">womersley_number_outlet</span><span class="p">,</span> <span class="n">U_max</span><span class="p">,</span> <span class="n">U_mean</span><span class="p">,</span> <span class="n">max_cfl</span><span class="p">,</span>
+                        <span class="n">mean_cfl</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">write_to_file</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span> <span class="n">re_max</span><span class="p">,</span> <span class="n">re_mean</span><span class="p">,</span> <span class="n">re_outlet</span><span class="p">,</span> <span class="n">womersley_number_outlet</span><span class="p">,</span> <span class="n">U_max</span><span class="p">,</span> <span class="n">U_mean</span><span class="p">,</span> <span class="n">max_cfl</span><span class="p">,</span>
+                <span class="n">mean_cfl</span><span class="p">]</span> <span class="o">+</span> <span class="n">flux_in</span> <span class="o">+</span> <span class="n">flux_out</span> <span class="o">+</span> <span class="n">flux_wall</span>
+        <span class="n">write_data_to_file</span><span class="p">(</span><span class="n">newfolder</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;flow_metrics.txt&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="write_data_to_file"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.write_data_to_file">[docs]</a><span class="k">def</span> <span class="nf">write_data_to_file</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="n">data_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s2">&quot;ab&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">savetxt</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot; </span><span class="si">%.16f</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="print_mesh_information"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.print_mesh_information">[docs]</a><span class="k">def</span> <span class="nf">print_mesh_information</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">dt</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">u_mean</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span>
+    <span class="n">local_xmin</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">coordinates</span><span class="p">()[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">local_xmax</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">coordinates</span><span class="p">()[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">local_ymin</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">coordinates</span><span class="p">()[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+    <span class="n">local_ymax</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">coordinates</span><span class="p">()[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">dim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">local_zmin</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">coordinates</span><span class="p">()[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span>
+        <span class="n">local_zmax</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">coordinates</span><span class="p">()[:,</span> <span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">xmin</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">local_xmin</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">xmax</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">local_xmax</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">ymin</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">local_ymin</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">ymax</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">local_ymax</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">dim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">zmin</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">local_zmin</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">zmax</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">local_zmax</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">local_hmin</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">hmin</span><span class="p">()</span>
+    <span class="n">local_num_cells</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">num_cells</span><span class="p">()</span>
+    <span class="n">local_num_edges</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">num_edges</span><span class="p">()</span>
+    <span class="n">local_num_faces</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">num_faces</span><span class="p">()</span>
+    <span class="n">local_num_facets</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">num_facets</span><span class="p">()</span>
+    <span class="n">local_num_vertices</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">num_vertices</span><span class="p">()</span>
+    <span class="n">h_min</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">local_hmin</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">num_cells</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">local_num_cells</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">num_edges</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">local_num_edges</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">num_faces</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">local_num_faces</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">num_facets</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">local_num_facets</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">num_vertices</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">local_num_vertices</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">volume</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">Constant</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">dx</span><span class="p">(</span><span class="n">mesh</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Mesh information ===&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;X range: </span><span class="si">{}</span><span class="s2"> to </span><span class="si">{}</span><span class="s2"> (delta: </span><span class="si">{:.4f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">xmin</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">xmax</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">xmax</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">xmin</span><span class="p">)))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Y range: </span><span class="si">{}</span><span class="s2"> to </span><span class="si">{}</span><span class="s2"> (delta: </span><span class="si">{:.4f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">ymin</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">ymax</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">ymax</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">ymin</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="n">dim</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Z range: </span><span class="si">{}</span><span class="s2"> to </span><span class="si">{}</span><span class="s2"> (delta: </span><span class="si">{:.4f}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">zmin</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">zmax</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">zmax</span><span class="p">)</span> <span class="o">-</span> <span class="nb">min</span><span class="p">(</span><span class="n">zmin</span><span class="p">)))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of cells: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">num_cells</span><span class="p">)))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of cells per processor: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">num_cells</span><span class="p">))))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of edges: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">num_edges</span><span class="p">)))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of faces: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">num_faces</span><span class="p">)))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of facets: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">num_facets</span><span class="p">)))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of vertices: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">num_vertices</span><span class="p">)))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Volume: </span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">volume</span><span class="p">))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Number of cells per volume: </span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">num_cells</span><span class="p">)</span> <span class="o">/</span> <span class="n">volume</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">u_mean</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CFL number: </span><span class="si">{:.4f}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">u_mean</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">/</span> <span class="nb">min</span><span class="p">(</span><span class="n">h_min</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="recursive_update"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.recursive_update">[docs]</a><span class="k">def</span> <span class="nf">recursive_update</span><span class="p">(</span><span class="n">dst</span><span class="p">,</span> <span class="n">src</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update dict dst with items from src deeply (&quot;deep update&quot;).&quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">src</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">dst</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dst</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">dst</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">recursive_update</span><span class="p">(</span><span class="n">dst</span><span class="p">[</span><span class="n">key</span><span class="p">],</span> <span class="n">val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">dst</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+    <span class="k">return</span> <span class="n">dst</span></div>
+
+
+<div class="viewcode-block" id="OasisXDMFFile"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.OasisXDMFFile">[docs]</a><span class="k">class</span> <span class="nc">OasisXDMFFile</span><span class="p">(</span><span class="n">XDMFFile</span><span class="p">,</span> <span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+        <span class="n">XDMFFile</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">comm</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="add_function_to_tstepfiles"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.add_function_to_tstepfiles">[docs]</a><span class="k">def</span> <span class="nf">add_function_to_tstepfiles</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">tstepfiles</span><span class="p">,</span> <span class="n">tstep</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">function</span><span class="o">.</span><span class="n">name</span><span class="p">()</span>
+    <span class="n">tstepfolder</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">newfolder</span><span class="p">,</span> <span class="s2">&quot;Timeseries&quot;</span><span class="p">)</span>
+    <span class="n">tstepfiles</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">OasisXDMFFile</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span>
+                                     <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tstepfolder</span><span class="p">,</span>
+                                               <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_from_tstep_</span><span class="si">{}</span><span class="s1">.xdmf&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">tstep</span><span class="p">)))</span>
+    <span class="n">tstepfiles</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">function</span> <span class="o">=</span> <span class="n">function</span>
+    <span class="n">tstepfiles</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;rewrite_function_mesh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="body_force"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.body_force">[docs]</a><span class="k">def</span> <span class="nf">body_force</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Specify body force&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Constant</span><span class="p">((</span><span class="mi">0</span><span class="p">,)</span> <span class="o">*</span> <span class="n">mesh</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">dim</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="initialize"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.initialize">[docs]</a><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize solution.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="create_bcs"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.create_bcs">[docs]</a><span class="k">def</span> <span class="nf">create_bcs</span><span class="p">(</span><span class="n">sys_comp</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return dictionary of Dirichlet boundary conditions.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">((</span><span class="n">ui</span><span class="p">,</span> <span class="p">[])</span> <span class="k">for</span> <span class="n">ui</span> <span class="ow">in</span> <span class="n">sys_comp</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="scalar_hook"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.scalar_hook">[docs]</a><span class="k">def</span> <span class="nf">scalar_hook</span><span class="p">(</span><span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called prior to scalar solve.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="scalar_source"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.scalar_source">[docs]</a><span class="k">def</span> <span class="nf">scalar_source</span><span class="p">(</span><span class="n">scalar_components</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a dictionary of scalar sources.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">((</span><span class="n">ci</span><span class="p">,</span> <span class="n">Constant</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span> <span class="k">for</span> <span class="n">ci</span> <span class="ow">in</span> <span class="n">scalar_components</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="pre_solve_hook"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.pre_solve_hook">[docs]</a><span class="k">def</span> <span class="nf">pre_solve_hook</span><span class="p">(</span><span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called just prior to entering time-loop. Must return a dictionary.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{}</span></div>
+
+
+<div class="viewcode-block" id="theend_hook"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.theend_hook">[docs]</a><span class="k">def</span> <span class="nf">theend_hook</span><span class="p">(</span><span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called at the very end.&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="problem_parameters"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.problem_parameters">[docs]</a><span class="k">def</span> <span class="nf">problem_parameters</span><span class="p">(</span><span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Updates problem specific parameters, and handles restart&quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="post_import_problem"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.post_import_problem">[docs]</a><span class="k">def</span> <span class="nf">post_import_problem</span><span class="p">(</span><span class="n">NS_parameters</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">commandline_kwargs</span><span class="p">,</span>
+                        <span class="n">NS_expressions</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Called after importing from problem.&quot;&quot;&quot;</span>
+
+    <span class="c1"># Update NS_parameters with all parameters modified through command line</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">commandline_kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">NS_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">NS_parameters</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="c1"># If the mesh is a callable function, then create the mesh here.</span>
+    <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">mesh</span><span class="p">):</span>
+        <span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh</span><span class="p">(</span><span class="o">**</span><span class="n">NS_parameters</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">Mesh</span><span class="p">))</span>
+
+    <span class="c1"># Returned dictionary to be updated in the NS namespace</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">)</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">NS_parameters</span><span class="p">)</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">NS_expressions</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span></div>
+
+
+<div class="viewcode-block" id="u_dot_n"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.u_dot_n">[docs]</a><span class="k">def</span> <span class="nf">u_dot_n</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">n</span><span class="p">)))</span> <span class="o">/</span> <span class="mi">2</span></div>
+
+
+<div class="viewcode-block" id="add_backflow_stabilization"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.add_backflow_stabilization">[docs]</a><span class="k">def</span> <span class="nf">add_backflow_stabilization</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">backflow_beta</span><span class="p">,</span> <span class="n">backflow_facets</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">u_ab</span><span class="p">,</span> <span class="n">ui</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">x_1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">ID</span> <span class="ow">in</span> <span class="n">backflow_facets</span><span class="p">:</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">Measure</span><span class="p">(</span><span class="s2">&quot;ds&quot;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span> <span class="n">subdomain_data</span><span class="o">=</span><span class="n">boundary</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">FacetNormal</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+        <span class="n">K</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">u_dot_n</span><span class="p">(</span><span class="n">u_ab</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="o">*</span> <span class="n">ds</span><span class="p">(</span><span class="n">ID</span><span class="p">))</span>
+        <span class="n">A</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="n">backflow_beta</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="n">b</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="n">backflow_beta</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">K</span> <span class="o">*</span> <span class="n">x_1</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span></div>
+
+
+<div class="viewcode-block" id="compute_volume"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.compute_volume">[docs]</a><span class="k">def</span> <span class="nf">compute_volume</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">):</span>
+    <span class="n">volume</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">Constant</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span> <span class="o">*</span> <span class="n">dx</span><span class="p">(</span><span class="n">mesh</span><span class="p">))</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">volume</span><span class="p">]</span>
+    <span class="n">write_data_to_file</span><span class="p">(</span><span class="n">newfolder</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;volume.txt&quot;</span><span class="p">)</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Henrik A. Kjeldsberg<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

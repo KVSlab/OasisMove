@@ -1,0 +1,650 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>oasismove.problems.NSfracStep.MovingVortex &#8212; OasisMove</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../../../../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../../../../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+    <script src="../../../../_static/jquery.js"></script>
+    <script src="../../../../_static/underscore.js"></script>
+    <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/clipboard.min.js"></script>
+    <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../../../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../../../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../../../../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../../../../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">OasisMove</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../../../../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../../../index.html">
+                    OasisMove
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Installation
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../installation.html">
+   Installation
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Using OasisMove
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../getting_started.html">
+   Getting started
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../hooks.html">
+   Hooks
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../parameters.html">
+   Parameters
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../features.html">
+   Features and issues
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Tutorials
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../tutorials.html">
+   Tutorials
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../movingwall.html">
+   Wall-driven channel flow
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../movingcylinder.html">
+   Oscillating cylinder in free stream
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../movingvortex.html">
+   Vortex problem with oscillating boundaries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../movingtg.html">
+   Moving 3D Taylor-Green vortex
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Python API
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../../api.html">
+   API Reference
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            See more at <a href="https://kvslab.github.io">KVSLab</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://kvslab.github.io/OasisMove/"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://kvslab.github.io/OasisMove//issues/new?title=Issue%20on%20page%20%2F_modules/oasismove/problems/NSfracStep/MovingVortex.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <h1>Source code for oasismove.problems.NSfracStep.MovingVortex</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">oasismove.problems.NSfracStep</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">oasismove.problems.NSfracStep.MovingCommon</span> <span class="kn">import</span> <span class="n">get_coordinate_map</span><span class="p">,</span> <span class="n">get_visualization_writers</span>
+
+
+<div class="viewcode-block" id="problem_parameters"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingVortex.problem_parameters">[docs]</a><span class="k">def</span> <span class="nf">problem_parameters</span><span class="p">(</span><span class="n">NS_parameters</span><span class="p">,</span> <span class="n">NS_expressions</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Problem file for running CFD simulation for the MovingVortex problem inspired by the problem by Fehn et al.[1],</span>
+<span class="sd">    resembling the 2D Taylor-Green vortex. The problem solves the N-S equations in the absence of body forces, with a</span>
+<span class="sd">    manufactured velocity solution. The mesh velocity is also described by an analytic displacement field,</span>
+<span class="sd">    describing the oscillatory boundary movement. The movement is mainly controlled by the amplitude A0,</span>
+<span class="sd">    and period length of the mesh motion T_G.</span>
+
+<span class="sd">    [1] Fehn, N., Heinz, J., Wall, W. A., &amp; Kronbichler, M. (2021). High-order arbitrary Lagrangian–Eulerian</span>
+<span class="sd">    discontinuous Galerkin methods for the incompressible Navier–Stokes equations.</span>
+<span class="sd">    Journal of Computational Physics, 430, 110040.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">NS_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+        <span class="c1"># Problem specific parameters</span>
+        <span class="n">A0</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span>  <span class="c1"># Amplitude</span>
+        <span class="n">T_G</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">T</span><span class="p">,</span>  <span class="c1"># Period time</span>
+        <span class="n">L</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>  <span class="c1"># Dimension of domain</span>
+        <span class="n">Nx</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>  <span class="c1"># Resolution in x-direction</span>
+        <span class="n">Ny</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>  <span class="c1"># Resolution in y-direction</span>
+        <span class="c1"># Fluid parameters</span>
+        <span class="n">nu</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span>  <span class="c1"># Kinematic viscosity</span>
+        <span class="c1"># Simulation parameters</span>
+        <span class="n">T</span><span class="o">=</span><span class="n">T</span><span class="p">,</span>  <span class="c1"># Simulation time</span>
+        <span class="n">dt</span><span class="o">=</span><span class="mi">5</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span>  <span class="c1"># Time step</span>
+        <span class="n">folder</span><span class="o">=</span><span class="s2">&quot;results_moving_vortex&quot;</span><span class="p">,</span>
+        <span class="c1"># Oasis parameters</span>
+        <span class="n">max_iter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+        <span class="n">dynamic_mesh</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">save_solution_frequency</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+        <span class="n">checkpoint</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+        <span class="n">print_intermediate_info</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+        <span class="n">compute_error</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">velocity_degree</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">pressure_degree</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">use_krylov_solvers</span><span class="o">=</span><span class="kc">True</span>
+    <span class="p">)</span>
+
+    <span class="n">NS_parameters</span><span class="p">[</span><span class="s1">&#39;krylov_solvers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;monitor_convergence&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                                       <span class="s1">&#39;report&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                                       <span class="s1">&#39;relative_tolerance&#39;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">,</span>
+                                       <span class="s1">&#39;absolute_tolerance&#39;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">}</span>
+
+    <span class="c1"># Define analytical and initial state expressions</span>
+    <span class="n">NS_expressions</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+        <span class="n">exact_fields</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">u0</span><span class="o">=</span><span class="s1">&#39;-sin(2*pi*x[1])*exp(-4*pi*pi*nu*t)&#39;</span><span class="p">,</span>
+            <span class="n">u1</span><span class="o">=</span><span class="s1">&#39; sin(2*pi*x[0])*exp(-4*pi*pi*nu*t)&#39;</span><span class="p">,</span>
+            <span class="n">p</span><span class="o">=</span><span class="s1">&#39; -cos(2*pi*x[0])*cos(2*pi*x[1])*exp(-8*pi*pi*nu*t)&#39;</span><span class="p">),</span>
+        <span class="n">initial_fields</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">u0</span><span class="o">=</span><span class="s1">&#39;-sin(2*pi*x[1])*exp(-4*pi*pi*nu*t)&#39;</span><span class="p">,</span>
+            <span class="n">u1</span><span class="o">=</span><span class="s1">&#39; sin(2*pi*x[0])*exp(-4*pi*pi*nu*t)&#39;</span><span class="p">,</span>
+            <span class="n">p</span><span class="o">=</span><span class="s1">&#39; -cos(2*pi*x[0])*cos(2*pi*x[1])*exp(-8*pi*pi*nu*t)&#39;</span><span class="p">),</span>
+        <span class="n">initial_fields_w</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">w0</span><span class="o">=</span><span class="s1">&#39;A*2*pi / T_G * cos(2*pi*t/T_G)*sin(2*pi*(x[1] + L/2)/L)&#39;</span><span class="p">,</span>
+            <span class="n">w1</span><span class="o">=</span><span class="s1">&#39;A*2*pi / T_G * cos(2*pi*t/T_G)*sin(2*pi*(x[0] + L/2)/L)&#39;</span><span class="p">),</span>
+        <span class="n">total_error</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span></div>
+
+
+<div class="viewcode-block" id="mesh"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingVortex.mesh">[docs]</a><span class="k">def</span> <span class="nf">mesh</span><span class="p">(</span><span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
+    <span class="c1"># Define mesh</span>
+    <span class="n">mesh</span> <span class="o">=</span> <span class="n">RectangleMesh</span><span class="p">(</span><span class="n">Point</span><span class="p">(</span><span class="o">-</span><span class="n">L</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="n">L</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="n">L</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">L</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">Nx</span><span class="p">,</span> <span class="n">Ny</span><span class="p">)</span>
+
+    <span class="n">print_mesh_information</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">u_mean</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mesh</span></div>
+
+
+<div class="viewcode-block" id="pre_boundary_condition"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingVortex.pre_boundary_condition">[docs]</a><span class="k">def</span> <span class="nf">pre_boundary_condition</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+    <span class="c1"># Mark geometry</span>
+    <span class="n">boundary</span> <span class="o">=</span> <span class="n">MeshFunction</span><span class="p">(</span><span class="s2">&quot;size_t&quot;</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">mesh</span><span class="o">.</span><span class="n">topology</span><span class="p">()</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">boundary</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">inlet</span> <span class="o">=</span> <span class="n">AutoSubDomain</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">b</span><span class="p">)</span>
+
+    <span class="n">inlet</span><span class="o">.</span><span class="n">mark</span><span class="p">(</span><span class="n">boundary</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">boundary</span><span class="o">=</span><span class="n">boundary</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="create_bcs"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingVortex.create_bcs">[docs]</a><span class="k">def</span> <span class="nf">create_bcs</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">sys_comp</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="n">initial_fields</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ui</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sys_comp</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;IPCS&#39;</span> <span class="ow">in</span> <span class="n">NS_parameters</span><span class="p">[</span><span class="s1">&#39;solver&#39;</span><span class="p">]:</span>
+            <span class="n">deltat</span> <span class="o">=</span> <span class="n">dt</span> <span class="o">/</span> <span class="mf">2.</span> <span class="k">if</span> <span class="n">ui</span> <span class="o">==</span> <span class="s1">&#39;p&#39;</span> <span class="k">else</span> <span class="mf">0.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">deltat</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="n">ue</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">((</span><span class="n">initial_fields</span><span class="p">[</span><span class="n">ui</span><span class="p">]),</span>
+                        <span class="n">degree</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                        <span class="n">t</span><span class="o">=</span><span class="n">t</span> <span class="o">-</span> <span class="n">deltat</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">)</span>
+        <span class="n">NS_expressions</span><span class="p">[</span><span class="s2">&quot;bc_</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">ui</span><span class="p">]</span> <span class="o">=</span> <span class="n">ue</span>
+
+    <span class="n">bcs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">ui</span><span class="p">,</span> <span class="p">[])</span> <span class="k">for</span> <span class="n">ui</span> <span class="ow">in</span> <span class="n">sys_comp</span><span class="p">)</span>
+    <span class="n">bc0</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">NS_expressions</span><span class="p">[</span><span class="s2">&quot;bc_u0&quot;</span><span class="p">],</span> <span class="n">boundary</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">bc1</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">NS_expressions</span><span class="p">[</span><span class="s2">&quot;bc_u1&quot;</span><span class="p">],</span> <span class="n">boundary</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">bcs</span><span class="p">[</span><span class="s1">&#39;u0&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">bc0</span><span class="p">]</span>
+    <span class="n">bcs</span><span class="p">[</span><span class="s1">&#39;u1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">bc1</span><span class="p">]</span>
+    <span class="n">bcs</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">return</span> <span class="n">bcs</span></div>
+
+
+<div class="viewcode-block" id="initialize"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingVortex.initialize">[docs]</a><span class="k">def</span> <span class="nf">initialize</span><span class="p">(</span><span class="n">q_</span><span class="p">,</span> <span class="n">q_1</span><span class="p">,</span> <span class="n">q_2</span><span class="p">,</span> <span class="n">VV</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">initial_fields</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize solution.</span>
+
+<span class="sd">    Use t=dt/2 for pressure since pressure is computed in between timesteps.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">ui</span> <span class="ow">in</span> <span class="n">q_</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s1">&#39;IPCS&#39;</span> <span class="ow">in</span> <span class="n">NS_parameters</span><span class="p">[</span><span class="s1">&#39;solver&#39;</span><span class="p">]:</span>
+            <span class="n">deltat</span> <span class="o">=</span> <span class="n">dt</span> <span class="o">/</span> <span class="mf">2.</span> <span class="k">if</span> <span class="n">ui</span> <span class="o">==</span> <span class="s1">&#39;p&#39;</span> <span class="k">else</span> <span class="mf">0.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">deltat</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="n">vv</span> <span class="o">=</span> <span class="n">interpolate</span><span class="p">(</span><span class="n">Expression</span><span class="p">((</span><span class="n">initial_fields</span><span class="p">[</span><span class="n">ui</span><span class="p">]),</span>
+                                    <span class="n">degree</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                                    <span class="n">t</span><span class="o">=</span><span class="n">t</span> <span class="o">-</span> <span class="n">deltat</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">),</span> <span class="n">VV</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span>
+        <span class="n">q_</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">()[:]</span> <span class="o">=</span> <span class="n">vv</span><span class="o">.</span><span class="n">vector</span><span class="p">()[:]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">ui</span> <span class="o">==</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span>
+            <span class="n">q_1</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">()[:]</span> <span class="o">=</span> <span class="n">vv</span><span class="o">.</span><span class="n">vector</span><span class="p">()[:]</span>
+            <span class="n">deltat</span> <span class="o">=</span> <span class="o">-</span><span class="n">dt</span>
+            <span class="n">vv</span> <span class="o">=</span> <span class="n">interpolate</span><span class="p">(</span><span class="n">Expression</span><span class="p">((</span><span class="n">initial_fields</span><span class="p">[</span><span class="n">ui</span><span class="p">]),</span>
+                                        <span class="n">degree</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                                        <span class="n">t</span><span class="o">=</span><span class="n">t</span> <span class="o">-</span> <span class="n">deltat</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">),</span> <span class="n">VV</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span>
+            <span class="n">q_2</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">()[:]</span> <span class="o">=</span> <span class="n">vv</span><span class="o">.</span><span class="n">vector</span><span class="p">()[:]</span>
+    <span class="n">q_1</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">()[:]</span> <span class="o">=</span> <span class="n">q_</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">()[:]</span></div>
+
+
+<div class="viewcode-block" id="Walls"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingVortex.Walls">[docs]</a><span class="k">class</span> <span class="nc">Walls</span><span class="p">(</span><span class="n">UserExpression</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">coor</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">T_G</span><span class="p">,</span> <span class="n">x_hat_map</span><span class="p">,</span> <span class="n">counter_max</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        (User)Expression class for describing the wall motion.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">t</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map</span> <span class="o">=</span> <span class="n">x_hat_map</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">max</span> <span class="o">=</span> <span class="n">counter_max</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coor</span> <span class="o">=</span> <span class="n">coor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">=</span> <span class="n">A</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">L</span> <span class="o">=</span> <span class="n">L</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">T_G</span> <span class="o">=</span> <span class="n">T_G</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Walls.update"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingVortex.Walls.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">t</span></div>
+
+<div class="viewcode-block" id="Walls.eval"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingVortex.Walls.eval">[docs]</a>    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">values</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coor</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span>
+        <span class="n">values</span><span class="p">[:]</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">T_G</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">A</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">T_G</span><span class="p">)</span> <span class="o">*</span> <span class="n">sin</span><span class="p">(</span>
+            <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">][</span><span class="n">N</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">L</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">max</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span></div></div>
+
+
+<div class="viewcode-block" id="pre_solve_hook"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingVortex.pre_solve_hook">[docs]</a><span class="k">def</span> <span class="nf">pre_solve_hook</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">w_</span><span class="p">,</span> <span class="n">T_G</span><span class="p">,</span> <span class="n">A0</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">velocity_degree</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="n">exact_fields</span><span class="p">,</span>
+                   <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+    <span class="c1"># Create exact solution</span>
+    <span class="n">ue_x</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">exact_fields</span><span class="p">[</span><span class="s1">&#39;u0&#39;</span><span class="p">],</span> <span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span>
+                      <span class="n">degree</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">ue_y</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">exact_fields</span><span class="p">[</span><span class="s1">&#39;u1&#39;</span><span class="p">],</span> <span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">pe</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="n">exact_fields</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">],</span> <span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="c1"># Visualization files</span>
+    <span class="n">viz_p</span><span class="p">,</span> <span class="n">viz_u</span><span class="p">,</span> <span class="n">viz_ue</span> <span class="o">=</span> <span class="n">get_visualization_writers</span><span class="p">(</span><span class="n">newfolder</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;pressure&quot;</span><span class="p">,</span> <span class="s2">&quot;velocity&quot;</span><span class="p">,</span> <span class="s2">&quot;velocity_exact&quot;</span><span class="p">])</span>
+
+    <span class="c1"># Extract dof map and coordinates</span>
+    <span class="n">VV</span> <span class="o">=</span> <span class="n">VectorFunctionSpace</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="s2">&quot;CG&quot;</span><span class="p">,</span> <span class="n">velocity_degree</span><span class="p">)</span>
+    <span class="n">u_vec</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="n">VV</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Velocity&quot;</span><span class="p">)</span>
+    <span class="n">ue_vec</span> <span class="o">=</span> <span class="n">Function</span><span class="p">(</span><span class="n">VV</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Velocity&quot;</span><span class="p">)</span>
+
+    <span class="n">coordinates</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">coordinates</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">velocity_degree</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">dof_map</span> <span class="o">=</span> <span class="n">vertex_to_dof_map</span><span class="p">(</span><span class="n">V</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">dof_map</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">dofmap</span><span class="p">()</span><span class="o">.</span><span class="n">entity_dofs</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">counter_max</span><span class="p">,</span> <span class="n">x_hat_map</span> <span class="o">=</span> <span class="n">get_coordinate_map</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="n">w_</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">walls_x</span> <span class="o">=</span> <span class="n">Walls</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">A0</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">T_G</span><span class="p">,</span> <span class="n">x_hat_map</span><span class="p">,</span> <span class="n">counter_max</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="n">V</span><span class="o">.</span><span class="n">ufl_element</span><span class="p">())</span>
+    <span class="n">walls_y</span> <span class="o">=</span> <span class="n">Walls</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">A0</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">T_G</span><span class="p">,</span> <span class="n">x_hat_map</span><span class="p">,</span> <span class="n">counter_max</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="n">V</span><span class="o">.</span><span class="n">ufl_element</span><span class="p">())</span>
+
+    <span class="n">NS_expressions</span><span class="p">[</span><span class="s2">&quot;bc_w0&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">walls_x</span>
+    <span class="n">NS_expressions</span><span class="p">[</span><span class="s2">&quot;bc_w1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">walls_y</span>
+
+    <span class="c1"># Mesh velocity conditions</span>
+    <span class="n">bc_mesh</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">ui</span><span class="p">,</span> <span class="p">[])</span> <span class="k">for</span> <span class="n">ui</span> <span class="ow">in</span> <span class="n">u_components</span><span class="p">)</span>
+    <span class="n">bc0</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">walls_x</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">bc1</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">walls_y</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">bc_mesh</span><span class="p">[</span><span class="s2">&quot;u0&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">bc0</span><span class="p">]</span>
+    <span class="n">bc_mesh</span><span class="p">[</span><span class="s2">&quot;u1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">bc1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">viz_p</span><span class="o">=</span><span class="n">viz_p</span><span class="p">,</span> <span class="n">viz_ue</span><span class="o">=</span><span class="n">viz_ue</span><span class="p">,</span> <span class="n">ue_vec</span><span class="o">=</span><span class="n">ue_vec</span><span class="p">,</span> <span class="n">viz_u</span><span class="o">=</span><span class="n">viz_u</span><span class="p">,</span> <span class="n">u_vec</span><span class="o">=</span><span class="n">u_vec</span><span class="p">,</span> <span class="n">dof_map</span><span class="o">=</span><span class="n">dof_map</span><span class="p">,</span>
+                <span class="n">bc_mesh</span><span class="o">=</span><span class="n">bc_mesh</span><span class="p">,</span> <span class="n">coordinates</span><span class="o">=</span><span class="n">coordinates</span><span class="p">,</span> <span class="n">ue_x</span><span class="o">=</span><span class="n">ue_x</span><span class="p">,</span> <span class="n">ue_y</span><span class="o">=</span><span class="n">ue_y</span><span class="p">,</span> <span class="n">pe</span><span class="o">=</span><span class="n">pe</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="update_boundary_conditions"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingVortex.update_boundary_conditions">[docs]</a><span class="k">def</span> <span class="nf">update_boundary_conditions</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">NS_expressions</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">NS_expressions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="s2">&quot;bc&quot;</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s1">&#39;IPCS&#39;</span> <span class="ow">in</span> <span class="n">NS_parameters</span><span class="p">[</span><span class="s1">&#39;solver&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="s1">&#39;p&#39;</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
+                <span class="n">deltat_</span> <span class="o">=</span> <span class="n">dt</span> <span class="o">/</span> <span class="mf">2.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">deltat_</span> <span class="o">=</span> <span class="mf">0.</span>
+            <span class="k">if</span> <span class="s2">&quot;w&quot;</span> <span class="ow">in</span> <span class="n">key</span><span class="p">:</span>
+                <span class="n">value</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">t</span> <span class="o">-</span> <span class="n">deltat_</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">value</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">t</span> <span class="o">-</span> <span class="n">deltat_</span></div>
+
+
+<div class="viewcode-block" id="temporal_hook"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingVortex.temporal_hook">[docs]</a><span class="k">def</span> <span class="nf">temporal_hook</span><span class="p">(</span><span class="n">u_</span><span class="p">,</span> <span class="n">q_</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">VV</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">u_vec</span><span class="p">,</span> <span class="n">ue_vec</span><span class="p">,</span> <span class="n">p_</span><span class="p">,</span> <span class="n">viz_u</span><span class="p">,</span> <span class="n">viz_p</span><span class="p">,</span> <span class="n">viz_ue</span><span class="p">,</span> <span class="n">initial_fields</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span>
+                  <span class="n">save_solution_frequency</span><span class="p">,</span> <span class="n">sys_comp</span><span class="p">,</span> <span class="n">compute_error</span><span class="p">,</span> <span class="n">total_error</span><span class="p">,</span> <span class="n">ue_x</span><span class="p">,</span> <span class="n">ue_y</span><span class="p">,</span> <span class="n">pe</span><span class="p">,</span> <span class="n">testing</span><span class="p">,</span>
+                  <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Function called at end of timestep.</span>
+
+<span class="sd">    Plot solution and compute error by comparing to analytical solution.</span>
+<span class="sd">    Remember pressure is computed in between timesteps.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Save solution</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">testing</span> <span class="ow">and</span> <span class="n">tstep</span> <span class="o">%</span> <span class="n">save_solution_frequency</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">assign</span><span class="p">(</span><span class="n">u_vec</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">u_</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">assign</span><span class="p">(</span><span class="n">u_vec</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">u_</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+        <span class="n">viz_u</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">u_vec</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+        <span class="n">viz_p</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">p_</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+
+    <span class="n">ue_x</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">t</span>
+    <span class="n">ue_y</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">t</span>
+    <span class="n">pe</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">t</span> <span class="o">-</span> <span class="n">dt</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">uxx</span> <span class="o">=</span> <span class="n">interpolate</span><span class="p">(</span><span class="n">ue_x</span><span class="p">,</span> <span class="n">VV</span><span class="p">[</span><span class="s1">&#39;u0&#39;</span><span class="p">])</span>
+    <span class="n">uyy</span> <span class="o">=</span> <span class="n">interpolate</span><span class="p">(</span><span class="n">ue_y</span><span class="p">,</span> <span class="n">VV</span><span class="p">[</span><span class="s1">&#39;u1&#39;</span><span class="p">])</span>
+    <span class="n">pp</span> <span class="o">=</span> <span class="n">interpolate</span><span class="p">(</span><span class="n">pe</span><span class="p">,</span> <span class="n">VV</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">])</span>
+    <span class="n">ues</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">tstep</span> <span class="o">%</span> <span class="n">compute_error</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">err</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ui</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sys_comp</span><span class="p">):</span>
+            <span class="k">if</span> <span class="s1">&#39;IPCS&#39;</span> <span class="ow">in</span> <span class="n">NS_parameters</span><span class="p">[</span><span class="s1">&#39;solver&#39;</span><span class="p">]:</span>
+                <span class="n">deltat_</span> <span class="o">=</span> <span class="n">dt</span> <span class="o">/</span> <span class="mf">2.</span> <span class="k">if</span> <span class="n">ui</span> <span class="o">==</span> <span class="s1">&#39;p&#39;</span> <span class="k">else</span> <span class="mf">0.</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">deltat_</span> <span class="o">=</span> <span class="mf">0.</span>
+            <span class="n">ue</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">((</span><span class="n">initial_fields</span><span class="p">[</span><span class="n">ui</span><span class="p">]),</span>
+                            <span class="n">element</span><span class="o">=</span><span class="n">VV</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">ufl_element</span><span class="p">(),</span>
+                            <span class="n">t</span><span class="o">=</span><span class="n">t</span> <span class="o">-</span> <span class="n">deltat_</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">ui</span> <span class="o">==</span> <span class="s1">&#39;u0&#39;</span><span class="p">:</span>
+                <span class="n">ue</span> <span class="o">=</span> <span class="n">uxx</span>
+                <span class="n">assign</span><span class="p">(</span><span class="n">ue_vec</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">ue</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">ui</span> <span class="o">==</span> <span class="s1">&#39;u1&#39;</span><span class="p">:</span>
+                <span class="n">ue</span> <span class="o">=</span> <span class="n">uyy</span>
+                <span class="n">assign</span><span class="p">(</span><span class="n">ue_vec</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">ue</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">ui</span> <span class="o">==</span> <span class="s1">&#39;p&#39;</span><span class="p">:</span>
+                <span class="n">ue</span> <span class="o">=</span> <span class="n">pp</span>
+                <span class="n">pp</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="s2">&quot;u&quot;</span> <span class="ow">in</span> <span class="n">ui</span><span class="p">:</span>
+                <span class="n">ues</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ue</span><span class="p">)</span>
+            <span class="n">uen</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">ue</span><span class="o">.</span><span class="n">vector</span><span class="p">())</span>
+            <span class="n">ue</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">q_</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">())</span>
+            <span class="n">error</span> <span class="o">=</span> <span class="n">norm</span><span class="p">(</span><span class="n">ue</span><span class="o">.</span><span class="n">vector</span><span class="p">())</span> <span class="o">/</span> <span class="n">uen</span>
+            <span class="n">err</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{0:2.6e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">norm</span><span class="p">(</span><span class="n">ue</span><span class="o">.</span><span class="n">vector</span><span class="p">())</span> <span class="o">/</span> <span class="n">uen</span><span class="p">)</span>
+            <span class="n">total_error</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">error</span> <span class="o">*</span> <span class="n">dt</span>
+
+        <span class="n">viz_ue</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">ue_vec</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="theend_hook"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingVortex.theend_hook">[docs]</a><span class="k">def</span> <span class="nf">theend_hook</span><span class="p">(</span><span class="n">q_</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">VV</span><span class="p">,</span> <span class="n">sys_comp</span><span class="p">,</span> <span class="n">total_error</span><span class="p">,</span> <span class="n">initial_fields</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+    <span class="n">final_error</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sys_comp</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ui</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sys_comp</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;IPCS&#39;</span> <span class="ow">in</span> <span class="n">NS_parameters</span><span class="p">[</span><span class="s1">&#39;solver&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">ui</span> <span class="o">==</span> <span class="s2">&quot;p&quot;</span><span class="p">:</span>
+            <span class="n">deltat</span> <span class="o">=</span> <span class="n">dt</span> <span class="o">/</span> <span class="mf">2.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">deltat</span> <span class="o">=</span> <span class="mf">0.</span>
+        <span class="n">ue</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">((</span><span class="n">initial_fields</span><span class="p">[</span><span class="n">ui</span><span class="p">]),</span>
+                        <span class="n">element</span><span class="o">=</span><span class="n">VV</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">ufl_element</span><span class="p">(),</span>
+                        <span class="n">t</span><span class="o">=</span><span class="n">t</span> <span class="o">-</span> <span class="n">deltat</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="n">nu</span><span class="p">)</span>
+        <span class="n">ue</span> <span class="o">=</span> <span class="n">interpolate</span><span class="p">(</span><span class="n">ue</span><span class="p">,</span> <span class="n">VV</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span>
+        <span class="n">final_error</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">errornorm</span><span class="p">(</span><span class="n">q_</span><span class="p">[</span><span class="n">ui</span><span class="p">],</span> <span class="n">ue</span><span class="p">)</span>
+
+    <span class="n">s0</span> <span class="o">=</span> <span class="s2">&quot;Total Error:&quot;</span>
+    <span class="n">s1</span> <span class="o">=</span> <span class="s2">&quot;Final Error:&quot;</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ui</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sys_comp</span><span class="p">):</span>
+        <span class="n">s0</span> <span class="o">+=</span> <span class="s2">&quot; </span><span class="si">{0:}</span><span class="s2">=</span><span class="si">{1:2.6e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span> <span class="n">total_error</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">s1</span> <span class="o">+=</span> <span class="s2">&quot; </span><span class="si">{0:}</span><span class="s2">=</span><span class="si">{1:2.6e}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span> <span class="n">final_error</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">s0</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">s1</span><span class="p">)</span></div>
+</pre></div>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By Henrik A. Kjeldsberg<br/>
+  
+      &copy; Copyright 2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
