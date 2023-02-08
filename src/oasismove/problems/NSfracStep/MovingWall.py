@@ -8,8 +8,8 @@ def problem_parameters(NS_parameters, **NS_namespace):
     Problem file for running CFD simulation for the MovingWall problem inspired by the Wall-induced channel flow
     presented by Chnafa [1]. The problem considers flow in a long, straight, time-dependent domain, where the flow is
     induced by a moving wall at y=h(t). The motion is mainly controlled by the pulsation (sigma) and the ampliture
-     of oscillations (eps), with an initial height of h0. The flow has an analytic solution for small Reynolds numbers,
-     and may be used as a validation case.
+    of oscillations (eps), with an initial height of h0. The flow has an analytic solution for small Reynolds numbers,
+    and may be used as a validation case.
 
     [1] Chnafa, C. (2014). Using image-based large-eddy simulations to investigate the intracardiac flow and its
     turbulent nature (Doctoral dissertation, Université Montpellier II-Sciences et Techniques du Languedoc).
