@@ -1,7 +1,7 @@
 # flake8: noqa
 import matplotlib.pyplot as plt
 from IPython import embed
-from oasis.problems.NSfracStep.MovingCommon import get_visualization_writers
+from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
 from .LagrangianParticleTracking import LagrangianParticles
 from .particle_generators import RandomRectangle
