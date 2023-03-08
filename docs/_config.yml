@@ -36,9 +36,9 @@ sphinx:
     - 'sphinx.ext.autodoc'
     - 'sphinx.ext.napoleon'
     - 'sphinx.ext.viewcode'
-    config:
-      html_last_updated_fmt: "%b %d, %Y"
-      suppress_warnings: [ "mystnb.unknown_mime_type" ]
+  config:
+    html_last_updated_fmt: "%b %d, %Y"
+    suppress_warnings: [ "mystnb.unknown_mime_type" ]
 
 launch_buttons:
   notebook_interface: "jupyterlab"
