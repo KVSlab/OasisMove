@@ -1,8 +1,11 @@
+import pickle
+from os import getcwd
+
 from oasismove.problems.NSfracStep import *
 from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
 
-def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
+def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace):
     """
     Problem file for running CFD simulation for the moving Taylor-Green problem in 3D as described by Fehn et al.[1].
     The problem solves the N-S equations in the absence of body forces, and is commonly used to study transitional and
@@ -16,30 +19,41 @@ def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
     Journal of Computational Physics, 430, 110040.
     """
 
-    # Override some problem specific parameters
-    recursive_update(NS_parameters, dict(
-        # Problem specific parameters
-        L=2 * np.pi,  # Mesh size
-        A0=np.pi / 6,  # Amplitude
-        T_G=20,  # Period time
-        # Fluid parameters
-        Re=1600,
-        # Simulation parameters
-        T=5,  # End time
-        dt=0.005,  # Time step
-        Nx=32,  # Resolution in the x-direction
-        Ny=32,  # Resolution in the y-direction
-        Nz=32,  # Resolution in the z-direction
-        folder="results_moving_taylor_green_3d",
-        # Oasis parameters
-        max_iter=2,
-        dynamic_mesh=True,
-        save_solution_frequency=5,
-        checkpoint=500,
-        print_intermediate_info=100,
-        velocity_degree=1,
-        pressure_degree=1,
-        use_krylov_solvers=True))
+    if "restart_folder" in commandline_kwargs.keys():
+        restart_folder = commandline_kwargs["restart_folder"]
+        restart_folder = path.join(getcwd(), restart_folder)
+
+        f = open(path.join(path.dirname(path.abspath(__file__)), restart_folder, 'params.dat'), 'rb')
+        NS_parameters.update(pickle.load(f))
+        NS_parameters['restart_folder'] = restart_folder
+        globals().update(NS_parameters)
+
+    else:
+        # Override some problem specific parameters
+        NS_parameters.update(
+            # Problem specific parameters
+            L=2 * np.pi,  # Mesh size
+            A0=np.pi / 6,  # Amplitude
+            T_G=20,  # Period time
+            # Fluid parameters
+            Re=1600,
+            # Simulation parameters
+            T=1,  # End time
+            dt=0.005,  # Time step
+            Nx=32,  # Resolution in the x-direction
+            Ny=32,  # Resolution in the y-direction
+            Nz=32,  # Resolution in the z-direction
+            folder="results_moving_taylor_green_3d",
+            # Oasis parameters
+            max_iter=2,
+            dynamic_mesh=True,
+            save_solution_frequency=5e10,
+            save_step=5,
+            checkpoint=500,
+            print_intermediate_info=100,
+            velocity_degree=1,
+            pressure_degree=1,
+            use_krylov_solvers=True)
 
     NS_expressions.update(dict(
         constrained_domain=PeriodicDomain(),
