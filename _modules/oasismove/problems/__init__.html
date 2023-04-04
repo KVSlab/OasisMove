@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -37,8 +37,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -640,10 +640,10 @@ document.write(`
     <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="post_import_problem"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.post_import_problem">[docs]</a><span class="k">def</span> <span class="nf">post_import_problem</span><span class="p">(</span><span class="n">NS_parameters</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">commandline_kwargs</span><span class="p">,</span>
-                        <span class="n">NS_expressions</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<div class="viewcode-block" id="post_import_problem"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.post_import_problem">[docs]</a><span class="k">def</span> <span class="nf">post_import_problem</span><span class="p">(</span><span class="n">NS_parameters</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">commandline_kwargs</span><span class="p">,</span> <span class="n">NS_expressions</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Called after importing from problem.&quot;&quot;&quot;</span>
-
+    <span class="n">dynamic_mesh</span> <span class="o">=</span> <span class="n">NS_parameters</span><span class="p">[</span><span class="s1">&#39;dynamic_mesh&#39;</span><span class="p">]</span>
+    <span class="n">restart_folder</span> <span class="o">=</span> <span class="n">NS_parameters</span><span class="p">[</span><span class="s1">&#39;restart_folder&#39;</span><span class="p">]</span>
     <span class="c1"># Update NS_parameters with all parameters modified through command line</span>
     <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">commandline_kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
@@ -654,6 +654,13 @@ document.write(`
     <span class="c1"># If the mesh is a callable function, then create the mesh here.</span>
     <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">mesh</span><span class="p">):</span>
         <span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh</span><span class="p">(</span><span class="o">**</span><span class="n">NS_parameters</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">restart_folder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dynamic_mesh</span><span class="p">:</span>
+        <span class="c1"># Get mesh information</span>
+        <span class="n">mesh</span> <span class="o">=</span> <span class="n">Mesh</span><span class="p">()</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">restart_folder</span><span class="p">,</span> <span class="s1">&#39;mesh.h5&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">HDF5File</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mesh_file</span><span class="p">:</span>
+            <span class="n">mesh_file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="s2">&quot;mesh&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
 
     <span class="k">assert</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">Mesh</span><span class="p">))</span>
 
@@ -689,9 +696,15 @@ document.write(`
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -701,7 +714,7 @@ document.write(`
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -725,7 +738,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Mar 08, 2023.
+  Last updated on Apr 04, 2023.
   <br/>
 </p>
   </div>
@@ -734,7 +747,7 @@ By Henrik A. Kjeldsberg
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -743,8 +756,8 @@ By Henrik A. Kjeldsberg
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

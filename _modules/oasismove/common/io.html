@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -37,8 +37,8 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -323,10 +323,9 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for oasismove.common.io</h1><div class="highlight"><pre>
-<span></span><span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Mikael Mortensen &lt;mikaem@math.uio.no&gt;&quot;</span>
-<span class="n">__date__</span> <span class="o">=</span> <span class="s2">&quot;2013-11-26&quot;</span>
-<span class="n">__copyright__</span> <span class="o">=</span> <span class="s2">&quot;Copyright (C) 2013 &quot;</span> <span class="o">+</span> <span class="n">__author__</span>
-<span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;GNU Lesser GPL version 3 or any later version&quot;</span>
+<span></span><span class="c1"># Written by Mikael Mortensen &lt;mikaem@math.uio.no&gt; (2013)</span>
+<span class="c1"># Edited by Henrik Kjeldsberg &lt;henrik.kjeldsberg@live.no&gt; (2023)</span>
+
 
 <span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">pickle</span>
@@ -334,7 +333,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">makedirs</span><span class="p">,</span> <span class="n">listdir</span><span class="p">,</span> <span class="n">remove</span><span class="p">,</span> <span class="n">system</span><span class="p">,</span> <span class="n">path</span>
 <span class="kn">from</span> <span class="nn">xml.etree</span> <span class="kn">import</span> <span class="n">ElementTree</span> <span class="k">as</span> <span class="n">ET</span>
 
-<span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="p">(</span><span class="n">MPI</span><span class="p">,</span> <span class="n">XDMFFile</span><span class="p">,</span> <span class="n">HDF5File</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="n">MPI</span><span class="p">,</span> <span class="n">XDMFFile</span><span class="p">,</span> <span class="n">HDF5File</span>
 
 <span class="kn">from</span> <span class="nn">oasismove.problems</span> <span class="kn">import</span> <span class="n">info_red</span>
 
@@ -386,7 +385,8 @@ document.write(`
     <span class="k">for</span> <span class="n">ui</span> <span class="ow">in</span> <span class="n">comps</span><span class="p">:</span>
         <span class="n">tstepfiles</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span> <span class="o">=</span> <span class="n">XDMFFile</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
             <span class="n">tstepfolder</span><span class="p">,</span> <span class="n">ui</span> <span class="o">+</span> <span class="s1">&#39;_from_tstep_</span><span class="si">{}</span><span class="s1">.xdmf&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">tstep</span><span class="p">)))</span>
-        <span class="n">tstepfiles</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;rewrite_function_mesh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">tstepfiles</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;functions_share_mesh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">tstepfiles</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;rewrite_function_mesh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">tstepfiles</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;flush_output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">return</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">tstepfiles</span></div>
@@ -394,7 +394,7 @@ document.write(`
 
 <div class="viewcode-block" id="save_solution"><a class="viewcode-back" href="../../../api.html#oasismove.common.io.save_solution">[docs]</a><span class="k">def</span> <span class="nf">save_solution</span><span class="p">(</span><span class="n">tstep</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">q_</span><span class="p">,</span> <span class="n">q_1</span><span class="p">,</span> <span class="n">folder</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">save_step</span><span class="p">,</span> <span class="n">checkpoint</span><span class="p">,</span>
                   <span class="n">NS_parameters</span><span class="p">,</span> <span class="n">tstepfiles</span><span class="p">,</span> <span class="n">u_</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">scalar_components</span><span class="p">,</span>
-                  <span class="n">output_timeseries_as_vector</span><span class="p">,</span> <span class="n">constrained_domain</span><span class="p">,</span>
+                  <span class="n">output_timeseries_as_vector</span><span class="p">,</span> <span class="n">constrained_domain</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">dynamic_mesh</span><span class="p">,</span>
                   <span class="n">AssignedVectorFunction</span><span class="p">,</span> <span class="n">killtime</span><span class="p">,</span> <span class="n">total_timer</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Called at end of timestep. Check for kill and save solution if required.&quot;&quot;&quot;</span>
     <span class="n">NS_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">tstep</span><span class="o">=</span><span class="n">tstep</span><span class="p">)</span>
@@ -410,8 +410,7 @@ document.write(`
 
     <span class="n">killoasis</span> <span class="o">=</span> <span class="n">check_if_kill</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">killtime</span><span class="p">,</span> <span class="n">total_timer</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tstep</span> <span class="o">%</span> <span class="n">checkpoint</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">killoasis</span><span class="p">:</span>
-        <span class="n">save_checkpoint_solution_h5</span><span class="p">(</span><span class="n">tstep</span><span class="p">,</span> <span class="n">q_</span><span class="p">,</span> <span class="n">q_1</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span>
-                                    <span class="n">NS_parameters</span><span class="p">)</span>
+        <span class="n">save_checkpoint_solution_h5</span><span class="p">(</span><span class="n">tstep</span><span class="p">,</span> <span class="n">q_</span><span class="p">,</span> <span class="n">q_1</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">dynamic_mesh</span><span class="p">,</span> <span class="n">NS_parameters</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">killoasis</span></div>
 
@@ -450,8 +449,7 @@ document.write(`
             <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">NS_parameters</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="save_checkpoint_solution_h5"><a class="viewcode-back" href="../../../api.html#oasismove.common.io.save_checkpoint_solution_h5">[docs]</a><span class="k">def</span> <span class="nf">save_checkpoint_solution_h5</span><span class="p">(</span><span class="n">tstep</span><span class="p">,</span> <span class="n">q_</span><span class="p">,</span> <span class="n">q_1</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span>
-                                <span class="n">NS_parameters</span><span class="p">):</span>
+<div class="viewcode-block" id="save_checkpoint_solution_h5"><a class="viewcode-back" href="../../../api.html#oasismove.common.io.save_checkpoint_solution_h5">[docs]</a><span class="k">def</span> <span class="nf">save_checkpoint_solution_h5</span><span class="p">(</span><span class="n">q_</span><span class="p">,</span> <span class="n">q_1</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">dynamic_mesh</span><span class="p">,</span> <span class="n">NS_parameters</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Overwrite solution in Checkpoint folder.</span>
 
 <span class="sd">    For safety reasons, in case the solver is interrupted, take backup of</span>
@@ -489,8 +487,23 @@ document.write(`
             <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
                 <span class="n">system</span><span class="p">(</span><span class="s1">&#39;rm </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">oldfile</span><span class="p">))</span>
         <span class="n">MPI</span><span class="o">.</span><span class="n">barrier</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span>
+
     <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">checkpointfolder</span><span class="p">,</span> <span class="s2">&quot;params_old.dat&quot;</span><span class="p">)):</span>
-        <span class="n">system</span><span class="p">(</span><span class="s1">&#39;rm </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">checkpointfolder</span><span class="p">,</span> <span class="s2">&quot;params_old.dat&quot;</span><span class="p">)))</span></div>
+        <span class="n">system</span><span class="p">(</span><span class="s1">&#39;rm </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">checkpointfolder</span><span class="p">,</span> <span class="s2">&quot;params_old.dat&quot;</span><span class="p">)))</span>
+
+    <span class="c1"># Store mesh if deformed</span>
+    <span class="k">if</span> <span class="n">dynamic_mesh</span><span class="p">:</span>
+        <span class="n">h5file</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">checkpointfolder</span><span class="p">,</span> <span class="s1">&#39;mesh.h5&#39;</span><span class="p">)</span>
+        <span class="n">oldfile</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">checkpointfolder</span><span class="p">,</span> <span class="s1">&#39;mesh_old.h5&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">h5file</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">system</span><span class="p">(</span><span class="s1">&#39;cp </span><span class="si">{0}</span><span class="s1"> </span><span class="si">{1}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">h5file</span><span class="p">,</span> <span class="n">oldfile</span><span class="p">))</span>
+        <span class="n">newfile</span> <span class="o">=</span> <span class="n">HDF5File</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">h5file</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span>
+        <span class="n">newfile</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+        <span class="n">newfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="s1">&#39;mesh&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">oldfile</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">system</span><span class="p">(</span><span class="s1">&#39;rm </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">oldfile</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="check_if_kill"><a class="viewcode-back" href="../../../api.html#oasismove.common.io.check_if_kill">[docs]</a><span class="k">def</span> <span class="nf">check_if_kill</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">killtime</span><span class="p">,</span> <span class="n">total_timer</span><span class="p">):</span>
@@ -615,7 +628,8 @@ document.write(`
     <span class="n">base_tree</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">new_file</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xml_declaration</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="c1"># Delete xdmf file</span>
-    <span class="p">[</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">old_files</span><span class="p">]</span></div>
+    <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="p">[</span><span class="n">remove</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">old_files</span><span class="p">]</span></div>
 </pre></div>
 
                 </article>
@@ -624,9 +638,15 @@ document.write(`
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -636,7 +656,7 @@ document.write(`
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -660,7 +680,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Mar 08, 2023.
+  Last updated on Apr 04, 2023.
   <br/>
 </p>
   </div>
@@ -669,7 +689,7 @@ By Henrik A. Kjeldsberg
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -678,8 +698,8 @@ By Henrik A. Kjeldsberg
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

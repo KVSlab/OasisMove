@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,8 +38,8 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -518,7 +518,7 @@ going into time loop.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="oasismove.common.io.save_checkpoint_solution_h5">
-<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">save_checkpoint_solution_h5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#save_checkpoint_solution_h5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.save_checkpoint_solution_h5" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">save_checkpoint_solution_h5</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#save_checkpoint_solution_h5"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.save_checkpoint_solution_h5" title="Permalink to this definition">#</a></dt>
 <dd><p>Overwrite solution in Checkpoint folder.</p>
 <p>For safety reasons, in case the solver is interrupted, take backup of
 solution first.</p>
@@ -528,7 +528,7 @@ soon. (MM)</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="oasismove.common.io.save_solution">
-<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">save_solution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_step</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstepfiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_timeseries_as_vector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constrained_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AssignedVectorFunction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">killtime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_timer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#save_solution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.save_solution" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">save_solution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_step</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">checkpoint</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstepfiles</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_timeseries_as_vector</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constrained_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">AssignedVectorFunction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">killtime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total_timer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#save_solution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.save_solution" title="Permalink to this definition">#</a></dt>
 <dd><p>Called at end of timestep. Check for kill and save solution if required.</p>
 </dd></dl>
 
@@ -952,7 +952,7 @@ Journal of Fluid Mechanics, 385, 255-286.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingTaylorGreen3D.problem_parameters">
-<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingTaylorGreen3D.</span></span><span class="sig-name descname"><span class="pre">problem_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#problem_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.problem_parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingTaylorGreen3D.</span></span><span class="sig-name descname"><span class="pre">problem_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commandline_kwargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#problem_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.problem_parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>Problem file for running CFD simulation for the moving Taylor-Green problem in 3D as described by Fehn et al.[1].
 The problem solves the N-S equations in the absence of body forces, and is commonly used to study transitional and
 turbulent flows. The problem initializes the solution at the two previous time steps, and applies periodic boundary
@@ -1093,7 +1093,7 @@ turbulent nature (Doctoral dissertation, Université Montpellier II-Sciences et 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingVortex.problem_parameters">
-<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingVortex.</span></span><span class="sig-name descname"><span class="pre">problem_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingVortex.html#problem_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingVortex.problem_parameters" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingVortex.</span></span><span class="sig-name descname"><span class="pre">problem_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">commandline_kwargs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_parameters</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NS_expressions</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingVortex.html#problem_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingVortex.problem_parameters" title="Permalink to this definition">#</a></dt>
 <dd><p>Problem file for running CFD simulation for the MovingVortex problem inspired by the problem by Fehn et al.[1],
 resembling the 2D Taylor-Green vortex. The problem solves the N-S equations in the absence of body forces, with a
 manufactured velocity solution. The mesh velocity is also described by an analytic displacement field,
@@ -1151,7 +1151,10 @@ Remember pressure is computed in between timesteps.</p>
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="movingtg.html"
@@ -1162,7 +1165,10 @@ Remember pressure is computed in between timesteps.</p>
         <p class="prev-next-title">Moving 3D Taylor-Green vortex</p>
       </div>
     </a>
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -1188,7 +1194,7 @@ Remember pressure is computed in between timesteps.</p>
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -1212,7 +1218,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Mar 08, 2023.
+  Last updated on Apr 04, 2023.
   <br/>
 </p>
   </div>
@@ -1221,7 +1227,7 @@ By Henrik A. Kjeldsberg
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -1230,8 +1236,8 @@ By Henrik A. Kjeldsberg
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../../_static/styles/theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../../_static/styles/bootstrap.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
-<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
 
   
-  <link href="../../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=12da95d707ffb74b382d" rel="stylesheet" />
+  <link href="../../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -37,8 +37,8 @@
     <link rel="stylesheet" type="text/css" href="../../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d" />
-<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d" />
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
 
     <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
     <script src="../../../../_static/jquery.js"></script>
@@ -323,11 +323,14 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for oasismove.problems.NSfracStep.MovingTaylorGreen3D</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">oasismove.problems.NSfracStep</span> <span class="kn">import</span> <span class="o">*</span>
+<span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getcwd</span>
+
+<span class="kn">from</span> <span class="nn">oasismove.problems.NSfracStep</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">oasismove.problems.NSfracStep.MovingCommon</span> <span class="kn">import</span> <span class="n">get_visualization_writers</span>
 
 
-<div class="viewcode-block" id="problem_parameters"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingTaylorGreen3D.problem_parameters">[docs]</a><span class="k">def</span> <span class="nf">problem_parameters</span><span class="p">(</span><span class="n">NS_parameters</span><span class="p">,</span> <span class="n">NS_expressions</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<div class="viewcode-block" id="problem_parameters"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingTaylorGreen3D.problem_parameters">[docs]</a><span class="k">def</span> <span class="nf">problem_parameters</span><span class="p">(</span><span class="n">commandline_kwargs</span><span class="p">,</span> <span class="n">NS_parameters</span><span class="p">,</span> <span class="n">NS_expressions</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Problem file for running CFD simulation for the moving Taylor-Green problem in 3D as described by Fehn et al.[1].</span>
 <span class="sd">    The problem solves the N-S equations in the absence of body forces, and is commonly used to study transitional and</span>
@@ -341,30 +344,41 @@ document.write(`
 <span class="sd">    Journal of Computational Physics, 430, 110040.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># Override some problem specific parameters</span>
-    <span class="n">recursive_update</span><span class="p">(</span><span class="n">NS_parameters</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span>
-        <span class="c1"># Problem specific parameters</span>
-        <span class="n">L</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>  <span class="c1"># Mesh size</span>
-        <span class="n">A0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">6</span><span class="p">,</span>  <span class="c1"># Amplitude</span>
-        <span class="n">T_G</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>  <span class="c1"># Period time</span>
-        <span class="c1"># Fluid parameters</span>
-        <span class="n">Re</span><span class="o">=</span><span class="mi">1600</span><span class="p">,</span>
-        <span class="c1"># Simulation parameters</span>
-        <span class="n">T</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>  <span class="c1"># End time</span>
-        <span class="n">dt</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span>  <span class="c1"># Time step</span>
-        <span class="n">Nx</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>  <span class="c1"># Resolution in the x-direction</span>
-        <span class="n">Ny</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>  <span class="c1"># Resolution in the y-direction</span>
-        <span class="n">Nz</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>  <span class="c1"># Resolution in the z-direction</span>
-        <span class="n">folder</span><span class="o">=</span><span class="s2">&quot;results_moving_taylor_green_3d&quot;</span><span class="p">,</span>
-        <span class="c1"># Oasis parameters</span>
-        <span class="n">max_iter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
-        <span class="n">dynamic_mesh</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">save_solution_frequency</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
-        <span class="n">checkpoint</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-        <span class="n">print_intermediate_info</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-        <span class="n">velocity_degree</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">pressure_degree</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">use_krylov_solvers</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    <span class="k">if</span> <span class="s2">&quot;restart_folder&quot;</span> <span class="ow">in</span> <span class="n">commandline_kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">restart_folder</span> <span class="o">=</span> <span class="n">commandline_kwargs</span><span class="p">[</span><span class="s2">&quot;restart_folder&quot;</span><span class="p">]</span>
+        <span class="n">restart_folder</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">restart_folder</span><span class="p">)</span>
+
+        <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span> <span class="n">restart_folder</span><span class="p">,</span> <span class="s1">&#39;params.dat&#39;</span><span class="p">),</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+        <span class="n">NS_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+        <span class="n">NS_parameters</span><span class="p">[</span><span class="s1">&#39;restart_folder&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">restart_folder</span>
+        <span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">NS_parameters</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Override some problem specific parameters</span>
+        <span class="n">NS_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="c1"># Problem specific parameters</span>
+            <span class="n">L</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span>  <span class="c1"># Mesh size</span>
+            <span class="n">A0</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">6</span><span class="p">,</span>  <span class="c1"># Amplitude</span>
+            <span class="n">T_G</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>  <span class="c1"># Period time</span>
+            <span class="c1"># Fluid parameters</span>
+            <span class="n">Re</span><span class="o">=</span><span class="mi">1600</span><span class="p">,</span>
+            <span class="c1"># Simulation parameters</span>
+            <span class="n">T</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>  <span class="c1"># End time</span>
+            <span class="n">dt</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span>  <span class="c1"># Time step</span>
+            <span class="n">Nx</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>  <span class="c1"># Resolution in the x-direction</span>
+            <span class="n">Ny</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>  <span class="c1"># Resolution in the y-direction</span>
+            <span class="n">Nz</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>  <span class="c1"># Resolution in the z-direction</span>
+            <span class="n">folder</span><span class="o">=</span><span class="s2">&quot;results_moving_taylor_green_3d&quot;</span><span class="p">,</span>
+            <span class="c1"># Oasis parameters</span>
+            <span class="n">max_iter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">dynamic_mesh</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">save_solution_frequency</span><span class="o">=</span><span class="mf">5e10</span><span class="p">,</span>
+            <span class="n">save_step</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+            <span class="n">checkpoint</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+            <span class="n">print_intermediate_info</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
+            <span class="n">velocity_degree</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">pressure_degree</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">use_krylov_solvers</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="n">NS_expressions</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
         <span class="n">constrained_domain</span><span class="o">=</span><span class="n">PeriodicDomain</span><span class="p">(),</span>
@@ -510,9 +524,15 @@ document.write(`
               
               
                 <footer class="bd-footer-article">
-                  <!-- Previous / next buttons -->
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
+</div></div>
+  
 </div>
+
                 </footer>
               
             </div>
@@ -522,7 +542,7 @@ document.write(`
             
           </div>
           <footer class="bd-footer-content">
-            <div class="bd-footer-content__inner">
+            
 <div class="bd-footer-content__inner container">
   
   <div class="footer-item">
@@ -546,7 +566,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Mar 08, 2023.
+  Last updated on Apr 04, 2023.
   <br/>
 </p>
   </div>
@@ -555,7 +575,7 @@ By Henrik A. Kjeldsberg
     
   </div>
   
-</div></div>
+</div>
           </footer>
         
 
@@ -564,8 +584,8 @@ By Henrik A. Kjeldsberg
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../../_static/scripts/bootstrap.js?digest=12da95d707ffb74b382d"></script>
-<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=12da95d707ffb74b382d"></script>
+  <script src="../../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
 
   <footer class="bd-footer">
   </footer>
