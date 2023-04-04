@@ -33,6 +33,7 @@ problems/NSfracStep/__init__.py for all possible parameters.
 
 """
 import importlib
+import pickle
 from pprint import pprint
 
 from oasismove.common import *
@@ -198,6 +199,8 @@ tx.start()
 stop = False
 total_timer = OasisTimer("Start simulations", print_solve_info)
 
+max_tstep = 10 if restart_folder is None else tstep + 10
+
 print("Saving results to: {}".format(newfolder))
 while t < (T - tstep * DOLFIN_EPS) and not stop:
     t_velocity = 0
@@ -205,7 +208,7 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
     tstep += 1
     inner_iter = 0
     udiff = array([1e8])  # Norm of velocity change over last inner iter
-    num_iter = max(iters_on_first_timestep, max_iter) if tstep <= 10 else max_iter
+    num_iter = max(iters_on_first_timestep, max_iter) if tstep <= max_tstep else max_iter
 
     start_timestep_hook(**vars())
 

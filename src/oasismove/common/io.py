@@ -1,7 +1,6 @@
-__author__ = "Mikael Mortensen <mikaem@math.uio.no>"
-__date__ = "2013-11-26"
-__copyright__ = "Copyright (C) 2013 " + __author__
-__license__ = "GNU Lesser GPL version 3 or any later version"
+# Written by Mikael Mortensen <mikaem@math.uio.no> (2013)
+# Edited by Henrik Kjeldsberg <henrik.kjeldsberg@live.no> (2023)
+
 
 import glob
 import pickle
@@ -9,7 +8,7 @@ import time
 from os import makedirs, listdir, remove, system, path
 from xml.etree import ElementTree as ET
 
-from dolfin import (MPI, XDMFFile, HDF5File)
+from dolfin import MPI, XDMFFile, HDF5File
 
 from oasismove.problems import info_red
 
@@ -61,7 +60,8 @@ def create_initial_folders(folder, restart_folder, sys_comp, tstep, info_red,
     for ui in comps:
         tstepfiles[ui] = XDMFFile(MPI.comm_world, path.join(
             tstepfolder, ui + '_from_tstep_{}.xdmf'.format(tstep)))
-        tstepfiles[ui].parameters["rewrite_function_mesh"] = False
+        tstepfiles[ui].parameters["functions_share_mesh"] = True
+        tstepfiles[ui].parameters["rewrite_function_mesh"] = True
         tstepfiles[ui].parameters["flush_output"] = True
 
     return newfolder, tstepfiles
@@ -69,7 +69,7 @@ def create_initial_folders(folder, restart_folder, sys_comp, tstep, info_red,
 
 def save_solution(tstep, t, q_, q_1, folder, newfolder, save_step, checkpoint,
                   NS_parameters, tstepfiles, u_, u_components, scalar_components,
-                  output_timeseries_as_vector, constrained_domain,
+                  output_timeseries_as_vector, constrained_domain, mesh, dynamic_mesh,
                   AssignedVectorFunction, killtime, total_timer, **NS_namespace):
     """Called at end of timestep. Check for kill and save solution if required."""
     NS_parameters.update(t=t, tstep=tstep)
@@ -85,8 +85,7 @@ def save_solution(tstep, t, q_, q_1, folder, newfolder, save_step, checkpoint,
 
     killoasis = check_if_kill(folder, killtime, total_timer)
     if tstep % checkpoint == 0 or killoasis:
-        save_checkpoint_solution_h5(tstep, q_, q_1, newfolder, u_components,
-                                    NS_parameters)
+        save_checkpoint_solution_h5(tstep, q_, q_1, newfolder, u_components, mesh, dynamic_mesh, NS_parameters)
 
     return killoasis
 
@@ -125,8 +124,7 @@ def save_tstep_solution_h5(tstep, q_, u_, newfolder, tstepfiles, constrained_dom
             pickle.dump(NS_parameters, f)
 
 
-def save_checkpoint_solution_h5(tstep, q_, q_1, newfolder, u_components,
-                                NS_parameters):
+def save_checkpoint_solution_h5(q_, q_1, newfolder, u_components, mesh, dynamic_mesh, NS_parameters):
     """Overwrite solution in Checkpoint folder.
 
     For safety reasons, in case the solver is interrupted, take backup of
@@ -164,8 +162,23 @@ def save_checkpoint_solution_h5(tstep, q_, q_1, newfolder, u_components,
             if MPI.rank(MPI.comm_world) == 0:
                 system('rm {0}'.format(oldfile))
         MPI.barrier(MPI.comm_world)
+
     if MPI.rank(MPI.comm_world) == 0 and path.exists(path.join(checkpointfolder, "params_old.dat")):
         system('rm {0}'.format(path.join(checkpointfolder, "params_old.dat")))
+
+    # Store mesh if deformed
+    if dynamic_mesh:
+        h5file = path.join(checkpointfolder, 'mesh.h5')
+        oldfile = path.join(checkpointfolder, 'mesh_old.h5')
+        if path.exists(h5file):
+            if MPI.rank(MPI.comm_world) == 0:
+                system('cp {0} {1}'.format(h5file, oldfile))
+        newfile = HDF5File(MPI.comm_world, h5file, 'w')
+        newfile.flush()
+        newfile.write(mesh, 'mesh')
+        if path.exists(oldfile):
+            if MPI.rank(MPI.comm_world) == 0:
+                system('rm {0}'.format(oldfile))
 
 
 def check_if_kill(folder, killtime, total_timer):
@@ -290,4 +303,5 @@ def merge_xml_files(files):
     base_tree.write(new_file[0], xml_declaration=True)
 
     # Delete xdmf file
-    [remove(f) for f in old_files]
+    if MPI.rank(MPI.comm_world) == 0:
+        [remove(f) for f in old_files]

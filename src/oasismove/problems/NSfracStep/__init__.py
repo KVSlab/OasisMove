@@ -113,7 +113,7 @@ NS_parameters.update(
         preconditioner_type='jacobi'),
 
     nu_nn_krylov_solver=dict(
-        method='WeightedAverage',  # Or 'default'
+        method='default',  # Or 'WeightedAverage'
         solver_type='cg',
         preconditioner_type='jacobi'),
 )

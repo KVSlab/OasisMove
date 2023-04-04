@@ -315,10 +315,10 @@ def problem_parameters(**NS_namespace):
     pass
 
 
-def post_import_problem(NS_parameters, mesh, commandline_kwargs,
-                        NS_expressions, **NS_namespace):
+def post_import_problem(NS_parameters, mesh, commandline_kwargs, NS_expressions, **NS_namespace):
     """Called after importing from problem."""
-
+    dynamic_mesh = NS_parameters['dynamic_mesh']
+    restart_folder = NS_parameters['restart_folder']
     # Update NS_parameters with all parameters modified through command line
     for key, val in commandline_kwargs.items():
         if isinstance(val, dict):
@@ -329,6 +329,13 @@ def post_import_problem(NS_parameters, mesh, commandline_kwargs,
     # If the mesh is a callable function, then create the mesh here.
     if callable(mesh):
         mesh = mesh(**NS_parameters)
+
+    if restart_folder is not None and dynamic_mesh:
+        # Get mesh information
+        mesh = Mesh()
+        filename = path.join(restart_folder, 'mesh.h5')
+        with HDF5File(MPI.comm_world, filename, "r") as mesh_file:
+            mesh_file.read(mesh, "mesh", False)
 
     assert (isinstance(mesh, Mesh))
 
