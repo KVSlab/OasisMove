@@ -68,14 +68,12 @@ if MPI.rank(MPI.comm_world) == 0:
 vars().update(post_import_problem(**vars()))
 
 # Use t and tstep from stored paramteres if restarting
-previous_velocity_degree = velocity_degree
 if restart_folder is not None:
     f = open(path.join(path.abspath(restart_folder), 'params.dat'), 'rb')
     params = pickle.load(f)
     f.close()
     t = params["t"]
     tstep = params["tstep"]
-    previous_velocity_degree = params["velocity_degree"]
 
 # Import chosen functionality from solvers
 solver = importlib.import_module('.'.join(('oasismove.solvers.NSfracStep', solver)))
