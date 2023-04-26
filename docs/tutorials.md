@@ -6,7 +6,7 @@ It will give a short introduction and problem description, and visualize what th
 The tutorials will also highlight different features and tweaks of OasisMove in order to improve generalization of the problems. 
 
 We assume that you have OasisMove installed, meaning you have a working
-version of *FEniCS* on your computer. It is also
+version of [FEniCS](https://fenicsproject.org/download/archive/) on your computer. It is also
 beneficial, but not necessary, that you are familiar with the
 [ParaView](https://www.paraview.org/) visualization software, which we
 will frequently be using to visualize the geometries and results.

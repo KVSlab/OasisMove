@@ -1,19 +1,19 @@
 # OasisMove - Moving Domain CFD Solver
 
 _________________
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![GPL-3.0](https://img.shields.io/github/license/kvslab/oasismove)](LICENSE)
 [![codecov](https://codecov.io/gh/KVSlab/OasisMove/branch/main/graph/badge.svg?token=M2NMX6HOSZ)](https://codecov.io/gh/KVSlab/OasisMove)
 [![CI](https://github.com/kvslab/oasismove/actions/workflows/check_and_test_package.yml/badge.svg)](https://github.com/kvslab/oasismove/actions/workflows/check_and_test_package.yml)
 [![GitHub pages](https://github.com/kvslab/oasismove/actions/workflows/deploy_pages.yml/badge.svg)](https://github.com/kvslab/oasismove/actions/workflows/deploy_pages.yml)
 _________________
 
 <p align="center">
-    <img src="docs/figures/moving_ventricle.gif" width="640" height="315" alt="Left ventricle flow"/>
+    <img src="docs/figures/moving_atrium.gif" width="640" height="315" alt="Left atrium flow"/>
 </p>
 <p align="center">
-    Fluid velocity (left) and mesh deformation (right) of an idealized left ventricle. 
+    Fluid velocity (left) and mesh deformation (right) of a moving patient-specific left atrium model, simulated over two cardiac cycles lasting for $T=2$ s.
+    The model is publicly available from <a href="https://doi.org/10.5281/zenodo.5801337">this</a> dataset. 
 </p>
-
 
 Description
 -----------
@@ -46,14 +46,14 @@ the [installation guidelines](https://kvslab.github.io/OasisMove/installation.ht
 Documentation
 -------------
 OasisMove's documentation is hosted [here](https://kvslab.github.io/OasisMove). This includes
-multiple [demos](https://kvslab.github.io/OasisMove/tutorials.html), meant to guide the user through the basic steps of
+multiple [tutorials](https://kvslab.github.io/OasisMove/tutorials.html), meant to guide the user through the basic steps of
 performing a computational fluid dynamic simulation and creating problem files.
 
 For futher details on vanilla Oasis, please refer to its [wiki](https://github.com/mikaem/oasis/wiki) or
 the [user manual](https://github.com/mikaem/Oasis/tree/master/doc/usermanual.pdf)
 
 If you wish to use OasisMove/Oasis for journal publications, please cite the
-following [paper](http://www.sciencedirect.com/science/article/pii/S0010465514003786).
+following [paper](https://onlinelibrary.wiley.com/doi/10.1002/cnm.3703).
 
 Licence
 -------

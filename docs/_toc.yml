@@ -8,6 +8,8 @@ parts:
   - caption: Installation
     chapters:
       - file: installation
+      - file: conda
+      - file: docker
 
   - caption: Using OasisMove
     chapters:

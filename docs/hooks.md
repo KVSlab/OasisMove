@@ -1,4 +1,5 @@
 (gs:hooks)=
+
 # Hooks
 
 This is an updated version of the Oasis wiki's [Hooks](https://github.com/mikaem/Oasis/wiki/Hooks), adjusted with the
@@ -91,6 +92,7 @@ information of the classical Oasis hooks, and list of solver hooks we refer to t
 Oasis [wiki](https://github.com/mikaem/Oasis/wiki/Hooks).
 
 ## Understanding `NS_namespace`
+
 Throughout the Python scripts you will notice the special keyword argument `**NS_namespace`. This is actually the entire
 namespace of the `NSfracStepMove` solver, where the hooks are called using the following notation:
 
