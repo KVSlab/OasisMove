@@ -1,4 +1,5 @@
 # OasisMove - Moving Domain CFD Solver
+
 _________________
 [![GPL-3.0](https://img.shields.io/github/license/kvslab/oasismove)](LICENSE)
 [![codecov](https://codecov.io/gh/KVSlab/OasisMove/branch/main/graph/badge.svg?token=M2NMX6HOSZ)](https://codecov.io/gh/KVSlab/OasisMove)
@@ -45,7 +46,7 @@ the [installation guidelines](https://kvslab.github.io/OasisMove/installation.ht
 Documentation
 -------------
 OasisMove's documentation is hosted [here](https://kvslab.github.io/OasisMove). This includes
-multiple [demos](https://kvslab.github.io/OasisMove/tutorials.html), meant to guide the user through the basic steps of
+multiple [tutorials](https://kvslab.github.io/OasisMove/tutorials.html), meant to guide the user through the basic steps of
 performing a computational fluid dynamic simulation and creating problem files.
 
 For futher details on vanilla Oasis, please refer to its [wiki](https://github.com/mikaem/oasis/wiki) or
