@@ -11,7 +11,7 @@ _________________
 </p>
 <p align="center">
     Fluid velocity (left) and mesh deformation (right) of a moving patient-specific left atrium model, simulated over two cardiac cycles lasting for $T=2$ s.
-    The model is publicly available from [this](https://zenodo.org/record/5801337/export/hx#.ZEkU6OxBz0o) dataset. 
+    The model is publicly available from <a href="https://zenodo.org/record/5801337/export/hx#.ZEkU6OxBz0o">this</a> dataset. 
 </p>
 
 Description
