@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Oscillating cylinder in free stream &#8212; OasisMove</title>
+    <title>Installing with Docker &#8212; OasisMove</title>
   
   
   
@@ -61,13 +61,11 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'movingcylinder';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docker';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Vortex problem with oscillating boundaries" href="movingvortex.html" />
-    <link rel="prev" title="Wall-driven channel flow" href="movingwall.html" />
+    <link rel="next" title="Getting started" href="getting_started.html" />
+    <link rel="prev" title="Installing with conda" href="conda.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -159,10 +157,10 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Installation</span></p>
-<ul class="nav bd-sidenav">
+<ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="conda.html">Installing with <code class="docutils literal notranslate"><span class="pre">conda</span></code></a></li>
-<li class="toctree-l1"><a class="reference internal" href="docker.html">Installing with Docker</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Installing with Docker</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Using OasisMove</span></p>
 <ul class="nav bd-sidenav">
@@ -172,10 +170,10 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="features.html">Features and issues</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="movingwall.html">Wall-driven channel flow</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Oscillating cylinder in free stream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="movingcylinder.html">Oscillating cylinder in free stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="movingvortex.html">Vortex problem with oscillating boundaries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="movingtg.html">Moving 3D Taylor-Green vortex</a></li>
 </ul>
@@ -253,7 +251,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/kvslab/OasisMove/issues/new?title=Issue%20on%20page%20%2Fmovingcylinder.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/kvslab/OasisMove/issues/new?title=Issue%20on%20page%20%2Fdocker.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -283,7 +281,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/movingcylinder.md" target="_blank"
+      <li><a href="_sources/docker.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -365,7 +363,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Oscillating cylinder in free stream</h1>
+    <h1>Installing with Docker</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -375,10 +373,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem description</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-in-oasismove">Simulation in OasisMove</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adjusting-the-reynolds-number">Adjusting the Reynolds number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-pull-the-docker-image">Step 1: Pull the Docker image</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-run-the-docker-container">Step 2: Run the Docker container</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-verify-the-installation">Step 3: Verify the installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-our-own-docker-image">Building our own docker image</a></li>
 </ul>
             </nav>
         </div>
@@ -390,115 +389,54 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="oscillating-cylinder-in-free-stream">
-<span id="tutorial-cylinder"></span><h1>Oscillating cylinder in free stream<a class="headerlink" href="#oscillating-cylinder-in-free-stream" title="Permalink to this heading">#</a></h1>
-<p>In this tutorial we will be investigating uniform flow around an oscillating cylinder. The setup is inspired by the
-novel study by Blackburn and Henderson <span id="id1">[<a class="reference internal" href="#id7" title="Hugh M Blackburn and Ron D Henderson. A study of two-dimensional flow past an oscillating cylinder. Journal of Fluid Mechanics, 385:255–286, 1999.">BH99</a>]</span>, and is one of the fundamental problems in classical
-fluid dynamics as it demonstrates flow separation and vortex shedding.</p>
-<figure class="align-default" id="cylinder-fig">
-<img alt="_images/cylinder_fig.png" src="_images/cylinder_fig.png" />
-<figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">A schematic of the domain showing the oscillating cylinder in a free-stream.</span><a class="headerlink" href="#cylinder-fig" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<section id="problem-description">
-<h2>Problem description<a class="headerlink" href="#problem-description" title="Permalink to this heading">#</a></h2>
-<p>The problem consists of a cylinder with diameter of <span class="math notranslate nohighlight">\(D=10\)</span> cm oscillaing in fluid flow subject to a free-stream velocity
-<span class="math notranslate nohighlight">\(U_{\infty} = 1\)</span> m/s, as shown in <a class="reference internal" href="#cylinder-fig"><span class="std std-numref">Fig. 2</span></a>. For this simulation we also require the domain mesh as a
-separate file, which is located in the <code class="docutils literal notranslate"><span class="pre">src/oasismove/mesh</span></code> folder named <code class="docutils literal notranslate"><span class="pre">cylinder.xdmf</span></code>. A visualization of the
-triangulated mesh, and a zoomed in view on the cylinder is shown in <a class="reference internal" href="#cylinder-mesh"><span class="std std-numref">Fig. 3</span></a>.</p>
-<figure class="align-default" id="cylinder-mesh">
-<img alt="_images/cylinder_mesh.png" src="_images/cylinder_mesh.png" />
-<figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">The computational domain for the oscillating cylinder in a free-stream.
-On the left, an overview of the domain, and on the right, a zoomed in view on the refinement around the cylinder.</span><a class="headerlink" href="#cylinder-mesh" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<p>Furthermore, the simulation is run for a Reynolds number equal to 500, which is adjustable in the problem
-file <a class="reference external" href="https://github.com/KVSlab/OasisMove/blob/main/src/oasismove/problems/NSfracStep/MovingCylinder.py">MovingCylinder.py</a>
-. This will define the kinematic viscosity accordingly. Moreover, the oscillating movement is controlled by the
-amplitude ratio <span class="math notranslate nohighlight">\(A_{ratio}\)</span>, the Strouhal number <span class="math notranslate nohighlight">\(St\)</span>, and the frequency ratio <span class="math notranslate nohighlight">\(F\)</span>. Based on these parameters, the
-frequency of the oscillations are defined as:</p>
-<div class="math notranslate nohighlight" id="equation-eq-freq">
-<span class="eqno">(4)<a class="headerlink" href="#equation-eq-freq" title="Permalink to this equation">#</a></span>\[\begin{align}
-f =  \frac{St U_{\infty}F}{D}.
-\end{align}\]</div>
-<p>Furthermore, the cylinder position followed a sinusoidal profile in the transverse direction to the flow:</p>
-<div class="math notranslate nohighlight" id="equation-eq-sine">
-<span class="eqno">(5)<a class="headerlink" href="#equation-eq-sine" title="Permalink to this equation">#</a></span>\[\begin{align}
-    \mathbf x(\mathbf \chi, t) =  (0, A \sin (2 \pi f t )), 
-\end{align}\]</div>
-<p>where <span class="math notranslate nohighlight">\(A = A_{ratio}D\)</span> is the amplitude.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="installing-with-docker">
+<span id="install-docker"></span><h1>Installing with Docker<a class="headerlink" href="#installing-with-docker" title="Permalink to this heading">#</a></h1>
+<p>Installing <code class="docutils literal notranslate"><span class="pre">OasisMove</span></code> through Docker may be a good choice if you want to work in an isolated environment that doesn’t
+interfere with your system’s existing libraries or dependencies. Our Docker image contains <code class="docutils literal notranslate"><span class="pre">OasisMove</span></code> with its
+dependencies, and can be run on any operating system that supports Docker. The image is built to support the AMD64
+architecture, making it compatible with most modern CPUs.</p>
+<section id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.docker.com/get-docker/">Docker</a> must be installed on your system.</p></li>
+</ul>
 </section>
-<section id="simulation-in-oasismove">
-<h2>Simulation in OasisMove<a class="headerlink" href="#simulation-in-oasismove" title="Permalink to this heading">#</a></h2>
-<p>To run the oscillating cylinder problem for <span class="math notranslate nohighlight">\(T=5\)</span> seconds with default parameters in OasisMove you can run the following
+<section id="step-1-pull-the-docker-image">
+<h2>Step 1: Pull the Docker image<a class="headerlink" href="#step-1-pull-the-docker-image" title="Permalink to this heading">#</a></h2>
+<p>You can pull the Docker image for the latest <code class="docutils literal notranslate"><span class="pre">OasisMove</span></code> package from its
+official <a class="reference external" href="https://github.com/KVSlab/OasisMove/pkgs/container/oasismove">GitHub container registry</a> using the following
 command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingCylinder<span class="w"> </span><span class="nv">Re</span><span class="o">=</span><span class="m">500</span><span class="w"> </span><span class="nv">u_inf</span><span class="o">=</span><span class="m">1</span>.0<span class="w"> </span><span class="nv">F</span><span class="o">=</span><span class="m">1</span>.0<span class="w"> </span><span class="nv">T</span><span class="o">=</span><span class="m">5</span><span class="w"> </span><span class="nv">mesh_path</span><span class="o">=</span>src/oasismove/mesh/cylinder.xdmf
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>pull<span class="w"> </span>ghcr.io/kvslab/oasismove:latest
 </pre></div>
 </div>
-<p>or without explicitly writing the default parameters:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingCylinder<span class="w"> </span><span class="nv">mesh_path</span><span class="o">=</span>src/oasismove/mesh/cylinder.xdmf
+</section>
+<section id="step-2-run-the-docker-container">
+<h2>Step 2: Run the Docker container<a class="headerlink" href="#step-2-run-the-docker-container" title="Permalink to this heading">#</a></h2>
+<p>After pulling the Docker image, you can run the container using the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>ghcr.io/kvslab/oasismove:latest
 </pre></div>
 </div>
-<p>and the simulation will start. The default time step is relatively small, so the simulation might take some minutes
-before it is complete.</p>
 </section>
-<section id="results">
-<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading">#</a></h2>
-<p>When the simulation is finished, there will be a folder named <code class="docutils literal notranslate"><span class="pre">results_moving_cylinder</span></code>, which contains the velocity and
-pressure solution in <code class="docutils literal notranslate"><span class="pre">.xdmf</span></code> format, and the forces related to the simulation, including the drag (<span class="math notranslate nohighlight">\(C_D\)</span>) and lift (
-<span class="math notranslate nohighlight">\(C_L\)</span>) coefficient defined as:</p>
-<div class="math notranslate nohighlight" id="equation-eq-force">
-<span class="eqno">(6)<a class="headerlink" href="#equation-eq-force" title="Permalink to this equation">#</a></span>\[\begin{align}
-    C_D = \frac{2 F_D}{\rho U_\infty^2 D}, \qquad C_L = \frac{2F_L}{\rho U_\infty^2 D}, 
-\end{align}\]</div>
-<p>stored in the <code class="docutils literal notranslate"><span class="pre">forces.txt</span></code> file. In <a class="reference internal" href="#vel-cylinder"><span class="std std-numref">Fig. 4</span></a> we display the resulting velocity field, where we have added
-vectors scaled by the velocity magnitude. Furthermore, the values saved in the <code class="docutils literal notranslate"><span class="pre">forces.txt</span></code> file can be plotted to
-visualize the drag and lift coefficient over time, as visualized in <a class="reference internal" href="#forces"><span class="std std-numref">Fig. 5</span></a>.</p>
-<figure class="align-default" id="vel-cylinder">
-<img alt="_images/moving_cylinder.gif" src="_images/moving_cylinder.gif" />
-<figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">The velocity field for the oscillating cylinder in a free-stream, where the vector arrows have been scaled by the velocity magnitude.</span><a class="headerlink" href="#vel-cylinder" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<figure class="align-default" id="forces">
-<img alt="_images/drag_and_lift.png" src="_images/drag_and_lift.png" />
-<figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Drag (left) and lift (right) coefficient visualized over the simulation duration.</span><a class="headerlink" href="#forces" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
+<section id="step-3-verify-the-installation">
+<h2>Step 3: Verify the installation<a class="headerlink" href="#step-3-verify-the-installation" title="Permalink to this heading">#</a></h2>
+<p>You can verify that <code class="docutils literal notranslate"><span class="pre">OasisMove</span></code> is installed correctly by downloading the test dependencies, and running the tests using
+the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>.<span class="o">[</span>test<span class="o">]</span>
+<span class="gp">$ </span>python3<span class="w"> </span>-m<span class="w"> </span>pytest<span class="w"> </span>tests<span class="w"> </span>
+</pre></div>
+</div>
 </section>
-<section id="adjusting-the-reynolds-number">
-<h2>Adjusting the Reynolds number<a class="headerlink" href="#adjusting-the-reynolds-number" title="Permalink to this heading">#</a></h2>
-<p>The default Reynolds number (<span class="math notranslate nohighlight">\(Re\)</span>) for the oscillating cylinder problem is <span class="math notranslate nohighlight">\(Re=500\)</span>. However, this can easily be
-adjusted by adding it as a command line argument. For instance, we can run a simulation with <span class="math notranslate nohighlight">\(Re=100\)</span> by running the
+<section id="building-our-own-docker-image">
+<h2>Building our own docker image<a class="headerlink" href="#building-our-own-docker-image" title="Permalink to this heading">#</a></h2>
+<p>Instead of pulling the Docker image for <code class="docutils literal notranslate"><span class="pre">OasisMove</span></code> from GitHub, you can build it yourself using the
+provided <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>. The Dockerfile can be found in the <code class="docutils literal notranslate"><span class="pre">docker</span></code> folder located in the root of the project repository.</p>
+<p>To build the Docker image, open a terminal window and navigate to the <code class="docutils literal notranslate"><span class="pre">docker</span></code> folder of the project. Then, execute the
 following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingCylinder<span class="w"> </span><span class="nv">Re</span><span class="o">=</span><span class="m">100</span><span class="w"> </span><span class="nv">mesh_path</span><span class="o">=</span>src/oasismove/mesh/cylinder.xdmf
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker build -t oasismove .</span>
 </pre></div>
 </div>
-<p>As an example of adjusting the Reynolds number, we have run the simulation using <span class="math notranslate nohighlight">\(Re=1, 20, 100,\)</span> and <span class="math notranslate nohighlight">\(500\)</span>. In
-<a class="reference internal" href="#reynolds"><span class="std std-numref">Fig. 6</span></a>, we have visualized the streamlines for the four velocity fields, with emphesis on the region in the
-wake of the cylinder.</p>
-<figure class="align-default" id="reynolds">
-<img alt="_images/reynolds.gif" src="_images/reynolds.gif" />
-<figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Streamlines for varying Reynolds numbers, raning from <span class="math notranslate nohighlight">\(Re=1\)</span> to <span class="math notranslate nohighlight">\(Re=500\)</span>, colored by velocity magnitude.</span><a class="headerlink" href="#reynolds" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-<p>Note that changing the Reynolds number will effectively adjust the kinematic viscosity <span class="math notranslate nohighlight">\(\nu\)</span>, which is related to the
-Reynolds number by definition:</p>
-<div class="math notranslate nohighlight" id="equation-eq-re">
-<span class="eqno">(7)<a class="headerlink" href="#equation-eq-re" title="Permalink to this equation">#</a></span>\[\begin{align}
-    \text{Re } = \frac{U_{\infty} D}{\nu}
-\end{align}\]</div>
-<div class="docutils container" id="id2">
-<div class="citation" id="id7" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">BH99</a><span class="fn-bracket">]</span></span>
-<p>Hugh M Blackburn and Ron D Henderson. A study of two-dimensional flow past an oscillating cylinder. <em>Journal of Fluid Mechanics</em>, 385:255–286, 1999.</p>
-</div>
-</div>
-</div>
+<p>This command will use the instructions in the <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code> to create a Docker image with the name <code class="docutils literal notranslate"><span class="pre">oasismove</span></code>. Once the
+Docker image is built, you can run a container from it using the <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span></code> command.</p>
 </section>
 </section>
 
@@ -534,20 +472,20 @@ Reynolds number by definition:</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="movingwall.html"
+       href="conda.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Wall-driven channel flow</p>
+        <p class="prev-next-title">Installing with <code class="docutils literal notranslate"><span class="pre">conda</span></code></p>
       </div>
     </a>
     <a class="right-next"
-       href="movingvortex.html"
+       href="getting_started.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Vortex problem with oscillating boundaries</p>
+        <p class="prev-next-title">Getting started</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -569,10 +507,11 @@ Reynolds number by definition:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem description</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-in-oasismove">Simulation in OasisMove</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adjusting-the-reynolds-number">Adjusting the Reynolds number</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-pull-the-docker-image">Step 1: Pull the Docker image</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-run-the-docker-container">Step 2: Run the Docker container</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-verify-the-installation">Step 3: Verify the installation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#building-our-own-docker-image">Building our own docker image</a></li>
 </ul>
   </nav></div>
 

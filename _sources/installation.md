@@ -1,75 +1,24 @@
 # Installation
-## Installing OasisMove using `conda`
 
-We recommend installing *OasisMove* and its dependencies through `conda`.  
-Start by cloning into the repository:
+`OasisMove` is a pure Python package that uses the finite element computing
+platform [FEniCS](https://fenicsproject.org/) as its main dependency.
 
-``` console
-$ git clone https://github.com/KVSLab/OasisMove.git
-$ cd OasisMove
-```
+## Dependencies
 
-Then, using the ``environment.yml`` file in the root of the repository, you can call:
+The dependencies of `OasisMove` are:
 
-``` console
-$ conda env update --file environment.yml --name your_environment
-```
+* Python >= 3.8
+* FEniCS >= 2018.1
+* cppimport >= 22.8.2
+* SciPy >= 1.10.0
 
-Next, can now activate your environment by running::
+## Installing with `conda`
 
-``` console
-$ conda activate your_environment
-```
+To install `OasisMove` and all its dependencies to a *local environment*, we recommend using `conda`. Instructions for
+installing `OasisMove`
+with `conda` can be found [here](install:conda).
 
-Finally, install OasisMove inside your `conda` environment using `pip`: 
+## Installing with Docker
 
-``` console
-$ python3 -m pip install .
-```
-
-Now you are all set, and can start using OasisMove.
-
-## Editable installation
-
-If you want to make changes to the underlying OasisMove package, you can install an editable version by adding the `--editable` flag:
-
-``` console
-$ python3 -m pip install --editable .
-```
-
-The ``--editable`` flag installs the project in editable mode meaning that any changes to the original package will be
-reflected directly in your environment.
-
-## Running OasisMove using Docker
-
-A `Dockerfile` is supplied in the root directory of the repository, which can build a docker-image with all
-dependencies installed. The Docker-image can be built with the following command:
-
-``` console
-$ docker build -t name_of_image -f docker/Dockerfile .
-```
-
-A Docker-container can then be started with the following command:
-
-``` console
-$ docker run -ti --network=host -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v $(pwd):/root/shared -w /root/shared --rm --shm-size=512m name_of_image
-```
-
-To run the OasisMove GUI, you need to call:
-
-``` console
-$ xhost +local:root
-```
-
-on your system before running the scripts.
-
-### Note on Docker
-
-Remember to call:
-
-``` console
-xhost -local:root
-```
-
-on the host system when you are done running the Docker container.
-    
+To install `OasisMove` and all its dependencies to an *isolated environment*, we recommend using the dedicated Docker
+container. Instructions for installing `OasisMove` with Docker can be found [here](install:docker).

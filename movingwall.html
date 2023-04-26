@@ -154,13 +154,15 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="index.html">
-                    OasisMove - A verified and validated Python/FEniCS-based CFD solver for moving domains
+                    OasisMove – A verified and validated computational fluid dynamics solver for moving domains
                 </a>
             </li>
         </ul>
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Installation</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Installing with <code class="docutils literal notranslate"><span class="pre">conda</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Installing with Docker</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Using OasisMove</span></p>
 <ul class="nav bd-sidenav">
@@ -419,13 +421,15 @@ following command:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingWall
 </pre></div>
 </div>
-<p>and the simulation will start. The default time step size is set to <span class="math notranslate nohighlight">\(\Delta t=0.005\)</span>, thus a full simulation performs 200 time steps, and should be complete within less than a minute.</p>
+<p>and the simulation will start. The default time step size is set to <span class="math notranslate nohighlight">\(\Delta t=0.005\)</span>, thus a full simulation performs
+200 time steps, and should be complete within less than a minute.</p>
 </section>
 <section id="results">
 <h2>Results<a class="headerlink" href="#results" title="Permalink to this heading">#</a></h2>
 <p>When the simulation is finished, there will be a folder named <code class="docutils literal notranslate"><span class="pre">results_moving_wall</span></code>, which contains the velocity and
-pressure solution in <code class="docutils literal notranslate"><span class="pre">.xdmf</span></code> format.
-These solution files can be visualized in <a class="reference external" href="https://www.paraview.org/">ParaView</a> or any similar visualization software, and in <a class="reference internal" href="#vel-wall"><span class="std std-numref">Fig. 1</span></a> we display the displaced grid, and velocity solution over one period. Note that the solution has been transformed by scaling the length in the <span class="math notranslate nohighlight">\(x\)</span>-direciton by 1/4th.</p>
+pressure solution in <code class="docutils literal notranslate"><span class="pre">.xdmf</span></code> format. These solution files can be visualized in <a class="reference external" href="https://www.paraview.org/">ParaView</a> or
+any similar visualization software, and in <a class="reference internal" href="#vel-wall"><span class="std std-numref">Fig. 1</span></a> we display the displaced grid, and velocity solution over
+one period. Note that the solution has been transformed by scaling the length in the <span class="math notranslate nohighlight">\(x\)</span>-direciton by 1/4th.</p>
 <figure class="align-default" id="vel-wall">
 <img alt="_images/moving_wall.gif" src="_images/moving_wall.gif" />
 <figcaption>
@@ -548,7 +552,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Apr 04, 2023.
+  Last updated on Apr 26, 2023.
   <br/>
 </p>
   </div>
