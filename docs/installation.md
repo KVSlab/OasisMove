@@ -10,7 +10,7 @@ The dependencies of `OasisMove` are:
 * Python >= 3.8
 * FEniCS >= 2018.1
 * cppimport >= 22.8.2
-* scipy >= 1.10.0
+* SciPy >= 1.10.0
 
 ## Installing with `conda`
 

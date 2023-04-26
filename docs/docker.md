@@ -14,7 +14,8 @@ architecture, making it compatible with most modern CPUs.
 ## Step 1: Pull the Docker image
 
 You can pull the Docker image for the latest `OasisMove` package from its
-official [GitHub container registry](https://github.com/KVSlab/OasisMove/pkgs/container/oasismove) using the following command:
+official [GitHub container registry](https://github.com/KVSlab/OasisMove/pkgs/container/oasismove) using the following
+command:
 
 ``` console
 $ docker pull ghcr.io/kvslab/oasismove:latest
@@ -30,8 +31,8 @@ $ docker run -it ghcr.io/kvslab/oasismove:latest
 
 ## Step 3: Verify the installation
 
-You can verify that `OasisMove` is installed correctly by downloading the test dependencies, and running the tests using the
-following commands:
+You can verify that `OasisMove` is installed correctly by downloading the test dependencies, and running the tests using
+the following commands:
 
 ``` console
 $ python3 -m pip install .[test]
@@ -40,8 +41,8 @@ $ python3 -m pytest tests
 
 ## Building our own docker image
 
-Instead of pulling the Docker image for `OasisMove` from GitHub, you can build it yourself using the provided `Dockerfile`.
-The Dockerfile can be found in the `docker` folder located in the root of the project repository.
+Instead of pulling the Docker image for `OasisMove` from GitHub, you can build it yourself using the
+provided `Dockerfile`. The Dockerfile can be found in the `docker` folder located in the root of the project repository.
 
 To build the Docker image, open a terminal window and navigate to the `docker` folder of the project. Then, execute the
 following command:

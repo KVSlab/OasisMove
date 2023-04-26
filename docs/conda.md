@@ -2,9 +2,9 @@
 
 # Installing with `conda`
 
-Using `conda` for installing `OasisMove` allows you to easily manage dependencies and keep them isolated from your system's
-existing libraries. We recommend this option for developers who want to contribute to the software, but requires
-installation of all the dependencies.
+Using `conda` for installing `OasisMove` allows you to easily manage dependencies and keep them isolated from your
+system's existing libraries. We recommend this option for developers who want to contribute to the software, but
+requires installation of all the dependencies.
 
 ## Prerequisites
 
@@ -52,8 +52,8 @@ $ python3 -m pip install .
 
 ### Step 5: Verify the installation
 
-You can verify that `OasisMove` is installed correctly by downloading the test dependencies, and running the tests using the
-following commands:
+You can verify that `OasisMove` is installed correctly by downloading the test dependencies, and running the tests using
+the following commands:
 
 ``` console
 $ python3 -m pip install .[test]
