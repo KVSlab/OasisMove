@@ -2,7 +2,7 @@
 
 _________________
 [![GPL-3.0](https://img.shields.io/github/license/kvslab/oasismove)](LICENSE)
-[![codecov](https://codecov.io/gh/KVSlab/OasisMove/branch/main/graph/badge.svg?token=M2NMX6HOSZ)](https://codecov.io/gh/KVSlab/OasisMove)
+[![codecov](https://codecov.io/gh/KVSlab/OasisMove/branch/main/graph/badge.svg?token=ETTVXYFHJ2)](https://codecov.io/gh/KVSlab/OasisMove)
 [![CI](https://github.com/kvslab/oasismove/actions/workflows/check_and_test_package.yml/badge.svg)](https://github.com/kvslab/oasismove/actions/workflows/check_and_test_package.yml)
 [![GitHub pages](https://github.com/kvslab/oasismove/actions/workflows/deploy_pages.yml/badge.svg)](https://github.com/kvslab/oasismove/actions/workflows/deploy_pages.yml)
 _________________
