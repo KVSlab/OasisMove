@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0.0", "wheel"]
 
 [project]
 name = "oasismove"
-version = "0.1.0"
+version = "0.2.0"
 description = "Verified and validated CFD solver for moving domains"
 authors = [{ name = "Henrik A. Kjeldsberg", email = "henriakj@simula.no" }]
 license = { file = "LICENSE" }
