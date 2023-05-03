@@ -1,4 +1,4 @@
-# OasisMove – A verified and validated computational fluid dynamics solver for moving domains
+# OasisMove – A verified and validated FEniCS-based computational fluid dynamics solver for moving domains
 
 [OasisMove](https://github.com/KVSlab/OasisMove) is a high-level/high-performance open-source Navier-Stokes solver
 written in Python/[FEniCS](https://fenicsproject.org/), and is an extension of the computational fluid dynamics (CFD)
