@@ -30,6 +30,8 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
 
     else:
         # Override some problem specific parameters
+        dt = 0.005
+        T = 100 * dt
         NS_parameters.update(
             # Problem specific parameters
             L=2 * np.pi,  # Mesh size
@@ -38,17 +40,17 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             # Fluid parameters
             Re=1600,
             # Simulation parameters
-            T=1,  # End time
-            dt=0.005,  # Time step
-            Nx=32,  # Resolution in the x-direction
-            Ny=32,  # Resolution in the y-direction
-            Nz=32,  # Resolution in the z-direction
+            T=T,  # End time
+            dt=dt,  # Time step
+            Nx=128,  # Resolution in the x-direction
+            Ny=128,  # Resolution in the y-direction
+            Nz=128,  # Resolution in the z-direction
             folder="results_moving_taylor_green_3d",
             # Oasis parameters
             max_iter=2,
             dynamic_mesh=True,
             save_solution_frequency=5e10,
-            save_step=5,
+            save_step=500,
             checkpoint=500,
             print_intermediate_info=100,
             velocity_degree=1,
