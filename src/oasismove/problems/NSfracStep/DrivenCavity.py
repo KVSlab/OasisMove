@@ -1,35 +1,33 @@
-__author__ = "Mikael Mortensen <mikaem@math.uio.no>"
-__date__ = "2013-06-25"
-__copyright__ = "Copyright (C) 2013 " + __author__
-__license__ = "GNU Lesser GPL version 3 or any later version"
+# Written by Mikael Mortensen <mikaem@math.uio.no> (2013)
+# Edited by Henrik Kjeldsberg <henrik.kjeldsberg@live.no> (2023)
 
-from ..DrivenCavity import *
-from ..NSfracStep import *
+from oasismove.problems.NSfracStep import *
+from oasismove.problems.DrivenCavity import *
+from oasismove.problems.NSfracStep.MovingCommon import get_visualization_files
 
-
-# set_log_active(False)
 
 # Override some problem specific parameters
-def problem_parameters(NS_parameters, scalar_components, Schmidt, **NS_namespace):
+def problem_parameters(NS_parameters, **NS_namespace):
     NS_parameters.update(
+        # Mesh parameters
+        Nx=50,
+        Ny=50,
+        # Fluid parameters
         nu=0.001,
-        T=1.0,
-        dt=0.001,
-        folder="drivencavity_results",
-        plot_interval=20,
-        save_step=10000,
-        checkpoint=10000,
+        # Simulation parameters
+        T=10.0,
+        dt=0.005,
+        folder="results_driven_cavity",
+        # Oasis parameters
+        testing=False,
+        max_iter=1,
+        dynamic_mesh=False,
+        save_solution_frequency=5,
+        checkpoint=500,
         print_intermediate_info=100,
+        velocity_degree=1,
+        pressure_degree=1,
         use_krylov_solvers=True)
-
-    scalar_components += ["alfa", "beta"]
-    Schmidt["alfa"] = 1.
-    Schmidt["beta"] = 10.
-
-    # NS_parameters['krylov_solvers'] = {'monitor_convergence': False,
-    #                                   'report': False,
-    #                                   'relative_tolerance': 1e-10,
-    #                                   'absolute_tolerance': 1e-10}
 
 
 # Specify boundary conditions
@@ -39,9 +37,7 @@ def create_bcs(V, **NS_namespace):
     bc01 = DirichletBC(V, 0, top)
     return dict(u0=[bc00, bc0],
                 u1=[bc01, bc0],
-                p=[],
-                alfa=[bc00],
-                beta=[DirichletBC(V, 1, bottom)])
+                p=[])
 
 
 def initialize(x_1, x_2, bcs, **NS_namespace):
@@ -51,28 +47,26 @@ def initialize(x_1, x_2, bcs, **NS_namespace):
         [bc.apply(x_2[ui]) for bc in bcs[ui]]
 
 
-def pre_solve_hook(mesh, velocity_degree, **NS_namespace):
+def pre_solve_hook(mesh, newfolder, velocity_degree, **NS_namespace):
+    # Visualization files
+    viz_p, viz_u = get_visualization_files(newfolder)
+
     Vv = VectorFunctionSpace(mesh, 'CG', velocity_degree)
-    return dict(uv=Function(Vv))
+    uv = Function(Vv, name="Velocity")
+
+    return dict(uv=uv, viz_u=viz_u, viz_p=viz_p)
 
 
-def temporal_hook(q_, tstep, u_, uv, p_, plot_interval, testing, **NS_namespace):
+def temporal_hook(viz_u, viz_p, tstep, u_, t, uv, p_, plot_interval, testing, **NS_namespace):
     if tstep % plot_interval == 0 and not testing:
         assign(uv.sub(0), u_[0])
         assign(uv.sub(1), u_[1])
-        plot(uv, title='Velocity')
-        plot(p_, title='Pressure')
-        plot(q_['alfa'], title='alfa')
-        plot(q_['beta'], title='beta')
+
+        viz_u.write(uv, t)
+        viz_p.write(p_, t)
 
 
-def theend_hook(u_, p_, uv, mesh, testing, **NS_namespace):
-    if not testing:
-        assign(uv.sub(0), u_[0])
-        assign(uv.sub(1), u_[1])
-        plot(uv, title='Velocity')
-        plot(p_, title='Pressure')
-
+def theend_hook(u_, p_, tstep, save_solution_frequency, uv, mesh, testing, **NS_namespace):
     u_norm = norm(u_[0].vector())
     if MPI.rank(MPI.comm_world) == 0 and testing:
         print("Velocity norm = {0:2.6e}".format(u_norm))

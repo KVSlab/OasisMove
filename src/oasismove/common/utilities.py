@@ -212,10 +212,9 @@ class GradFunction(OasisFunction):
         """
         Assemble right hand side trial.dx(i)*test*dx.
 
-        Possible Coefficient u may replace p_ and makes it possible
+        Possible Coefficient u may replace p and makes it possible
         to use this Function to compute both grad(p) and grad(dp), i.e.,
         the gradient of pressure correction.
-
         """
         if isinstance(u, Coefficient):
             self.matvec[1] = u

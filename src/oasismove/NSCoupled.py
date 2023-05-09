@@ -29,7 +29,7 @@ commandline_kwargs = parse_command_line()
 # Find the problem module
 default_problem = 'DrivenCavity'
 problemname = commandline_kwargs.get('problem', default_problem)
-problemspec = importlib.util.find_spec('.'.join(('oasis.problems.NSCoupled', problemname)))
+problemspec = importlib.util.find_spec('.'.join(('oasismove.problems.NSCoupled', problemname)))
 if problemspec is None:
     problemspec = importlib.util.find_spec(problemname)
 if problemspec is None:
@@ -49,7 +49,7 @@ problem_parameters(**vars())
 vars().update(post_import_problem(**vars()))
 
 # Import chosen functionality from solvers
-solver = importlib.import_module('.'.join(('oasis.solvers.NSCoupled', solver)))
+solver = importlib.import_module('.'.join(('oasismove.solvers.NSCoupled', solver)))
 vars().update({name: solver.__dict__[name] for name in solver.__all__})
 
 # Create lists of components solved for

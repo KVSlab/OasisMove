@@ -10,7 +10,7 @@ from dolfin import *
 
 
 from .IPCS_ABCN import *  # reuse code from IPCS_ABCN
-from .IPCS_ABCN import attach_pressure_nullspace
+from .IPCS_ABCN import __all__, attach_pressure_nullspace
 
 
 def setup(u_components, u, v, p, q, nu, nut_, LESsource,

@@ -3,8 +3,8 @@ __date__ = "2014-04-08"
 __copyright__ = "Copyright (C) 2014 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
-from ..DrivenCavity import *
 from ..NSCoupled import *
+from ..DrivenCavity import *
 
 
 # Override some problem specific parameters
@@ -21,15 +21,21 @@ def create_bcs(VQ, **NS_namespace):
     return dict(up=[bc0, bc1])
 
 
-def theend_hook(u_, p_, mesh, **NS_namespace):
-    plot(u_, title='Velocity')
-    plot(p_, title='Pressure')
+def theend_hook(u_, p_, up_, mesh, testing, **NS_namespace):
+    up_.set_allow_extrapolation(True)
+    if MPI.rank(MPI.comm_world) == 0 and testing:
+        u_corner = up_((1, 1))[1]
+        print("Velocity in corner = {0:2.6e}".format(u_corner))
 
-    try:
-        from fenicstools import StreamFunction
-        import matplotlib.pyplot as plt
-        psi = StreamFunction(u_, [], mesh, use_strong_bc=True)
-        plot(psi, title='Streamfunction')
-        plt.show()
-    except ImportError:
-        pass
+    if not testing:
+        plot(u_, title='Velocity')
+        plot(p_, title='Pressure')
+
+        try:
+            from fenicstools import StreamFunction
+            import matplotlib.pyplot as plt
+            psi = StreamFunction(u_, [], mesh, use_strong_bc=True)
+            plot(psi, title='Streamfunction')
+            plt.show()
+        except ImportError:
+            pass

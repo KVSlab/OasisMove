@@ -1,49 +1,64 @@
-from pprint import pprint
+import pickle
+from os import getcwd
 
-from .MovingCommon import get_visualization_writers, get_coordinate_map
-from ..NSfracStep import *
+from oasismove.problems.NSfracStep import *
+from oasismove.problems.NSfracStep.MovingCommon import get_coordinate_map, get_visualization_writers
 
 
-# Override some problem specific parameters
-def problem_parameters(NS_parameters, NS_expressions, commandline_kwargs, **NS_namespace):
-    L = 1.0
-    T = 1.0
-    T_G = 4 * T
-    T = 4
-    dt = 5 * 10 ** (-2)
-    A = 0.08  # Amplitude
-    try:
-        unstructured = commandline_kwargs["umesh"]
-    except KeyError:
-        unstructured = False
+def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace):
+    """
+    Problem file for running CFD simulation for the MovingVortex problem inspired by the problem by Fehn et al.[1],
+    resembling the 2D Taylor-Green vortex. The problem solves the N-S equations in the absence of body forces, with a
+    manufactured velocity solution. The mesh velocity is also described by an analytic displacement field,
+    describing the oscillatory boundary movement. The movement is mainly controlled by the amplitude A0,
+    and period length of the mesh motion T_G.
 
-    NS_parameters.update(
-        dynamic_mesh=True,
-        unstructured=unstructured,
-        nu=0.025,
-        T=T,
-        A0=A,
-        T_G=T_G,
-        L=L,
-        dt=dt,
-        Nx=20, Ny=20,
-        folder="results_moving_vortex",
-        plot_interval=1000,
-        save_step=10000,
-        checkpoint=10000,
-        print_intermediate_info=10000,
-        compute_error=1,
-        use_krylov_solvers=True,
-        velocity_degree=1,
-        pressure_degree=1,
-        max_iter=2,
-        krylov_report=False)
+    [1] Fehn, N., Heinz, J., Wall, W. A., & Kronbichler, M. (2021). High-order arbitrary Lagrangian–Eulerian
+    discontinuous Galerkin methods for the incompressible Navier–Stokes equations.
+    Journal of Computational Physics, 430, 110040.
+    """
+    if "restart_folder" in commandline_kwargs.keys():
+        restart_folder = commandline_kwargs["restart_folder"]
+        restart_folder = path.join(getcwd(), restart_folder)
+        f = open(path.join(path.dirname(path.abspath(__file__)), restart_folder, 'params.dat'), 'rb')
+        NS_parameters.update(pickle.load(f))
+        NS_parameters['restart_folder'] = restart_folder
+        globals().update(NS_parameters)
+    else:
 
-    NS_parameters['krylov_solvers'] = {'monitor_convergence': False,
-                                       'report': False,
-                                       'relative_tolerance': 1e-8,
-                                       'absolute_tolerance': 1e-8}
+        T = 1.0
+        NS_parameters.update(
+            # Problem specific parameters
+            A0=0.08,  # Amplitude
+            T_G=4 * T,  # Period time
+            L=1.0,  # Dimension of domain
+            Nx=20,  # Resolution in x-direction
+            Ny=20,  # Resolution in y-direction
+            # Fluid parameters
+            nu=0.025,  # Kinematic viscosity
+            # Simulation parameters
+            T=T,  # Simulation time
+            dt=5 * 10 ** (-2),  # Time step
+            folder="results_moving_vortex",
+            # Oasis parameters
+            max_iter=2,
+            dynamic_mesh=True,
+            save_step=1,
+            save_solution_frequency=5,
+            checkpoint=500,
+            print_intermediate_info=100,
+            compute_error=1,
+            velocity_degree=1,
+            pressure_degree=1,
+            use_krylov_solvers=True
+        )
 
+        NS_parameters['krylov_solvers'] = {'monitor_convergence': False,
+                                           'report': False,
+                                           'relative_tolerance': 1e-8,
+                                           'absolute_tolerance': 1e-8}
+
+    # Define analytical and initial state expressions
     NS_expressions.update(dict(
         exact_fields=dict(
             u0='-sin(2*pi*x[1])*exp(-4*pi*pi*nu*t)',
@@ -58,16 +73,12 @@ def problem_parameters(NS_parameters, NS_expressions, commandline_kwargs, **NS_n
             w1='A*2*pi / T_G * cos(2*pi*t/T_G)*sin(2*pi*(x[0] + L/2)/L)'),
         total_error=np.zeros(3)))
 
-    if MPI.rank(MPI.comm_world) == 0:
-        print("=== Starting simulation for MovingVortex.py ===")
-        print("Running with the following parameters:")
-        pprint(NS_parameters)
-
 
 def mesh(Nx, Ny, L, dt, **params):
+    # Define mesh
     mesh = RectangleMesh(Point(-L / 2, -L / 2), Point(L / 2, L / 2), Nx, Ny)
 
-    print("Mesh info: N_cells = {} |  dx={} | dt = {}".format(mesh.num_cells(), mesh.hmin(), dt))
+    print_mesh_information(mesh, dt, u_mean=1.0, dim=2)
     return mesh
 
 
@@ -82,14 +93,13 @@ def pre_boundary_condition(mesh, **NS_namespace):
     return dict(boundary=boundary)
 
 
-def create_bcs(V, Q, t, dt, nu, sys_comp, boundary, initial_fields, **NS_namespace):
+def create_bcs(V, t, dt, nu, sys_comp, boundary, initial_fields, **NS_namespace):
     for i, ui in enumerate(sys_comp):
         if 'IPCS' in NS_parameters['solver']:
             deltat = dt / 2. if ui == 'p' else 0.
         else:
             deltat = 0.
         ue = Expression((initial_fields[ui]),
-                        # element=VV[ui].ufl_element(),
                         degree=4,
                         t=t - deltat, nu=nu)
         NS_expressions["bc_%s" % ui] = ue
@@ -132,6 +142,9 @@ def initialize(q_, q_1, q_2, VV, t, nu, dt, initial_fields, **NS_namespace):
 
 class Walls(UserExpression):
     def __init__(self, t, coor, A, L, T_G, x_hat_map, counter_max, **kwargs):
+        """
+        (User)Expression class for describing the wall motion.
+        """
         self.t = t
         self.map = x_hat_map
         self.max = counter_max
@@ -147,12 +160,9 @@ class Walls(UserExpression):
 
     def eval(self, values, _, **kwargs):
         self.counter += 1
-        if self.coor == 0:
-            values[:] = 2 * np.pi / self.T_G * self.A * np.cos(2 * np.pi * self.t / self.T_G) * sin(
-                2 * np.pi * (self.map[self.counter][1] + self.L / 2) / self.L)
-        else:
-            values[:] = 2 * np.pi / self.T_G * self.A * np.cos(2 * np.pi * self.t / self.T_G) * sin(
-                2 * np.pi * (self.map[self.counter][0] + self.L / 2) / self.L)
+        N = (self.coor + 1) % 2
+        values[:] = 2 * np.pi / self.T_G * self.A * np.cos(2 * np.pi * self.t / self.T_G) * sin(
+            2 * np.pi * (self.map[self.counter][N] + self.L / 2) / self.L)
         if self.counter == self.max:
             self.counter = -1
 
@@ -166,7 +176,7 @@ def pre_solve_hook(V, mesh, t, nu, L, w_, T_G, A0, newfolder, velocity_degree, u
     pe = Expression(exact_fields['p'], nu=nu, t=t, degree=4)
 
     # Visualization files
-    viz_p, viz_u, viz_ue = get_visualization_writers(newfolder, ["Pressure", "Velocity", "Exact"])
+    viz_p, viz_u, viz_ue = get_visualization_writers(newfolder, ["pressure", "velocity", "velocity_exact"])
 
     # Extract dof map and coordinates
     VV = VectorFunctionSpace(mesh, "CG", velocity_degree)
@@ -210,8 +220,9 @@ def update_boundary_conditions(t, dt, NS_expressions, **NS_namespace):
                 value.t = t - deltat_
 
 
-def temporal_hook(q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, initial_fields, tstep,
-                  sys_comp, compute_error, total_error, ue_x, ue_y, pe, **NS_namespace):
+def temporal_hook(u_, q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, initial_fields, tstep,
+                  save_solution_frequency, sys_comp, compute_error, total_error, ue_x, ue_y, pe, testing,
+                  **NS_namespace):
     """Function called at end of timestep.
 
     Plot solution and compute error by comparing to analytical solution.
@@ -219,11 +230,12 @@ def temporal_hook(q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, in
 
     """
     # Save solution
-    assign(u_vec.sub(0), q_["u0"])
-    assign(u_vec.sub(1), q_["u1"])
+    if not testing and tstep % save_solution_frequency == 0:
+        assign(u_vec.sub(0), u_[0])
+        assign(u_vec.sub(1), u_[1])
 
-    viz_u.write(u_vec, t)
-    viz_p.write(p_, t)
+        viz_u.write(u_vec, t)
+        viz_p.write(p_, t)
 
     ue_x.t = t
     ue_y.t = t
@@ -252,7 +264,6 @@ def temporal_hook(q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, in
             elif ui == 'p':
                 ue = pp
                 pp.rename("p", 'p')
-                viz_ue.write(pp, t)
 
             if "u" in ui:
                 ues.append(ue)
@@ -262,8 +273,10 @@ def temporal_hook(q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, in
             err[ui] = "{0:2.6e}".format(norm(ue.vector()) / uen)
             total_error[i] += error * dt
 
+        viz_ue.write(ue_vec, t)
 
-def theend_hook(newfolder, mesh, q_, t, dt, nu, VV, sys_comp, total_error, initial_fields, **NS_namespace):
+
+def theend_hook(q_, t, dt, nu, VV, sys_comp, total_error, initial_fields, **NS_namespace):
     final_error = np.zeros(len(sys_comp))
     for i, ui in enumerate(sys_comp):
         if 'IPCS' in NS_parameters['solver'] and ui == "p":
@@ -271,15 +284,11 @@ def theend_hook(newfolder, mesh, q_, t, dt, nu, VV, sys_comp, total_error, initi
         else:
             deltat = 0.
         ue = Expression((initial_fields[ui]),
-                        degree=4,
-                        # element=VV[ui].ufl_element(),
+                        element=VV[ui].ufl_element(),
                         t=t - deltat, nu=nu)
         ue = interpolate(ue, VV[ui])
         final_error[i] = errornorm(q_[ui], ue)
 
-    hmin = mesh.hmin()
-    if MPI.rank(MPI.comm_world) == 0:
-        print("hmin = {}".format(hmin))
     s0 = "Total Error:"
     s1 = "Final Error:"
     for i, ui in enumerate(sys_comp):
@@ -289,16 +298,3 @@ def theend_hook(newfolder, mesh, q_, t, dt, nu, VV, sys_comp, total_error, initi
     if MPI.rank(MPI.comm_world) == 0:
         print(s0)
         print(s1)
-
-    err_u = final_error[0]
-    err_ux = final_error[0]
-    err_uy = final_error[1]
-    err_p = final_error[2]
-    err_p_h = final_error[2]
-
-    # Write errors to file
-    error_array = np.asarray([round(t, 4), err_u, err_ux, err_uy, err_p, err_p_h])
-    error_path = path.join(newfolder, "error_mms.txt")
-    with open(error_path, 'a') as filename:
-        filename.write(
-            f"{error_array[0]} {error_array[1]} {error_array[2]} {error_array[3]} {error_array[4]} {error_array[5]}\n")
