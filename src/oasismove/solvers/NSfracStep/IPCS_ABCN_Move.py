@@ -167,7 +167,8 @@ def assemble_first_inner_iter(A, a_conv, bw0, bw_tmp, dt, M, scalar_components, 
             Ta.axpy(1., A, True)
 
     # Add diffusion and compute rhs for all velocity components
-    A.axpy(-0.5 * nu, K, True)
+    if nn_model != "Visco":
+        A.axpy(-0.5 * nu, K, True)
     if les_model != "NoModel":
         assemble(nut_ * KT[1] * dx, tensor=KT[0])
         A.axpy(-0.5, KT[0], True)
