@@ -74,7 +74,8 @@ $ oasism NSfracStep solver=IPCS_ABCN problem=Stenosis backflow_facets="[3]" back
 ```
 
 Note that the list of boundaries has to be encapsulated by quotation marks, or the IDs can be manually set
-inside `Stenosis.py`.
+inside `Stenosis.py`. Also, backflow stabilization in OasisMove is currently only implemented for the `IPCS_ABCN`
+and `IPCS_ABCN_Move` solvers.
 
 ## Simulation in OasisMove
 
