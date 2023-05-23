@@ -162,5 +162,5 @@ def temporal_hook(tstep, u_vec, u_, save_solution_frequency, viz_p, viz_u, p_, q
         mean_vel = np.mean(u_x)
         info_green(
             'Time = {0:2.4e}, timestep = {1:6d}, max velocity={2:2.2f} mean velocity={3:2.3f} End time = {4:2.4e}'
-                .format(t, tstep, max_vel, mean_vel, T)
+            .format(t, tstep, max_vel, mean_vel, T)
         )
