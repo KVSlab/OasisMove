@@ -45,12 +45,12 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             x1=x1,
             Nx=Nx,  # Resolution in horizontal direction
             Ny=Ny,  # Resolution in vertical direction
-            D=6.35,  # Diameter [m]
-            U0=4,  # Maximum inlet velocity [m/s]
+            D=6.35,  # Diameter
+            U0=4,  # Maximum inlet velocity
             nu=0.01,  # Kinetmatic viscosity
             # Simulation parameters
-            T=15,  # Time [s]
-            dt=1e-2,  # Time step size [s]
+            T=15,  # Time
+            dt=1e-2,  # Time step size
             folder="results_stenosis",
             # Oasis paramters
             max_iter=1,
@@ -162,5 +162,5 @@ def temporal_hook(tstep, u_vec, u_, save_solution_frequency, viz_p, viz_u, p_, q
         mean_vel = np.mean(u_x)
         info_green(
             'Time = {0:2.4e}, timestep = {1:6d}, max velocity={2:2.2f} mean velocity={3:2.3f} End time = {4:2.4e}'
-            .format(t, tstep, max_vel, mean_vel, T)
+                .format(t, tstep, max_vel, mean_vel, T)
         )
