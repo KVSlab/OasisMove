@@ -18,7 +18,6 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
     [1] Blackburn, H. M., & Henderson, R. D. (1999). A study of two-dimensional flow past an oscillating cylinder.
     Journal of Fluid Mechanics, 385, 255-286.
     """
-
     if "restart_folder" in commandline_kwargs.keys():
         restart_folder = commandline_kwargs["restart_folder"]
         restart_folder = path.join(os.getcwd(), restart_folder)
@@ -30,7 +29,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
     else:
         # Default parameters
         NS_parameters.update(
-            # Geometrical parameters
+            # Problem specific parameters
             Re=500,  # Reynolds number
             D=0.1,  # Diameter in [m]
             u_inf=1.0,  # Free-stream flow velocity in [m/s]
@@ -45,8 +44,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             # Oasis paramters
             max_iter=2,
             dynamic_mesh=True,
-            save_solution_frequency=5e10,
-            save_step=2,
+            save_solution_frequency=5,
             checkpoint=500,
             print_intermediate_info=100,
             velocity_degree=1,
