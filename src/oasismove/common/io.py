@@ -9,7 +9,6 @@ from os import makedirs, listdir, remove, system, path
 from xml.etree import ElementTree as ET
 
 from dolfin import MPI, XDMFFile, HDF5File
-
 from oasismove.problems import info_red
 
 __all__ = ["create_initial_folders", "save_solution", "save_tstep_solution_h5",

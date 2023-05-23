@@ -3,7 +3,7 @@ from dolfin import MPI, Mesh, MeshValueCollection, XDMFFile, cpp, Measure, assem
 
 """
 Author : Kei Yamamoto <keiya@math.uio.no>
-Here, we assume that mesh files are placed inside mesh folder. 
+Here, we assume that mesh files are placed inside mesh folder.
 You can download mesh file from https://drive.google.com/drive/folders/1udtEhv1GFOFq3O7fE-TsQHkUk8Oayhsk?usp=sharing
 """
 
