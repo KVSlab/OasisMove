@@ -141,7 +141,7 @@ def get_solvers(use_krylov_solvers, krylov_solvers, krylov_solvers_w, scalar_com
 
 def assemble_first_inner_iter(A, a_conv, dt, M, scalar_components, les_model, nn_model, a_scalar, K, nu, nut_,
                               nunn_, u_components, LT, KT, NT, b_tmp, b0, x_1, x_2, u_ab, bcs, mesh, boundary, u, v,
-                              backflow_facets, backflow_beta,bw_tmp, bw0, **NS_namespace):
+                              backflow_facets, backflow_beta, wx_, bw_tmp, bw0, **NS_namespace):
     """Called on first inner iteration of velocity/pressure system.
 
     Assemble convection matrix, compute rhs of tentative velocity and
