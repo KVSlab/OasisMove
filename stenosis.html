@@ -441,7 +441,7 @@ boundary to be stabilized:</p>
 <p>where <span class="math notranslate nohighlight">\(\beta\)</span> is a positive coefficient between 0.0 and 1.0, <span class="math notranslate nohighlight">\(\mathbf u\)</span> is the velocity vector, <span class="math notranslate nohighlight">\(\mathbf v\)</span> is the
 velocity test function, <span class="math notranslate nohighlight">\(\partial \Omega\)</span> denotes the boundary, and <span class="math notranslate nohighlight">\((\mathbf u \cdot \mathbf n)\_\)</span> is defined as:</p>
 <div class="math notranslate nohighlight" id="equation-eq-weak2">
-<span class="eqno">(13)<a class="headerlink" href="#equation-eq-weak2" title="Permalink to this equation">#</a></span>\[(\mathbf u \cdot \mathbf n)_ \,=\, \frac{\mathbf u\cdot \mathbf n - \| \mathbf u \cdot \mathbf n\|}  {2}.\]</div>
+<span class="eqno">(13)<a class="headerlink" href="#equation-eq-weak2" title="Permalink to this equation">#</a></span>\[(\mathbf u \cdot \mathbf n)\_ \,=\, \frac{\mathbf u\cdot \mathbf n - \| \mathbf u \cdot \mathbf n\|}  {2}.\]</div>
 <p>In OasisMove, this backflow stabilization method is added by supplying the
 <code class="docutils literal notranslate"><span class="pre">backflow_facets</span></code> argument, alongside the <code class="docutils literal notranslate"><span class="pre">backflow_beta</span></code> parameter, representing the strength of the stabilization
 term. While <code class="docutils literal notranslate"><span class="pre">backflow_beta</span></code> can be any float value between 0.0 and 1.0, <code class="docutils literal notranslate"><span class="pre">backflow_facets</span></code> represents a list of IDs
