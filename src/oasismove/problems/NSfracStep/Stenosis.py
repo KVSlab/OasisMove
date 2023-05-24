@@ -30,21 +30,14 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
         NS_parameters['restart_folder'] = restart_folder
         globals().update(NS_parameters)
     else:
-        # Default parameters
-        x0 = -3  # Min x-coodrinate of the domain
-        x1 = 3  # Max x-coodrinate of the domain
-        # Increase resolution in the horizontal direction
-        Ny = 50
-        Nx = (x1 - x0) * Ny
         NS_parameters.update(
             #  Backflow parameters
             backflow_facets=[3],  # Outlet with id=3 needs backflow stabilization.
             backflow_beta=0.2,  # Strength of backflow stabilization
             # Problem specific parameters
-            x0=x0,
-            x1=x1,
-            Nx=Nx,  # Resolution in horizontal direction
-            Ny=Ny,  # Resolution in vertical direction
+            x0=-3,  # Min x-coodrinate of the domain
+            x1=3,  # Max x-coodrinate of the domain
+            N=50,  # Mesh resolution
             D=6.35,  # Diameter
             U0=4,  # Maximum inlet velocity
             nu=0.01,  # Kinetmatic viscosity
@@ -64,7 +57,11 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
         )
 
 
-def mesh(Nx, Ny, D, x0, x1, dt, U0, **params):
+def mesh(N, D, x0, x1, dt, U0, **params):
+    # Define horizontal and verticl resolution
+    Ny = N
+    Nx = (x1 - x0) * Ny
+
     # Stenosis function
     def S(x, s0=0.25):
         L = 2 * D

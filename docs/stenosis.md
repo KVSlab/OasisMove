@@ -29,7 +29,7 @@ triangulated mesh, and a zoomed in view on the stenosis is shown in {numref}`ste
 ---
 name: stenosis-mesh
 ---
-The computational domain for the eccentric stenosis.
+The computational domain for the eccentric stenosis with the default resolution $N=50$.
 On the left, an overview of the domain, and on the right, a zoomed in view of the stenosis.
 ```
 
@@ -46,9 +46,9 @@ left atrium. Because backflow is a naturally occurring physiologic phenomenon, c
 realistically model backflow without artificially altering the local flow dynamics. To achieve this we consider the
 first backflow stabilization method first proposed by Bazilevs et al. {cite}`bazilevs2009patient` and rigorously tested
 by Moghadam et al. {cite}`esmaily2011comparison`. In short, the method modifies the weak formulation of the
-Navier-Stokes formulation by adding a backflow stabilization term for the Neumann boundaries, in this case the outlet.
-Specifically, the following convective traction term is added to the weak form as a stabilization term for each Neumann
-boundary to be stabilized:
+Navier-Stokes equations by adding a backflow stabilization term for the Neumann boundaries, in this case the outlet.
+Specifically, the following convective traction term is added to the weak form on each Neumann boundary to be
+stabilized:
 
 ```{math}
 :label: eq-weak
@@ -63,31 +63,34 @@ velocity test function, $\partial \Omega$ denotes the boundary, and $(\mathbf u 
 (\mathbf u \cdot \mathbf n)\_ \,=\, \frac{\mathbf u\cdot \mathbf n - \| \mathbf u \cdot \mathbf n\|}  {2}.
 ```
 
-In OasisMove, this backflow stabilization method is added by supplying the
-`backflow_facets` argument, alongside the `backflow_beta` parameter, representing the strength of the stabilization
-term. While `backflow_beta` can be any float value between 0.0 and 1.0, `backflow_facets` represents a list of IDs
-corresponding to the boundary IDs of the Neumann boundaries. For the stenosis problem, where the outlet boundary ID is
-3, backflow stabilization can be added to the outlet with a strength of 0.2 by running the following command:
+In OasisMove, the backflow stabilization method is applied by supplying the
+`backflow_facets` argument, in addition to the `backflow_beta` parameter. The `backflow_beta` parameter determines the
+strength of the stabilization term and can be any float value between 0.0 and 1.0, while `backflow_facets` represents a
+list of IDs corresponding to the boundary IDs of the Neumann boundaries. For the stenosis problem, where the outlet
+boundary ID is 3, backflow stabilization can be added to the outlet with a strength of 0.2 by running the following
+command:
 
 ``` console
 $ oasism NSfracStep solver=IPCS_ABCN problem=Stenosis backflow_facets="[3]" backflow_beta=0.2 
 ```
 
 Note that the list of boundaries has to be encapsulated by quotation marks, or the IDs can be manually set
-inside `Stenosis.py`. Also, backflow stabilization in OasisMove is currently only implemented for the `IPCS_ABCN`
+inside [Stenosis.py](https://github.com/KVSlab/OasisMove/blob/main/src/oasismove/problems/NSfracStep/Stenosis.py). Note
+also that backflow stabilization in OasisMove is currently only implemented for the `IPCS_ABCN`
 and `IPCS_ABCN_Move` solvers.
 
 ## Simulation in OasisMove
 
-To run the stenosis problem for $T=15$ with default parameters in OasisMove, which includes backflow stabilization at
-the outlet, you can run the following command:
+To run the stenosis problem for $T=15$ with default parameters in OasisMove, which by defaut includes backflow
+stabilization at the outlet, you can run the following command:
 
 ``` console
 $ oasism NSfracStep solver=IPCS_ABCN problem=Stenosis 
 ```
 
-where we specify the `NSfracStep` module and `IPCS_ABCN` solver because the problem is not moving. Alternatively we pass
-the `dynamic_mesh=False` flag for rigid domain problems, telling the solver to skip solving the mesh equations:
+where we specify the `NSfracStep` module and `IPCS_ABCN` solver because the problem is not moving. Alternatively we can
+pass the `dynamic_mesh=False` flag for rigid domain problems, telling the default solver (`IPCS_ABCN_Move`) to skip
+solving the mesh equations:
 
 ``` console
 $ oasism NSfracStepMove problem=Stenosis dynamic_mesh=False 
