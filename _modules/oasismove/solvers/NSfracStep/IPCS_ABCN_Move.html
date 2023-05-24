@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../../../../movingcylinder.html">Oscillating cylinder in free stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../movingvortex.html">Vortex problem with oscillating boundaries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../movingtg.html">Moving 3D Taylor-Green vortex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../stenosis.html">Backflow stabilization in an eccentric stenosis</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
@@ -331,10 +332,11 @@ document.write(`
 <span class="n">__license__</span> <span class="o">=</span> <span class="s2">&quot;GNU Lesser GPL version 3 or any later version&quot;</span>
 
 <span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">oasismove.solvers.NSfracStep</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">oasismove.solvers.NSfracStep</span> <span class="kn">import</span> <span class="n">__all__</span>
+<span class="kn">from</span> <span class="nn">petsc4py</span> <span class="kn">import</span> <span class="n">PETSc</span> <span class="k">as</span> <span class="n">_PETSc</span>
 
-
-<span class="kn">from</span> <span class="nn">..NSfracStep</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">..NSfracStep</span> <span class="kn">import</span> <span class="n">__all__</span>
+<span class="kn">from</span> <span class="nn">oasismove.problems</span> <span class="kn">import</span> <span class="n">u_dot_n</span>
 
 
 <div class="viewcode-block" id="setup"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.setup">[docs]</a><span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="n">u_components</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">u_w</span><span class="p">,</span> <span class="n">v_w</span><span class="p">,</span> <span class="n">bcs</span><span class="p">,</span> <span class="n">les_model</span><span class="p">,</span> <span class="n">nut_</span><span class="p">,</span> <span class="n">scalar_components</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">p_</span><span class="p">,</span> <span class="n">u_</span><span class="p">,</span>
@@ -465,9 +467,9 @@ document.write(`
     <span class="k">return</span> <span class="n">sols</span></div>
 
 
-<div class="viewcode-block" id="assemble_first_inner_iter"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.assemble_first_inner_iter">[docs]</a><span class="k">def</span> <span class="nf">assemble_first_inner_iter</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">a_conv</span><span class="p">,</span> <span class="n">bw0</span><span class="p">,</span> <span class="n">bw_tmp</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">scalar_components</span><span class="p">,</span> <span class="n">les_model</span><span class="p">,</span> <span class="n">nn_model</span><span class="p">,</span> <span class="n">a_scalar</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span>
-                              <span class="n">nut_</span><span class="p">,</span> <span class="n">nunn_</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">LT</span><span class="p">,</span> <span class="n">KT</span><span class="p">,</span> <span class="n">NT</span><span class="p">,</span> <span class="n">b_tmp</span><span class="p">,</span> <span class="n">b0</span><span class="p">,</span> <span class="n">x_1</span><span class="p">,</span> <span class="n">wx_</span><span class="p">,</span> <span class="n">x_2</span><span class="p">,</span> <span class="n">u_ab</span><span class="p">,</span> <span class="n">bcs</span><span class="p">,</span>
-                              <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<div class="viewcode-block" id="assemble_first_inner_iter"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.assemble_first_inner_iter">[docs]</a><span class="k">def</span> <span class="nf">assemble_first_inner_iter</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">a_conv</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">scalar_components</span><span class="p">,</span> <span class="n">les_model</span><span class="p">,</span> <span class="n">nn_model</span><span class="p">,</span> <span class="n">a_scalar</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">nut_</span><span class="p">,</span>
+                              <span class="n">nunn_</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">LT</span><span class="p">,</span> <span class="n">KT</span><span class="p">,</span> <span class="n">NT</span><span class="p">,</span> <span class="n">b_tmp</span><span class="p">,</span> <span class="n">b0</span><span class="p">,</span> <span class="n">x_1</span><span class="p">,</span> <span class="n">x_2</span><span class="p">,</span> <span class="n">u_ab</span><span class="p">,</span> <span class="n">bcs</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span>
+                              <span class="n">backflow_facets</span><span class="p">,</span> <span class="n">backflow_beta</span><span class="p">,</span> <span class="n">wx_</span><span class="p">,</span> <span class="n">bw_tmp</span><span class="p">,</span> <span class="n">bw0</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Called on first inner iteration of velocity/pressure system.</span>
 
 <span class="sd">    Assemble convection matrix, compute rhs of tentative velocity and</span>
@@ -521,6 +523,17 @@ document.write(`
     <span class="c1"># Reset matrix for lhs</span>
     <span class="n">A</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">1.</span>
     <span class="n">A</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">2.</span> <span class="o">/</span> <span class="n">dt</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Add backflow stabilization</span>
+    <span class="k">for</span> <span class="n">ID</span> <span class="ow">in</span> <span class="n">backflow_facets</span><span class="p">:</span>
+        <span class="n">ds</span> <span class="o">=</span> <span class="n">Measure</span><span class="p">(</span><span class="s2">&quot;ds&quot;</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span> <span class="n">subdomain_data</span><span class="o">=</span><span class="n">boundary</span><span class="p">)</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">FacetNormal</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+        <span class="n">B</span> <span class="o">=</span> <span class="n">assemble</span><span class="p">(</span><span class="n">u_dot_n</span><span class="p">(</span><span class="n">u_ab</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="o">*</span> <span class="n">ds</span><span class="p">(</span><span class="n">ID</span><span class="p">))</span>
+        <span class="n">as_backend_type</span><span class="p">(</span><span class="n">A</span><span class="p">)</span><span class="o">.</span><span class="n">mat</span><span class="p">()</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="n">backflow_beta</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">as_backend_type</span><span class="p">(</span><span class="n">B</span><span class="p">)</span><span class="o">.</span><span class="n">mat</span><span class="p">(),</span>
+                                      <span class="n">_PETSc</span><span class="o">.</span><span class="n">Mat</span><span class="o">.</span><span class="n">Structure</span><span class="o">.</span><span class="n">SUBSET_NONZERO_PATTERN</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ui</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">u_components</span><span class="p">):</span>
+            <span class="n">b_tmp</span><span class="p">[</span><span class="n">ui</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="n">backflow_beta</span> <span class="o">*</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">B</span> <span class="o">*</span> <span class="n">x_1</span><span class="p">[</span><span class="n">ui</span><span class="p">])</span>
+
     <span class="p">[</span><span class="n">bc</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="k">for</span> <span class="n">bc</span> <span class="ow">in</span> <span class="n">bcs</span><span class="p">[</span><span class="s1">&#39;u0&#39;</span><span class="p">]]</span></div>
 
 
@@ -719,7 +732,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on May 23, 2023.
+  Last updated on May 24, 2023.
   <br/>
 </p>
   </div>

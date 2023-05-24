@@ -1,0 +1,636 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Backflow stabilization in an eccentric stenosis &#8212; OasisMove</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'stenosis';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api.html" />
+    <link rel="prev" title="Moving 3D Taylor-Green vortex" href="movingtg.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="index.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="index.html">
+                    OasisMove – A verified and validated FEniCS-based computational fluid dynamics solver for moving domains
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Installation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="conda.html">Installing with <code class="docutils literal notranslate"><span class="pre">conda</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Installing with Docker</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Using OasisMove</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="getting_started.html">Getting started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hooks.html">Hooks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parameters.html">Parameters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="features.html">Features and issues</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="movingwall.html">Wall-driven channel flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="movingcylinder.html">Oscillating cylinder in free stream</a></li>
+<li class="toctree-l1"><a class="reference internal" href="movingvortex.html">Vortex problem with oscillating boundaries</a></li>
+<li class="toctree-l1"><a class="reference internal" href="movingtg.html">Moving 3D Taylor-Green vortex</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Backflow stabilization in an eccentric stenosis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/kvslab/OasisMove" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/kvslab/OasisMove/issues/new?title=Issue%20on%20page%20%2Fstenosis.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/stenosis.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Backflow stabilization in an eccentric stenosis</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backflow-stabilization-in-oasismove">Backflow stabilization in OasisMove</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-in-oasismove">Simulation in OasisMove</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="backflow-stabilization-in-an-eccentric-stenosis">
+<span id="tutorial-stenosis"></span><h1>Backflow stabilization in an eccentric stenosis<a class="headerlink" href="#backflow-stabilization-in-an-eccentric-stenosis" title="Permalink to this heading">#</a></h1>
+<p>In this tutorial we will be investigating parabolic flow through an eccentric stenosis model in two-dimensions. The
+setup is inspired by the three-dimensional study of stenotic flow by Varghese et al. <span id="id1">[<a class="reference internal" href="#id14" title="Sonu S Varghese, Steven H Frankel, and Paul F Fischer. Direct numerical simulation of stenotic flows. part 1. steady flow. Journal of Fluid Mechanics, 582:253–280, 2007.">VFF07</a>]</span>, who
+consider a longer stenosis model than presented here. However, this is not a moving domain simulation, but a
+demonstration of simulation divergence due to backflow, and how we can stabilize the flow to prevent this in OasisMove,
+based on the first backflow stabilization method tested by Moghadam et al. <span id="id2">[<a class="reference internal" href="#id13" title="Mahdi Esmaily Moghadam, Yuri Bazilevs, Tain-Yen Hsia, Irene E Vignon-Clementel, Alison L Marsden, and Modeling of Congenital Hearts Alliance (MOCHA). A comparison of outlet boundary treatments for prevention of backflow divergence with relevance to blood flow simulations. Computational Mechanics, 48:277–291, 2011.">EMBH+11</a>]</span>.</p>
+<figure class="align-default" id="stenosis-fig">
+<img alt="_images/stenosis_fig.png" src="_images/stenosis_fig.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text">A schematic of the two-dimensional stenosis model with a slight eccentricity of the stenosis, borrowed from
+Varghese et al. <span id="id3">[<a class="reference internal" href="#id14" title="Sonu S Varghese, Steven H Frankel, and Paul F Fischer. Direct numerical simulation of stenotic flows. part 1. steady flow. Journal of Fluid Mechanics, 582:253–280, 2007.">VFF07</a>]</span>.</span><a class="headerlink" href="#stenosis-fig" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="problem-description">
+<h2>Problem description<a class="headerlink" href="#problem-description" title="Permalink to this heading">#</a></h2>
+<p>The problem consists of a two-dimensional stenosis, which is constructed based on its (dimensionless) diameter <span class="math notranslate nohighlight">\(D\)</span>. In
+this example we set <span class="math notranslate nohighlight">\(D=6.35\)</span>, and let the length of the stenosis be <span class="math notranslate nohighlight">\(L=2D\)</span>, as shown <a class="reference internal" href="#stenosis-fig"><span class="std std-numref">Fig. 9</span></a>, while the
+domain <span class="math notranslate nohighlight">\(\Omega\)</span> is defined as <span class="math notranslate nohighlight">\(\Omega = [x_0D, x_1D]\times[-D/2, D/2]\)</span>, where <span class="math notranslate nohighlight">\(x_0\)</span> and <span class="math notranslate nohighlight">\(x_1\)</span> are scalar factors, which
+adjust the length of the domain. At the inlet a constant parabolic velocity profile is prescribed with maximum velocity
+<span class="math notranslate nohighlight">\(U_0\)</span>, while the outlet is considered an open boundary with a zero pressure boundary condition. A visualization of the
+triangulated mesh, and a zoomed in view on the stenosis is shown in <a class="reference internal" href="#stenosis-mesh"><span class="std std-numref">Fig. 10</span></a>.</p>
+<figure class="align-default" id="stenosis-mesh">
+<img alt="_images/stenosis_mesh.png" src="_images/stenosis_mesh.png" />
+<figcaption>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">The computational domain for the eccentric stenosis.
+On the left, an overview of the domain, and on the right, a zoomed in view of the stenosis.</span><a class="headerlink" href="#stenosis-mesh" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Furthermore, the simulation with default parameters is run for a Reynolds number equal to <span class="math notranslate nohighlight">\(Re=2540\)</span>, which is adjustable
+in the problem
+file <a class="reference external" href="https://github.com/KVSlab/OasisMove/blob/main/src/oasismove/problems/NSfracStep/Stenosis.py">Stenosis.py</a>, either
+by changing the kinematic viscosity <span class="math notranslate nohighlight">\(\nu\)</span>, the cylinder diameter <span class="math notranslate nohighlight">\(D\)</span>, or the maximum velocity <span class="math notranslate nohighlight">\(U_0\)</span>.</p>
+</section>
+<section id="backflow-stabilization-in-oasismove">
+<h2>Backflow stabilization in OasisMove<a class="headerlink" href="#backflow-stabilization-in-oasismove" title="Permalink to this heading">#</a></h2>
+<p>This problem is intended to demonstrate how to prevent backflow divergence. Simulation divergence due to backflow is a
+rather common in cardiovascular flows, particularly in blood flow in large vessels or at the mitral valve orifice in the
+left atrium. Because backflow is a naturally occurring physiologic phenomenon, careful treatment is necessary to
+realistically model backflow without artificially altering the local flow dynamics. To achieve this we consider the
+first backflow stabilization method first proposed by Bazilevs et al. <span id="id4">[<a class="reference internal" href="#id15" title="Y Bazilevs, JR Gohean, TJR Hughes, RD Moser, and Y25718211229 Zhang. Patient-specific isogeometric fluid–structure interaction analysis of thoracic aortic blood flow due to implantation of the jarvik 2000 left ventricular assist device. Computer Methods in Applied Mechanics and Engineering, 198(45-46):3534–3550, 2009.">BGH+09</a>]</span> and rigorously tested
+by Moghadam et al. <span id="id5">[<a class="reference internal" href="#id13" title="Mahdi Esmaily Moghadam, Yuri Bazilevs, Tain-Yen Hsia, Irene E Vignon-Clementel, Alison L Marsden, and Modeling of Congenital Hearts Alliance (MOCHA). A comparison of outlet boundary treatments for prevention of backflow divergence with relevance to blood flow simulations. Computational Mechanics, 48:277–291, 2011.">EMBH+11</a>]</span>. In short, the method modifies the weak formulation of the
+Navier-Stokes formulation by adding a backflow stabilization term for the Neumann boundaries, in this case the outlet.
+Specifically, the following convective traction term is added to the weak form as a stabilization term for each Neumann
+boundary to be stabilized:</p>
+<div class="math notranslate nohighlight" id="equation-eq-weak">
+<span class="eqno">(12)<a class="headerlink" href="#equation-eq-weak" title="Permalink to this equation">#</a></span>\[-\beta \int_{\partial \Omega} (\mathbf u \cdot \mathbf n)\_\mathbf u \cdot \mathbf v \, \text{d}s,\]</div>
+<p>where <span class="math notranslate nohighlight">\(\beta\)</span> is a positive coefficient between 0.0 and 1.0, <span class="math notranslate nohighlight">\(\mathbf u\)</span> is the velocity vector, <span class="math notranslate nohighlight">\(\mathbf v\)</span> is the
+velocity test function, <span class="math notranslate nohighlight">\(\partial \Omega\)</span> denotes the boundary, and <span class="math notranslate nohighlight">\((\mathbf u \cdot \mathbf n)\_\)</span> is defined as:</p>
+<div class="math notranslate nohighlight" id="equation-eq-weak2">
+<span class="eqno">(13)<a class="headerlink" href="#equation-eq-weak2" title="Permalink to this equation">#</a></span>\[(\mathbf u \cdot \mathbf n)_ \,=\, \frac{\mathbf u\cdot \mathbf n - \| \mathbf u \cdot \mathbf n\|}  {2}.\]</div>
+<p>In OasisMove, this backflow stabilization method is added by supplying the
+<code class="docutils literal notranslate"><span class="pre">backflow_facets</span></code> argument, alongside the <code class="docutils literal notranslate"><span class="pre">backflow_beta</span></code> parameter, representing the strength of the stabilization
+term. While <code class="docutils literal notranslate"><span class="pre">backflow_beta</span></code> can be any float value between 0.0 and 1.0, <code class="docutils literal notranslate"><span class="pre">backflow_facets</span></code> represents a list of IDs
+corresponding to the boundary IDs of the Neumann boundaries. For the stenosis problem, where the outlet boundary ID is
+3, backflow stabilization can be added to the outlet with a strength of 0.2 by running the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStep<span class="w"> </span><span class="nv">solver</span><span class="o">=</span>IPCS_ABCN<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>Stenosis<span class="w"> </span><span class="nv">backflow_facets</span><span class="o">=</span><span class="s2">&quot;[3]&quot;</span><span class="w"> </span><span class="nv">backflow_beta</span><span class="o">=</span><span class="m">0</span>.2<span class="w"> </span>
+</pre></div>
+</div>
+<p>Note that the list of boundaries has to be encapsulated by quotation marks, or the IDs can be manually set
+inside <code class="docutils literal notranslate"><span class="pre">Stenosis.py</span></code>. Also, backflow stabilization in OasisMove is currently only implemented for the <code class="docutils literal notranslate"><span class="pre">IPCS_ABCN</span></code>
+and <code class="docutils literal notranslate"><span class="pre">IPCS_ABCN_Move</span></code> solvers.</p>
+</section>
+<section id="simulation-in-oasismove">
+<h2>Simulation in OasisMove<a class="headerlink" href="#simulation-in-oasismove" title="Permalink to this heading">#</a></h2>
+<p>To run the stenosis problem for <span class="math notranslate nohighlight">\(T=15\)</span> with default parameters in OasisMove, which includes backflow stabilization at
+the outlet, you can run the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStep<span class="w"> </span><span class="nv">solver</span><span class="o">=</span>IPCS_ABCN<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>Stenosis<span class="w"> </span>
+</pre></div>
+</div>
+<p>where we specify the <code class="docutils literal notranslate"><span class="pre">NSfracStep</span></code> module and <code class="docutils literal notranslate"><span class="pre">IPCS_ABCN</span></code> solver because the problem is not moving. Alternatively we pass
+the <code class="docutils literal notranslate"><span class="pre">dynamic_mesh=False</span></code> flag for rigid domain problems, telling the solver to skip solving the mesh equations:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>Stenosis<span class="w"> </span><span class="nv">dynamic_mesh</span><span class="o">=</span>False<span class="w"> </span>
+</pre></div>
+</div>
+<p>The default time step is set to <span class="math notranslate nohighlight">\(T=15\)</span> and might take some minutes to complete, depending on your hardware.
+Alternatively, you can solve the problem in parallel to speed up the simulation time:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">8</span><span class="w"> </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>Stenosis<span class="w"> </span><span class="nv">dynamic_mesh</span><span class="o">=</span>False<span class="w"> </span>
+</pre></div>
+</div>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading">#</a></h2>
+<p>When the simulation is finished, there will be a folder named <code class="docutils literal notranslate"><span class="pre">results_stenosis</span></code>, which contains the velocity and
+pressure solution in <code class="docutils literal notranslate"><span class="pre">.xdmf</span></code> format. In <a class="reference internal" href="#vel-stenosis"><span class="std std-numref">Fig. 11</span></a> we display the resulting velocity field without (top) and
+with (bottom) backflow stabilization, where we have added vectors scaled by the velocity magnitude. Note that the
+simulation without stabilization diverges at approximately <span class="math notranslate nohighlight">\(T=14\)</span>, while the stabilized simulation keeps running until
+<span class="math notranslate nohighlight">\(T=50\)</span>.</p>
+<figure class="align-default" id="vel-stenosis">
+<img alt="_images/stenosis.gif" src="_images/stenosis.gif" />
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">The velocity field for the stenosis problem without (top) and with (bottom) backflow stabilization, including vector
+arrows that have been scaled by the velocity magnitude.</span><a class="headerlink" href="#vel-stenosis" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="docutils container" id="id6">
+<div class="citation" id="id15" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id4">BGH+09</a><span class="fn-bracket">]</span></span>
+<p>Y Bazilevs, JR Gohean, TJR Hughes, RD Moser, and Y25718211229 Zhang. Patient-specific isogeometric fluid–structure interaction analysis of thoracic aortic blood flow due to implantation of the jarvik 2000 left ventricular assist device. <em>Computer Methods in Applied Mechanics and Engineering</em>, 198(45-46):3534–3550, 2009.</p>
+</div>
+<div class="citation" id="id13" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>EMBH+11<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
+<p>Mahdi Esmaily Moghadam, Yuri Bazilevs, Tain-Yen Hsia, Irene E Vignon-Clementel, Alison L Marsden, and Modeling of Congenital Hearts Alliance (MOCHA). A comparison of outlet boundary treatments for prevention of backflow divergence with relevance to blood flow simulations. <em>Computational Mechanics</em>, 48:277–291, 2011.</p>
+</div>
+<div class="citation" id="id14" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>VFF07<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<p>Sonu S Varghese, Steven H Frankel, and Paul F Fischer. Direct numerical simulation of stenotic flows. part 1. steady flow. <em>Journal of Fluid Mechanics</em>, 582:253–280, 2007.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="movingtg.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Moving 3D Taylor-Green vortex</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="api.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API Reference</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backflow-stabilization-in-oasismove">Backflow stabilization in OasisMove</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-in-oasismove">Simulation in OasisMove</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Henrik A. Kjeldsberg
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    <p class="last-updated">
+  Last updated on May 24, 2023.
+  <br/>
+</p>
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

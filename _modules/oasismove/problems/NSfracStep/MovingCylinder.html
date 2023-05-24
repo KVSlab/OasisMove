@@ -173,6 +173,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../../../../movingcylinder.html">Oscillating cylinder in free stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../movingvortex.html">Vortex problem with oscillating boundaries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../movingtg.html">Moving 3D Taylor-Green vortex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../stenosis.html">Backflow stabilization in an eccentric stenosis</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
@@ -345,7 +346,6 @@ document.write(`
 <span class="sd">    [1] Blackburn, H. M., &amp; Henderson, R. D. (1999). A study of two-dimensional flow past an oscillating cylinder.</span>
 <span class="sd">    Journal of Fluid Mechanics, 385, 255-286.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
     <span class="k">if</span> <span class="s2">&quot;restart_folder&quot;</span> <span class="ow">in</span> <span class="n">commandline_kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
         <span class="n">restart_folder</span> <span class="o">=</span> <span class="n">commandline_kwargs</span><span class="p">[</span><span class="s2">&quot;restart_folder&quot;</span><span class="p">]</span>
         <span class="n">restart_folder</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">restart_folder</span><span class="p">)</span>
@@ -357,7 +357,7 @@ document.write(`
     <span class="k">else</span><span class="p">:</span>
         <span class="c1"># Default parameters</span>
         <span class="n">NS_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
-            <span class="c1"># Geometrical parameters</span>
+            <span class="c1"># Problem specific parameters</span>
             <span class="n">Re</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>  <span class="c1"># Reynolds number</span>
             <span class="n">D</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>  <span class="c1"># Diameter in [m]</span>
             <span class="n">u_inf</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>  <span class="c1"># Free-stream flow velocity in [m/s]</span>
@@ -372,8 +372,7 @@ document.write(`
             <span class="c1"># Oasis paramters</span>
             <span class="n">max_iter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
             <span class="n">dynamic_mesh</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-            <span class="n">save_solution_frequency</span><span class="o">=</span><span class="mf">5e10</span><span class="p">,</span>
-            <span class="n">save_step</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">save_solution_frequency</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
             <span class="n">checkpoint</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
             <span class="n">print_intermediate_info</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
             <span class="n">velocity_degree</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -586,7 +585,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on May 23, 2023.
+  Last updated on May 24, 2023.
   <br/>
 </p>
   </div>

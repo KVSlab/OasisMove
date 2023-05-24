@@ -64,7 +64,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'api';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Moving 3D Taylor-Green vortex" href="movingtg.html" />
+    <link rel="prev" title="Backflow stabilization in an eccentric stenosis" href="stenosis.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -175,6 +175,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="movingcylinder.html">Oscillating cylinder in free stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="movingvortex.html">Vortex problem with oscillating boundaries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="movingtg.html">Moving 3D Taylor-Green vortex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stenosis.html">Backflow stabilization in an eccentric stenosis</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="current nav bd-sidenav">
@@ -392,7 +393,7 @@ document.write(`
 <span id="oasismove-solvers"></span><h2>OasisMove Solvers<a class="headerlink" href="#module-oasismove.solvers.NSfracStep.IPCS_ABCN_Move" title="Permalink to this heading">#</a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="oasismove.solvers.NSfracStep.IPCS_ABCN_Move.assemble_first_inner_iter">
-<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">assemble_first_inner_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">les_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nn_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_scalar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nut_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nunn_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wx_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_ab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#assemble_first_inner_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.assemble_first_inner_iter" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">oasismove.solvers.NSfracStep.IPCS_ABCN_Move.</span></span><span class="sig-name descname"><span class="pre">assemble_first_inner_iter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_conv</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">M</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scalar_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">les_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nn_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_scalar</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nut_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nunn_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">KT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NT</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_ab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backflow_facets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backflow_beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wx_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw_tmp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bw0</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/solvers/NSfracStep/IPCS_ABCN_Move.html#assemble_first_inner_iter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.assemble_first_inner_iter" title="Permalink to this definition">#</a></dt>
 <dd><p>Called on first inner iteration of velocity/pressure system.</p>
 <p>Assemble convection matrix, compute rhs of tentative velocity and
 reset coefficient matrix for solve.</p>
@@ -708,11 +709,6 @@ and preconditioner_type</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="oasismove.problems.__init__.Strain">
 <span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">Strain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#Strain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.Strain" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="oasismove.problems.__init__.add_backflow_stabilization">
-<span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">add_backflow_stabilization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">A</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backflow_beta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backflow_facets</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_ab</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ui</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#add_backflow_stabilization"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.add_backflow_stabilization" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -1159,12 +1155,12 @@ Remember pressure is computed in between timesteps.</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="movingtg.html"
+       href="stenosis.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Moving 3D Taylor-Green vortex</p>
+        <p class="prev-next-title">Backflow stabilization in an eccentric stenosis</p>
       </div>
     </a>
 </div></div>
@@ -1220,7 +1216,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on May 23, 2023.
+  Last updated on May 24, 2023.
   <br/>
 </p>
   </div>
