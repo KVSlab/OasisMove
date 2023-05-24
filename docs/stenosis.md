@@ -60,7 +60,7 @@ velocity test function, $\partial \Omega$ denotes the boundary, and $(\mathbf u 
 
 ```{math}
 :label: eq-weak2
-(\mathbf u \cdot \mathbf n)_ \,=\, \frac{\mathbf u\cdot \mathbf n - \| \mathbf u \cdot \mathbf n\|}  {2}.
+(\mathbf u \cdot \mathbf n)\_ \,=\, \frac{\mathbf u\cdot \mathbf n - \| \mathbf u \cdot \mathbf n\|}  {2}.
 ```
 
 In OasisMove, this backflow stabilization method is added by supplying the
