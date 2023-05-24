@@ -25,6 +25,7 @@ parts:
       - file: movingcylinder
       - file: movingvortex
       - file: movingtg
+      - file: stenosis
 
   - caption: Python API
     chapters:
