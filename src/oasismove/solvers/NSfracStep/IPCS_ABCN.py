@@ -4,16 +4,16 @@ __copyright__ = "Copyright (C) 2013 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
 from dolfin import *
+from oasismove.solvers.NSfracStep import *
+from oasismove.solvers.NSfracStep import __all__
+from petsc4py import PETSc as _PETSc
+
+from oasismove.problems.NSfracStep import u_dot_n
 
 
-from ..NSfracStep import *
-from ..NSfracStep import __all__
-
-
-def setup(u_components, u, v, p, q, bcs, les_model, nn_model, nu, nut_, nunn_,
-          scalar_components, V, Q, x_, p_, u_, A_cache,
-          velocity_update_solver, assemble_matrix, homogenize,
-          GradFunction, DivFunction, LESsource, NNsource, **NS_namespace):
+def setup(u_components, u, v, p, q, bcs, les_model, nn_model, nut_, nunn_, scalar_components, V, Q, x_, p_, u_,
+          velocity_update_solver, assemble_matrix, homogenize, GradFunction, DivFunction, LESsource, NNsource,
+          **NS_namespace):
     """Preassemble mass and diffusion matrices.
 
     Set up and prepare all equations to be solved. Called once, before
@@ -144,9 +144,9 @@ def get_solvers(use_krylov_solvers, krylov_solvers, bcs,
     return sols
 
 
-def assemble_first_inner_iter(A, a_conv, dt, M, scalar_components, les_model, nn_model,
-                              a_scalar, K, nu, nut_, nunn_, u_components, LT, KT, NT,
-                              b_tmp, b0, x_1, x_2, u_ab, bcs, **NS_namespace):
+def assemble_first_inner_iter(A, a_conv, dt, M, scalar_components, les_model, nn_model, a_scalar, K, nu, nut_, nunn_,
+                              u_components, LT, KT, NT, b_tmp, b0, x_1, x_2, u_ab, bcs, mesh, boundary, u, v,
+                              backflow_facets, backflow_beta, **NS_namespace):
     """Called on first inner iteration of velocity/pressure system.
 
     Assemble convection matrix, compute rhs of tentative velocity and
@@ -197,6 +197,17 @@ def assemble_first_inner_iter(A, a_conv, dt, M, scalar_components, les_model, nn
     # Reset matrix for lhs
     A *= -1.
     A.axpy(2. / dt, M, True)
+
+    # Add backflow stabilization
+    for ID in backflow_facets:
+        ds = Measure("ds", domain=mesh, subdomain_data=boundary)
+        n = FacetNormal(mesh)
+        B = assemble(u_dot_n(u_ab, n) * dot(u, v) * ds(ID))
+        as_backend_type(A).mat().axpy(-backflow_beta * 0.5, as_backend_type(B).mat(),
+                                      _PETSc.Mat.Structure.SUBSET_NONZERO_PATTERN)
+        for i, ui in enumerate(u_components):
+            b_tmp[ui].axpy(backflow_beta * 0.5, B * x_1[ui])
+
     [bc.apply(A) for bc in bcs['u0']]
 
 

@@ -9,7 +9,6 @@ from os import makedirs, listdir, remove, system, path
 from xml.etree import ElementTree as ET
 
 from dolfin import MPI, XDMFFile, HDF5File
-
 from oasismove.problems import info_red
 
 __all__ = ["create_initial_folders", "save_solution", "save_tstep_solution_h5",
@@ -85,7 +84,7 @@ def save_solution(tstep, t, q_, q_1, folder, newfolder, save_step, checkpoint,
 
     killoasis = check_if_kill(folder, killtime, total_timer)
     if tstep % checkpoint == 0 or killoasis:
-        save_checkpoint_solution_h5(tstep, q_, q_1, newfolder, u_components, mesh, dynamic_mesh, NS_parameters)
+        save_checkpoint_solution_h5(q_, q_1, newfolder, u_components, mesh, dynamic_mesh, NS_parameters)
 
     return killoasis
 
@@ -283,14 +282,14 @@ def merge_xml_files(files):
     # Get last timestep of first tree
     base_tree = trees[indexes[0]]
     last_node = base_tree.getroot()[0][0][-1]
-    ind = 1 if len(last_node.getchildren()) == 3 else 2
+    ind = 1 if len(list(last_node)) == 3 else 2
     last_timestep = float(last_node[ind].attrib["Value"])
 
     # Append
     for index in indexes[1:]:
         tree = trees[index]
-        for node in tree.getroot()[0][0].getchildren():
-            ind = 1 if len(node.getchildren()) == 3 else 2
+        for node in list(tree.getroot()[0][0]):
+            ind = 1 if len(list(node)) == 3 else 2
             if last_timestep < float(node[ind].attrib["Value"]):
                 base_tree.getroot()[0][0].append(node)
                 last_timestep = float(node[ind].attrib["Value"])
