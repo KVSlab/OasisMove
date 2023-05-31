@@ -83,6 +83,7 @@ class Surface_counter(UserExpression):
     def eval(self, _, x):
         self.counter += 1
         index = distance.cdist([x], self.points[:, :, 0]).argmin()
+        # s = 1E2, per=False  4 blad
 
         s = 1E-3
         x_ = splrep(self.time, self.points[index, 0, :], s=s, per=True)
