@@ -22,7 +22,7 @@ affiliations:
 - name: Department of Computational Physiology, Simula Research Laboratory
   index: 1
 
-date: 24 March 2023
+date: 31 May 2023
 bibliography: paper.bib
 ---
 
