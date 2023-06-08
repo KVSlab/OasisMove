@@ -26,7 +26,6 @@ def test_MovingVortex(num_processors):
            "Nx=20 Ny=20 solver={}")
     d = subprocess.check_output(cmd.format(num_processors, "IPCS_ABCN_Move"), shell=True)
     match = re.search("Final Error: u0=" + number, str(d))
-
     err = match.groups()
     assert eval(err[0]) < 5e-3
 

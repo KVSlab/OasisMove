@@ -66,7 +66,7 @@ def temporal_hook(viz_u, viz_p, tstep, u_, t, uv, p_, plot_interval, testing, **
         viz_p.write(p_, t)
 
 
-def theend_hook(u_, p_, tstep, save_solution_frequency, uv, mesh, testing, **NS_namespace):
+def theend_hook(u_, uv, mesh, testing, **NS_namespace):
     u_norm = norm(u_[0].vector())
     if MPI.rank(MPI.comm_world) == 0 and testing:
         print("Velocity norm = {0:2.6e}".format(u_norm))

@@ -25,8 +25,8 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
         NS_parameters['restart_folder'] = restart_folder
         globals().update(NS_parameters)
     else:
-
-        T = 1.0
+        # Read final time from command line
+        T = float(commandline_kwargs.get("T", 1))
         NS_parameters.update(
             # Problem specific parameters
             A0=0.08,  # Amplitude
@@ -38,7 +38,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             nu=0.025,  # Kinematic viscosity
             # Simulation parameters
             T=T,  # Simulation time
-            dt=5 * 10 ** (-2),  # Time step
+            dt=0.05,  # Time step
             folder="results_moving_vortex",
             # Oasis parameters
             max_iter=2,
