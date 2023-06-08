@@ -37,7 +37,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             St=0.2280,  # Strouhal number
             F=1.0,  # Frequency ratio
             # Simulation parameters
-            T=1,  # End time
+            T=5,  # End time
             dt=1.25 * 10 ** (-4),  # Time step
             mesh_path=commandline_kwargs["mesh_path"],
             folder="results_moving_cylinder",
