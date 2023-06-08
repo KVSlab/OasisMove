@@ -323,7 +323,8 @@ def post_import_problem(NS_parameters, mesh, commandline_kwargs, NS_expressions,
     if callable(mesh):
         mesh = mesh(**NS_parameters)
 
-    if restart_folder is not None and dynamic_mesh:
+    # Load mesh if restarting simulation
+    if restart_folder is not None:
         # Get mesh information
         mesh = Mesh()
         filename = path.join(restart_folder, 'mesh.h5')
