@@ -32,7 +32,6 @@ def create_initial_folders(folder, restart_folder, sys_comp, tstep, info_red,
     MPI.barrier(MPI.comm_world)
     newfolder = path.join(folder, 'data')
     if restart_folder:
-        # TODO: Make more general
         newfolder = path.join(newfolder, restart_folder.split('/')[-2])
     else:
         if not path.exists(newfolder):
@@ -45,9 +44,6 @@ def create_initial_folders(folder, restart_folder, sys_comp, tstep, info_red,
     MPI.barrier(MPI.comm_world)
     if MPI.rank(MPI.comm_world) == 0:
         if not restart_folder:
-            # makedirs(path.join(newfolder, "Voluviz"))
-            # makedirs(path.join(newfolder, "Stats"))
-            # makedirs(path.join(newfolder, "VTK"))
             makedirs(path.join(newfolder, "Timeseries"))
             makedirs(path.join(newfolder, "Checkpoint"))
 
@@ -137,7 +133,7 @@ def save_checkpoint_solution_xdmf(q_, q_1, newfolder, u_components, mesh, NS_par
     if MPI.rank(MPI.comm_world) == 0 and path.exists(path.join(checkpointfolder, "params_old.dat")):
         system('rm {0}'.format(path.join(checkpointfolder, "params_old.dat")))
 
-    # Store solution
+    # Store velocity and pressure solution
     MPI.barrier(MPI.comm_world)
     for ui in q_:
         checkpoint_path = path.join(checkpointfolder, ui + '.xdmf')

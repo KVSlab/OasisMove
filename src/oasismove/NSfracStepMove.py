@@ -110,11 +110,11 @@ q_ = dict((ui, Function(VV[ui], name=ui)) for ui in sys_comp)
 q_1 = dict((ui, Function(VV[ui], name=ui + "_1")) for ui in sys_comp)
 q_2 = dict((ui, Function(V, name=ui + "_2")) for ui in u_components)
 
-# Read in previous solution if restarting
-init_from_restart(**vars())
-
 # Create dictionary for the wall solution at two timestep
 w_ = dict((ui, Function(V, name=ui)) for ui in u_components)
+
+# Read in previous solution if restarting
+init_from_restart(**vars())
 
 # Create vectors of the segregated velocity components
 u_ = as_vector([q_[ui] for ui in u_components])  # Velocity vector at t
