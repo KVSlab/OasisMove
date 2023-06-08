@@ -1,9 +1,6 @@
 #!/usr/bin/env python
-
-__author__ = "Mikael Mortensen <mikaem@math.uio.no>"
-__date__ = "2013-11-06"
-__copyright__ = "Copyright (C) 2013 " + __author__
-__license__ = "GNU Lesser GPL version 3 or any later version"
+# Written by Mikael Mortensen <mikaem@math.uio.no> (2013)
+# Edited by Henrik Kjeldsberg <henrik.kjeldsberg@live.no> (2023)
 
 """
 This module implements a generic form of the fractional step method for
@@ -68,12 +65,14 @@ if MPI.rank(MPI.comm_world) == 0:
 vars().update(post_import_problem(**vars()))
 
 # Use t and tstep from stored paramteres if restarting
+previous_velocity_degree = velocity_degree
 if restart_folder is not None:
     f = open(path.join(path.abspath(restart_folder), 'params.dat'), 'rb')
     params = pickle.load(f)
     f.close()
     t = params["t"]
     tstep = params["tstep"]
+    previous_velocity_degree = params["velocity_degree"]
 
 # Import chosen functionality from solvers
 solver = importlib.import_module('.'.join(('oasismove.solvers.NSfracStep', solver)))
@@ -198,12 +197,10 @@ tx = OasisTimer('Timestep timer')
 tx.start()
 stop = False
 total_timer = OasisTimer("Start simulations", print_solve_info)
-
 max_tstep = 10 if restart_folder is None else tstep + 10
 
 print("Saving results to: {}".format(newfolder))
 while t < (T - tstep * DOLFIN_EPS) and not stop:
-    t_velocity = 0
     t += dt
     tstep += 1
     inner_iter = 0

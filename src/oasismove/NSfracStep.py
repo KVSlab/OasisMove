@@ -33,6 +33,7 @@ problems/NSfracStep/__init__.py for all possible parameters.
 
 """
 import importlib
+import pickle
 
 from oasismove.common import *
 
@@ -61,12 +62,14 @@ problem_parameters(**vars())
 vars().update(post_import_problem(**vars()))
 
 # Use t and tstep from stored paramteres if restarting
+previous_velocity_degree = velocity_degree
 if restart_folder is not None:
     f = open(path.join(path.abspath(restart_folder), 'params.dat'), 'rb')
     params = pickle.load(f)
     f.close()
     t = params["t"]
     tstep = params["tstep"]
+    previous_velocity_degree = params["velocity_degree"]
 
 # Import chosen functionality from solvers
 solver = importlib.import_module('.'.join(('oasismove.solvers.NSfracStep', solver)))
@@ -179,12 +182,15 @@ tx = OasisTimer('Timestep timer')
 tx.start()
 stop = False
 total_timer = OasisTimer("Start simulations", True)
+max_tstep = 10 if restart_folder is None else tstep + 10
+
+print("Saving results to: {}".format(newfolder))
 while t < (T - tstep * DOLFIN_EPS) and not stop:
     t += dt
     tstep += 1
     inner_iter = 0
     udiff = array([1e8])  # Norm of velocity change over last inner iter
-    num_iter = max(iters_on_first_timestep, max_iter) if tstep <= 10 else max_iter
+    num_iter = max(iters_on_first_timestep, max_iter) if tstep <= max_tstep else max_iter
 
     start_timestep_hook(**vars())
 

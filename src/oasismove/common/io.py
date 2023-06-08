@@ -8,7 +8,7 @@ import time
 from os import makedirs, listdir, remove, system, path
 from xml.etree import ElementTree as ET
 
-from dolfin import MPI, XDMFFile, HDF5File
+from dolfin import MPI, XDMFFile, HDF5File, FunctionSpace, Function, interpolate
 
 from oasismove.problems import info_red
 
@@ -32,12 +32,12 @@ def create_initial_folders(folder, restart_folder, sys_comp, tstep, info_red,
     MPI.barrier(MPI.comm_world)
     newfolder = path.join(folder, 'data')
     if restart_folder:
+        # TODO: Make more general
         newfolder = path.join(newfolder, restart_folder.split('/')[-2])
     else:
         if not path.exists(newfolder):
             newfolder = path.join(newfolder, '1')
         else:
-            # previous = listdir(newfolder)
             previous = [f for f in listdir(newfolder) if not f.startswith('.')]
             previous = max(map(eval, previous)) if previous else 0
             newfolder = path.join(newfolder, str(previous + 1))
@@ -205,22 +205,52 @@ def check_if_reset_statistics(folder):
         return False
 
 
-def init_from_restart(restart_folder, sys_comp, uc_comp, u_components,
-                      q_, q_1, q_2, tstep, **NS_namespace):
+def init_from_restart(restart_folder, sys_comp, uc_comp, u_components, q_, q_1, q_2, tstep, velocity_degree,
+                      previous_velocity_degree, mesh, constrained_domain, V, Q, **NS_namespace):
     """Initialize solution from checkpoint files """
     if restart_folder:
         if MPI.rank(MPI.comm_world) == 0:
             info_red('Restarting from checkpoint at time step {}'.format(tstep))
+        q_prev = q_
+        q_2_prev = q_2
+        if previous_velocity_degree != velocity_degree:
+            # Create dictionaries for the solutions at previous and different element degree
+            V_prev = FunctionSpace(mesh, 'CG', previous_velocity_degree, constrained_domain=constrained_domain)
+            VV_prev = dict((ui, V_prev) for ui in uc_comp)
+            VV_prev['p'] = Q
+
+            q_prev = dict((ui, Function(VV_prev[ui], name=ui)) for ui in sys_comp)
+            q_2_prev = dict((ui, Function(V_prev, name=ui + "_2")) for ui in u_components)
 
         for ui in sys_comp:
             checkpoint_path = path.join(restart_folder, ui + '.xdmf')
             with XDMFFile(MPI.comm_world, checkpoint_path) as f:
-                f.read_checkpoint(q_[ui], '/current')
+                # Interpolate
+                read_and_interpolate_solution(f, V, previous_velocity_degree, q_, q_prev, ui, velocity_degree,
+                                              "/current")
                 if ui in uc_comp:
                     q_1[ui].vector().zero()
-                    f.read_checkpoint(q_1[ui], '/current')
+                    q_1[ui].vector().axpy(1., q_[ui].vector())
+                    q_1[ui].vector().apply('insert')
                     if ui in u_components:
-                        f.read_checkpoint(q_2[ui], '/previous')
+                        # Interpolate
+                        read_and_interpolate_solution(f, V, previous_velocity_degree, q_2, q_2_prev, ui,
+                                                      velocity_degree, "/previous")
+
+
+def read_and_interpolate_solution(f, V, previous_velocity_degree, q_, q_prev, ui, velocity_degree, name):
+    """
+    Interpolate solution to higher element order or read directly into existing function space
+    """
+    if previous_velocity_degree != velocity_degree and ui != 'p':
+        print("Interpolating", ui)
+        f.read_checkpoint(q_prev[ui], name)
+        q_prev_proj = interpolate(q_prev[ui], V)
+        q_[ui].vector().zero()
+        q_[ui].vector().axpy(1., q_prev_proj.vector())
+        q_[ui].vector().apply('insert')
+    else:
+        f.read_checkpoint(q_[ui], name)
 
 
 def merge_visualization_files(newfolder, **namesapce):
