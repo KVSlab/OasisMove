@@ -323,12 +323,12 @@ def post_import_problem(NS_parameters, mesh, commandline_kwargs, NS_expressions,
     if callable(mesh):
         mesh = mesh(**NS_parameters)
 
-    if restart_folder is not None and dynamic_mesh:
-        # Get mesh information
-        mesh = Mesh()
-        filename = path.join(restart_folder, 'mesh.h5')
-        with HDF5File(MPI.comm_world, filename, "r") as mesh_file:
-            mesh_file.read(mesh, "mesh", False)
+    # if restart_folder is not None and dynamic_mesh:
+    #     # Get mesh information
+    #     mesh = Mesh()
+    #     filename = path.join(restart_folder, 'mesh.h5')
+    #     with HDF5File(MPI.comm_world, filename, "r") as mesh_file:
+    #         mesh_file.read(mesh, "mesh", False)
 
     assert (isinstance(mesh, Mesh))
 
