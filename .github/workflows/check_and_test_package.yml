@@ -15,7 +15,7 @@ on:
     - cron: "0 8 * * *"
 
 env:
-  CACHE_NUMBER: 2 # Increase to reset cache
+  CACHE_NUMBER: 3 # Increase to reset cache
 
 jobs:
   check-code:
@@ -69,14 +69,12 @@ jobs:
         with:
           miniforge-variant: Mambaforge
           miniforge-version: latest
-          python-version: 3.8
           channels: conda-forge
           activate-environment: oasismove
           use-mamba: true
 
       - name: Set cache date
         run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
-
 
       - uses: actions/cache@v2
         with:
