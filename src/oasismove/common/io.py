@@ -166,18 +166,18 @@ def save_checkpoint_solution_h5(q_, q_1, newfolder, u_components, mesh, dynamic_
         system('rm {0}'.format(path.join(checkpointfolder, "params_old.dat")))
 
     # Store mesh if deformed
-    if dynamic_mesh:
-        h5file = path.join(checkpointfolder, 'mesh.h5')
-        oldfile = path.join(checkpointfolder, 'mesh_old.h5')
-        if path.exists(h5file):
-            if MPI.rank(MPI.comm_world) == 0:
-                system('cp {0} {1}'.format(h5file, oldfile))
-        newfile = HDF5File(MPI.comm_world, h5file, 'w')
-        newfile.flush()
-        newfile.write(mesh, 'mesh')
-        if path.exists(oldfile):
-            if MPI.rank(MPI.comm_world) == 0:
-                system('rm {0}'.format(oldfile))
+    # if dynamic_mesh:
+    #     h5file = path.join(checkpointfolder, 'mesh.h5')
+    #     oldfile = path.join(checkpointfolder, 'mesh_old.h5')
+    #     if path.exists(h5file):
+    #         if MPI.rank(MPI.comm_world) == 0:
+    #             system('cp {0} {1}'.format(h5file, oldfile))
+    #     newfile = HDF5File(MPI.comm_world, h5file, 'w')
+    #     newfile.flush()
+    #     newfile.write(mesh, 'mesh')
+    #     if path.exists(oldfile):
+    #         if MPI.rank(MPI.comm_world) == 0:
+    #             system('rm {0}'.format(oldfile))
 
 
 def check_if_kill(folder, killtime, total_timer):
