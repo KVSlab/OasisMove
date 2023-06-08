@@ -651,7 +651,8 @@ document.write(`
     <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">mesh</span><span class="p">):</span>
         <span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh</span><span class="p">(</span><span class="o">**</span><span class="n">NS_parameters</span><span class="p">)</span>
 
-    <span class="k">if</span> <span class="n">restart_folder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dynamic_mesh</span><span class="p">:</span>
+    <span class="c1"># Load mesh if restarting simulation</span>
+    <span class="k">if</span> <span class="n">restart_folder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># Get mesh information</span>
         <span class="n">mesh</span> <span class="o">=</span> <span class="n">Mesh</span><span class="p">()</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">restart_folder</span><span class="p">,</span> <span class="s1">&#39;mesh.h5&#39;</span><span class="p">)</span>
@@ -725,7 +726,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on May 24, 2023.
+  Last updated on Jun 08, 2023.
   <br/>
 </p>
   </div>

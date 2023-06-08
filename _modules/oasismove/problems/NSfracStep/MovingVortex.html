@@ -353,8 +353,8 @@ document.write(`
         <span class="n">NS_parameters</span><span class="p">[</span><span class="s1">&#39;restart_folder&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">restart_folder</span>
         <span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">NS_parameters</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
-
-        <span class="n">T</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="c1"># Read final time from command line</span>
+        <span class="n">T</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">commandline_kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;T&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
         <span class="n">NS_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
             <span class="c1"># Problem specific parameters</span>
             <span class="n">A0</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span>  <span class="c1"># Amplitude</span>
@@ -366,7 +366,7 @@ document.write(`
             <span class="n">nu</span><span class="o">=</span><span class="mf">0.025</span><span class="p">,</span>  <span class="c1"># Kinematic viscosity</span>
             <span class="c1"># Simulation parameters</span>
             <span class="n">T</span><span class="o">=</span><span class="n">T</span><span class="p">,</span>  <span class="c1"># Simulation time</span>
-            <span class="n">dt</span><span class="o">=</span><span class="mi">5</span> <span class="o">*</span> <span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span>  <span class="c1"># Time step</span>
+            <span class="n">dt</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span>  <span class="c1"># Time step</span>
             <span class="n">folder</span><span class="o">=</span><span class="s2">&quot;results_moving_vortex&quot;</span><span class="p">,</span>
             <span class="c1"># Oasis parameters</span>
             <span class="n">max_iter</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
@@ -676,7 +676,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on May 24, 2023.
+  Last updated on Jun 08, 2023.
   <br/>
 </p>
   </div>
