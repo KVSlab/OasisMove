@@ -173,7 +173,12 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../../../movingcylinder.html">Oscillating cylinder in free stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../movingvortex.html">Vortex problem with oscillating boundaries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../movingtg.html">Moving 3D Taylor-Green vortex</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../stenosis.html">Backflow stabilization in an eccentric stenosis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../../restart.html">Restarting a simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../interpolation.html">Interpolating to a higher function space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../stenosis.html">Backflow stabilization</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
@@ -332,7 +337,6 @@ document.write(`
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getpid</span><span class="p">,</span> <span class="n">path</span>
-<span class="kn">from</span> <span class="nn">numpy</span> <span class="kn">import</span> <span class="n">array</span><span class="p">,</span> <span class="n">maximum</span><span class="p">,</span> <span class="n">zeros</span><span class="p">,</span> <span class="n">savetxt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -518,7 +522,7 @@ document.write(`
 <div class="viewcode-block" id="write_data_to_file"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.write_data_to_file">[docs]</a><span class="k">def</span> <span class="nf">write_data_to_file</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
     <span class="n">data_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">data_path</span><span class="p">,</span> <span class="s2">&quot;ab&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">savetxt</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot; </span><span class="si">%.16f</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">savetxt</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot; </span><span class="si">%.16f</span><span class="s2"> &quot;</span><span class="p">,</span> <span class="n">newline</span><span class="o">=</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
         <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span></div>
 
 
@@ -652,17 +656,20 @@ document.write(`
         <span class="n">mesh</span> <span class="o">=</span> <span class="n">mesh</span><span class="p">(</span><span class="o">**</span><span class="n">NS_parameters</span><span class="p">)</span>
 
     <span class="c1"># Load mesh if restarting simulation</span>
+    <span class="n">boundary</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="k">if</span> <span class="n">restart_folder</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="c1"># Get mesh information</span>
         <span class="n">mesh</span> <span class="o">=</span> <span class="n">Mesh</span><span class="p">()</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">restart_folder</span><span class="p">,</span> <span class="s1">&#39;mesh.h5&#39;</span><span class="p">)</span>
-        <span class="k">with</span> <span class="n">HDF5File</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">mesh_file</span><span class="p">:</span>
-            <span class="n">mesh_file</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="s2">&quot;mesh&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">HDF5File</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="s2">&quot;mesh&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">boundary</span> <span class="o">=</span> <span class="n">MeshFunction</span><span class="p">(</span><span class="s2">&quot;size_t&quot;</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">mesh</span><span class="o">.</span><span class="n">geometry</span><span class="p">()</span><span class="o">.</span><span class="n">dim</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">mesh</span><span class="o">.</span><span class="n">domains</span><span class="p">())</span>
+            <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">boundary</span><span class="p">,</span> <span class="s2">&quot;boundary&quot;</span><span class="p">)</span>
 
     <span class="k">assert</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">Mesh</span><span class="p">))</span>
 
     <span class="c1"># Returned dictionary to be updated in the NS namespace</span>
-    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">mesh</span><span class="o">=</span><span class="n">mesh</span><span class="p">,</span> <span class="n">boundary</span><span class="o">=</span><span class="n">boundary</span><span class="p">)</span>
     <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">NS_parameters</span><span class="p">)</span>
     <span class="n">d</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">NS_expressions</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">d</span></div>
@@ -726,7 +733,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 08, 2023.
+  Last updated on Jun 09, 2023.
   <br/>
 </p>
   </div>

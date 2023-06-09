@@ -64,7 +64,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'api';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Backflow stabilization in an eccentric stenosis" href="stenosis.html" />
+    <link rel="prev" title="Backflow stabilization" href="stenosis.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -175,7 +175,12 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="movingcylinder.html">Oscillating cylinder in free stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="movingvortex.html">Vortex problem with oscillating boundaries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="movingtg.html">Moving 3D Taylor-Green vortex</a></li>
-<li class="toctree-l1"><a class="reference internal" href="stenosis.html">Backflow stabilization in an eccentric stenosis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional features</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="restart.html">Restarting a simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolation.html">Interpolating to a higher function space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stenosis.html">Backflow stabilization</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="current nav bd-sidenav">
@@ -505,7 +510,7 @@ going into time loop.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="oasismove.common.io.init_from_restart">
-<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">init_from_restart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">restart_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sys_comp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uc_comp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#init_from_restart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.init_from_restart" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">oasismove.common.io.</span></span><span class="sig-name descname"><span class="pre">init_from_restart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">restart_folder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sys_comp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uc_comp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_components</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">velocity_degree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">previous_velocity_degree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constrained_domain</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Q</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/common/io.html#init_from_restart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.common.io.init_from_restart" title="Permalink to this definition">#</a></dt>
 <dd><p>Initialize solution from checkpoint files</p>
 </dd></dl>
 
@@ -1156,7 +1161,7 @@ Remember pressure is computed in between timesteps.</p>
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Backflow stabilization in an eccentric stenosis</p>
+        <p class="prev-next-title">Backflow stabilization</p>
       </div>
     </a>
 </div></div>
@@ -1212,7 +1217,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 08, 2023.
+  Last updated on Jun 09, 2023.
   <br/>
 </p>
   </div>

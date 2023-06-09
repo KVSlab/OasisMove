@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Backflow stabilization in an eccentric stenosis &#8212; OasisMove</title>
+    <title>Backflow stabilization &#8212; OasisMove</title>
   
   
   
@@ -67,7 +67,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="API Reference" href="api.html" />
-    <link rel="prev" title="Moving 3D Taylor-Green vortex" href="movingtg.html" />
+    <link rel="prev" title="Interpolating to a higher function space" href="interpolation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -172,13 +172,18 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="features.html">Features and issues</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="movingwall.html">Wall-driven channel flow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="movingcylinder.html">Oscillating cylinder in free stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="movingvortex.html">Vortex problem with oscillating boundaries</a></li>
 <li class="toctree-l1"><a class="reference internal" href="movingtg.html">Moving 3D Taylor-Green vortex</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Backflow stabilization in an eccentric stenosis</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional features</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="restart.html">Restarting a simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interpolation.html">Interpolating to a higher function space</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Backflow stabilization</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Python API</span></p>
 <ul class="nav bd-sidenav">
@@ -366,7 +371,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Backflow stabilization in an eccentric stenosis</h1>
+    <h1>Backflow stabilization</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -391,13 +396,14 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="backflow-stabilization-in-an-eccentric-stenosis">
-<span id="tutorial-stenosis"></span><h1>Backflow stabilization in an eccentric stenosis<a class="headerlink" href="#backflow-stabilization-in-an-eccentric-stenosis" title="Permalink to this heading">#</a></h1>
-<p>In this tutorial we will be investigating parabolic flow through an eccentric stenosis model in two-dimensions. The
-setup is inspired by the three-dimensional study of stenotic flow by Varghese et al. <span id="id1">[<a class="reference internal" href="#id14" title="Sonu S Varghese, Steven H Frankel, and Paul F Fischer. Direct numerical simulation of stenotic flows. part 1. steady flow. Journal of Fluid Mechanics, 582:253–280, 2007.">VFF07</a>]</span>, who
-consider a longer stenosis model than presented here. However, this is not a moving domain simulation, but a
-demonstration of simulation divergence due to backflow, and how we can stabilize the flow to prevent this in OasisMove,
-based on the first backflow stabilization method tested by Moghadam et al. <span id="id2">[<a class="reference internal" href="#id13" title="Mahdi Esmaily Moghadam, Yuri Bazilevs, Tain-Yen Hsia, Irene E Vignon-Clementel, Alison L Marsden, and Modeling of Congenital Hearts Alliance (MOCHA). A comparison of outlet boundary treatments for prevention of backflow divergence with relevance to blood flow simulations. Computational Mechanics, 48:277–291, 2011.">EMBH+11</a>]</span>.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="backflow-stabilization">
+<span id="tutorial-stenosis"></span><h1>Backflow stabilization<a class="headerlink" href="#backflow-stabilization" title="Permalink to this heading">#</a></h1>
+<p>Here we demonstrate simulation divergence due to backflow, and how we can stabilize the flow to prevent this in
+OasisMove, based on the first backflow stabilization method tested by Moghadam et al. <span id="id1">[<a class="reference internal" href="#id13" title="Mahdi Esmaily Moghadam, Yuri Bazilevs, Tain-Yen Hsia, Irene E Vignon-Clementel, Alison L Marsden, and Modeling of Congenital Hearts Alliance (MOCHA). A comparison of outlet boundary treatments for prevention of backflow divergence with relevance to blood flow simulations. Computational Mechanics, 48:277–291, 2011.">EMBH+11</a>]</span>. To
+demonstrate this we will be investigating parabolic flow through an eccentric stenosis model in two-dimensions. The
+setup is inspired by the three-dimensional study of stenotic flow by Varghese et al. <span id="id2">[<a class="reference internal" href="#id14" title="Sonu S Varghese, Steven H Frankel, and Paul F Fischer. Direct numerical simulation of stenotic flows. part 1. steady flow. Journal of Fluid Mechanics, 582:253–280, 2007.">VFF07</a>]</span>, who
+consider a longer stenosis model than presented here. Note that this is <em>not</em> a moving domain simulation, but the
+implementation of backflow stabilization is general, and works for both rigid and moving domains.</p>
 <figure class="align-default" id="stenosis-fig">
 <img alt="_images/stenosis_fig.png" src="_images/stenosis_fig.png" />
 <figcaption>
@@ -496,12 +502,12 @@ arrows that have been scaled by the velocity magnitude.</span><a class="headerli
 </div>
 <div class="citation" id="id13" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>EMBH+11<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id5">2</a>)</span>
 <p>Mahdi Esmaily Moghadam, Yuri Bazilevs, Tain-Yen Hsia, Irene E Vignon-Clementel, Alison L Marsden, and Modeling of Congenital Hearts Alliance (MOCHA). A comparison of outlet boundary treatments for prevention of backflow divergence with relevance to blood flow simulations. <em>Computational Mechanics</em>, 48:277–291, 2011.</p>
 </div>
 <div class="citation" id="id14" role="doc-biblioentry">
 <span class="label"><span class="fn-bracket">[</span>VFF07<span class="fn-bracket">]</span></span>
-<span class="backrefs">(<a role="doc-backlink" href="#id1">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
+<span class="backrefs">(<a role="doc-backlink" href="#id2">1</a>,<a role="doc-backlink" href="#id3">2</a>)</span>
 <p>Sonu S Varghese, Steven H Frankel, and Paul F Fischer. Direct numerical simulation of stenotic flows. part 1. steady flow. <em>Journal of Fluid Mechanics</em>, 582:253–280, 2007.</p>
 </div>
 </div>
@@ -541,12 +547,12 @@ arrows that have been scaled by the velocity magnitude.</span><a class="headerli
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="movingtg.html"
+       href="interpolation.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Moving 3D Taylor-Green vortex</p>
+        <p class="prev-next-title">Interpolating to a higher function space</p>
       </div>
     </a>
     <a class="right-next"
@@ -612,7 +618,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jun 08, 2023.
+  Last updated on Jun 09, 2023.
   <br/>
 </p>
   </div>

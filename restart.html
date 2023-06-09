@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Moving 3D Taylor-Green vortex &#8212; OasisMove</title>
+    <title>Restarting a simulation &#8212; OasisMove</title>
   
   
   
@@ -63,11 +63,11 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'movingtg';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'restart';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Restarting a simulation" href="restart.html" />
-    <link rel="prev" title="Vortex problem with oscillating boundaries" href="movingvortex.html" />
+    <link rel="next" title="Interpolating to a higher function space" href="interpolation.html" />
+    <link rel="prev" title="Moving 3D Taylor-Green vortex" href="movingtg.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -172,16 +172,16 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="features.html">Features and issues</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tutorials</span></p>
-<ul class="current nav bd-sidenav">
+<ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="movingwall.html">Wall-driven channel flow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="movingcylinder.html">Oscillating cylinder in free stream</a></li>
 <li class="toctree-l1"><a class="reference internal" href="movingvortex.html">Vortex problem with oscillating boundaries</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Moving 3D Taylor-Green vortex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="movingtg.html">Moving 3D Taylor-Green vortex</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Additional features</span></p>
-<ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="restart.html">Restarting a simulation</a></li>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Restarting a simulation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="interpolation.html">Interpolating to a higher function space</a></li>
 <li class="toctree-l1"><a class="reference internal" href="stenosis.html">Backflow stabilization</a></li>
 </ul>
@@ -259,7 +259,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/kvslab/OasisMove/issues/new?title=Issue%20on%20page%20%2Fmovingtg.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/kvslab/OasisMove/issues/new?title=Issue%20on%20page%20%2Frestart.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -289,7 +289,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="_sources/movingtg.md" target="_blank"
+      <li><a href="_sources/restart.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -371,7 +371,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Moving 3D Taylor-Green vortex</h1>
+    <h1>Restarting a simulation</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -381,10 +381,11 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem description</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hpc-simulation-in-oasismove">(HPC) Simulation in OasisMove</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#increasing-the-spatial-resolution-in-3d">Increasing the spatial resolution in 3D</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#restarting-a-simulation-in-oasismove">Restarting a simulation in OasisMove</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#restarting-a-prematurely-ended-simulation">Restarting a prematurely ended simulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#restarting-a-finished-simulation">Restarting a finished simulation</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -396,97 +397,49 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="moving-3d-taylor-green-vortex">
-<span id="tutorial-movingtg"></span><h1>Moving 3D Taylor-Green vortex<a class="headerlink" href="#moving-3d-taylor-green-vortex" title="Permalink to this heading">#</a></h1>
-<p>In this tutorial we will consider the classical Taylor-Green problem in 3D as described by Taylor and Green
-<span id="id1">[<a class="reference internal" href="#id7" title="Geoffrey Ingram Taylor and Albert Edward Green. Mechanism of the production of small eddies from large ones. Proceedings of the Royal Society of London. Series A-Mathematical and Physical Sciences, 158(895):499–521, 1937.">TG37</a>]</span>, with moving boundaries. The problem solves the N-S equations in the absence of body forces,
-and is commonly used to study transitional and turbulent flows. The problem initializes the solution at the two previous
-time steps, and applies periodic boundary condition on the domain walls in all coordinate directions. The problem is
-implemented in the
-file <a class="reference external" href="https://github.com/KVSlab/OasisMove/blob/main/src/oasismove/problems/NSfracStep/MovingTaylorGreen3D.py">MovingTaylorGreen3D.py</a>
-.</p>
-<section id="problem-description">
-<h2>Problem description<a class="headerlink" href="#problem-description" title="Permalink to this heading">#</a></h2>
-<p>The Taylor-Green vortex has an initial state solving the three-dimensional incompressible Navier–Stokes equations in the
-absence of body forces, <span class="math notranslate nohighlight">\(\mathbf{f} = 0\)</span>, namely:</p>
-<div class="math notranslate nohighlight" id="equation-eq-tg3d">
-<span class="eqno">(10)<a class="headerlink" href="#equation-eq-tg3d" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{align}
-    \mathbf u(\mathbf x,t = 0) &amp;= (u(\mathbf x),v(\mathbf x),w(\mathbf x)\\
-    u(\mathbf x) &amp;= + \sin(x) \cos(y) \cos(z) \\
-    v(\mathbf x) &amp;= -\cos(x) \sin(y) \cos(z) \\
-    w(\mathbf x) &amp;= 0 \\
-    p(\mathbf x,t=0) &amp;= \frac{1}{16}(\cos(2x) + \cos(2y)) (\cos(2z) + 2).
-\end{align}\end{split}\]</div>
-<p>The domain boundaries are prescribed a movement described by the following mesh motion from Fehn et al.
-<span id="id2">[<a class="reference internal" href="#id6" title="Niklas Fehn, Johannes Heinz, Wolfgang A Wall, and Martin Kronbichler. High-order arbitrary lagrangian–eulerian discontinuous galerkin methods for the incompressible navier–stokes equations. Journal of Computational Physics, 430:110040, 2021.">FHWK21</a>]</span>:</p>
-<div class="math notranslate nohighlight" id="equation-eq-tg3d-d">
-<span class="eqno">(11)<a class="headerlink" href="#equation-eq-tg3d-d" title="Permalink to this equation">#</a></span>\[\begin{split}    \begin{align}
-    \mathbf x(\mathbf \chi,t) &amp;= \mathbf \chi + A_0 \sin \left(\frac{2 \pi t}{T_G}\right)
-        \begin{pmatrix}
-        \sin \left(2\pi \frac{\chi_2 + L / 2}{L}\right) \sin\left(2\pi \frac{\chi_3 + L / 2}{L}\right)  \\ 
-        \sin\left(2\pi \frac{\chi_1 + L / 2}{L}\right) \sin\left(2\pi \frac{\chi_3 + L / 2}{L}\right)    \\
-        \sin\left(2\pi \frac{\chi_1 + L / 2}{L}\right) \sin\left(2\pi \frac{\chi_2 + L / 2}{L}\right)    
-        \end{pmatrix}\\
-        \mathbf w (\mathbf \chi, t) &amp;= \frac{\partial \mathbf x}{\partial t}
-\end{align}\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf \chi = (\chi_1, \chi_2)\)</span> are the ALE coordinates, <span class="math notranslate nohighlight">\(A_0=\pi / 6\)</span> is the amplitude, and <span class="math notranslate nohighlight">\(T_G=20\)</span> is the
-period. Further parameters include the total simulation time <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(L=1\)</span> describing the height, width, and depth of
-the box mesh. By default, the Reynolds number is set to Re = <span class="math notranslate nohighlight">\(1/\nu=1600\)</span>.</p>
-</section>
-<section id="hpc-simulation-in-oasismove">
-<h2>(HPC) Simulation in OasisMove<a class="headerlink" href="#hpc-simulation-in-oasismove" title="Permalink to this heading">#</a></h2>
-<p>To simulate this flow problem in OasisMove using the default parameters, run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingTaylorGreen3D
+  <section class="tex2jax_ignore mathjax_ignore" id="restarting-a-simulation">
+<span id="tutorial-restart"></span><h1>Restarting a simulation<a class="headerlink" href="#restarting-a-simulation" title="Permalink to this heading">#</a></h1>
+<p>In OasisMove, you can restart a simulation that was previously stopped or ended prematurely. The restarted simulation
+will load solutions, the mesh, and parameters representing the last state of your simulation, which are stored in
+the <code class="docutils literal notranslate"><span class="pre">Checkpoint</span></code> folder. The files will be stored to the <code class="docutils literal notranslate"><span class="pre">Checkpoint</span></code> folder during simulation based on the value of
+the <code class="docutils literal notranslate"><span class="pre">checkpoint</span></code> argument. For instance, if <code class="docutils literal notranslate"><span class="pre">checkpoint=100</span></code>, the current velocity and pressure solution, mesh, and
+parameters will be stored every <em>100 time steps</em>, overwriting the previous files. The default value is <code class="docutils literal notranslate"><span class="pre">checkpoint=10</span></code>,
+which can be changed either through the command line as an argument, or hard-coded into the problem parameters in the
+problem file.</p>
+<section id="restarting-a-simulation-in-oasismove">
+<h2>Restarting a simulation in OasisMove<a class="headerlink" href="#restarting-a-simulation-in-oasismove" title="Permalink to this heading">#</a></h2>
+<p>To demonstrate restarting a simulation, we will consider
+the <a class="reference external" href="https://github.com/KVSlab/OasisMove/blob/main/src/oasismove/problems/NSfracStep/DrivenCavity.py"><code class="docutils literal notranslate"><span class="pre">DrivenCavity</span></code></a>
+problem. For this problem, the default values are <span class="math notranslate nohighlight">\(T=10\)</span>, a time step of <span class="math notranslate nohighlight">\(\Delta t=0.005\)</span>, and checkpointing every 500
+time step (<code class="docutils literal notranslate"><span class="pre">checkpoint=500</span></code>). Assume we have run the problem using the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStep<span class="w"> </span><span class="nv">solver</span><span class="o">=</span>IPCs_ABCN<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>DrivenCavity<span class="w"> </span>
 </pre></div>
 </div>
-<p>and the simulation will start. Since this problem is in three dimensions, there will be an additional set of equations
-to solve compared to the 2D problems in the previous demos, and consequently the simulation may take some time. To speed
-up the simulation, you can solve the problem using parallel computing with <a class="reference external" href="https://www.open-mpi.org/">MPI</a>, which
-OasisMove supports. Thus, to decrease the computational time by utilizing high performance computing and parallelization
-of OasisMove, can run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">16</span><span class="w"> </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingTaylorGreen3D
+<p>After 500 time steps, or when the simulation is finished, there will be located a <code class="docutils literal notranslate"><span class="pre">Checkpoint</span></code> folder within
+the <code class="docutils literal notranslate"><span class="pre">results_driven_cavity</span></code> folder with the checkpointed solutions, mesh, and parameters. We now consider two scenarios
+for restarting a simulation.</p>
+<section id="restarting-a-prematurely-ended-simulation">
+<h3>Restarting a prematurely ended simulation<a class="headerlink" href="#restarting-a-prematurely-ended-simulation" title="Permalink to this heading">#</a></h3>
+<p>If the simulation ended prematurely for any reason, and given that the simulation lasted for more than 500 time steps,
+we can restart the simulation at the latest checkpoint. Assuming we have fixed whatever caused the solution to end
+prematurely, we may restart the simulation by adding the  <code class="docutils literal notranslate"><span class="pre">restart_folder</span></code> parameter to the run command, which points to
+the <code class="docutils literal notranslate"><span class="pre">Checkpoint</span></code> folder:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStep<span class="w"> </span><span class="nv">solver</span><span class="o">=</span>IPCs_ABCN<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>DrivenCavity<span class="w"> </span><span class="nv">restart_folder</span><span class="o">=</span>results_driven_cavity/data/1/Checkpoint<span class="w"> </span>
 </pre></div>
 </div>
+<p>The simulation should now restart at the latest checkpoint, and continue as normal until $T=10.</p>
 </section>
-<section id="results">
-<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading">#</a></h2>
-<p>When the simulation is finished, there will be a folder named <code class="docutils literal notranslate"><span class="pre">results_moving_taylor_green_3d</span></code>, in the current working
-directory. Running the Taylor-Green vortex problem with the default parameters should produce the velocity and pressure
-solution files located in the <code class="docutils literal notranslate"><span class="pre">Solutions</span></code>
-folder: <code class="docutils literal notranslate"><span class="pre">velocity.xdmf</span></code>, and <code class="docutils literal notranslate"><span class="pre">pressure.xdmf</span></code>, which can be visualized in <a class="reference external" href="https://www.paraview.org/">ParaView</a> or a
-similar visualization software. In <a class="reference internal" href="#vel-tg3d"><span class="std std-numref">Fig. 8</span></a> we display the temporal deformation of the mesh, and the velocity
-field from <span class="math notranslate nohighlight">\(T=0\)</span> to <span class="math notranslate nohighlight">\(T=5\)</span>.</p>
-<figure class="align-default" id="vel-tg3d">
-<img alt="_images/moving_tg3d.gif" src="_images/moving_tg3d.gif" />
-<figcaption>
-<p><span class="caption-number">Fig. 8 </span><span class="caption-text">On the left, the deforming cube geometry, and on the right the corresponding velocity field solution.</span><a class="headerlink" href="#vel-tg3d" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
-</section>
-<section id="increasing-the-spatial-resolution-in-3d">
-<h2>Increasing the spatial resolution in 3D<a class="headerlink" href="#increasing-the-spatial-resolution-in-3d" title="Permalink to this heading">#</a></h2>
-<p>Similar to the <a class="reference internal" href="movingvortex.html#tutorial-vortex"><span class="std std-ref">moving vortex</span></a>, the default resolution for the Taylor-Green vortex in 3D is a cube with
-resolution parameters <span class="math notranslate nohighlight">\(N_x=32\)</span>, <span class="math notranslate nohighlight">\(N_y=32\)</span>, and <span class="math notranslate nohighlight">\(N_z=32\)</span>. In contrast to the 2D <a class="reference internal" href="movingvortex.html#tutorial-vortex"><span class="std std-ref">moving vortex</span></a> problem,
-the number of tetrahedral cells are now computed using the following formula:</p>
-<div class="math notranslate nohighlight">
-\[\text{Number of tetrahedral cells } = 6\times N_x \times N_y \times N_z,\]</div>
-<p>resulting in a total of 196 608 cells using the default parameters. To increase the mesh resolution, we can supply these
-parameters as command-line arguments to change their value. For instance, to create a mesh consisting of 750 000 cells,
-we can run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingTaylorGreen3D<span class="w"> </span><span class="nv">Nx</span><span class="o">=</span><span class="m">50</span><span class="w"> </span><span class="nv">Ny</span><span class="o">=</span><span class="m">50</span><span class="w"> </span><span class="nv">Nz</span><span class="o">=</span><span class="m">50</span>
+<section id="restarting-a-finished-simulation">
+<h3>Restarting a finished simulation<a class="headerlink" href="#restarting-a-finished-simulation" title="Permalink to this heading">#</a></h3>
+<p>If the simulation was successful, but we want to simulate the problem for longer, we can restart the simulation at
+the latest checkpoint, often representing the final solution. In this case, we will have to supply the <code class="docutils literal notranslate"><span class="pre">restart_folder</span></code> parameter to the run command, pointing
+to the <code class="docutils literal notranslate"><span class="pre">Checkpoint</span></code> folder, and a new end-time (<span class="math notranslate nohighlight">\(T\)</span>) for the simulation. With a default value of <span class="math notranslate nohighlight">\(T=10\)</span>, we can restart
+the <code class="docutils literal notranslate"><span class="pre">DrivenCavity</span></code> problem and continue running it until <span class="math notranslate nohighlight">\(T=20\)</span> with the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStep<span class="w"> </span><span class="nv">solver</span><span class="o">=</span>IPCs_ABCN<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>DrivenCavity<span class="w"> </span><span class="nv">T</span><span class="o">=</span><span class="m">20</span><span class="w"> </span><span class="nv">restart_folder</span><span class="o">=</span>results_driven_cavity/data/1/Checkpoint<span class="w">  </span>
 </pre></div>
 </div>
-<div class="docutils container" id="id3">
-<div class="citation" id="id6" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">FHWK21</a><span class="fn-bracket">]</span></span>
-<p>Niklas Fehn, Johannes Heinz, Wolfgang A Wall, and Martin Kronbichler. High-order arbitrary lagrangian–eulerian discontinuous galerkin methods for the incompressible navier–stokes equations. <em>Journal of Computational Physics</em>, 430:110040, 2021.</p>
-</div>
-<div class="citation" id="id7" role="doc-biblioentry">
-<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">TG37</a><span class="fn-bracket">]</span></span>
-<p>Geoffrey Ingram Taylor and Albert Edward Green. Mechanism of the production of small eddies from large ones. <em>Proceedings of the Royal Society of London. Series A-Mathematical and Physical Sciences</em>, 158(895):499–521, 1937.</p>
-</div>
-</div>
-</div>
+<p>The simulation should now restart at <span class="math notranslate nohighlight">\(T=10\)</span>, and continue running until <span class="math notranslate nohighlight">\(T=20\)</span>.</p>
+</section>
 </section>
 </section>
 
@@ -522,20 +475,20 @@ we can run the following command:</p>
     <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
-       href="movingvortex.html"
+       href="movingtg.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Vortex problem with oscillating boundaries</p>
+        <p class="prev-next-title">Moving 3D Taylor-Green vortex</p>
       </div>
     </a>
     <a class="right-next"
-       href="restart.html"
+       href="interpolation.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Restarting a simulation</p>
+        <p class="prev-next-title">Interpolating to a higher function space</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -557,10 +510,11 @@ we can run the following command:</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem description</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#hpc-simulation-in-oasismove">(HPC) Simulation in OasisMove</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#increasing-the-spatial-resolution-in-3d">Increasing the spatial resolution in 3D</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#restarting-a-simulation-in-oasismove">Restarting a simulation in OasisMove</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#restarting-a-prematurely-ended-simulation">Restarting a prematurely ended simulation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#restarting-a-finished-simulation">Restarting a finished simulation</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

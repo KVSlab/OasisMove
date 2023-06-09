@@ -3,7 +3,7 @@
 # Vortex problem with oscillating boundaries
 
 In this tutorial we will consider a two-dimensional moving vortex problem inspired by the Taylor-Green vortex problem,
-and presented by Fehn et al. {cite}`fehn2021high`. The problem is implemented in the
+introduced in {cite}`hesthaven2007nodal`. The problem is implemented in the
 file [MovingVortex.py](https://github.com/KVSlab/OasisMove/blob/main/src/oasismove/problems/NSfracStep/MovingVortex.py),
 but note that it has not been optimized for parallelization because of its intended use for code verification.
 
