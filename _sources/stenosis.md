@@ -120,7 +120,8 @@ The velocity field for the stenosis problem without (top) and with (bottom) back
 arrows that have been scaled by the velocity magnitude. 
 ```
 
-```{bibliography}
+## References
+
+```{bibliography} references.bib
 :filter: docname in docnames
 ```
-
