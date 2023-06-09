@@ -127,13 +127,17 @@ def theend_hook(q_, u_, p_, uv, mesh, ds, V, nu, Umean, D, **NS_namespace):
 
     print("Cd = {}, CL = {}".format(*forces))
 
-    from fenicstools import Probes
-    from numpy import linspace, repeat, where, resize
-    xx = linspace(0, L, 10000)
-    x = resize(repeat(xx, 2), (10000, 2))
-    x[:, 1] = 0.2
-    probes = Probes(x.flatten(), V)
-    probes(u_[0])
-    nmax = where(probes.array() < 0)[0][-1]
-    print("L = ", x[nmax, 0] - 0.25)
-    print("dP = ", p_(Point(0.15, 0.2)) - p_(Point(0.25, 0.2)))
+    try:
+        from fenicstools import Probes
+        from numpy import linspace, repeat, where, resize
+        xx = linspace(0, L, 10000)
+        x = resize(repeat(xx, 2), (10000, 2))
+        x[:, 1] = 0.2
+        probes = Probes(x.flatten(), V)
+        probes(u_[0])
+        nmax = where(probes.array() < 0)[0][-1]
+        print("L = ", x[nmax, 0] - 0.25)
+        print("dP = ", p_(Point(0.15, 0.2)) - p_(Point(0.25, 0.2)))
+
+    except Exception:
+        pass
