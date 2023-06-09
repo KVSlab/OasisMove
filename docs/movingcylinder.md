@@ -134,6 +134,6 @@ Reynolds number by definition:
 
 ## References
 
-```{bibliography} ./references.bib
+```{bibliography} references.bib
 :filter: docname in docnames
 ```
