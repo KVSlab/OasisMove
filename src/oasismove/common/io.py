@@ -8,7 +8,7 @@ import time
 from os import makedirs, listdir, remove, system, path
 from xml.etree import ElementTree as ET
 
-from dolfin import MPI, XDMFFile, HDF5File, FunctionSpace, Function, interpolate
+from dolfin import MPI, XDMFFile, HDF5File, FunctionSpace, Function, interpolate, MeshFunction
 
 from oasismove.problems import info_red
 
@@ -143,11 +143,13 @@ def save_checkpoint_solution_xdmf(q_, q_1, newfolder, u_components, mesh, NS_par
                 f.write_checkpoint(q_1[ui], '/previous', append=True)
         MPI.barrier(MPI.comm_world)
 
-    # Store mesh
+    # Store mesh and boundary
     MPI.barrier(MPI.comm_world)
     mesh_path = path.join(checkpointfolder, 'mesh.h5')
     with HDF5File(MPI.comm_world, mesh_path, 'w') as f:
         f.write(mesh, 'mesh')
+        boundary = MeshFunction("size_t", mesh, mesh.geometry().dim() - 1, mesh.domains())
+        f.write(boundary, 'boundary')
 
 
 def check_if_kill(folder, killtime, total_timer):
@@ -271,6 +273,7 @@ def merge_xml_files(files):
         trees.append(ET.parse(f))
         root = trees[-1].getroot()
         first_timesteps.append(float(root[0][0][0][2].attrib["Value"]))
+        MPI.barrier(MPI.comm_world)
 
     # Index valued sort (bypass numpy dependency)
     first_timestep_sorted = sorted(first_timesteps)

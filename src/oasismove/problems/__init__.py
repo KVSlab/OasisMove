@@ -324,17 +324,20 @@ def post_import_problem(NS_parameters, mesh, commandline_kwargs, NS_expressions,
         mesh = mesh(**NS_parameters)
 
     # Load mesh if restarting simulation
+    boundary = None
     if restart_folder is not None:
         # Get mesh information
         mesh = Mesh()
         filename = path.join(restart_folder, 'mesh.h5')
-        with HDF5File(MPI.comm_world, filename, "r") as mesh_file:
-            mesh_file.read(mesh, "mesh", False)
+        with HDF5File(MPI.comm_world, filename, "r") as f:
+            f.read(mesh, "mesh", False)
+            boundary = MeshFunction("size_t", mesh, mesh.geometry().dim() - 1, mesh.domains())
+            f.read(boundary, "boundary")
 
     assert (isinstance(mesh, Mesh))
 
     # Returned dictionary to be updated in the NS namespace
-    d = dict(mesh=mesh)
+    d = dict(mesh=mesh, boundary=boundary)
     d.update(NS_parameters)
     d.update(NS_expressions)
     return d
