@@ -9,7 +9,6 @@ from os import makedirs, listdir, remove, system, path
 from xml.etree import ElementTree as ET
 
 from dolfin import MPI, XDMFFile, HDF5File, FunctionSpace, Function, interpolate, MeshFunction
-
 from oasismove.problems import info_red
 
 __all__ = ["create_initial_folders", "save_solution", "save_tstep_solution_xdmf",
@@ -241,7 +240,6 @@ def read_and_interpolate_solution(f, V, previous_velocity_degree, q_, q_prev, ui
     Interpolate solution to higher element order or read directly into existing function space
     """
     if previous_velocity_degree != velocity_degree and ui != 'p':
-        print("Interpolating", ui)
         f.read_checkpoint(q_prev[ui], name)
         q_prev_proj = interpolate(q_prev[ui], V)
         q_[ui].vector().zero()
