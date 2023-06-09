@@ -18,7 +18,7 @@ problem. For this problem, the default values are $T=10$, a time step of $\Delta
 time step (`checkpoint=500`). Assume we have run the problem using the following command:
 
 ``` console
-$ oasism NSfracStep solver=IPCs_ABCN problem=DrivenCavity 
+$ oasism NSfracStep solver=IPCS_ABCN problem=DrivenCavity 
 ```
 
 After 500 time steps, or when the simulation is finished, there will be located a `Checkpoint` folder within
@@ -33,7 +33,7 @@ prematurely, we may restart the simulation by adding the  `restart_folder` param
 the `Checkpoint` folder:
 
 ``` console
-$ oasism NSfracStep solver=IPCs_ABCN problem=DrivenCavity restart_folder=results_driven_cavity/data/1/Checkpoint 
+$ oasism NSfracStep solver=IPCS_ABCN problem=DrivenCavity restart_folder=results_driven_cavity/data/1/Checkpoint 
 ```
 
 The simulation should now restart at the latest checkpoint, and continue as normal until $T=10.
@@ -46,7 +46,7 @@ to the `Checkpoint` folder, and a new end-time ($T$) for the simulation. With a 
 the `DrivenCavity` problem and continue running it until $T=20$ with the following command:
 
 ``` console
-$ oasism NSfracStep solver=IPCs_ABCN problem=DrivenCavity T=20 restart_folder=results_driven_cavity/data/1/Checkpoint  
+$ oasism NSfracStep solver=IPCS_ABCN problem=DrivenCavity T=20 restart_folder=results_driven_cavity/data/1/Checkpoint  
 ```
 
 The simulation should now restart at $T=10$, and continue running until $T=20$.
