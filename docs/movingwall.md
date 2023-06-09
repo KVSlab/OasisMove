@@ -56,6 +56,9 @@ name: vel-wall
 On top, the grid displacement, and on the bottom, the velocity field for the wall-driven channel flow, where the vector arrows have been scaled by the velocity magnitude. 
 ```
 
-```{bibliography}
+## References
+
+```{bibliography} references.bib
+:style: unsrt
 :filter: docname in docnames
 ```

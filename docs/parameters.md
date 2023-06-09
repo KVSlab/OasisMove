@@ -167,7 +167,3 @@ $ oasism NSfracStepMove problem=DrivenCavity Nx=100 Ny=100 T=20
 Similarly, you can change any of parameters mention here, the ones listed in
 the [problems/NSfracStep/\_\_init\_\_.py](https://github.com/KVSlab/OasisMove/blob/main/src/oasismove/problems/NSfracStep/__init__.py)
 script, or that are specified in the Python problem script.
-
-```{bibliography}
-:filter: docname in docnames
-```

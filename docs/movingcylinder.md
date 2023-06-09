@@ -132,6 +132,9 @@ Reynolds number by definition:
 \end{align}
 ```
 
-```{bibliography}
+## References
+
+```{bibliography} references.bib
+:style: unsrt
 :filter: docname in docnames
 ```
