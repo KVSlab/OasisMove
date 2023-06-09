@@ -135,6 +135,5 @@ Reynolds number by definition:
 ## References
 
 ```{bibliography} references.bib
-:style: unsrt
 :filter: docname in docnames
 ```

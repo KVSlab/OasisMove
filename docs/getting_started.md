@@ -40,6 +40,5 @@ look in the current working directory. If the problem you have specified after `
 ## References
 
 ```{bibliography} references.bib
-:style: unsrt
 :filter: docname in docnames
 ```

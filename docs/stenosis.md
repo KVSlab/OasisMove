@@ -123,6 +123,5 @@ arrows that have been scaled by the velocity magnitude.
 ## References
 
 ```{bibliography} references.bib
-:style: unsrt
 :filter: docname in docnames
 ```

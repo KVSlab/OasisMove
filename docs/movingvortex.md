@@ -92,6 +92,8 @@ where $u$ is the velocity magnitude, $\Delta t$ is the time step size, and $\Del
 
 ```
 
-```{bibliography}
+## References
+
+```{bibliography} references.bib
 :filter: docname in docnames
 ```

@@ -59,6 +59,5 @@ On top, the grid displacement, and on the bottom, the velocity field for the wal
 ## References
 
 ```{bibliography} references.bib
-:style: unsrt
 :filter: docname in docnames
 ```
