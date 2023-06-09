@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
-__author__ = "Mikael Mortensen <mikaem@math.uio.no>"
-__date__ = "2013-11-06"
-__copyright__ = "Copyright (C) 2013 " + __author__
-__license__ = "GNU Lesser GPL version 3 or any later version"
+# Written by Mikael Mortensen <mikaem@math.uio.no> (2013)
+# Edited by Henrik Kjeldsberg <henrik.kjeldsberg@live.no> (2023)
 
 """
 This module implements a generic form of the fractional step method for
@@ -34,6 +32,9 @@ problems/NSfracStep/__init__.py for all possible parameters.
 """
 import importlib
 import pickle
+from pprint import pprint
+
+import numpy as np
 
 from oasismove.common import *
 
@@ -57,6 +58,11 @@ vars().update(**vars(problemmod))
 
 # Update problem spesific parameters
 problem_parameters(**vars())
+
+if MPI.rank(MPI.comm_world) == 0:
+    print("=== Starting simulation for {} problem ===".format(problemname))
+    print("Running with the following parameters:")
+    pprint(NS_parameters)
 
 # Update current namespace with NS_parameters and commandline_kwargs ++
 vars().update(post_import_problem(**vars()))
@@ -189,7 +195,7 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
     t += dt
     tstep += 1
     inner_iter = 0
-    udiff = array([1e8])  # Norm of velocity change over last inner iter
+    udiff = np.array([1e8])  # Norm of velocity change over last inner iter
     num_iter = max(iters_on_first_timestep, max_iter) if tstep <= max_tstep else max_iter
 
     start_timestep_hook(**vars())

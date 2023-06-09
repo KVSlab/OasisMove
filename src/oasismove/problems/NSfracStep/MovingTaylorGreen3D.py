@@ -57,7 +57,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
 
     NS_expressions.update(dict(
         constrained_domain=PeriodicDomain(),
-        kin=zeros(1),
+        kin=np.zeros(1),
         initial_fields_w=dict(
             w0="2 * pi * A / T_G * cos(2 * pi * t / T_G) * sin(2 * pi * (x[1] + L/2)/L) * sin(2*pi* (x[2] + L/2)/L)",
             w1="2*pi*A/T_G*cos(2*pi*t/T_G) * sin(2*pi * (x[0] + L/2)/L) * sin(2*pi* (x[2] + L/2)/L)",

@@ -4,7 +4,6 @@
 import subprocess
 from collections import defaultdict
 from os import getpid, path
-from numpy import array, maximum, zeros, savetxt
 import numpy as np
 from dolfin import *
 
@@ -190,7 +189,7 @@ def compute_flow_quantities(u, L, nu, mesh, t, tstep, dt, h, outlet_area=1, boun
 def write_data_to_file(save_path, data, filename):
     data_path = path.join(save_path, filename)
     with open(data_path, "ab") as f:
-        savetxt(f, data, fmt=" %.16f ", newline=' ')
+        np.savetxt(f, data, fmt=" %.16f ", newline=' ')
         f.write(b'\n')
 
 
