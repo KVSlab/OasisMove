@@ -98,6 +98,8 @@ we can run the following command:
 $ oasism NSfracStepMove problem=MovingTaylorGreen3D Nx=50 Ny=50 Nz=50
 ```
 
-```{bibliography}
+## References
+
+```{bibliography} references.bib
 :filter: docname in docnames
 ```

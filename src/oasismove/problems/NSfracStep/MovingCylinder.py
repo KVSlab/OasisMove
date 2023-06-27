@@ -18,22 +18,18 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
     [1] Blackburn, H. M., & Henderson, R. D. (1999). A study of two-dimensional flow past an oscillating cylinder.
     Journal of Fluid Mechanics, 385, 255-286.
     """
-
     if "restart_folder" in commandline_kwargs.keys():
         restart_folder = commandline_kwargs["restart_folder"]
         restart_folder = path.join(os.getcwd(), restart_folder)
-
-        f = open(path.join(path.dirname(path.abspath(__file__)), restart_folder,
-                           'params.dat'), 'r')
+        f = open(path.join(path.dirname(path.abspath(__file__)), restart_folder, 'params.dat'), 'rb')
         NS_parameters.update(pickle.load(f))
-        NS_parameters['T'] = 10
         NS_parameters['restart_folder'] = restart_folder
         globals().update(NS_parameters)
 
     else:
         # Default parameters
         NS_parameters.update(
-            # Geometrical parameters
+            # Problem specific parameters
             Re=500,  # Reynolds number
             D=0.1,  # Diameter in [m]
             u_inf=1.0,  # Free-stream flow velocity in [m/s]
@@ -42,14 +38,15 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             F=1.0,  # Frequency ratio
             # Simulation parameters
             T=5,  # End time
-            dt=0.000125,  # Time step
+            dt=1.25 * 10 ** (-4),  # Time step
             mesh_path=commandline_kwargs["mesh_path"],
             folder="results_moving_cylinder",
             # Oasis paramters
             max_iter=2,
             dynamic_mesh=True,
             save_solution_frequency=5,
-            checkpoint=500,
+            checkpoint=20,
+            save_step=5,
             print_intermediate_info=100,
             velocity_degree=1,
             pressure_degree=1,

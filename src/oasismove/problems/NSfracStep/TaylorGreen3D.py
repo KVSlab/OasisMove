@@ -27,7 +27,7 @@ def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
 
     NS_expressions.update(dict(
         constrained_domain=PeriodicDomain(),
-        kin=zeros(1),
+        kin=np.zeros(1),
         initial_fields=dict(
             u0='sin(x[0])*cos(x[1])*cos(x[2])',
             u1='-cos(x[0])*sin(x[1])*cos(x[2])',

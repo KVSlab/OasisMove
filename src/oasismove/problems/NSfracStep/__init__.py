@@ -67,6 +67,10 @@ NS_parameters.update(
     dynamic_mesh=False,
     compute_velocity_and_pressure=True,
 
+    # Parameters related to backflow stabilization
+    backflow_facets=[],  # List of boundary IDs to add stabilization on
+    backflow_beta=0.2,  # Stabilization strength
+
     # Solver parameters that will be transferred to dolfins parameters['krylov_solver']
     krylov_solvers=dict(
         monitor_convergence=False,
@@ -113,7 +117,7 @@ NS_parameters.update(
         preconditioner_type='jacobi'),
 
     nu_nn_krylov_solver=dict(
-        method='WeightedAverage',  # Or 'default'
+        method='default',  # Or 'WeightedAverage'
         solver_type='cg',
         preconditioner_type='jacobi'),
 )

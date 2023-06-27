@@ -15,12 +15,12 @@ def problem_parameters(NS_parameters, **NS_namespace):
         # Fluid parameters
         nu=0.001,
         # Simulation parameters
-        T=1.0,
+        T=10.0,
         dt=0.005,
         folder="results_driven_cavity",
         # Oasis parameters
         testing=False,
-        max_iter=2,
+        max_iter=1,
         dynamic_mesh=False,
         save_solution_frequency=5,
         checkpoint=500,
@@ -52,7 +52,9 @@ def pre_solve_hook(mesh, newfolder, velocity_degree, **NS_namespace):
     viz_p, viz_u = get_visualization_files(newfolder)
 
     Vv = VectorFunctionSpace(mesh, 'CG', velocity_degree)
-    return dict(uv=Function(Vv), viz_u=viz_u, viz_p=viz_p)
+    uv = Function(Vv, name="Velocity")
+
+    return dict(uv=uv, viz_u=viz_u, viz_p=viz_p)
 
 
 def temporal_hook(viz_u, viz_p, tstep, u_, t, uv, p_, plot_interval, testing, **NS_namespace):
@@ -64,7 +66,7 @@ def temporal_hook(viz_u, viz_p, tstep, u_, t, uv, p_, plot_interval, testing, **
         viz_p.write(p_, t)
 
 
-def theend_hook(u_, p_, tstep, save_solution_frequency, uv, mesh, testing, **NS_namespace):
+def theend_hook(u_, uv, mesh, testing, **NS_namespace):
     u_norm = norm(u_[0].vector())
     if MPI.rank(MPI.comm_world) == 0 and testing:
         print("Velocity norm = {0:2.6e}".format(u_norm))

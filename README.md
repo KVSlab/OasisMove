@@ -1,30 +1,31 @@
 # OasisMove - Moving Domain CFD Solver
 
 _________________
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![codecov](https://codecov.io/gh/KVSlab/OasisMove/branch/main/graph/badge.svg?token=M2NMX6HOSZ)](https://codecov.io/gh/KVSlab/OasisMove)
+[![GPL-3.0](https://img.shields.io/github/license/kvslab/oasismove)](LICENSE)
+[![codecov](https://codecov.io/gh/KVSlab/OasisMove/branch/main/graph/badge.svg?token=ETTVXYFHJ2)](https://codecov.io/gh/KVSlab/OasisMove)
 [![CI](https://github.com/kvslab/oasismove/actions/workflows/check_and_test_package.yml/badge.svg)](https://github.com/kvslab/oasismove/actions/workflows/check_and_test_package.yml)
 [![GitHub pages](https://github.com/kvslab/oasismove/actions/workflows/deploy_pages.yml/badge.svg)](https://github.com/kvslab/oasismove/actions/workflows/deploy_pages.yml)
+[![status](https://joss.theoj.org/papers/ede99b68e725d714272be16964cbd4a8/status.svg)](https://joss.theoj.org/papers/ede99b68e725d714272be16964cbd4a8)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7868226.svg)](https://doi.org/10.5281/zenodo.7868226)
 _________________
 
 <p align="center">
-    <img src="docs/figures/moving_ventricle.gif" width="640" height="315" alt="Left ventricle flow"/>
+    <img src="docs/figures/moving_atrium.gif" width="640" height="315" alt="Left atrium flow"/>
 </p>
 <p align="center">
-    Fluid velocity (left) and mesh deformation (right) of an idealized left ventricle. 
+    Fluid velocity (left) and mesh deformation (right) of a moving patient-specific left atrium model, simulated over two cardiac cycles lasting for $T=2$ s.
+    The model is publicly available from <a href="https://doi.org/10.5281/zenodo.5801337">this</a> dataset. 
 </p>
-
 
 Description
 -----------
 OasisMove is a high-level/high-performance open-source Navier-Stokes solver for fluid flow in rigid and moving domains
 written in Python/[FEniCS](https://fenicsproject.org/), and is an extension of the computational fluid dynamics (CFD)
-solver [Oasis](https://github.com/mikaem/Oasis). In OasisMove the Navier-Stokes equations are expressed in the arbitrary
+solver [Oasis](https://github.com/mikaem/Oasis). In OasisMove, the Navier-Stokes equations are expressed in the arbitrary
 Lagrangian-Eulerian formulation, which is suitable for handling moving domains. This moving domain solver has undergone
-rigorous verification and validation, and results have shown that OasisMove follows theoretical convergence rates, begin
+rigorous verification and validation, and results have shown that OasisMove follows theoretical convergence rates, being
 second order accurate in time, and second and third order accurate in space with P1/P1 and P2/P1 finite elements.
-Although OasisMove was developed with cardiovascular flows in mind, it is applicable to several flow problems within
-CFD.
+OasisMove has been developed with cardiovascular flows in mind, but is applicable to several flow problems within CFD.
 
 <p align="center">
     <img src=docs/figures/verification_u_p.png width="630 height="470" alt="Convergence rate analysis"/>
@@ -46,14 +47,14 @@ the [installation guidelines](https://kvslab.github.io/OasisMove/installation.ht
 Documentation
 -------------
 OasisMove's documentation is hosted [here](https://kvslab.github.io/OasisMove). This includes
-multiple [demos](https://kvslab.github.io/OasisMove/tutorials.html), meant to guide the user through the basic steps of
-performing a computational fluid dynamic simulation and creating problem files.
+multiple [tutorials](https://kvslab.github.io/OasisMove/tutorials.html), meant to guide the user through the basic steps
+of performing a computational fluid dynamic simulation and creating problem files.
 
 For futher details on vanilla Oasis, please refer to its [wiki](https://github.com/mikaem/oasis/wiki) or
 the [user manual](https://github.com/mikaem/Oasis/tree/master/doc/usermanual.pdf)
 
-If you wish to use OasisMove/Oasis for journal publications, please cite the
-following [paper](http://www.sciencedirect.com/science/article/pii/S0010465514003786).
+If you wish to use OasisMove for journal publications, please cite the
+following [paper](https://onlinelibrary.wiley.com/doi/10.1002/cnm.3703).
 
 Licence
 -------

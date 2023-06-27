@@ -39,13 +39,15 @@ following command:
 $ oasism NSfracStepMove problem=MovingWall
 ```
 
-and the simulation will start. The default time step size is set to $\Delta t=0.005$, thus a full simulation performs 200 time steps, and should be complete within less than a minute.
+and the simulation will start. The default time step size is set to $\Delta t=0.005$, thus a full simulation performs
+200 time steps, and should be complete within less than a minute.
 
 ## Results
 
 When the simulation is finished, there will be a folder named `results_moving_wall`, which contains the velocity and
-pressure solution in `.xdmf` format. 
-These solution files can be visualized in [ParaView](https://www.paraview.org/) or any similar visualization software, and in {numref}`vel-wall` we display the displaced grid, and velocity solution over one period. Note that the solution has been transformed by scaling the length in the $x$-direciton by 1/4th.
+pressure solution in `.xdmf` format. These solution files can be visualized in [ParaView](https://www.paraview.org/) or
+any similar visualization software, and in {numref}`vel-wall` we display the displaced grid, and velocity solution over
+one period. Note that the solution has been transformed by scaling the length in the $x$-direciton by 1/4th.
 
 ```{figure} figures/moving_wall.gif
 ---
@@ -54,6 +56,8 @@ name: vel-wall
 On top, the grid displacement, and on the bottom, the velocity field for the wall-driven channel flow, where the vector arrows have been scaled by the velocity magnitude. 
 ```
 
-```{bibliography}
+## References
+
+```{bibliography} references.bib
 :filter: docname in docnames
 ```

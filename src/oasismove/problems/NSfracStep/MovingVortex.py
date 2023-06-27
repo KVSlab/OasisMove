@@ -1,8 +1,11 @@
+import pickle
+from os import getcwd
+
 from oasismove.problems.NSfracStep import *
 from oasismove.problems.NSfracStep.MovingCommon import get_coordinate_map, get_visualization_writers
 
 
-def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
+def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace):
     """
     Problem file for running CFD simulation for the MovingVortex problem inspired by the problem by Fehn et al.[1],
     resembling the 2D Taylor-Green vortex. The problem solves the N-S equations in the absence of body forces, with a
@@ -14,36 +17,46 @@ def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
     discontinuous Galerkin methods for the incompressible Navier–Stokes equations.
     Journal of Computational Physics, 430, 110040.
     """
-    T = 1.0
-    NS_parameters.update(
-        # Problem specific parameters
-        A0=0.08,  # Amplitude
-        T_G=4 * T,  # Period time
-        L=1.0,  # Dimension of domain
-        Nx=20,  # Resolution in x-direction
-        Ny=20,  # Resolution in y-direction
-        # Fluid parameters
-        nu=0.025,  # Kinematic viscosity
-        # Simulation parameters
-        T=T,  # Simulation time
-        dt=5 * 10 ** (-2),  # Time step
-        folder="results_moving_vortex",
-        # Oasis parameters
-        max_iter=2,
-        dynamic_mesh=True,
-        save_solution_frequency=5,
-        checkpoint=500,
-        print_intermediate_info=100,
-        compute_error=1,
-        velocity_degree=1,
-        pressure_degree=1,
-        use_krylov_solvers=True
-    )
+    if "restart_folder" in commandline_kwargs.keys():
+        restart_folder = commandline_kwargs["restart_folder"]
+        restart_folder = path.join(getcwd(), restart_folder)
+        f = open(path.join(path.dirname(path.abspath(__file__)), restart_folder, 'params.dat'), 'rb')
+        NS_parameters.update(pickle.load(f))
+        NS_parameters['restart_folder'] = restart_folder
+        globals().update(NS_parameters)
+    else:
+        # Read final time from command line
+        T = float(commandline_kwargs.get("T", 1))
+        NS_parameters.update(
+            # Problem specific parameters
+            A0=0.08,  # Amplitude
+            T_G=4 * T,  # Period time
+            L=1.0,  # Dimension of domain
+            Nx=20,  # Resolution in x-direction
+            Ny=20,  # Resolution in y-direction
+            # Fluid parameters
+            nu=0.025,  # Kinematic viscosity
+            # Simulation parameters
+            T=T,  # Simulation time
+            dt=0.05,  # Time step
+            folder="results_moving_vortex",
+            # Oasis parameters
+            max_iter=2,
+            dynamic_mesh=True,
+            save_step=1,
+            save_solution_frequency=5,
+            checkpoint=500,
+            print_intermediate_info=100,
+            compute_error=1,
+            velocity_degree=1,
+            pressure_degree=1,
+            use_krylov_solvers=True
+        )
 
-    NS_parameters['krylov_solvers'] = {'monitor_convergence': False,
-                                       'report': False,
-                                       'relative_tolerance': 1e-8,
-                                       'absolute_tolerance': 1e-8}
+        NS_parameters['krylov_solvers'] = {'monitor_convergence': False,
+                                           'report': False,
+                                           'relative_tolerance': 1e-8,
+                                           'absolute_tolerance': 1e-8}
 
     # Define analytical and initial state expressions
     NS_expressions.update(dict(

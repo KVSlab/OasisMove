@@ -1,14 +1,11 @@
-__author__ = "Mikael Mortensen <mikaem@math.uio.no>"
-__date__ = "2013-06-25"
-__copyright__ = "Copyright (C) 2013 " + __author__
-__license__ = "GNU Lesser GPL version 3 or any later version"
+# Written by Mikael Mortensen <mikaem@math.uio.no> (2013)
+# Edited by Henrik Kjeldsberg <henrik.kjeldsberg@live.no> (2023)
 
-from dolfin import *
 import subprocess
-from os import getpid, path
 from collections import defaultdict
-from numpy import array, maximum, zeros, savetxt
+from os import getpid, path
 import numpy as np
+from dolfin import *
 
 
 def getMemoryUsage(rss=True):
@@ -25,12 +22,7 @@ parameters["linear_algebra_backend"] = "PETSc"
 parameters["form_compiler"]["optimize"] = True
 parameters["form_compiler"]["cpp_optimize"] = True
 parameters["form_compiler"]["representation"] = "uflacs"
-# parameters["form_compiler"]["quadrature_degree"] = 4
-# parameters["form_compiler"]["cache_dir"] = "instant"
 parameters["form_compiler"]["cpp_optimize_flags"] = "-O3"
-# parameters["mesh_partitioner"] = "ParMETIS"
-# parameters["form_compiler"].add("no_ferari", True)
-# set_log_active(False)
 
 # Default parameters for all solvers
 NS_parameters = dict(
@@ -197,7 +189,7 @@ def compute_flow_quantities(u, L, nu, mesh, t, tstep, dt, h, outlet_area=1, boun
 def write_data_to_file(save_path, data, filename):
     data_path = path.join(save_path, filename)
     with open(data_path, "ab") as f:
-        savetxt(f, data, fmt=" %.16f ", newline=' ')
+        np.savetxt(f, data, fmt=" %.16f ", newline=' ')
         f.write(b'\n')
 
 
@@ -315,10 +307,10 @@ def problem_parameters(**NS_namespace):
     pass
 
 
-def post_import_problem(NS_parameters, mesh, commandline_kwargs,
-                        NS_expressions, **NS_namespace):
+def post_import_problem(NS_parameters, mesh, commandline_kwargs, NS_expressions, **NS_namespace):
     """Called after importing from problem."""
-
+    dynamic_mesh = NS_parameters['dynamic_mesh']
+    restart_folder = NS_parameters['restart_folder']
     # Update NS_parameters with all parameters modified through command line
     for key, val in commandline_kwargs.items():
         if isinstance(val, dict):
@@ -330,10 +322,21 @@ def post_import_problem(NS_parameters, mesh, commandline_kwargs,
     if callable(mesh):
         mesh = mesh(**NS_parameters)
 
+    # Load mesh if restarting simulation
+    boundary = None
+    if restart_folder is not None:
+        # Get mesh information
+        mesh = Mesh()
+        filename = path.join(restart_folder, 'mesh.h5')
+        with HDF5File(MPI.comm_world, filename, "r") as f:
+            f.read(mesh, "mesh", False)
+            boundary = MeshFunction("size_t", mesh, mesh.geometry().dim() - 1, mesh.domains())
+            f.read(boundary, "boundary")
+
     assert (isinstance(mesh, Mesh))
 
     # Returned dictionary to be updated in the NS namespace
-    d = dict(mesh=mesh)
+    d = dict(mesh=mesh, boundary=boundary)
     d.update(NS_parameters)
     d.update(NS_expressions)
     return d
@@ -341,15 +344,6 @@ def post_import_problem(NS_parameters, mesh, commandline_kwargs,
 
 def u_dot_n(u, n):
     return (dot(u, n) - abs(dot(u, n))) / 2
-
-
-def add_backflow_stabilization(A, b, backflow_beta, backflow_facets, boundary, mesh, u, u_ab, ui, v, x_1):
-    for ID in backflow_facets:
-        ds = Measure("ds", domain=mesh, subdomain_data=boundary)
-        n = FacetNormal(mesh)
-        K = assemble(u_dot_n(u_ab, n) * dot(u, v) * ds(ID))
-        A.axpy(-backflow_beta * 0.5, K, True)
-        b[ui].axpy(backflow_beta * 0.5, K * x_1[ui])
 
 
 def compute_volume(mesh, t, newfolder):
