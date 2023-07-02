@@ -50,13 +50,12 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             compute_error=1,
             velocity_degree=1,
             pressure_degree=1,
-            use_krylov_solvers=True
+            use_krylov_solvers=True,
+            krylov_solvers={'monitor_convergence': False,
+                            'report': False,
+                            'relative_tolerance': 1e-8,
+                            'absolute_tolerance': 1e-8}
         )
-
-        NS_parameters['krylov_solvers'] = {'monitor_convergence': False,
-                                           'report': False,
-                                           'relative_tolerance': 1e-8,
-                                           'absolute_tolerance': 1e-8}
 
     # Define analytical and initial state expressions
     NS_expressions.update(dict(
@@ -88,8 +87,8 @@ def pre_boundary_condition(mesh, **NS_namespace):
     boundary.set_all(0)
 
     inlet = AutoSubDomain(lambda x, b: b)
-
     inlet.mark(boundary, 1)
+
     return dict(boundary=boundary)
 
 

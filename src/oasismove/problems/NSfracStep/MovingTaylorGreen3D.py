@@ -147,22 +147,14 @@ def pre_solve_hook(V, mesh, A0, T_G, L, t, newfolder, initial_fields_w, velocity
         dof_map = V.dofmap().entity_dofs(mesh, 0)
 
     # Mesh velocity conditions
-    w0 = Expression((initial_fields_w["w0"]), element=V.ufl_element(), t=t, A=A0, T_G=T_G, L=L)
-    w1 = Expression((initial_fields_w["w1"]), element=V.ufl_element(), t=t, A=A0, T_G=T_G, L=L)
-    w2 = Expression((initial_fields_w["w2"]), element=V.ufl_element(), t=t, A=A0, T_G=T_G, L=L)
-
-    NS_expressions["bc_w0"] = w0
-    NS_expressions["bc_w1"] = w1
-    NS_expressions["bc_w2"] = w2
-
     bc_mesh = dict((ui, []) for ui in u_components)
-    bc0 = DirichletBC(V, w0, boundary, 1)
-    bc1 = DirichletBC(V, w1, boundary, 1)
-    bc2 = DirichletBC(V, w2, boundary, 1)
+    for u, w in zip(["u0", "u1", "u2"], ["w0", "w1", "w2"]):
+        wall_motion = Expression((initial_fields_w[w]), element=V.ufl_element(), t=t, A=A0, T_G=T_G, L=L)
+        NS_expressions[f"bc_{w}"] = wall_motion
 
-    bc_mesh["u0"] = [bc0]
-    bc_mesh["u1"] = [bc1]
-    bc_mesh["u2"] = [bc2]
+        bc = DirichletBC(V, wall_motion, boundary, 1)
+        bc_mesh[u] = [bc]
+
     return dict(viz_p=viz_p, viz_u=viz_u, u_vec=u_vec, dof_map=dof_map, bc_mesh=bc_mesh, coordinates=coordinates)
 
 
@@ -186,8 +178,7 @@ def update_boundary_conditions(t, NS_expressions, **NS_namespace):
 def temporal_hook(u_, save_solution_frequency, u_vec, viz_u, tstep, t, **NS_namespace):
     # Save velocity and pressure
     if tstep % save_solution_frequency == 0:
-        assign(u_vec.sub(0), u_[0])
-        assign(u_vec.sub(1), u_[1])
-        assign(u_vec.sub(2), u_[2])
+        for i in range(3):
+            assign(u_vec.sub(i), u_[i])
 
         viz_u.write(u_vec, t)

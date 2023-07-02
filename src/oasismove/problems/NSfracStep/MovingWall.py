@@ -1,6 +1,5 @@
 from oasismove.problems.NSfracStep import *
-from oasismove.problems.NSfracStep.MovingCommon import get_visualization_files, \
-    get_coordinate_map
+from oasismove.problems.NSfracStep.MovingCommon import get_coordinate_map, get_visualization_writers
 
 
 def problem_parameters(NS_parameters, **NS_namespace):
@@ -106,7 +105,7 @@ def create_bcs(V, Q, w_, sigma, h0, eps, sys_comp, boundary, NS_expressions, **N
 
 def pre_solve_hook(V, mesh, newfolder, velocity_degree, u_components, boundary, **NS_namespace):
     # Visualization files
-    viz_p, viz_u = get_visualization_files(newfolder)
+    viz_p, viz_u = get_visualization_writers(newfolder, ['pressure', 'velocity'])
 
     # Extract dof map and coordinates
     VV = VectorFunctionSpace(mesh, "CG", velocity_degree)
