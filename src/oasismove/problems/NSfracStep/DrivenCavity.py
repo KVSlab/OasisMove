@@ -1,9 +1,9 @@
 # Written by Mikael Mortensen <mikaem@math.uio.no> (2013)
 # Edited by Henrik Kjeldsberg <henrik.kjeldsberg@live.no> (2023)
 
-from oasismove.problems.NSfracStep import *
 from oasismove.problems.DrivenCavity import *
-from oasismove.problems.NSfracStep.MovingCommon import get_visualization_files
+from oasismove.problems.NSfracStep import *
+from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
 
 # Override some problem specific parameters
@@ -49,7 +49,7 @@ def initialize(x_1, x_2, bcs, **NS_namespace):
 
 def pre_solve_hook(mesh, newfolder, velocity_degree, **NS_namespace):
     # Visualization files
-    viz_p, viz_u = get_visualization_files(newfolder)
+    viz_p, viz_u = get_visualization_writers(newfolder, ['pressure', 'velocity'])
 
     Vv = VectorFunctionSpace(mesh, 'CG', velocity_degree)
     uv = Function(Vv, name="Velocity")
