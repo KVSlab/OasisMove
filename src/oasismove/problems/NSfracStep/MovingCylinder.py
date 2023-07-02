@@ -2,7 +2,7 @@ import os
 import pickle
 
 from oasismove.problems.NSfracStep import *
-from oasismove.problems.NSfracStep.MovingCommon import get_visualization_files
+from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
 comm = MPI.comm_world
 
@@ -125,7 +125,7 @@ def create_bcs(V, Q, D, u_inf, St, F, A_ratio, sys_comp, boundary, NS_expression
 
 def pre_solve_hook(V, p_, u_, velocity_degree, nu, mesh, newfolder, u_components, boundary, **NS_namespace):
     # Visualization files
-    viz_p, viz_u = get_visualization_files(newfolder)
+    viz_p, viz_u = get_visualization_writers(newfolder, ['pressure', 'velocity'])
 
     # Extract dof map and coordinates
     VV = VectorFunctionSpace(mesh, "CG", velocity_degree)
