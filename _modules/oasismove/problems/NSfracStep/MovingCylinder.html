@@ -335,7 +335,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">pickle</span>
 
 <span class="kn">from</span> <span class="nn">oasismove.problems.NSfracStep</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">oasismove.problems.NSfracStep.MovingCommon</span> <span class="kn">import</span> <span class="n">get_visualization_files</span>
+<span class="kn">from</span> <span class="nn">oasismove.problems.NSfracStep.MovingCommon</span> <span class="kn">import</span> <span class="n">get_visualization_writers</span>
 
 <span class="n">comm</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span>
 
@@ -458,7 +458,7 @@ document.write(`
 
 <div class="viewcode-block" id="pre_solve_hook"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingCylinder.pre_solve_hook">[docs]</a><span class="k">def</span> <span class="nf">pre_solve_hook</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">p_</span><span class="p">,</span> <span class="n">u_</span><span class="p">,</span> <span class="n">velocity_degree</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
     <span class="c1"># Visualization files</span>
-    <span class="n">viz_p</span><span class="p">,</span> <span class="n">viz_u</span> <span class="o">=</span> <span class="n">get_visualization_files</span><span class="p">(</span><span class="n">newfolder</span><span class="p">)</span>
+    <span class="n">viz_p</span><span class="p">,</span> <span class="n">viz_u</span> <span class="o">=</span> <span class="n">get_visualization_writers</span><span class="p">(</span><span class="n">newfolder</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;pressure&#39;</span><span class="p">,</span> <span class="s1">&#39;velocity&#39;</span><span class="p">])</span>
 
     <span class="c1"># Extract dof map and coordinates</span>
     <span class="n">VV</span> <span class="o">=</span> <span class="n">VectorFunctionSpace</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="s2">&quot;CG&quot;</span><span class="p">,</span> <span class="n">velocity_degree</span><span class="p">)</span>

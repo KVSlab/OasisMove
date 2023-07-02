@@ -383,13 +383,12 @@ document.write(`
             <span class="n">compute_error</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">velocity_degree</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
             <span class="n">pressure_degree</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-            <span class="n">use_krylov_solvers</span><span class="o">=</span><span class="kc">True</span>
+            <span class="n">use_krylov_solvers</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">krylov_solvers</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;monitor_convergence&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                            <span class="s1">&#39;report&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                            <span class="s1">&#39;relative_tolerance&#39;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">,</span>
+                            <span class="s1">&#39;absolute_tolerance&#39;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">}</span>
         <span class="p">)</span>
-
-        <span class="n">NS_parameters</span><span class="p">[</span><span class="s1">&#39;krylov_solvers&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;monitor_convergence&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                                           <span class="s1">&#39;report&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                                           <span class="s1">&#39;relative_tolerance&#39;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">,</span>
-                                           <span class="s1">&#39;absolute_tolerance&#39;</span><span class="p">:</span> <span class="mf">1e-8</span><span class="p">}</span>
 
     <span class="c1"># Define analytical and initial state expressions</span>
     <span class="n">NS_expressions</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
@@ -421,8 +420,8 @@ document.write(`
     <span class="n">boundary</span><span class="o">.</span><span class="n">set_all</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 
     <span class="n">inlet</span> <span class="o">=</span> <span class="n">AutoSubDomain</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">b</span><span class="p">)</span>
-
     <span class="n">inlet</span><span class="o">.</span><span class="n">mark</span><span class="p">(</span><span class="n">boundary</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
     <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="n">boundary</span><span class="o">=</span><span class="n">boundary</span><span class="p">)</span></div>
 
 

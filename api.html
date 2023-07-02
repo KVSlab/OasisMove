@@ -839,32 +839,94 @@ Also computes the CFL number, and fluxes through boundaries</p>
 <dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCommon.Counter">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCommon.</span></span><span class="sig-name descname"><span class="pre">Counter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCommon.html#Counter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCommon.Counter" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">UserExpression</span></code></p>
+<p>A UserExpression designed for evaluating and counting mesh nodes,
+and associating each node with a unique integer, thus keeping
+a reference to the original mesh.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCommon.Counter.map">
+<span class="sig-name descname"><span class="pre">map</span></span><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCommon.Counter.map" title="Permalink to this definition">#</a></dt>
+<dd><p>A dictionary that maps a unique integer to a node coordinate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCommon.Counter.counter">
+<span class="sig-name descname"><span class="pre">counter</span></span><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCommon.Counter.counter" title="Permalink to this definition">#</a></dt>
+<dd><p>An integer that counts the number of evaluated nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCommon.Counter.eval">
 <span class="sig-name descname"><span class="pre">eval</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCommon.html#Counter.eval"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCommon.Counter.eval" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Evaluates the node coordinate and increments the counter. The node coordinate is stored in the map with the
+counter value as the key.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>numpy.ndarray</em>) – An array representing the node coordinate.</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCommon.Counter.get_map">
 <span class="sig-name descname"><span class="pre">get_map</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCommon.html#Counter.get_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCommon.Counter.get_map" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Returns the map that associates each unique integer with a node coordinate.</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCommon.get_coordinate_map">
 <span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCommon.</span></span><span class="sig-name descname"><span class="pre">get_coordinate_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">V</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">facet_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCommon.html#get_coordinate_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCommon.get_coordinate_map" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCommon.get_visualization_files">
-<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCommon.</span></span><span class="sig-name descname"><span class="pre">get_visualization_files</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCommon.html#get_visualization_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCommon.get_visualization_files" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Create a mapping of coordinates for a given function space and boundary.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>V</strong> (<em>dolfin.function.Functionspace</em>) – A FunctionSpace object representing the field on which the map is created.</p></li>
+<li><p><strong>boundary</strong> (<em>dolfin.cpp.mesh.MeshFunction</em>) – A MeshFunction defining with marked boundaries for the mesh.</p></li>
+<li><p><strong>w</strong> (<em>dict</em>) – A dict containing the mesh velocity at the current time step.</p></li>
+<li><p><strong>facet_id</strong> (<em>int</em>) – An integer representing the id of the boundary facets.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An integer count of the number of elements in the field <cite>V</cite>.
+x_hat_map (dict): A dict mapping coordinates to elements in the field <cite>V</cite>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>counter_max (int)</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCommon.get_visualization_writers">
 <span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCommon.</span></span><span class="sig-name descname"><span class="pre">get_visualization_writers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">list_of_quantities</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCommon.html#get_visualization_writers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCommon.get_visualization_writers" title="Permalink to this definition">#</a></dt>
-<dd></dd></dl>
+<dd><p>Create a list of XDMFFile writers for different quantities.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>newfolder</strong> (<em>str</em>) – The path of the folder where the XDMF files will be saved.</p></li>
+<li><p><strong>list_of_quantities</strong> (<em>list</em>) – A list of string names representing different quantities to be written,</p></li>
+<li><p><strong>'pressure'.</strong> (<em>such as 'velocity' or</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of XDMFFile objects for writing each quantity to a separate file.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>writers (list)</p>
+</dd>
+</dl>
+</dd></dl>
 
 <span class="target" id="module-oasismove.problems.NSfracStep.MovingCylinder"></span><dl class="py function">
 <dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCylinder.create_bcs">

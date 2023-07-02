@@ -331,49 +331,78 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <h1>Source code for oasismove.problems.NSfracStep.MovingCommon</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">oasismove.problems.NSfracStep</span> <span class="kn">import</span> <span class="o">*</span>
+<span></span><span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
+
+<span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="n">DirichletBC</span>
+<span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="n">UserExpression</span><span class="p">,</span> <span class="n">XDMFFile</span><span class="p">,</span> <span class="n">MPI</span>
 
 
 <div class="viewcode-block" id="get_coordinate_map"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingCommon.get_coordinate_map">[docs]</a><span class="k">def</span> <span class="nf">get_coordinate_map</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="n">w_</span><span class="p">,</span> <span class="n">facet_id</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     Create a mapping of coordinates for a given function space and boundary.</span>
+
+<span class="sd">     Args:</span>
+<span class="sd">         V (dolfin.function.Functionspace): A FunctionSpace object representing the field on which the map is created.</span>
+<span class="sd">         boundary (dolfin.cpp.mesh.MeshFunction): A MeshFunction defining with marked boundaries for the mesh.</span>
+<span class="sd">         w_ (dict): A dict containing the mesh velocity at the current time step.</span>
+<span class="sd">         facet_id (int): An integer representing the id of the boundary facets.</span>
+
+<span class="sd">     Returns:</span>
+<span class="sd">         counter_max (int): An integer count of the number of elements in the field `V`.</span>
+<span class="sd">         x_hat_map (dict): A dict mapping coordinates to elements in the field `V`.</span>
+<span class="sd">     &quot;&quot;&quot;</span>
     <span class="n">box_counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="n">V</span><span class="o">.</span><span class="n">ufl_element</span><span class="p">())</span>
     <span class="n">bc_tmp</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">box_counter</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="n">facet_id</span><span class="p">)</span>
     <span class="n">bc_tmp</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">w_</span><span class="p">[</span><span class="s2">&quot;u0&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">())</span>
     <span class="n">w_</span><span class="p">[</span><span class="s2">&quot;u0&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
-    <span class="n">counter_max</span> <span class="o">=</span> <span class="n">box_counter</span><span class="o">.</span><span class="n">counter</span>
-    <span class="n">x_hat_map</span> <span class="o">=</span> <span class="n">box_counter</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span>
 
-    <span class="k">return</span> <span class="n">counter_max</span><span class="p">,</span> <span class="n">x_hat_map</span></div>
+    <span class="k">return</span> <span class="n">box_counter</span><span class="o">.</span><span class="n">counter</span><span class="p">,</span> <span class="n">box_counter</span><span class="o">.</span><span class="n">get_map</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Counter"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingCommon.Counter">[docs]</a><span class="k">class</span> <span class="nc">Counter</span><span class="p">(</span><span class="n">UserExpression</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A UserExpression designed for evaluating and counting mesh nodes,</span>
+<span class="sd">    and associating each node with a unique integer, thus keeping</span>
+<span class="sd">    a reference to the original mesh.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        map (dict): A dictionary that maps a unique integer to a node coordinate.</span>
+<span class="sd">        counter (int): An integer that counts the number of evaluated nodes.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">map</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Counter.get_map"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingCommon.Counter.get_map">[docs]</a>    <span class="k">def</span> <span class="nf">get_map</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; Returns the map that associates each unique integer with a node coordinate. &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span></div>
 
 <div class="viewcode-block" id="Counter.eval"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingCommon.Counter.eval">[docs]</a>    <span class="k">def</span> <span class="nf">eval</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluates the node coordinate and increments the counter. The node coordinate is stored in the map with the</span>
+<span class="sd">        counter value as the key.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            x (numpy.ndarray): An array representing the node coordinate.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
-        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span></div></div>
-
-
-<div class="viewcode-block" id="get_visualization_files"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingCommon.get_visualization_files">[docs]</a><span class="k">def</span> <span class="nf">get_visualization_files</span><span class="p">(</span><span class="n">newfolder</span><span class="p">):</span>
-    <span class="n">viz_u</span> <span class="o">=</span> <span class="n">XDMFFile</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">newfolder</span><span class="p">,</span> <span class="s2">&quot;Solutions&quot;</span><span class="p">,</span> <span class="s2">&quot;velocity.xdmf&quot;</span><span class="p">))</span>
-    <span class="n">viz_p</span> <span class="o">=</span> <span class="n">XDMFFile</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">newfolder</span><span class="p">,</span> <span class="s2">&quot;Solutions&quot;</span><span class="p">,</span> <span class="s2">&quot;pressure.xdmf&quot;</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">viz</span> <span class="ow">in</span> <span class="p">[</span><span class="n">viz_u</span><span class="p">,</span> <span class="n">viz_p</span><span class="p">]:</span>
-        <span class="n">viz</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;rewrite_function_mesh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">viz</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;flush_output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="n">viz</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;functions_share_mesh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
-    <span class="k">return</span> <span class="n">viz_p</span><span class="p">,</span> <span class="n">viz_u</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">x</span><span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="get_visualization_writers"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingCommon.get_visualization_writers">[docs]</a><span class="k">def</span> <span class="nf">get_visualization_writers</span><span class="p">(</span><span class="n">newfolder</span><span class="p">,</span> <span class="n">list_of_quantities</span><span class="p">):</span>
-    <span class="c1"># List of quantities = [&#39;velocity&#39;,..]</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Create a list of XDMFFile writers for different quantities.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      newfolder (str): The path of the folder where the XDMF files will be saved.</span>
+<span class="sd">      list_of_quantities (list): A list of string names representing different quantities to be written,</span>
+<span class="sd">      such as &#39;velocity&#39; or &#39;pressure&#39;.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      writers (list): A list of XDMFFile objects for writing each quantity to a separate file.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">writers</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list_of_quantities</span><span class="p">:</span>
         <span class="n">viz</span> <span class="o">=</span> <span class="n">XDMFFile</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">newfolder</span><span class="p">,</span> <span class="s2">&quot;Solutions&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.xdmf&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)))</span>
