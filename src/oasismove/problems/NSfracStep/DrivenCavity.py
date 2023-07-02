@@ -1,7 +1,6 @@
 # Written by Mikael Mortensen <mikaem@math.uio.no> (2013)
 # Edited by Henrik Kjeldsberg <henrik.kjeldsberg@live.no> (2023)
 
-from oasismove.problems.DrivenCavity import *
 from oasismove.problems.NSfracStep import *
 from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
@@ -30,8 +29,16 @@ def problem_parameters(NS_parameters, **NS_namespace):
         use_krylov_solvers=True)
 
 
+# Create a mesh
+def mesh(Nx=50, Ny=50, **params):
+    m = UnitSquareMesh(Nx, Ny)
+    return m
+
+
 # Specify boundary conditions
 def create_bcs(V, **NS_namespace):
+    noslip = "std::abs(x[0]*x[1]*(1-x[0]))<1e-8"
+    top = "std::abs(x[1]-1) < 1e-8"
     bc0 = DirichletBC(V, 0, noslip)
     bc00 = DirichletBC(V, 1, top)
     bc01 = DirichletBC(V, 0, top)
