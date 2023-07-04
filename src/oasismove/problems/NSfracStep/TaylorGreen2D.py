@@ -43,7 +43,7 @@ def problem_parameters(NS_parameters, NS_expressions, **NS_namespace):
             p='-(cos(2*pi*x[0])+cos(2*pi*x[1]))*exp(-4.*pi*pi*nu*t)/4.'),
         dpdx=('sin(2*pi*x[0])*2*pi*exp(-4.*pi*pi*nu*t)/4.',
               'sin(2*pi*x[1])*2*pi*exp(-4.*pi*pi*nu*t)/4.'),
-        total_error=zeros(3)))
+        total_error=np.zeros(3)))
 
 
 def mesh(Nx, Ny, **params):
@@ -133,7 +133,7 @@ def temporal_hook(q_, t, nu, VV, dt, plot_interval, initial_fields, tstep, sys_c
 
 
 def theend_hook(mesh, q_, t, dt, nu, VV, sys_comp, total_error, initial_fields, **NS_namespace):
-    final_error = zeros(len(sys_comp))
+    final_error = np.zeros(len(sys_comp))
     for i, ui in enumerate(sys_comp):
         if 'IPCS' in NS_parameters['solver']:
             deltat = dt / 2. if ui == 'p' else 0.

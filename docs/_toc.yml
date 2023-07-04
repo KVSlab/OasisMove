@@ -25,6 +25,11 @@ parts:
       - file: movingcylinder
       - file: movingvortex
       - file: movingtg
+
+  - caption: Additional features
+    chapters:
+      - file: restart
+      - file: interpolation
       - file: stenosis
 
   - caption: Python API

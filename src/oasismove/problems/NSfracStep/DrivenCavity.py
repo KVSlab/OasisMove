@@ -2,8 +2,7 @@
 # Edited by Henrik Kjeldsberg <henrik.kjeldsberg@live.no> (2023)
 
 from oasismove.problems.NSfracStep import *
-from oasismove.problems.DrivenCavity import *
-from oasismove.problems.NSfracStep.MovingCommon import get_visualization_files
+from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
 
 # Override some problem specific parameters
@@ -30,8 +29,16 @@ def problem_parameters(NS_parameters, **NS_namespace):
         use_krylov_solvers=True)
 
 
+# Create a mesh
+def mesh(Nx=50, Ny=50, **params):
+    m = UnitSquareMesh(Nx, Ny)
+    return m
+
+
 # Specify boundary conditions
 def create_bcs(V, **NS_namespace):
+    noslip = "std::abs(x[0]*x[1]*(1-x[0]))<1e-8"
+    top = "std::abs(x[1]-1) < 1e-8"
     bc0 = DirichletBC(V, 0, noslip)
     bc00 = DirichletBC(V, 1, top)
     bc01 = DirichletBC(V, 0, top)
@@ -49,7 +56,7 @@ def initialize(x_1, x_2, bcs, **NS_namespace):
 
 def pre_solve_hook(mesh, newfolder, velocity_degree, **NS_namespace):
     # Visualization files
-    viz_p, viz_u = get_visualization_files(newfolder)
+    viz_p, viz_u = get_visualization_writers(newfolder, ['pressure', 'velocity'])
 
     Vv = VectorFunctionSpace(mesh, 'CG', velocity_degree)
     uv = Function(Vv, name="Velocity")
@@ -66,7 +73,7 @@ def temporal_hook(viz_u, viz_p, tstep, u_, t, uv, p_, plot_interval, testing, **
         viz_p.write(p_, t)
 
 
-def theend_hook(u_, p_, tstep, save_solution_frequency, uv, mesh, testing, **NS_namespace):
+def theend_hook(u_, uv, mesh, testing, **NS_namespace):
     u_norm = norm(u_[0].vector())
     if MPI.rank(MPI.comm_world) == 0 and testing:
         print("Velocity norm = {0:2.6e}".format(u_norm))

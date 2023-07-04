@@ -41,7 +41,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
         NS_parameters['krylov_solvers']['monitor_convergence'] = True
 
 
-def create_bcs(V, Q, mesh, **NS_namespace):
+def create_bcs(V, Q, mesh, h, **NS_namespace):
     # Specify boundary conditions
     walls = "on_boundary && std::abs((x[1]-3)*(x[1]+3)*(x[2]-3)*(x[2]+3))<1e-8"
     inners = "on_boundary && std::sqrt(x[0]*x[0]+x[1]*x[1]+x[2]*x[2]) < 1.5*{}".format(h)

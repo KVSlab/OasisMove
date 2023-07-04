@@ -16,7 +16,7 @@ def test_spatial_rate_of_convergence(num_processors, solver):
     u0_err = []
     dt = 0.0001
     T = dt * 4
-    N = [20, 26, 32, 38]
+    N = [4, 8, 12, 16]
 
     for n in N:
         d = subprocess.check_output(cmd.format(num_processors, solver, T, dt, n, n),
@@ -42,7 +42,7 @@ def test_spatial_rate_of_convergence(num_processors, solver):
 @pytest.mark.parametrize("num_processors", [1, 2])
 def test_TaylorGreen2D(num_processors, solver):
     cmd = ("mpirun -np {} oasism NSfracStep solver={} "
-           "problem=TaylorGreen2D T=0.01 Nx=40 Ny=40")
+           "problem=TaylorGreen2D T=0.01 Nx=30 Ny=30")
     if num_processors > 1 and solver == "Chorin":  # Uses direct solver
         return
 
@@ -59,7 +59,6 @@ def test_TaylorGreen2D(num_processors, solver):
     else:
         for e in err[:2]:
             assert eval(e) < 1e-4
-
     # Make sure the optimized version gives the same result as naive
     slow = None
     if "IPCS_AB" in solver:
@@ -83,7 +82,7 @@ def test_TaylorGreen2D(num_processors, solver):
 @pytest.mark.parametrize("num_processors", [1, 2])
 def test_DrivenCavity(num_processors):
     cmd = ("mpirun -np {} oasism NSfracStep problem=DrivenCavity T=0.01 " +
-           "Nx=20 Ny=20 plot_interval=10000 solver={} testing=True")
+           "Nx=10 Ny=10 plot_interval=10000 solver={} testing=True")
     d = subprocess.check_output(cmd.format(num_processors, "IPCS_ABCN"), shell=True)
     match = re.search("Velocity norm = " + number, str(d))
     err = match.groups()

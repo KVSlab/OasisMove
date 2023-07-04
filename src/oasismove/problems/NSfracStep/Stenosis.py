@@ -2,7 +2,7 @@ import os
 import pickle
 
 from oasismove.problems.NSfracStep import *
-from oasismove.problems.NSfracStep.MovingCommon import get_visualization_files
+from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
 
 # Override some problem specific parameters
@@ -138,14 +138,14 @@ def create_bcs(V, Q, D, U0, boundary, sys_comp, **NS_namespace):
 
 def pre_solve_hook(V, mesh, newfolder, velocity_degree, **NS_namespace):
     # Get visualization files
-    viz_p, viz_u = get_visualization_files(newfolder)
+    viz_p, viz_u = get_visualization_writers(newfolder, ['pressure', 'velocity'])
     Vv = VectorFunctionSpace(mesh, "CG", velocity_degree)
     u_vec = Function(Vv, name="u")
 
     return dict(viz_u=viz_u, viz_p=viz_p, u_vec=u_vec)
 
 
-def temporal_hook(tstep, u_vec, u_, save_solution_frequency, viz_p, viz_u, p_, q_, t, T, **NS_namespace):
+def temporal_hook(tstep, u_vec, u_, save_solution_frequency, viz_p, viz_u, p_, t, T, **NS_namespace):
     if tstep % save_solution_frequency == 0:
         assign(u_vec.sub(0), u_[0])
         assign(u_vec.sub(1), u_[1])

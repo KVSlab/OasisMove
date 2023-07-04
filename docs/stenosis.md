@@ -1,12 +1,13 @@
 (tutorial:stenosis)=
 
-# Backflow stabilization in an eccentric stenosis
+# Backflow stabilization
 
-In this tutorial we will be investigating parabolic flow through an eccentric stenosis model in two-dimensions. The
+Here we demonstrate simulation divergence due to backflow, and how we can stabilize the flow to prevent this in
+OasisMove, based on the first backflow stabilization method tested by Moghadam et al. {cite}`esmaily2011comparison`. To
+demonstrate this we will be investigating parabolic flow through an eccentric stenosis model in two-dimensions. The
 setup is inspired by the three-dimensional study of stenotic flow by Varghese et al. {cite}`varghese2007direct`, who
-consider a longer stenosis model than presented here. However, this is not a moving domain simulation, but a
-demonstration of simulation divergence due to backflow, and how we can stabilize the flow to prevent this in OasisMove,
-based on the first backflow stabilization method tested by Moghadam et al. {cite}`esmaily2011comparison`.
+consider a longer stenosis model than presented here. Note that this is *not* a moving domain simulation, but the
+implementation of backflow stabilization is general, and works for both rigid and moving domains.
 
 ```{figure} figures/stenosis_fig.png
 ---
@@ -119,7 +120,8 @@ The velocity field for the stenosis problem without (top) and with (bottom) back
 arrows that have been scaled by the velocity magnitude. 
 ```
 
-```{bibliography}
+## References
+
+```{bibliography} references.bib
 :filter: docname in docnames
 ```
-
