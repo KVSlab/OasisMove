@@ -404,8 +404,8 @@ document.write(`
 <span class="sd">      writers (list): A list of XDMFFile objects for writing each quantity to a separate file.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">writers</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">list_of_quantities</span><span class="p">:</span>
-        <span class="n">viz</span> <span class="o">=</span> <span class="n">XDMFFile</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">newfolder</span><span class="p">,</span> <span class="s2">&quot;Solutions&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">.xdmf&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">item</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">quantity</span> <span class="ow">in</span> <span class="n">list_of_quantities</span><span class="p">:</span>
+        <span class="n">viz</span> <span class="o">=</span> <span class="n">XDMFFile</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">newfolder</span><span class="p">,</span> <span class="s2">&quot;Solutions&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">quantity</span><span class="si">}</span><span class="s2">.xdmf&quot;</span><span class="p">))</span>
         <span class="n">viz</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;rewrite_function_mesh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">viz</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;flush_output&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
         <span class="n">viz</span><span class="o">.</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;functions_share_mesh&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
@@ -462,7 +462,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jul 02, 2023.
+  Last updated on Jul 06, 2023.
   <br/>
 </p>
   </div>

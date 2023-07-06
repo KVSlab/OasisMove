@@ -434,8 +434,8 @@ document.write(`
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Amplitude is </span><span class="si">%.4f</span><span class="s2"> &quot;</span> <span class="o">%</span> <span class="n">y_max</span><span class="p">)</span>
 
     <span class="n">NS_expressions</span><span class="p">[</span><span class="s2">&quot;circle_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Constant</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-    <span class="n">NS_expressions</span><span class="p">[</span><span class="s2">&quot;circle_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="s1">&#39;2 * pi * f_o * y_max* cos(2 * pi * f_o * t)&#39;</span><span class="p">,</span> <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_max</span><span class="o">=</span><span class="n">y_max</span><span class="p">,</span>
-                                            <span class="n">f_o</span><span class="o">=</span><span class="n">f_o</span><span class="p">)</span>
+    <span class="n">NS_expressions</span><span class="p">[</span><span class="s2">&quot;circle_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Expression</span><span class="p">(</span><span class="s1">&#39;2 * pi * f_o * y_max* cos(2 * pi * f_o * t)&#39;</span><span class="p">,</span>
+                                            <span class="n">degree</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">y_max</span><span class="o">=</span><span class="n">y_max</span><span class="p">,</span> <span class="n">f_o</span><span class="o">=</span><span class="n">f_o</span><span class="p">)</span>
 
     <span class="n">bcu_in_x</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">Constant</span><span class="p">(</span><span class="n">u_inf</span><span class="p">),</span> <span class="n">boundary</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
     <span class="n">bcu_in_y</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">Constant</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">boundary</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
@@ -591,7 +591,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jul 02, 2023.
+  Last updated on Jul 06, 2023.
   <br/>
 </p>
   </div>

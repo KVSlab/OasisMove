@@ -411,6 +411,8 @@ document.write(`
     <span class="n">leftwall</span> <span class="o">=</span> <span class="n">MovingSideWall</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">h0</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">left_coordinate_map</span><span class="p">,</span> <span class="n">counter_left</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="n">V</span><span class="o">.</span><span class="n">ufl_element</span><span class="p">())</span>
     <span class="n">rightwall</span> <span class="o">=</span> <span class="n">MovingSideWall</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sigma</span><span class="p">,</span> <span class="n">h0</span><span class="p">,</span> <span class="n">eps</span><span class="p">,</span> <span class="n">right_coordinate_map</span><span class="p">,</span> <span class="n">counter_right</span><span class="p">,</span> <span class="n">element</span><span class="o">=</span><span class="n">V</span><span class="o">.</span><span class="n">ufl_element</span><span class="p">())</span>
     <span class="n">noslip</span> <span class="o">=</span> <span class="n">Constant</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+
+    <span class="c1"># Store expressions</span>
     <span class="n">NS_expressions</span><span class="p">[</span><span class="s2">&quot;movingwall&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">movingwall</span>
     <span class="n">NS_expressions</span><span class="p">[</span><span class="s2">&quot;leftwall&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">leftwall</span>
     <span class="n">NS_expressions</span><span class="p">[</span><span class="s2">&quot;rightwall&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">rightwall</span>
@@ -418,10 +420,10 @@ document.write(`
 
     <span class="c1"># Velocity</span>
     <span class="n">bcu_movingwall_x</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">noslip</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-    <span class="n">bcu_movingwall_y</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">NS_expressions</span><span class="p">[</span><span class="s2">&quot;movingwall&quot;</span><span class="p">],</span> <span class="n">boundary</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">bcu_movingwall_y</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">movingwall</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="n">bcu_leftwall_x</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">noslip</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-    <span class="n">bcu_leftwall_y</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">NS_expressions</span><span class="p">[</span><span class="s2">&quot;leftwall&quot;</span><span class="p">],</span> <span class="n">boundary</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">bcu_leftwall_y</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">leftwall</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="n">bcu_bottomwall</span> <span class="o">=</span> <span class="n">DirichletBC</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">noslip</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 
@@ -484,6 +486,12 @@ document.write(`
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 <div class="viewcode-block" id="MovingWall.update"><a class="viewcode-back" href="../../../../api.html#oasismove.problems.NSfracStep.MovingWall.MovingWall.update">[docs]</a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Sinusidal wall motion from [1]</span>
+
+<span class="sd">        [1] Chnafa, C. (2014). Using image-based large-eddy simulations to investigate the intracardiac flow and its</span>
+<span class="sd">        turbulent nature (Doctoral dissertation, Université Montpellier II-Sciences et Techniques du Languedoc).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">t</span> <span class="o">=</span> <span class="n">t</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">h0</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">eps</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">*</span> <span class="n">t</span><span class="p">)</span></div>
 
@@ -579,7 +587,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Jul 02, 2023.
+  Last updated on Jul 06, 2023.
   <br/>
 </p>
   </div>
