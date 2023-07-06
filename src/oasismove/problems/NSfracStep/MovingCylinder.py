@@ -101,8 +101,8 @@ def create_bcs(V, Q, D, u_inf, St, F, A_ratio, sys_comp, boundary, NS_expression
     print("Amplitude is %.4f " % y_max)
 
     NS_expressions["circle_x"] = Constant(0)
-    NS_expressions["circle_y"] = Expression('2 * pi * f_o * y_max* cos(2 * pi * f_o * t)', degree=2, t=0, y_max=y_max,
-                                            f_o=f_o)
+    NS_expressions["circle_y"] = Expression('2 * pi * f_o * y_max* cos(2 * pi * f_o * t)',
+                                            degree=2, t=0, y_max=y_max, f_o=f_o)
 
     bcu_in_x = DirichletBC(V, Constant(u_inf), boundary, 1)
     bcu_in_y = DirichletBC(V, Constant(0), boundary, 1)

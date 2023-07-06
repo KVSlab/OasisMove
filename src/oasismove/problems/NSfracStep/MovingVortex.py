@@ -291,8 +291,8 @@ def theend_hook(q_, t, dt, nu, VV, sys_comp, total_error, initial_fields, **NS_n
     s0 = "Total Error:"
     s1 = "Final Error:"
     for i, ui in enumerate(sys_comp):
-        s0 += " {0:}={1:2.6e}".format(ui, total_error[i])
-        s1 += " {0:}={1:2.6e}".format(ui, final_error[i])
+        s0 += f" {ui}={total_error[i]:2.6e}"
+        s1 += f" {ui}={final_error[i]:2.6e}"
 
     if MPI.rank(MPI.comm_world) == 0:
         print(s0)

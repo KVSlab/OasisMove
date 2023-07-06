@@ -71,8 +71,8 @@ def get_visualization_writers(newfolder, list_of_quantities):
       writers (list): A list of XDMFFile objects for writing each quantity to a separate file.
     """
     writers = []
-    for item in list_of_quantities:
-        viz = XDMFFile(MPI.comm_world, path.join(newfolder, "Solutions", "{}.xdmf".format(item)))
+    for quantity in list_of_quantities:
+        viz = XDMFFile(MPI.comm_world, path.join(newfolder, "Solutions", f"{quantity}.xdmf"))
         viz.parameters["rewrite_function_mesh"] = True
         viz.parameters["flush_output"] = True
         viz.parameters["functions_share_mesh"] = True
