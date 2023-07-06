@@ -78,6 +78,8 @@ def create_bcs(V, Q, w_, sigma, h0, eps, sys_comp, boundary, NS_expressions, **N
     leftwall = MovingSideWall(0, sigma, h0, eps, left_coordinate_map, counter_left, element=V.ufl_element())
     rightwall = MovingSideWall(0, sigma, h0, eps, right_coordinate_map, counter_right, element=V.ufl_element())
     noslip = Constant(0.0)
+
+    # Store expressions
     NS_expressions["movingwall"] = movingwall
     NS_expressions["leftwall"] = leftwall
     NS_expressions["rightwall"] = rightwall
@@ -85,10 +87,10 @@ def create_bcs(V, Q, w_, sigma, h0, eps, sys_comp, boundary, NS_expressions, **N
 
     # Velocity
     bcu_movingwall_x = DirichletBC(V, noslip, boundary, 1)
-    bcu_movingwall_y = DirichletBC(V, NS_expressions["movingwall"], boundary, 1)
+    bcu_movingwall_y = DirichletBC(V, movingwall, boundary, 1)
 
     bcu_leftwall_x = DirichletBC(V, noslip, boundary, 2)
-    bcu_leftwall_y = DirichletBC(V, NS_expressions["leftwall"], boundary, 2)
+    bcu_leftwall_y = DirichletBC(V, leftwall, boundary, 2)
 
     bcu_bottomwall = DirichletBC(V, noslip, boundary, 3)
 
@@ -151,6 +153,12 @@ class MovingWall(UserExpression):
         super().__init__(**kwargs)
 
     def update(self, t):
+        """
+        Sinusidal wall motion from [1]
+
+        [1] Chnafa, C. (2014). Using image-based large-eddy simulations to investigate the intracardiac flow and its
+        turbulent nature (Doctoral dissertation, Université Montpellier II-Sciences et Techniques du Languedoc).
+        """
         self.t = t
         self.value = - self.sigma * self.h0 * self.eps * np.sin(self.sigma * t)
 
