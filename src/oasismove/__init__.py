@@ -17,6 +17,7 @@ from .problems.NSfracStep import MovingCylinder
 from .problems.NSfracStep import MovingTaylorGreen3D
 from .problems.NSfracStep import MovingVortex
 from .problems.NSfracStep import MovingWall
+from .problems.NSfracStep import Probe
 
 
 meta = metadata("oasismove")
@@ -34,6 +35,7 @@ __all__ = [
     "MovingCommon",
     "MovingTaylorGreen3D",
     "MovingCylinder",
+    "Probe",
     "io",
     "utilities"
 ]
