@@ -64,7 +64,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
             dump_probe_frequency=500,  # Dump frequency for sampling velocity & pressure at probes along the centerline
             save_solution_frequency=5e10,  # Save frequency for velocity and pressure field
             save_solution_frequency_xdmf=5e10,  # Save frequency for velocity and pressure field
-            save_step=1,
+            save_step=5,
             save_solution_after_cycle=0,  # Store solution after 1 cardiac cycle
             save_volume_frequency=1e10,  # Save frequency for storing volume
             save_flow_metrics_frequency=4e10,  # Frequency for storing flow metrics
