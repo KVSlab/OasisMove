@@ -58,7 +58,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
             # Simulation parameters
             cardiac_cycle=cardiac_cycle,  # Run simulation for 1 cardiac cycles [ms]
             # FIXME: For scaling only
-            T=0.2 * 2,  # Total simulation length
+            T=0.2 * 50,  # Total simulation length
             dt=0.2,  # # Time step size [ms]
             # Frequencies to save data
             dump_probe_frequency=500,  # Dump frequency for sampling velocity & pressure at probes along the centerline
