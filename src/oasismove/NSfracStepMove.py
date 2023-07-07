@@ -345,7 +345,6 @@ if restart_folder is not None:
 theend_hook(**vars())
 
 # Run times
-
 RunTimePath = os.path.join(newfolder, f"RunTime_{problemname}.csv")
 data = np.array([Time, TentativeVelocity, MeshEquations, PressureSolve, VelocityUpdate])
 np.savetxt(RunTimePath, data.T, delimiter=",")
