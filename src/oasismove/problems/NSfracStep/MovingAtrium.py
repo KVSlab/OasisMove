@@ -45,7 +45,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
 
         NS_parameters.update(
             # Moving atrium parameters
-            dynamic_mesh=False,  # Run moving mesh simulation
+            dynamic_mesh=True,  # Run moving mesh simulation
             compute_velocity_and_pressure=True,  # Only solve mesh equations
             # Backflow parameters
             backflow_beta=0.2,
