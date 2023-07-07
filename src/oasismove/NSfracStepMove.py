@@ -30,6 +30,7 @@ problems/NSfracStep/__init__.py for all possible parameters.
 
 """
 import importlib
+import os
 import pickle
 from pprint import pprint
 
@@ -201,6 +202,14 @@ stop = False
 total_timer = OasisTimer("Start simulations", print_solve_info)
 max_tstep = 10 if restart_folder is None else tstep + 10
 
+import time
+
+Time = []
+TentativeVelocity = []
+MeshEquations = []
+PressureSolve = []
+VelocityUpdate = []
+
 print("Saving results to: {}".format(newfolder))
 while t < (T - tstep * DOLFIN_EPS) and not stop:
     t += dt
@@ -215,11 +224,16 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
 
     # Solve for mesh velocity and move mesh with prescribed motion
     if dynamic_mesh:
+        ta = time.time()
         t0 = OasisTimer("Mesh equations")
         for i, ui in enumerate(u_components):
             mesh_velocity_assemble(**vars())
             mesh_velocity_hook(**vars())
             mesh_velocity_solve(**vars())
+        tb = time.time()
+        tba = tb - ta
+        MeshEquations.append(tba)
+        MeshEquations.append(tba)
         t0.stop()
 
         b0 = dict((ui, assemble(v * f[i] * dx)) for i, ui in enumerate(u_components))
@@ -235,20 +249,28 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
 
         udiff[0] = 0.0
         t0 = OasisTimer("Tentative velocity")
+        ta = time.time()
         for i, ui in enumerate(u_components):
             t1 = OasisTimer('Solving tentative velocity ' + ui, print_solve_info)
             velocity_tentative_assemble(**vars())
             velocity_tentative_hook(**vars())
             velocity_tentative_solve(**vars())
             t1.stop()
+        tb = time.time()
+        tba = tb - ta
+        TentativeVelocity.append(tba)
         t0.stop()
         if print_solve_info:
             info_red("Tentative velocity (Total) Elapsed time: {:.5f}".format(t0.elapsed()[0]))
 
         t0 = OasisTimer("Pressure solve", print_solve_info)
+        ta = time.time()
         pressure_assemble(**vars())
         pressure_hook(**vars())
         pressure_solve(**vars())
+        tb = time.time()
+        tba = tb - ta
+        PressureSolve.append(tba)
         t0.stop()
         if print_solve_info:
             info_red("Pressure (Total) Elapsed time: {:.5f}".format(t0.elapsed()[0]))
@@ -257,7 +279,12 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
     # Update velocity
     if compute_velocity_and_pressure:
         t0 = OasisTimer("Velocity update", print_solve_info)
+        ta = time.time()
         velocity_update(**vars())
+        tb = time.time()
+        tba = tb - ta
+        VelocityUpdate.append(tba)
+        VelocityUpdate.append(tba)
         t0.stop()
         if print_solve_info:
             info_red("Elapsed time: {:.5f}".format(t0.elapsed()[0]))
@@ -270,7 +297,8 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
                 scalar_hook(**vars())
                 scalar_solve(**vars())
                 t1.stop()
-
+    Time.append(t)
+    Time.append(t)
     temporal_hook(**vars())
 
     # Save solution if required and check for killoasis file
@@ -300,7 +328,6 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
     # AB projection for pressure on next timestep
     if AB_projection_pressure and t < (T - tstep * DOLFIN_EPS) and not stop:
         x_['p'].axpy(0.5, dp_.vector())
-
 total_timer.stop()
 list_timings(TimingClear.keep, [TimingType.wall])
 info_red('Total computing time = {0:f}'.format(total_timer.elapsed()[0]))
@@ -316,3 +343,9 @@ if restart_folder is not None:
 
 # Final hook
 theend_hook(**vars())
+
+# Run times
+
+RunTimePath = os.path.join(newfolder, f"RunTime_{problemname}.csv")
+data = np.array([Time, TentativeVelocity, MeshEquations, PressureSolve, VelocityUpdate])
+np.savetxt(RunTimePath, data.T, delimiter=",")
