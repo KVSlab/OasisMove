@@ -9,7 +9,6 @@ from vampy.simulation.simulation_common import store_u_mean, get_file_paths, pri
 
 from oasismove.problems.NSfracStep import *
 from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
-from oasismove.problems.NSfracStep.Probe import Probes  # type: ignore
 
 
 # Override some problem specific parameters
@@ -289,11 +288,6 @@ def pre_solve_hook(u_components, id_in, id_out, dynamic_mesh, V, Q, cardiac_cycl
     if MPI.rank(MPI.comm_world) == 0:
         probe_points.dump(path.join(newfolder, "Checkpoint", "points"))
 
-    eval_dict["centerline_u_x_probes"] = Probes(probe_points.flatten(), V)
-    eval_dict["centerline_u_y_probes"] = Probes(probe_points.flatten(), V)
-    eval_dict["centerline_u_z_probes"] = Probes(probe_points.flatten(), V)
-    eval_dict["centerline_p_probes"] = Probes(probe_points.flatten(), Q)
-
     if restart_folder is None:
         # Get files to store results
         files = get_file_paths(newfolder)
@@ -380,26 +374,6 @@ def temporal_hook(mesh, id_wall, id_out, cardiac_cycle, dt, t, save_solution_fre
         compute_flow_quantities(u_, D_mitral, nu, mesh, t, tstep, dt, h, outlet_area, boundary, id_out, id_in, id_wall,
                                 period=cardiac_cycle, newfolder=newfolder, dynamic_mesh=False, write_to_file=True)
 
-    # Sample velocity and pressure in points/probes
-    eval_dict["centerline_u_x_probes"](u_[0])
-    eval_dict["centerline_u_y_probes"](u_[1])
-    eval_dict["centerline_u_z_probes"](u_[2])
-    eval_dict["centerline_p_probes"](p_)
-
-    # Store sampled velocity and pressure
-    if tstep % dump_probe_frequency == 0:
-        # Save variables along the centerline for CFD simulation
-        # diagnostics and light-weight post-processing
-        for component in ["u_x", "u_y", "u_z", "p"]:
-            arr = eval_dict[f"centerline_{component}_probes"].array()
-            if MPI.rank(MPI.comm_world) == 0:
-                # Dump stats
-                arr.dump(path.join(probes_folder, f"{component}_{str(tstep)}.probes"))
-
-        # Clear stats
-        MPI.barrier(MPI.comm_world)
-        for component in ["u_x", "u_y", "u_z", "p"]:
-            eval_dict[f"centerline_{component}_probes"].clear()
 
     # Save velocity and pressure for post-processing
     if tstep % save_solution_frequency == 0 and tstep >= save_solution_at_tstep:
