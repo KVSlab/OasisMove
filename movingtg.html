@@ -437,7 +437,7 @@ the box mesh. By default, the Reynolds number is set to Re = <span class="math n
 <section id="hpc-simulation-in-oasismove">
 <h2>(HPC) Simulation in OasisMove<a class="headerlink" href="#hpc-simulation-in-oasismove" title="Permalink to this heading">#</a></h2>
 <p>To simulate this flow problem in OasisMove using the default parameters, run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingTaylorGreen3D
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasismove<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingTaylorGreen3D
 </pre></div>
 </div>
 <p>and the simulation will start. Since this problem is in three dimensions, there will be an additional set of equations
@@ -445,7 +445,7 @@ to solve compared to the 2D problems in the previous demos, and consequently the
 up the simulation, you can solve the problem using parallel computing with <a class="reference external" href="https://www.open-mpi.org/">MPI</a>, which
 OasisMove supports. Thus, to decrease the computational time by utilizing high performance computing and parallelization
 of OasisMove, can run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">16</span><span class="w"> </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingTaylorGreen3D
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">16</span><span class="w"> </span>oasismove<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingTaylorGreen3D
 </pre></div>
 </div>
 </section>
@@ -474,7 +474,7 @@ the number of tetrahedral cells are now computed using the following formula:</p
 <p>resulting in a total of 196 608 cells using the default parameters. To increase the mesh resolution, we can supply these
 parameters as command-line arguments to change their value. For instance, to create a mesh consisting of 750 000 cells,
 we can run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingTaylorGreen3D<span class="w"> </span><span class="nv">Nx</span><span class="o">=</span><span class="m">50</span><span class="w"> </span><span class="nv">Ny</span><span class="o">=</span><span class="m">50</span><span class="w"> </span><span class="nv">Nz</span><span class="o">=</span><span class="m">50</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasismove<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingTaylorGreen3D<span class="w"> </span><span class="nv">Nx</span><span class="o">=</span><span class="m">50</span><span class="w"> </span><span class="nv">Ny</span><span class="o">=</span><span class="m">50</span><span class="w"> </span><span class="nv">Nz</span><span class="o">=</span><span class="m">50</span>
 </pre></div>
 </div>
 </section>
@@ -597,7 +597,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 10, 2023.
+  Last updated on Aug 11, 2023.
   <br/>
 </p>
   </div>

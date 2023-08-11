@@ -455,7 +455,7 @@ strength of the stabilization term and can be any float value between 0.0 and 1.
 list of IDs corresponding to the boundary IDs of the Neumann boundaries. For the stenosis problem, where the outlet
 boundary ID is 3, backflow stabilization can be added to the outlet with a strength of 0.2 by running the following
 command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStep<span class="w"> </span><span class="nv">solver</span><span class="o">=</span>IPCS_ABCN<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>Stenosis<span class="w"> </span><span class="nv">backflow_facets</span><span class="o">=</span><span class="s2">&quot;[3]&quot;</span><span class="w"> </span><span class="nv">backflow_beta</span><span class="o">=</span><span class="m">0</span>.2<span class="w"> </span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasismove<span class="w"> </span>NSfracStep<span class="w"> </span><span class="nv">solver</span><span class="o">=</span>IPCS_ABCN<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>Stenosis<span class="w"> </span><span class="nv">backflow_facets</span><span class="o">=</span><span class="s2">&quot;[3]&quot;</span><span class="w"> </span><span class="nv">backflow_beta</span><span class="o">=</span><span class="m">0</span>.2<span class="w"> </span>
 </pre></div>
 </div>
 <p>Note that the list of boundaries has to be encapsulated by quotation marks, or the IDs can be manually set
@@ -467,18 +467,18 @@ and <code class="docutils literal notranslate"><span class="pre">IPCS_ABCN_Move<
 <h2>Simulation in OasisMove<a class="headerlink" href="#simulation-in-oasismove" title="Permalink to this heading">#</a></h2>
 <p>To run the stenosis problem for <span class="math notranslate nohighlight">\(T=15\)</span> with default parameters in OasisMove, which by defaut includes backflow
 stabilization at the outlet, you can run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStep<span class="w"> </span><span class="nv">solver</span><span class="o">=</span>IPCS_ABCN<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>Stenosis<span class="w"> </span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasismove<span class="w"> </span>NSfracStep<span class="w"> </span><span class="nv">solver</span><span class="o">=</span>IPCS_ABCN<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>Stenosis<span class="w"> </span>
 </pre></div>
 </div>
 <p>where we specify the <code class="docutils literal notranslate"><span class="pre">NSfracStep</span></code> module and <code class="docutils literal notranslate"><span class="pre">IPCS_ABCN</span></code> solver because the problem is not moving. Alternatively we can
 pass the <code class="docutils literal notranslate"><span class="pre">dynamic_mesh=False</span></code> flag for rigid domain problems, telling the default solver (<code class="docutils literal notranslate"><span class="pre">IPCS_ABCN_Move</span></code>) to skip
 solving the mesh equations:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>Stenosis<span class="w"> </span><span class="nv">dynamic_mesh</span><span class="o">=</span>False<span class="w"> </span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasismove<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>Stenosis<span class="w"> </span><span class="nv">dynamic_mesh</span><span class="o">=</span>False<span class="w"> </span>
 </pre></div>
 </div>
 <p>The default time step is set to <span class="math notranslate nohighlight">\(T=15\)</span> and might take some minutes to complete, depending on your hardware.
 Alternatively, you can solve the problem in parallel to speed up the simulation time:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">8</span><span class="w"> </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>Stenosis<span class="w"> </span><span class="nv">dynamic_mesh</span><span class="o">=</span>False<span class="w"> </span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>mpirun<span class="w"> </span>-np<span class="w"> </span><span class="m">8</span><span class="w"> </span>oasismove<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>Stenosis<span class="w"> </span><span class="nv">dynamic_mesh</span><span class="o">=</span>False<span class="w"> </span>
 </pre></div>
 </div>
 </section>
@@ -619,7 +619,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 10, 2023.
+  Last updated on Aug 11, 2023.
   <br/>
 </p>
   </div>

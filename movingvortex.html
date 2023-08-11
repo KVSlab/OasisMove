@@ -425,7 +425,7 @@ length of the mesh motion, <span class="math notranslate nohighlight">\(T\)</spa
 <section id="simulation-in-oasismove">
 <h2>Simulation in OasisMove<a class="headerlink" href="#simulation-in-oasismove" title="Permalink to this heading">#</a></h2>
 <p>To simulate this flow problem in OasisMove using the default parameters you can run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingVortex<span class="w"> </span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasismove<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingVortex<span class="w"> </span>
 </pre></div>
 </div>
 <p>and the simulation will start. The simulation should only take a couple of seconds when running with the default
@@ -452,13 +452,13 @@ can be visualized in <a class="reference external" href="https://www.paraview.or
 <span class="math notranslate nohighlight">\(2\times N_x \times N_y = 800\)</span> triangular cells in the mesh. To increase the mesh resolution, we can supply these
 parameters as command-line arguments to change their value. For instance, to create a mesh consisting of 20000 cells, we
 can run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingVortex<span class="w"> </span><span class="nv">Nx</span><span class="o">=</span><span class="m">100</span><span class="w"> </span><span class="nv">Ny</span><span class="o">=</span><span class="m">100</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasismove<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingVortex<span class="w"> </span><span class="nv">Nx</span><span class="o">=</span><span class="m">100</span><span class="w"> </span><span class="nv">Ny</span><span class="o">=</span><span class="m">100</span>
 </pre></div>
 </div>
 <p>Similarly, we can adjust the number of time steps the simulation should perform by adjusting the time step
 parameter <code class="docutils literal notranslate"><span class="pre">dt</span></code>, which by default is <span class="math notranslate nohighlight">\(\Delta t = 5\cdot 10^{-2}\)</span>. To simulate 1000 time steps between <span class="math notranslate nohighlight">\(t=0\)</span> and <span class="math notranslate nohighlight">\(t=T=1\)</span>,
 we can run the following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingVortex<span class="w"> </span><span class="nv">T</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">dt</span><span class="o">=</span><span class="m">0</span>.001
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasismove<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingVortex<span class="w"> </span><span class="nv">T</span><span class="o">=</span><span class="m">1</span><span class="w"> </span><span class="nv">dt</span><span class="o">=</span><span class="m">0</span>.001
 </pre></div>
 </div>
 <div class="admonition important">
@@ -589,7 +589,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 10, 2023.
+  Last updated on Aug 11, 2023.
   <br/>
 </p>
   </div>

@@ -441,11 +441,11 @@ f =  \frac{St U_{\infty}F}{D}.
 <h2>Simulation in OasisMove<a class="headerlink" href="#simulation-in-oasismove" title="Permalink to this heading">#</a></h2>
 <p>To run the oscillating cylinder problem for <span class="math notranslate nohighlight">\(T=5\)</span> seconds with default parameters in OasisMove you can run the following
 command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingCylinder<span class="w"> </span><span class="nv">Re</span><span class="o">=</span><span class="m">500</span><span class="w"> </span><span class="nv">u_inf</span><span class="o">=</span><span class="m">1</span>.0<span class="w"> </span><span class="nv">F</span><span class="o">=</span><span class="m">1</span>.0<span class="w"> </span><span class="nv">T</span><span class="o">=</span><span class="m">5</span><span class="w"> </span><span class="nv">mesh_path</span><span class="o">=</span>src/oasismove/mesh/cylinder.xdmf
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasismove<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingCylinder<span class="w"> </span><span class="nv">Re</span><span class="o">=</span><span class="m">500</span><span class="w"> </span><span class="nv">u_inf</span><span class="o">=</span><span class="m">1</span>.0<span class="w"> </span><span class="nv">F</span><span class="o">=</span><span class="m">1</span>.0<span class="w"> </span><span class="nv">T</span><span class="o">=</span><span class="m">5</span><span class="w"> </span><span class="nv">mesh_path</span><span class="o">=</span>src/oasismove/mesh/cylinder.xdmf
 </pre></div>
 </div>
 <p>or without explicitly writing the default parameters:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingCylinder<span class="w"> </span><span class="nv">mesh_path</span><span class="o">=</span>src/oasismove/mesh/cylinder.xdmf
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasismove<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingCylinder<span class="w"> </span><span class="nv">mesh_path</span><span class="o">=</span>src/oasismove/mesh/cylinder.xdmf
 </pre></div>
 </div>
 <p>and the simulation will start. The default time step is relatively small, so the simulation might take some minutes
@@ -481,7 +481,7 @@ visualize the drag and lift coefficient over time, as visualized in <a class="re
 <p>The default Reynolds number (<span class="math notranslate nohighlight">\(Re\)</span>) for the oscillating cylinder problem is <span class="math notranslate nohighlight">\(Re=500\)</span>. However, this can easily be
 adjusted by adding it as a command line argument. For instance, we can run a simulation with <span class="math notranslate nohighlight">\(Re=100\)</span> by running the
 following command:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasism<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingCylinder<span class="w"> </span><span class="nv">Re</span><span class="o">=</span><span class="m">100</span><span class="w"> </span><span class="nv">mesh_path</span><span class="o">=</span>src/oasismove/mesh/cylinder.xdmf
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>oasismove<span class="w"> </span>NSfracStepMove<span class="w"> </span><span class="nv">problem</span><span class="o">=</span>MovingCylinder<span class="w"> </span><span class="nv">Re</span><span class="o">=</span><span class="m">100</span><span class="w"> </span><span class="nv">mesh_path</span><span class="o">=</span>src/oasismove/mesh/cylinder.xdmf
 </pre></div>
 </div>
 <p>As an example of adjusting the Reynolds number, we have run the simulation using <span class="math notranslate nohighlight">\(Re=1, 20, 100,\)</span> and <span class="math notranslate nohighlight">\(500\)</span>. In
@@ -616,7 +616,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 10, 2023.
+  Last updated on Aug 11, 2023.
   <br/>
 </p>
   </div>
