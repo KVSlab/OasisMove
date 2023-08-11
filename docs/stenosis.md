@@ -72,7 +72,7 @@ boundary ID is 3, backflow stabilization can be added to the outlet with a stren
 command:
 
 ``` console
-$ oasism NSfracStep solver=IPCS_ABCN problem=Stenosis backflow_facets="[3]" backflow_beta=0.2 
+$ oasismove NSfracStep solver=IPCS_ABCN problem=Stenosis backflow_facets="[3]" backflow_beta=0.2 
 ```
 
 Note that the list of boundaries has to be encapsulated by quotation marks, or the IDs can be manually set
@@ -86,7 +86,7 @@ To run the stenosis problem for $T=15$ with default parameters in OasisMove, whi
 stabilization at the outlet, you can run the following command:
 
 ``` console
-$ oasism NSfracStep solver=IPCS_ABCN problem=Stenosis 
+$ oasismove NSfracStep solver=IPCS_ABCN problem=Stenosis 
 ```
 
 where we specify the `NSfracStep` module and `IPCS_ABCN` solver because the problem is not moving. Alternatively we can
@@ -94,14 +94,14 @@ pass the `dynamic_mesh=False` flag for rigid domain problems, telling the defaul
 solving the mesh equations:
 
 ``` console
-$ oasism NSfracStepMove problem=Stenosis dynamic_mesh=False 
+$ oasismove NSfracStepMove problem=Stenosis dynamic_mesh=False 
 ```
 
 The default time step is set to $T=15$ and might take some minutes to complete, depending on your hardware.
 Alternatively, you can solve the problem in parallel to speed up the simulation time:
 
 ``` console
-$ mpirun -np 8 oasism NSfracStepMove problem=Stenosis dynamic_mesh=False 
+$ mpirun -np 8 oasismove NSfracStepMove problem=Stenosis dynamic_mesh=False 
 ```
 
 ## Results
