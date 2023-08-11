@@ -10,7 +10,7 @@ number = "([0-9]+.[0-9]+e[+-][0-9]+)"
 @pytest.mark.parametrize("solver", ["IPCS_ABCN", "BDFPC_Fast"])
 @pytest.mark.parametrize("num_processors", [1])
 def test_spatial_rate_of_convergence(num_processors, solver):
-    cmd = ("mpirun -np {} oasism NSfracStep solver={} " +
+    cmd = ("mpirun -np {} oasismove NSfracStep solver={} " +
            "problem=TaylorGreen2D compute_error=1e8 T={} dt={} Nx={} Ny={}")
     p_err = []
     u0_err = []
