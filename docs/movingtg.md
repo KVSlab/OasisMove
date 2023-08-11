@@ -51,7 +51,7 @@ the box mesh. By default, the Reynolds number is set to Re = $1/\nu=1600$.
 To simulate this flow problem in OasisMove using the default parameters, run the following command:
 
 ``` console
-$ oasism NSfracStepMove problem=MovingTaylorGreen3D
+$ oasismove NSfracStepMove problem=MovingTaylorGreen3D
 ```
 
 and the simulation will start. Since this problem is in three dimensions, there will be an additional set of equations
@@ -61,7 +61,7 @@ OasisMove supports. Thus, to decrease the computational time by utilizing high p
 of OasisMove, can run the following command:
 
 ``` console
-$ mpirun -np 16 oasism NSfracStepMove problem=MovingTaylorGreen3D
+$ mpirun -np 16 oasismove NSfracStepMove problem=MovingTaylorGreen3D
 ```
 
 ## Results
@@ -95,7 +95,7 @@ parameters as command-line arguments to change their value. For instance, to cre
 we can run the following command:
 
 ``` console
-$ oasism NSfracStepMove problem=MovingTaylorGreen3D Nx=50 Ny=50 Nz=50
+$ oasismove NSfracStepMove problem=MovingTaylorGreen3D Nx=50 Ny=50 Nz=50
 ```
 
 ## References

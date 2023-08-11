@@ -23,13 +23,13 @@ Problems are solved by running the ``NSfracStepMove.py`` script, or by using the
 problem `DrivenCavity.py`, you can run the following command:
 
 ``` console
-$ oasism NSfracStepMove 
+$ oasismove NSfracStepMove 
 ```
 
 To specify a specific problem, you can run the following command:
 
 ``` console
-$ oasism NSfracStepMove problem=DrivenCavity 
+$ oasismove NSfracStepMove problem=DrivenCavity 
 ```
 
 ```{note}

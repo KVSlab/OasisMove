@@ -39,7 +39,7 @@ length of the mesh motion, $T$ is the length of one cycle, and $L=1$.
 To simulate this flow problem in OasisMove using the default parameters you can run the following command:
 
 ``` console
-$ oasism NSfracStepMove problem=MovingVortex 
+$ oasismove NSfracStepMove problem=MovingVortex 
 ```
 
 and the simulation will start. The simulation should only take a couple of seconds when running with the default
@@ -69,7 +69,7 @@ parameters as command-line arguments to change their value. For instance, to cre
 can run the following command:
 
 ``` console
-$ oasism NSfracStepMove problem=MovingVortex Nx=100 Ny=100
+$ oasismove NSfracStepMove problem=MovingVortex Nx=100 Ny=100
 ```
 
 Similarly, we can adjust the number of time steps the simulation should perform by adjusting the time step
@@ -77,7 +77,7 @@ parameter `dt`, which by default is $\Delta t = 5\cdot 10^{-2}$. To simulate 100
 we can run the following command:
 
 ``` console
-$ oasism NSfracStepMove problem=MovingVortex T=1 dt=0.001
+$ oasismove NSfracStepMove problem=MovingVortex T=1 dt=0.001
 ```
 
 ```{important}

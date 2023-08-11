@@ -36,7 +36,7 @@ To run the wall-driven channel flow problem for $T=1$ seconds with the default p
 following command:
 
 ``` console
-$ oasism NSfracStepMove problem=MovingWall
+$ oasismove NSfracStepMove problem=MovingWall
 ```
 
 and the simulation will start. The default time step size is set to $\Delta t=0.005$, thus a full simulation performs

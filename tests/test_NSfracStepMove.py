@@ -8,7 +8,7 @@ number = "([0-9]+.[0-9]+e[+-][0-9]+)"
 
 @pytest.mark.parametrize("num_processors", [1, 2])
 def test_DrivenCavity_with_NSfracStepMove(num_processors):
-    cmd = ("mpirun -np {} oasism NSfracStepMove problem=DrivenCavity T=0.01 " +
+    cmd = ("mpirun -np {} oasismove NSfracStepMove problem=DrivenCavity T=0.01 " +
            "Nx=10 Ny=10 plot_interval=10000 solver={} testing=True")
     d = subprocess.check_output(cmd.format(num_processors, "IPCS_ABCN_Move"), shell=True)
     match = re.search("Velocity norm = " + number, str(d))
@@ -22,7 +22,7 @@ def test_DrivenCavity_with_NSfracStepMove(num_processors):
 
 @pytest.mark.parametrize("num_processors", [1, 2])
 def test_MovingVortex(num_processors):
-    cmd = ("mpirun -np {} oasism NSfracStepMove problem=MovingVortex T=1 " +
+    cmd = ("mpirun -np {} oasismove NSfracStepMove problem=MovingVortex T=1 " +
            "Nx=10 Ny=10 solver={}")
     d = subprocess.check_output(cmd.format(num_processors, "IPCS_ABCN_Move"), shell=True)
     match = re.search("Final Error: u0=" + number, str(d))

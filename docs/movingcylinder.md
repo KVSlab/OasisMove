@@ -58,13 +58,13 @@ To run the oscillating cylinder problem for $T=5$ seconds with default parameter
 command:
 
 ``` console
-$ oasism NSfracStepMove problem=MovingCylinder Re=500 u_inf=1.0 F=1.0 T=5 mesh_path=src/oasismove/mesh/cylinder.xdmf
+$ oasismove NSfracStepMove problem=MovingCylinder Re=500 u_inf=1.0 F=1.0 T=5 mesh_path=src/oasismove/mesh/cylinder.xdmf
 ```
 
 or without explicitly writing the default parameters:
 
 ``` console
-$ oasism NSfracStepMove problem=MovingCylinder mesh_path=src/oasismove/mesh/cylinder.xdmf
+$ oasismove NSfracStepMove problem=MovingCylinder mesh_path=src/oasismove/mesh/cylinder.xdmf
 ```
 
 and the simulation will start. The default time step is relatively small, so the simulation might take some minutes
@@ -108,7 +108,7 @@ adjusted by adding it as a command line argument. For instance, we can run a sim
 following command:
 
 ``` console
-$ oasism NSfracStepMove problem=MovingCylinder Re=100 mesh_path=src/oasismove/mesh/cylinder.xdmf
+$ oasismove NSfracStepMove problem=MovingCylinder Re=100 mesh_path=src/oasismove/mesh/cylinder.xdmf
 ```
 
 As an example of adjusting the Reynolds number, we have run the simulation using $Re=1, 20, 100,$ and $500$. In
