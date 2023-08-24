@@ -295,11 +295,11 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
         print_intermediate_info, toc))
     list_timings(TimingClear.clear, [TimingType.wall])
     tx.start()
-    break
 
     # AB projection for pressure on next timestep
     if AB_projection_pressure and t < (T - tstep * DOLFIN_EPS) and not stop:
         x_['p'].axpy(0.5, dp_.vector())
+    break
 
 total_timer.stop()
 list_timings(TimingClear.keep, [TimingType.wall])
