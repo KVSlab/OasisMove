@@ -203,17 +203,19 @@ max_tstep = 10 if restart_folder is None else tstep + 10
 
 print("Saving results to: {}".format(newfolder))
 while t < (T - tstep * DOLFIN_EPS) and not stop:
+    kk=0
     t += dt
-    if t >= 4.5e-02:
-        print("ok", t)
     tstep += 1
     inner_iter = 0
     udiff = np.array([1e8])  # Norm of velocity change over last inner iter
     num_iter = max(iters_on_first_timestep, max_iter) if tstep <= max_tstep else max_iter
+    print(f"Checkpoint {kk+1}, T={t}");kk+=1
 
     start_timestep_hook(**vars())
+    print(f"Checkpoint {kk + 1}, T={t}");kk += 1
 
     update_boundary_conditions(**vars())
+    print(f"Checkpoint {kk + 1}, T={t}");kk += 1
 
     # Solve for mesh velocity and move mesh with prescribed motion
     if dynamic_mesh:
@@ -227,6 +229,7 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
         b0 = dict((ui, assemble(v * f[i] * dx)) for i, ui in enumerate(u_components))
         A_cache.update_t(t)
 
+    print(f"Checkpoint {kk + 1}, T={t}");kk += 1
     while udiff[0] > max_error and inner_iter < num_iter and compute_velocity_and_pressure:
         inner_iter += 1
 
@@ -256,6 +259,7 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
             info_red("Pressure (Total) Elapsed time: {:.5f}".format(t0.elapsed()[0]))
 
         print_velocity_pressure_info(**vars())
+    print(f"Checkpoint {kk + 1}, T={t}");kk += 1
     # Update velocity
     if compute_velocity_and_pressure:
         t0 = OasisTimer("Velocity update", print_solve_info)
