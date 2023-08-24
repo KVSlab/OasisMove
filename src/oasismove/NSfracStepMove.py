@@ -204,6 +204,8 @@ max_tstep = 10 if restart_folder is None else tstep + 10
 print("Saving results to: {}".format(newfolder))
 while t < (T - tstep * DOLFIN_EPS) and not stop:
     t += dt
+    if t >= 5e-02:
+        print("ok")
     tstep += 1
     inner_iter = 0
     udiff = np.array([1e8])  # Norm of velocity change over last inner iter
@@ -289,12 +291,13 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
             x_1[ci].axpy(1., x_[ci])
 
     # Print some information
-    toc = tx.stop()
-    info_green('Time = {0:2.4e}, timestep = {1:6d}, End time = {2:2.4e}'.format(t, tstep, T))
-    info_red('Total computing time on previous {0:d} timesteps = {1:f}'.format(
-        print_intermediate_info, toc))
-    list_timings(TimingClear.clear, [TimingType.wall])
-    tx.start()
+    if tstep % print_intermediate_info == 0:
+        toc = tx.stop()
+        info_green('Time = {0:2.4e}, timestep = {1:6d}, End time = {2:2.4e}'.format(t, tstep, T))
+        info_red('Total computing time on previous {0:d} timesteps = {1:f}'.format(
+            print_intermediate_info, toc))
+        list_timings(TimingClear.clear, [TimingType.wall])
+        tx.start()
 
     # AB projection for pressure on next timestep
     if AB_projection_pressure and t < (T - tstep * DOLFIN_EPS) and not stop:
