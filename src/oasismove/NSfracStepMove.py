@@ -208,6 +208,7 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
     inner_iter = 0
     udiff = np.array([1e8])  # Norm of velocity change over last inner iter
     num_iter = max(iters_on_first_timestep, max_iter) if tstep <= max_tstep else max_iter
+    break
 
     start_timestep_hook(**vars())
 
@@ -316,3 +317,4 @@ if restart_folder is not None:
 
 # Final hook
 theend_hook(**vars())
+
