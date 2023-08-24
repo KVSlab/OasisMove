@@ -289,17 +289,18 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
             x_1[ci].axpy(1., x_[ci])
 
     # Print some information
-    toc = tx.stop()
-    info_green('Time = {0:2.4e}, timestep = {1:6d}, End time = {2:2.4e}'.format(t, tstep, T))
-    info_red('Total computing time on previous {0:d} timesteps = {1:f}'.format(
-        print_intermediate_info, toc))
-    list_timings(TimingClear.clear, [TimingType.wall])
-    tx.start()
+    if tstep % print_intermediate_info == 0:
+        toc = tx.stop()
+        info_green('Time = {0:2.4e}, timestep = {1:6d}, End time = {2:2.4e}'.format(t, tstep, T))
+        info_red('Total computing time on previous {0:d} timesteps = {1:f}'.format(
+            print_intermediate_info, toc))
+        list_timings(TimingClear.clear, [TimingType.wall])
+        tx.start()
 
     # AB projection for pressure on next timestep
     if AB_projection_pressure and t < (T - tstep * DOLFIN_EPS) and not stop:
         x_['p'].axpy(0.5, dp_.vector())
-
+exit()
 total_timer.stop()
 list_timings(TimingClear.keep, [TimingType.wall])
 info_red('Total computing time = {0:f}'.format(total_timer.elapsed()[0]))
@@ -309,7 +310,6 @@ info_red('Memory use for importing dolfin = {} MB (RSS)'.format(
     total_initial_dolfin_memory))
 info_red('Total memory use of solver = ' +
          str(oasis_memory.memory - total_initial_dolfin_memory) + " MB (RSS)")
-exit()
 
 if restart_folder is not None:
     merge_visualization_files(**vars())
