@@ -275,7 +275,6 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
 
     # Save solution if required and check for killoasis file
     stop = save_solution(**vars())
-    break
 
     if compute_velocity_and_pressure:
         # Update to a new timestep
@@ -289,6 +288,7 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
             x_1[ci].zero()
             x_1[ci].axpy(1., x_[ci])
 
+    break
     # Print some information
     if tstep % print_intermediate_info == 0:
         toc = tx.stop()
