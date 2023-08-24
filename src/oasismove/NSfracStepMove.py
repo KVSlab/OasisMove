@@ -254,7 +254,6 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
             info_red("Pressure (Total) Elapsed time: {:.5f}".format(t0.elapsed()[0]))
 
         print_velocity_pressure_info(**vars())
-    break
     # Update velocity
     if compute_velocity_and_pressure:
         t0 = OasisTimer("Velocity update", print_solve_info)
@@ -272,6 +271,7 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
                 scalar_solve(**vars())
                 t1.stop()
 
+    break
     temporal_hook(**vars())
 
     # Save solution if required and check for killoasis file
