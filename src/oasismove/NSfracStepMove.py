@@ -277,10 +277,13 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
                 scalar_solve(**vars())
                 t1.stop()
 
+    print(f"Checkpoint {kk + 1}, T={t}");kk += 1
     temporal_hook(**vars())
+    print(f"Checkpoint {kk + 1}, T={t}");kk += 1
 
     # Save solution if required and check for killoasis file
     stop = save_solution(**vars())
+    print(f"Checkpoint {kk + 1}, T={t}");kk += 1
 
     if compute_velocity_and_pressure:
         # Update to a new timestep
@@ -294,6 +297,7 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
             x_1[ci].zero()
             x_1[ci].axpy(1., x_[ci])
 
+    print(f"Checkpoint {kk + 1}, T={t}");kk += 1
     # Print some information
     toc = tx.stop()
     info_green('Time = {0:2.4e}, timestep = {1:6d}, End time = {2:2.4e}'.format(t, tstep, T))
@@ -301,11 +305,15 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
         print_intermediate_info, toc))
     list_timings(TimingClear.clear, [TimingType.wall])
     tx.start()
+    print(f"Checkpoint {kk + 1}, T={t}");kk += 1
 
     # AB projection for pressure on next timestep
     if AB_projection_pressure and t < (T - tstep * DOLFIN_EPS) and not stop:
         x_['p'].axpy(0.5, dp_.vector())
+    print(f"Checkpoint {kk + 1}, T={t}");kk += 1
     print("Done at ", t)
+    print(f"Done checkpoint {kk + 1}, T={t}");
+kk += 1
 exit()
 total_timer.stop()
 list_timings(TimingClear.keep, [TimingType.wall])
