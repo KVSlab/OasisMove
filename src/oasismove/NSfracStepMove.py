@@ -204,7 +204,7 @@ max_tstep = 10 if restart_folder is None else tstep + 10
 print("Saving results to: {}".format(newfolder))
 while t < (T - tstep * DOLFIN_EPS) and not stop:
     t += dt
-    if t >= 5e-02:
+    if t >= 4.5e-02:
         print("ok")
     tstep += 1
     inner_iter = 0
