@@ -271,11 +271,11 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
                 scalar_solve(**vars())
                 t1.stop()
 
-    break
     temporal_hook(**vars())
 
     # Save solution if required and check for killoasis file
     stop = save_solution(**vars())
+    break
 
     if compute_velocity_and_pressure:
         # Update to a new timestep
