@@ -213,7 +213,6 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
 
     update_boundary_conditions(**vars())
 
-    break
     # Solve for mesh velocity and move mesh with prescribed motion
     if dynamic_mesh:
         t0 = OasisTimer("Mesh equations")
@@ -226,6 +225,7 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
         b0 = dict((ui, assemble(v * f[i] * dx)) for i, ui in enumerate(u_components))
         A_cache.update_t(t)
 
+    break
     while udiff[0] > max_error and inner_iter < num_iter and compute_velocity_and_pressure:
         inner_iter += 1
 
