@@ -225,7 +225,6 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
         b0 = dict((ui, assemble(v * f[i] * dx)) for i, ui in enumerate(u_components))
         A_cache.update_t(t)
 
-    break
     while udiff[0] > max_error and inner_iter < num_iter and compute_velocity_and_pressure:
         inner_iter += 1
 
@@ -255,6 +254,7 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
             info_red("Pressure (Total) Elapsed time: {:.5f}".format(t0.elapsed()[0]))
 
         print_velocity_pressure_info(**vars())
+    break
     # Update velocity
     if compute_velocity_and_pressure:
         t0 = OasisTimer("Velocity update", print_solve_info)
