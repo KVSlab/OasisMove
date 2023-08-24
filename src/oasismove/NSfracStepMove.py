@@ -205,7 +205,7 @@ print("Saving results to: {}".format(newfolder))
 while t < (T - tstep * DOLFIN_EPS) and not stop:
     t += dt
     if t >= 4.5e-02:
-        print("ok")
+        print("ok", t)
     tstep += 1
     inner_iter = 0
     udiff = np.array([1e8])  # Norm of velocity change over last inner iter
