@@ -64,16 +64,22 @@ def pre_solve_hook(mesh, newfolder, velocity_degree, **NS_namespace):
     return dict(uv=uv, viz_u=viz_u, viz_p=viz_p)
 
 
-def temporal_hook(viz_u, viz_p, tstep, u_, t, uv, p_, plot_interval, testing, **NS_namespace):
-
-    if True:
+def temporal_hook(viz_u, viz_p, newfolder, tstep, u_, t, uv, p_, plot_interval, testing, **NS_namespace):
+    if tstep % 5 == 0:
         print("Writing to file")
+        u_path = path.join(newfolder, "Solutions", "u.h5")
+        file_mode = "w" if not path.exists(u_path) else "a"
+
+        print("Subbed")
         assign(uv.sub(0), u_[0])
         assign(uv.sub(1), u_[1])
-        print("Subbed")
-        viz_u.write(uv, t)
-        #viz_p.write(p_, t)
+
+        print("Writing")
+        viz_u = HDF5File(MPI.comm_world, u_path, file_mode=file_mode)
+        viz_u.write(uv, "/velocity", tstep)
+        viz_u.close()
         print("Completed")
+
 
 
 def theend_hook(u_, uv, mesh, testing, **NS_namespace):
