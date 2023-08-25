@@ -31,10 +31,10 @@ def problem_parameters(NS_parameters, **NS_namespace):
 
 
 # Create a mesh
-def mesh(newfolder,Nx=50, Ny=50,  **params):
+def mesh(Nx=50, Ny=50,  **params):
     m = UnitSquareMesh(Nx, Ny)
     file_mode = "w"
-    u_path = path.join(newfolder, "Solutions", "u.h5")
+    u_path = "u.h5"
     viz_u = HDF5File(MPI.comm_world, u_path, file_mode=file_mode)
 
     return m
