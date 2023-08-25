@@ -16,9 +16,7 @@ if MPI.rank(comm) == 0:
 # viz_u = HDF5File(MPI.comm_world, u_path, file_mode=file_mode) # Hangs
 
 viz = XDMFFile(MPI.comm_world, "u.xdmf")
-MPI.barrier(comm)
 viz.write(u, t)  # Hangs
-MPI.barrier(comm)
 
 if MPI.rank(comm) == 0:
     print("Done")
