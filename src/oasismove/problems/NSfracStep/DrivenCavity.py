@@ -65,7 +65,16 @@ def pre_solve_hook(mesh, newfolder, velocity_degree, **NS_namespace):
 
 
 def temporal_hook(viz_u, viz_p, tstep, u_, t, uv, p_, plot_interval, testing, **NS_namespace):
-    pass
+
+    if True:
+        print("Writing to file")
+        assign(uv.sub(0), u_[0])
+        assign(uv.sub(1), u_[1])
+        print("Subbed")
+        #viz_u.write(uv, t)
+        #viz_p.write(p_, t)
+        print("Completed")
+
 
 def theend_hook(u_, uv, mesh, testing, **NS_namespace):
     u_norm = norm(u_[0].vector())
