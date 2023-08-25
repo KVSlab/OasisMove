@@ -31,8 +31,12 @@ def problem_parameters(NS_parameters, **NS_namespace):
 
 
 # Create a mesh
-def mesh(Nx=50, Ny=50, **params):
+def mesh(Nx=50, Ny=50, newfolder, **params):
     m = UnitSquareMesh(Nx, Ny)
+    file_mode = "w"
+    u_path = path.join(newfolder, "Solutions", "u.h5")
+    viz_u = HDF5File(MPI.comm_world, u_path, file_mode=file_mode)
+
     return m
 
 
@@ -83,6 +87,8 @@ def temporal_hook(viz_u, viz_p, newfolder, tstep, u_, t, uv, p_, plot_interval, 
 
         print("Writing")
         if MPI.rank(MPI.comm_world) == 0:
+            file_mode = "w"
+            u_path = path.join(newfolder, "Solutions", "u.h5")
             viz_u = HDF5File(MPI.comm_world, u_path, file_mode=file_mode)
             # viz_u.write(uv, "/velocity", tstep)
             # viz_u.close()
