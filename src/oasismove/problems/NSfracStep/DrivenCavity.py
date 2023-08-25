@@ -1,5 +1,6 @@
 # Written by Mikael Mortensen <mikaem@math.uio.no> (2013)
 # Edited by Henrik Kjeldsberg <henrik.kjeldsberg@live.no> (2023)
+from os import makedirs
 
 from oasismove.problems.NSfracStep import *
 from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
@@ -65,6 +66,12 @@ def pre_solve_hook(mesh, newfolder, velocity_degree, **NS_namespace):
 
 
 def temporal_hook(viz_u, viz_p, newfolder, tstep, u_, t, uv, p_, plot_interval, testing, **NS_namespace):
+    common_path = path.join(newfolder, "Solutions")
+
+    if MPI.rank(MPI.comm_world) == 0:
+        if not path.exists(common_path):
+            makedirs(common_path)
+
     if tstep % 5 == 0:
         print("Writing to file")
         u_path = path.join(newfolder, "Solutions", "u.h5")
@@ -78,7 +85,7 @@ def temporal_hook(viz_u, viz_p, newfolder, tstep, u_, t, uv, p_, plot_interval, 
         # viz_u = HDF5File(MPI.comm_world, u_path, file_mode=file_mode)
         # viz_u.write(uv, "/velocity", tstep)
         # viz_u.close()
-        out_file = path.join(newfolder,"Solutions", "out.txt")
+        out_file = path.join(newfolder, "Solutions", "out.txt")
         with open(out_file, 'a') as out:
             out.write(str(tstep) + "\n")
         print("Completed")
