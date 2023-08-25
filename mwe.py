@@ -13,10 +13,11 @@ t = 0.0
 if MPI.rank(comm) == 0:
     print("Writing")
 
-MPI.barrier(comm)
-# viz_u = HDF5File(MPI.comm_world, u_path, file_mode=file_mode)
+# viz_u = HDF5File(MPI.comm_world, u_path, file_mode=file_mode) # Hangs
+
 viz = XDMFFile(MPI.comm_world, "u.xdmf")
-viz.write(u, t)
+MPI.barrier(comm)
+viz.write(u, t)  # Hangs
 MPI.barrier(comm)
 
 if MPI.rank(comm) == 0:
