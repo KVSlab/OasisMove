@@ -5,6 +5,8 @@ from os import makedirs
 from oasismove.problems.NSfracStep import *
 from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
+from dolfin import MPI
+
 
 # Override some problem specific parameters
 def problem_parameters(NS_parameters, **NS_namespace):
