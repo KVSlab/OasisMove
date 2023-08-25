@@ -85,8 +85,8 @@ def temporal_hook(viz_u, viz_p, newfolder, tstep, u_, t, uv, p_, plot_interval, 
 
         MPI.barrier(comm)
         viz_u = HDF5File(MPI.comm_world, u_path, file_mode=file_mode)
-        viz_u.write(uv, "/velocity", tstep)
-        viz_u.close()
+        # viz_u.write(uv, "/velocity", tstep)
+        # viz_u.close()
         MPI.barrier(comm)
         print("Completed")
 
