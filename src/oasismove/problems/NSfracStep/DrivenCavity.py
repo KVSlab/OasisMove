@@ -75,11 +75,13 @@ def temporal_hook(viz_u, viz_p, newfolder, tstep, u_, t, uv, p_, plot_interval, 
         assign(uv.sub(1), u_[1])
 
         print("Writing")
-        viz_u = HDF5File(MPI.comm_world, u_path, file_mode=file_mode)
-        viz_u.write(uv, "/velocity", tstep)
-        viz_u.close()
-        print("Completed")
+        # viz_u = HDF5File(MPI.comm_world, u_path, file_mode=file_mode)
+        # viz_u.write(uv, "/velocity", tstep)
+        # viz_u.close()
 
+        with open('out.txt', 'a') as out:
+            out.write(str(tstep) + "\n")
+        print("Completed")
 
 
 def theend_hook(u_, uv, mesh, testing, **NS_namespace):
