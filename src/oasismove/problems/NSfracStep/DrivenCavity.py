@@ -84,8 +84,8 @@ def temporal_hook(viz_u, viz_p, newfolder, tstep, u_, t, uv, p_, plot_interval, 
         print("Writing")
         if MPI.rank(MPI.comm_world) == 0:
             viz_u = HDF5File(MPI.comm_world, u_path, file_mode=file_mode)
-            viz_u.write(uv, "/velocity", tstep)
-            viz_u.close()
+            # viz_u.write(uv, "/velocity", tstep)
+            # viz_u.close()
         out_file = path.join(newfolder, "Solutions", "out.txt")
         # with open(out_file, 'a') as out:
         #     out.write(str(tstep) + "\n")
