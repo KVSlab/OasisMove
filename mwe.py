@@ -5,7 +5,7 @@ u_path = "velocity.h5"
 file_mode = "w"
 
 # Create function
-mesh = UnitSquareMesh(1, 1)
+mesh = UnitSquareMesh(10, 10)
 V = FunctionSpace(mesh, "CG", 1)
 u = Function(V)
 t = 0.0
