@@ -10,5 +10,6 @@ u = Function(V)
 t = 0.0
 
 viz = XDMFFile(comm, u_path)
+
 # Code hangs here:
 viz.write(u, t)
