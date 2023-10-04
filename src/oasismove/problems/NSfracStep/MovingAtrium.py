@@ -204,8 +204,7 @@ def create_bcs(NS_expressions, dynamic_mesh, x_, cardiac_cycle, backflow_facets,
         Q_scaled = Q_ * tmp_area / area_total
 
         # Create Womersley boundary condition at inlet
-        inlet = make_womersley_bcs(t_values, Q_scaled, mesh, nu, tmp_area, tmp_center, tmp_radius, tmp_normal,
-                                   V.ufl_element())
+        inlet = make_womersley_bcs(t_values, Q_scaled, nu, tmp_center, tmp_radius, tmp_normal, V.ufl_element())
         NS_expressions[f"inlet_{ID}"] = inlet
 
     # Initial condition
