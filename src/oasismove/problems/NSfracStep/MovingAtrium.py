@@ -2,17 +2,16 @@ import json
 import pickle
 from os import makedirs
 
+from oasismove.problems.NSfracStep import *
+from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 from scipy.interpolate import splrep, splev
 from scipy.spatial import KDTree
 from vampy.simulation.Womersley import make_womersley_bcs, compute_boundary_geometry_acrn
 from vampy.simulation.simulation_common import store_u_mean, get_file_paths, print_mesh_information
 
-from oasismove.problems.NSfracStep import *
-from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
-
 
 # Override some problem specific parameters
-def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
+def problem_parameters(commandline_kwargs, scalar_components, Schmidt, NS_parameters, **NS_namespace):
     """
     Problem file for running CFD simulation in left atrial models consisting of arbitrary number of pulmonary veins (PV)
     (normally 3 to 7), and one outlet being the mitral valve. A Womersley velocity profile is applied at the inlets,
@@ -40,12 +39,14 @@ def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
         # Override some problem specific parameters
         # Parameters are in mm and ms
         cardiac_cycle = float(commandline_kwargs.get("cardiac_cycle", 1000))
-        # number_of_cycles = float(commandline_kwargs.get("number_of_cycles", 1))
+        number_of_cycles = float(commandline_kwargs.get("number_of_cycles", 1))
 
         NS_parameters.update(
             # Moving atrium parameters
             dynamic_mesh=True,  # Run moving mesh simulation
             compute_velocity_and_pressure=True,  # Only solve mesh equations
+            # Blood residence time
+            track_blood=False,
             # Backflow parameters
             backflow_beta=0.2,
             backflow_facets=[],
@@ -56,20 +57,20 @@ def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
             id_out=[],  # Outlet boundary IDs
             # Simulation parameters
             cardiac_cycle=cardiac_cycle,  # Run simulation for 1 cardiac cycles [ms]
-            # FIXME: For scaling only
+            # FIXME: For strong scaling only
             T=0.2 * 50,  # Total simulation length
             dt=0.2,  # # Time step size [ms]
             # Frequencies to save data
             dump_probe_frequency=500,  # Dump frequency for sampling velocity & pressure at probes along the centerline
             save_solution_frequency=5e10,  # Save frequency for velocity and pressure field
             save_solution_frequency_xdmf=5e10,  # Save frequency for velocity and pressure field
-            save_step=5,
+            save_step=5e10,
             save_solution_after_cycle=0,  # Store solution after 1 cardiac cycle
-            save_volume_frequency=1e10,  # Save frequency for storing volume
-            save_flow_metrics_frequency=4e10,  # Frequency for storing flow metrics
+            save_volume_frequency=5e10,  # Save frequency for storing volume
+            save_flow_metrics_frequency=5e10,  # Frequency for storing flow metrics
             # Oasis specific parameters
             checkpoint=50000,  # Overwrite solution in Checkpoint folder each checkpoint
-            print_intermediate_info=2,
+            print_intermediate_info=500,
             folder="results_moving_atrium",
             mesh_path=commandline_kwargs["mesh_path"],
             # Solver parameters
@@ -82,6 +83,18 @@ def problem_parameters(commandline_kwargs, NS_parameters, **NS_namespace):
                             'relative_tolerance': 1e-8,
                             'absolute_tolerance': 1e-8}
         )
+
+    track_blood = NS_parameters["track_blood"]
+    if track_blood:
+        scalar_components += ["blood"]
+        nu = NS_parameters["nu"]
+        D = 10 ** (-11)
+        Schmidt["blood"] = nu / D
+
+
+def scalar_source(scalar_components, **NS_namespace):
+    """Return a dictionary of scalar sources."""
+    return dict((ci, Constant(1)) for ci in scalar_components)
 
 
 def mesh(mesh_path, **NS_namespace):
@@ -147,7 +160,7 @@ class Wall_motion(UserExpression):
 
 
 def create_bcs(NS_expressions, dynamic_mesh, x_, cardiac_cycle, backflow_facets, mesh, mesh_path, nu, t,
-               V, Q, id_in, id_out, **NS_namespace):
+               V, Q, id_in, id_out, track_blood, **NS_namespace):
     if mesh_path.endswith(".xml") or mesh_path.endswith(".xml.gz"):
         mesh_filename = ".xml"
     elif mesh_path.endswith(".h5"):
@@ -248,7 +261,12 @@ def create_bcs(NS_expressions, dynamic_mesh, x_, cardiac_cycle, backflow_facets,
     bc_u1 = [bc_inlets[ID][1] for ID in id_in] + [bc_wall[1]]
     bc_u2 = [bc_inlets[ID][2] for ID in id_in] + [bc_wall[2]]
 
-    return dict(u0=bc_u0, u1=bc_u1, u2=bc_u2, p=bc_p)
+    if track_blood:
+        bc_blood = [DirichletBC(V, Constant(0.0), boundary, ID) for ID in id_in]
+
+        return dict(u0=bc_u0, u1=bc_u1, u2=bc_u2, p=bc_p, blood=bc_blood)
+    else:
+        return dict(u0=bc_u0, u1=bc_u1, u2=bc_u2, p=bc_p)
 
 
 def pre_solve_hook(u_components, id_in, id_out, dynamic_mesh, V, Q, cardiac_cycle, dt,
@@ -275,7 +293,7 @@ def pre_solve_hook(u_components, id_in, id_out, dynamic_mesh, V, Q, cardiac_cycl
     probe_points = np.load(rel_path, encoding='latin1', fix_imports=True, allow_pickle=True)
 
     # Define xdmf writers
-    viz_U = get_visualization_writers(newfolder, ['velocity'])[0]
+    viz_U, viz_blood = get_visualization_writers(newfolder, ['velocity', 'blood'])
 
     # Extract dof map and coordinates
     coordinates = mesh.coordinates()
@@ -341,7 +359,7 @@ def pre_solve_hook(u_components, id_in, id_out, dynamic_mesh, V, Q, cardiac_cycl
     return dict(outlet_area=outlet_area, id_wall=id_wall, D_mitral=D_mitral, n=n, eval_dict=eval_dict, U=U,
                 u_mean=u_mean, u_mean0=u_mean0, u_mean1=u_mean1, u_mean2=u_mean2, boundary=boundary, bc_mesh=bc_mesh,
                 coordinates=coordinates, viz_U=viz_U, save_solution_at_tstep=save_solution_at_tstep,
-                dof_map=dof_map, probes_folder=probes_folder)
+                dof_map=dof_map, probes_folder=probes_folder, viz_blood=viz_blood)
 
 
 def update_boundary_conditions(t, dynamic_mesh, NS_expressions, id_in, **NS_namespace):
@@ -359,7 +377,7 @@ def update_boundary_conditions(t, dynamic_mesh, NS_expressions, id_in, **NS_name
 def temporal_hook(mesh, id_wall, id_out, cardiac_cycle, dt, t, save_solution_frequency, u_, id_in, tstep, newfolder,
                   eval_dict, dump_probe_frequency, p_, save_solution_at_tstep, nu, D_mitral, U, u_mean0, u_mean1,
                   u_mean2, save_flow_metrics_frequency, save_volume_frequency, save_solution_frequency_xdmf, viz_U,
-                  boundary, outlet_area, probes_folder, **NS_namespace):
+                  boundary, outlet_area, probes_folder, q_, viz_blood, **NS_namespace):
     if tstep % save_volume_frequency == 0:
         compute_volume(mesh, t, newfolder)
 
@@ -368,12 +386,12 @@ def temporal_hook(mesh, id_wall, id_out, cardiac_cycle, dt, t, save_solution_fre
             assign(U.sub(i), u_[i])
 
         viz_U.write(U, t)
+        viz_blood.write(q_['blood'], t)
 
     if tstep % save_flow_metrics_frequency == 0:
         h = mesh.hmin()
         compute_flow_quantities(u_, D_mitral, nu, mesh, t, tstep, dt, h, outlet_area, boundary, id_out, id_in, id_wall,
                                 period=cardiac_cycle, newfolder=newfolder, dynamic_mesh=False, write_to_file=True)
-
 
     # Save velocity and pressure for post-processing
     if tstep % save_solution_frequency == 0 and tstep >= save_solution_at_tstep:
