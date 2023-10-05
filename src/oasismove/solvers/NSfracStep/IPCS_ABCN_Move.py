@@ -163,9 +163,9 @@ def assemble_first_inner_iter(A, a_conv, dt, M, scalar_components, les_model, nn
     # Set up scalar matrix for rhs using the same convection as velocity
     if len(scalar_components) > 0:
         Ta = NS_namespace['Ta']
-        if a_scalar is a_conv:
-            Ta.zero()
-            Ta.axpy(1., A, True)
+        Ta.zero()
+        # if a_scalar is a_conv:
+        #     Ta.axpy(1., A, True)
 
     # Add diffusion and compute rhs for all velocity components
     A.axpy(-0.5 * nu, K, True)
@@ -297,11 +297,62 @@ def mesh_velocity_solve(A_mesh, bw, wx_, w_, dof_map, dt, coordinates, w_sol, ui
         coordinates[:, int(ui[-1])] += arr * dt
 
 
+def compute_tau(u_ab, mesh):
+    h = CellDiameter(mesh)
+    u_mag = sqrt(dot(u_ab, u_ab) + 1e-10)
+    tau = h / (2.0 * u_mag)
+    return tau
+
+
 def scalar_assemble(a_scalar, a_conv, Ta, dt, M, scalar_components, Schmidt_T, KT, nu, Schmidt, b, K, x_1, b0,
-                    les_model, nn_model, **NS_namespace):
+                    les_model, nn_model, u_ab, u, v, mesh, **NS_namespace):
+    Ta.zero()
+
+    # Define SUPG tau
+    tau = compute_tau(u_ab, mesh)
+
+    # Define advection term
+    a_scalar = a_conv + tau * dot(u_ab, grad(u)) * dot(u_ab, grad(v)) * dx
+
+    assemble(a_scalar, tensor=Ta)
+    Ta *= -0.5
+    Ta.axpy(1 / dt, M, True)
+
+    for ci in scalar_components:
+        b[ci].zero()
+        b[ci].axpy(1., Ta * x_1[ci])
+        b[ci].axpy(1., b0[ci])
+
+    # Reset matrix for lhs - Note scalar matrix does not contain diffusion
+    Ta *= -1.
+    Ta.axpy(2. / dt, M, True)
+
+
+def scalar_assemble_old(a_scalar, a_conv, Ta, dt, M, scalar_components, Schmidt_T, KT, nu, Schmidt, b, K, x_1, b0,
+                        les_model, nn_model, u_ab, u, v, mesh, **NS_namespace):
     """Assemble scalar equation."""
+    """
+    b[ci].axpy(-1. / 2, SUPG_conv * x_1[ci])
+    # Add supg term
+    Ta.axpy(1. / 2, SUPG_conv, True)
+    """
+    # D = 1
+    # h = CellDiameter(mesh)
+    # u_mag = sqrt(dot(u_ab, u_ab) + 1e-10)
+    # tau = h / (2.0 * u_mag)
+    # # SUPG term
+    # u_grad_v = dot(u_ab, grad(v))
+    # supg_conv = tau * inner(dot(u_ab, grad(u)), u_grad_v)
+    # SUPG_conv = assemble(supg_conv * dx)
+
+    tau = compute_tau(u_ab, mesh)
+    # Add SUPG stabilization to the advection term
+    a_scalar = a_scalar + tau * inner(v, dot(u_ab, nabla_grad(u))) * dx
+    Ta.zero()
     # Just in case you want to use a different scalar convection
     if a_scalar is not a_conv:
+        print("-- Assembling SUPG and convection")
+        # Assemble with the stabilized term
         assemble(a_scalar, tensor=Ta)
         Ta *= -0.5  # Negative convection on the rhs
         Ta.axpy(1. / dt, M, True)  # Add mass
@@ -309,11 +360,11 @@ def scalar_assemble(a_scalar, a_conv, Ta, dt, M, scalar_components, Schmidt_T, K
     # Compute rhs for all scalars
     for ci in scalar_components:
         # Add diffusion
-        Ta.axpy(-0.5 * nu / Schmidt[ci], K, True)
-        if les_model != "NoModel":
-            Ta.axpy(-0.5 / Schmidt_T[ci], KT[0], True)
-        if nn_model != "NoModel":
-            Ta.axpy(-0.5 / Schmidt_T[ci], KT[0], True)
+        # Ta.axpy(-0.5 * nu / Schmidt[ci], K, True)
+        # if les_model != "NoModel":
+        #     Ta.axpy(-0.5 / Schmidt_T[ci], KT[0], True)
+        # if nn_model != "NoModel":
+        #     Ta.axpy(-0.5 / Schmidt_T[ci], KT[0], True)
 
         # Compute rhs
         b[ci].zero()
@@ -321,21 +372,22 @@ def scalar_assemble(a_scalar, a_conv, Ta, dt, M, scalar_components, Schmidt_T, K
         b[ci].axpy(1., b0[ci])
 
         # Subtract diffusion
-        Ta.axpy(0.5 * nu / Schmidt[ci], K, True)
-        if les_model != "NoModel":
-            Ta.axpy(0.5 / Schmidt_T[ci], KT[0], True)
-        if nn_model != "NoModel":
-            Ta.axpy(0.5 / Schmidt_T[ci], KT[0], True)
+        # Ta.axpy(0.5 * nu / Schmidt[ci], K, True)
+        # if les_model != "NoModel":
+        #     Ta.axpy(0.5 / Schmidt_T[ci], KT[0], True)
+        # if nn_model != "NoModel":
+        #     Ta.axpy(0.5 / Schmidt_T[ci], KT[0], True)
 
     # Reset matrix for lhs - Note scalar matrix does not contain diffusion
     Ta *= -1.
     Ta.axpy(2. / dt, M, True)
 
 
-def scalar_solve(ci, scalar_components, Ta, b, x_, bcs, c_sol, nu, Schmidt, K, **NS_namespace):
+def scalar_solve(ci, scalar_components, mesh, u, v, u_ab, Ta, b, x_, bcs, c_sol, nu, Schmidt, K, **NS_namespace):
     """Solve scalar equation."""
+    # SUPG for advection transport equation
 
-    Ta.axpy(0.5 * nu / Schmidt[ci], K, True)  # Add diffusion
+    # Ta.axpy(0.5 * nu / Schmidt[ci], K, True)  # Add diffusion
     if len(scalar_components) > 1:
         # Reuse solver for all scalars. This requires the same matrix and vectors to be used by c_sol.
         Tb, bb, bx = NS_namespace['Tb'], NS_namespace['bb'], NS_namespace['bx']
@@ -353,4 +405,4 @@ def scalar_solve(ci, scalar_components, Ta, b, x_, bcs, c_sol, nu, Schmidt, K, *
     else:
         [bc.apply(Ta, b[ci]) for bc in bcs[ci]]
         c_sol.solve(Ta, x_[ci], b[ci])
-    Ta.axpy(-0.5 * nu / Schmidt[ci], K, True)  # Subtract diffusion
+    # Ta.axpy(-0.5 * nu / Schmidt[ci], K, True)  # Subtract diffusion

@@ -46,7 +46,7 @@ def problem_parameters(commandline_kwargs, scalar_components, Schmidt, NS_parame
             dynamic_mesh=True,  # Run moving mesh simulation
             compute_velocity_and_pressure=True,  # Only solve mesh equations
             # Blood residence time
-            track_blood=False,
+            track_blood=True,
             # Backflow parameters
             backflow_beta=0.2,
             backflow_facets=[],
@@ -84,12 +84,7 @@ def problem_parameters(commandline_kwargs, scalar_components, Schmidt, NS_parame
                             'absolute_tolerance': 1e-8}
         )
 
-    track_blood = NS_parameters["track_blood"]
-    if track_blood:
-        scalar_components += ["blood"]
-        nu = NS_parameters["nu"]
-        D = 10 ** (-11)
-        Schmidt["blood"] = nu / D
+    scalar_components += ["blood"]
 
 
 def scalar_source(scalar_components, **NS_namespace):
