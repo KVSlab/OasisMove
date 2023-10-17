@@ -87,7 +87,7 @@ def problem_parameters(commandline_kwargs, scalar_components, Schmidt, NS_parame
         )
     if track_blood:
         if MPI.rank(MPI.comm_world) == 0:
-            print("-- Computing bloor residence time --")
+            print("-- Computing blood residence time --")
         scalar_components += ["blood"]
 
 
