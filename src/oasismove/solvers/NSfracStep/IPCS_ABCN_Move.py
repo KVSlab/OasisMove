@@ -345,8 +345,8 @@ def scalar_assemble_old(a_scalar, a_conv, Ta, dt, M, scalar_components, Schmidt_
     # supg_conv = tau * inner(dot(u_ab, grad(u)), u_grad_v)
     # SUPG_conv = assemble(supg_conv * dx)
 
-    tau = compute_tau(u_ab, mesh)
     # Add SUPG stabilization to the advection term
+    tau = compute_tau(u_ab, mesh)
     a_scalar = a_scalar + tau * inner(v, dot(u_ab, nabla_grad(u))) * dx
     Ta.zero()
     # Just in case you want to use a different scalar convection
