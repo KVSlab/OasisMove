@@ -344,12 +344,3 @@ if restart_folder is not None:
 
 # Final hook
 theend_hook(**vars())
-
-# Run times
-RunTimePath = os.path.join(newfolder, f"RunTime_{problemname}.csv")
-rank = MPI.rank(MPI.comm_world)
-if rank == 0:
-    for arr in [Time, TentativeVelocity, MeshEquations, PressureSolve, VelocityUpdate]:
-        print(f"RANK={rank} LEN={len(arr)}")
-    data = np.array([Time, TentativeVelocity, MeshEquations, PressureSolve, VelocityUpdate])
-    np.savetxt(RunTimePath, data.T, delimiter=",")
