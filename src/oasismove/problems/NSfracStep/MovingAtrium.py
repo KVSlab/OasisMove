@@ -2,12 +2,13 @@ import json
 import pickle
 from os import makedirs
 
-from oasismove.problems.NSfracStep import *
-from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 from scipy.interpolate import splrep, splev
 from scipy.spatial import KDTree
 from vampy.simulation.Womersley import make_womersley_bcs, compute_boundary_geometry_acrn
 from vampy.simulation.simulation_common import store_u_mean, get_file_paths, print_mesh_information
+
+from oasismove.problems.NSfracStep import *
+from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
 
 # Override some problem specific parameters
@@ -40,13 +41,14 @@ def problem_parameters(commandline_kwargs, scalar_components, Schmidt, NS_parame
         # Parameters are in mm and ms
         cardiac_cycle = float(commandline_kwargs.get("cardiac_cycle", 1000))
         number_of_cycles = float(commandline_kwargs.get("number_of_cycles", 1))
+        track_blood = False
 
         NS_parameters.update(
             # Moving atrium parameters
             dynamic_mesh=True,  # Run moving mesh simulation
             compute_velocity_and_pressure=True,  # Only solve mesh equations
             # Blood residence time
-            track_blood=True,
+            track_blood=track_blood,
             # Backflow parameters
             backflow_beta=0.2,
             backflow_facets=[],
@@ -58,8 +60,8 @@ def problem_parameters(commandline_kwargs, scalar_components, Schmidt, NS_parame
             # Simulation parameters
             cardiac_cycle=cardiac_cycle,  # Run simulation for 1 cardiac cycles [ms]
             # FIXME: For strong scaling only
-            T=0.2 * 50,  # Total simulation length
-            dt=0.2,  # # Time step size [ms]
+            T=cardiac_cycle * number_of_cycles,  # Total simulation length
+            dt=1,  # # Time step size [ms]
             # Frequencies to save data
             dump_probe_frequency=500,  # Dump frequency for sampling velocity & pressure at probes along the centerline
             save_solution_frequency=5e10,  # Save frequency for velocity and pressure field
@@ -83,8 +85,10 @@ def problem_parameters(commandline_kwargs, scalar_components, Schmidt, NS_parame
                             'relative_tolerance': 1e-8,
                             'absolute_tolerance': 1e-8}
         )
-
-    scalar_components += ["blood"]
+    if track_blood:
+        if MPI.rank(MPI.comm_world) == 0:
+            print("-- Computing bloor residence time --")
+        scalar_components += ["blood"]
 
 
 def scalar_source(scalar_components, **NS_namespace):
