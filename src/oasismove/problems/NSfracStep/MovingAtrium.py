@@ -41,7 +41,7 @@ def problem_parameters(commandline_kwargs, scalar_components, Schmidt, NS_parame
         # Parameters are in mm and ms
         cardiac_cycle = float(commandline_kwargs.get("cardiac_cycle", 1000))
         number_of_cycles = float(commandline_kwargs.get("number_of_cycles", 1))
-        track_blood = False
+        track_blood = True
 
         NS_parameters.update(
             # Moving atrium parameters
@@ -375,7 +375,7 @@ def update_boundary_conditions(t, dynamic_mesh, NS_expressions, id_in, **NS_name
 def temporal_hook(mesh, id_wall, id_out, cardiac_cycle, dt, t, save_solution_frequency, u_, id_in, tstep, newfolder,
                   eval_dict, dump_probe_frequency, p_, save_solution_at_tstep, nu, D_mitral, U, u_mean0, u_mean1,
                   u_mean2, save_flow_metrics_frequency, save_volume_frequency, save_solution_frequency_xdmf, viz_U,
-                  boundary, outlet_area, probes_folder, q_, viz_blood, **NS_namespace):
+                  boundary, outlet_area, probes_folder, q_, viz_blood, track_blood, **NS_namespace):
     if tstep % save_volume_frequency == 0:
         compute_volume(mesh, t, newfolder)
 
@@ -384,7 +384,8 @@ def temporal_hook(mesh, id_wall, id_out, cardiac_cycle, dt, t, save_solution_fre
             assign(U.sub(i), u_[i])
 
         viz_U.write(U, t)
-        viz_blood.write(q_['blood'], t)
+        if track_blood:
+            viz_blood.write(q_['blood'], t)
 
     if tstep % save_flow_metrics_frequency == 0:
         h = mesh.hmin()
