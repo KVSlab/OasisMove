@@ -59,7 +59,7 @@ def test_MovingCylinder(num_processors):
     mesh_path = path.join(cwd, "src/oasismove/mesh/cylinder.xdmf")
 
     cmd = ["mpirun", "-np", f"{num_processors}", "oasismove", "NSfracStepMove", "problem=MovingCylinder",
-           f"T={T}", f"dt={dt}", f"mesh_path={mesh_path}", "solver=IPCS_ABCN_Move"]
+           f"T={T}", f"dt={dt}", f"mesh_path={mesh_path}", "checkpoint=10", "solver=IPCS_ABCN_Move", "save_step=10"]
 
     # Run OasisMove
     result = subprocess.run(cmd, capture_output=True, text=True)
