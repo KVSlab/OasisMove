@@ -6,7 +6,7 @@ from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
 
 # Override some problem specific parameters
-def problem_parameters(NS_parameters, **NS_namespace):
+def problem_parameters(NS_parameters, scalar_components, **NS_namespace):
     NS_parameters.update(
         # Mesh parameters
         Nx=50,
@@ -28,6 +28,9 @@ def problem_parameters(NS_parameters, **NS_namespace):
         pressure_degree=1,
         use_krylov_solvers=True)
 
+    scalar_components += ["alfa"]
+    Schmidt["alfa"] = 1.
+
 
 # Create a mesh
 def mesh(Nx=50, Ny=50, **params):
@@ -44,7 +47,8 @@ def create_bcs(V, **NS_namespace):
     bc01 = DirichletBC(V, 0, top)
     return dict(u0=[bc00, bc0],
                 u1=[bc01, bc0],
-                p=[])
+                p=[],
+                alfa=[bc00])
 
 
 def initialize(x_1, x_2, bcs, **NS_namespace):
