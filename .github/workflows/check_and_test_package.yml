@@ -87,7 +87,7 @@ jobs:
         if: steps.cache.outputs.cache-hit != 'true'
 
       - name: Install OasisMove
-        run: python3 -m pip install --editable .[test]
+        run: python3 -m pip install .[test]
 
       - name: Run tests
         run: python3 -m pytest tests
