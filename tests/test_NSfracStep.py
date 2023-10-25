@@ -52,7 +52,7 @@ def test_spatial_rate_of_convergence(num_processors, solver):
 @pytest.mark.parametrize("num_processors", [1, 2])
 def test_TaylorGreen2D(num_processors, solver):
     cmd = ["mpirun", "-np", f"{num_processors}", "oasismove", "NSfracStep", f"solver={solver}",
-           "problem=TaylorGreen2D", f"T=0.01", f"Nx=30", f"Ny=30"]
+           "problem=TaylorGreen2D", "T=0.01", "Nx=30", "Ny=30"]
 
     if num_processors > 1 and solver == "Chorin":  # Uses direct solver
         return
@@ -84,7 +84,7 @@ def test_TaylorGreen2D(num_processors, solver):
         slow = "BDFPC"
     if slow is not None:
         cmd_slow = ["mpirun", "-np", "1", "oasismove", "NSfracStep", f"solver={slow}",
-                    "problem=TaylorGreen2D", f"T=0.01", f"Nx=30", f"Ny=30"]
+                    "problem=TaylorGreen2D", "T=0.01", "Nx=30", "Ny=30"]
 
         # Run OasisMove
         result_slow = subprocess.run(cmd_slow, capture_output=True, text=True)

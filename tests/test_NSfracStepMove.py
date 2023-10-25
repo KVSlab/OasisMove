@@ -8,8 +8,8 @@ number = "([0-9]+.[0-9]+e[+-][0-9]+)"
 
 @pytest.mark.parametrize("num_processors", [1, 2])
 def test_DrivenCavity_with_NSfracStepMove(num_processors):
-    cmd = ["mpirun", "-np", f"{num_processors}", "oasismove", "NSfracStepMove", "problem=DrivenCavity", "T=0.01"
-        , "Nx=10", "Ny=10", "plot_interval=10000", "solver=IPCS_ABCN_Move", "testing=True"]
+    cmd = ["mpirun", "-np", f"{num_processors}", "oasismove", "NSfracStepMove", "problem=DrivenCavity", "T=0.01",
+           "Nx=10", "Ny=10", "plot_interval=10000", "solver=IPCS_ABCN_Move", "testing=True"]
 
     # Run OasisMove
     result = subprocess.run(cmd, capture_output=True, text=True)
