@@ -105,10 +105,11 @@ def test_TaylorGreen2D(num_processors, solver):
             assert abs(eval(e1) - eval(e2)) < 1e-8
 
 
+@pytest.mark.parametrize("solver", ["IPCS_ABCN", "IPCS_ABE"])
 @pytest.mark.parametrize("num_processors", [1, 2])
-def test_DrivenCavity(num_processors):
+def test_DrivenCavity(num_processors, solver):
     cmd = ["mpirun", "-np", f"{num_processors}", "oasismove", "NSfracStep", "problem=DrivenCavity", "T=0.01", "Nx=10",
-           "Ny=10", "plot_interval=10000", "solver=IPCS_ABCN", "testing=True"]
+           "Ny=10", "plot_interval=10000", f"solver={solver}", "testing=True"]
 
     # Run OasisMove
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -136,7 +137,8 @@ def test_DrivenCavity(num_processors):
 
     match2 = re.search("Velocity norm = " + number, str(output))
     err2 = match2.groups()
-    assert abs(eval(err[0]) - eval(err2[0])) < 1e-9
+    tol = 1E-9 if solver == "IPCS_ABCN" else 5E-3
+    assert abs(eval(err[0]) - eval(err2[0])) < tol
 
 
 if __name__ == '__main__':
