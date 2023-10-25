@@ -28,8 +28,9 @@ def problem_parameters(NS_parameters, scalar_components, **NS_namespace):
         pressure_degree=1,
         use_krylov_solvers=True)
 
-    scalar_components += ["alfa"]
+    scalar_components += ["alfa", "beta"]
     Schmidt["alfa"] = 1.
+    Schmidt["beta"] = 10.
 
 
 # Create a mesh
@@ -42,13 +43,16 @@ def mesh(Nx=50, Ny=50, **params):
 def create_bcs(V, **NS_namespace):
     noslip = "std::abs(x[0]*x[1]*(1-x[0]))<1e-8"
     top = "std::abs(x[1]-1) < 1e-8"
+    bottom = "std::abs(x[1]) < 1e-8"
     bc0 = DirichletBC(V, 0, noslip)
     bc00 = DirichletBC(V, 1, top)
     bc01 = DirichletBC(V, 0, top)
+    bcbeta = DirichletBC(V, 1, bottom)
     return dict(u0=[bc00, bc0],
                 u1=[bc01, bc0],
                 p=[],
-                alfa=[bc00])
+                alfa=[bc00],
+                beta=[bcbeta])
 
 
 def initialize(x_1, x_2, bcs, **NS_namespace):
