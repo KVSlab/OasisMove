@@ -7,7 +7,6 @@ from scipy.spatial import KDTree
 from vampy.automatedPostprocessing.postprocessing_common import STRESS
 from vampy.simulation.Womersley import make_womersley_bcs, compute_boundary_geometry_acrn
 from vampy.simulation.simulation_common import get_file_paths, print_mesh_information
-
 from oasismove.problems.NSfracStep import *
 from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
@@ -45,6 +44,7 @@ def problem_parameters(commandline_kwargs, scalar_components, Schmidt, NS_parame
         track_blood = True
 
         NS_parameters.update(
+            stress_vector=None,
             # Moving atrium parameters
             dynamic_mesh=True,  # Run moving mesh simulation
             compute_velocity_and_pressure=True,  # Only solve mesh equations
@@ -198,6 +198,7 @@ def create_bcs(NS_expressions, dynamic_mesh, x_, cardiac_cycle, backflow_facets,
         flow_rate_path = mesh_path.split(mesh_filename)[0] + "_flowrate_rigid.txt"
 
     t_values, Q_ = np.loadtxt(flow_rate_path).T
+    # REMOVE THIS
     Q_ = Q_ / np.max(Q_) * 0.1
     t_values *= 1000  # Scale time in normalised flow wave form to [ms]
 
@@ -336,6 +337,7 @@ def pre_solve_hook(u_components, id_in, id_out, dynamic_mesh, V, Q, cardiac_cycl
     bm = BoundaryMesh(mesh, 'exterior')
 
     U = Function(Vv)
+    U_mesh = Function(Vv)
     u_mean = Function(Vv)
     u_mean0 = Function(V)
     u_mean1 = Function(V)
@@ -413,6 +415,7 @@ def pre_solve_hook(u_components, id_in, id_out, dynamic_mesh, V, Q, cardiac_cycl
 
         # For TKE or KE
         Vv=Vv,
+        bm=BoundaryMesh(mesh, 'exterior')
 
     )
 
@@ -435,7 +438,7 @@ def pre_solve_hook(u_components, id_in, id_out, dynamic_mesh, V, Q, cardiac_cycl
                       bc_mesh=bc_mesh,
                       coordinates=coordinates, viz_U=viz_U, save_solution_at_tstep=save_solution_at_tstep,
                       dof_map=dof_map, probes_folder=probes_folder, viz_blood=viz_blood, viz_tke=viz_tke,
-                      viz_ke=viz_ke, viz_wss=viz_wss,
+                      viz_ke=viz_ke, viz_wss=viz_wss, U_mesh=U_mesh
                       )
     oasis_dict.update(metrics_dict)
     oasis_dict.update(cycle_dict)
@@ -458,7 +461,7 @@ def update_boundary_conditions(t, dynamic_mesh, NS_expressions, id_in, **NS_name
 def temporal_hook(mesh, id_wall, id_out, cardiac_cycle, dt, t, save_solution_frequency, u_, id_in, tstep, newfolder,
                   eval_dict, dump_probe_frequency, p_, save_solution_at_tstep, nu, D_mitral, U, u_mean0, u_mean1,
                   u_mean2, save_flow_metrics_frequency, save_volume_frequency, save_solution_frequency_xdmf, viz_U,
-                  boundary, outlet_area, probes_folder, q_, viz_blood, track_blood,
+                  boundary, outlet_area, probes_folder, q_, viz_blood, track_blood, wu_, U_mesh,
                   # Testing WAll metrics:
                   viz_tke, save_metrics_frequency, V, viz_ke, viz_wss, counter,
                   stress, WSS_mean_avg, TAWSS_avg, U_b1, twssg, tau_prev, TWSSG_avg,
@@ -467,7 +470,7 @@ def temporal_hook(mesh, id_wall, id_out, cardiac_cycle, dt, t, save_solution_fre
                   index_names, index_dict_cycle, index_dict, WSS_mean,
                   # KE and TKE
                   TKE_accumulated, KE_accumulated,
-                  U_accumulated,
+                  U_accumulated, stress_vector, bm,
                   **NS_namespace):
     if tstep % save_volume_frequency == 0:
         compute_volume(mesh, t, newfolder)
@@ -482,10 +485,15 @@ def temporal_hook(mesh, id_wall, id_out, cardiac_cycle, dt, t, save_solution_fre
     if tstep % save_metrics_frequency == 0:
         for i in range(3):
             assign(U.sub(i), u_[i])
+        for i in range(3):
+            assign(U_mesh.sub(i), wu_[i])
+        U_rel = U - U_mesh
         counter[0] += 1
-        save_wall_metrics(counter[0], stress, WSS_mean_avg, TAWSS_avg, U_b1, twssg, tau_prev, dt, TWSSG_avg, t, viz_wss,
+
+        save_wall_metrics(counter[0], stress_vector, WSS_mean_avg, TAWSS_avg, U_b1, twssg, tau_prev, dt, TWSSG_avg, t,
+                          viz_wss,
                           saved_time_steps_per_cycle, counters_to_save, RRT_avg, OSI_avg, ECAP_avg, index_variables_avg,
-                          index_names, index_dict_cycle, index_dict, WSS_mean, newfolder
+                          index_names, index_dict_cycle, index_dict, WSS_mean, newfolder, mesh, U_rel
                           )
 
         save_flow_metrics(counter[0], saved_time_steps_per_cycle, U, U_accumulated, t, counter,
@@ -520,6 +528,52 @@ def temporal_hook(mesh, id_wall, id_out, cardiac_cycle, dt, t, save_solution_fre
         viz_u.close()
 
 
+def mesh_velocity_(mesh, U, U_mesh, u_, wu_, tstep, save_metrics_frequency, **NS_namespace):
+    if tstep % save_metrics_frequency == 0:
+        for i in range(3):
+            assign(U.sub(i), u_[i])
+        for i in range(3):
+            assign(U_mesh.sub(i), wu_[i])
+        U_rel = U - U_mesh
+        stress = RelativeStress(mesh, U_rel)
+        NS_namespace["stress_vector"] = stress
+
+
+def RelativeStress(mesh, U):
+    nu = 3.3018868e-3
+    # 1. Update boundary mesh and measure for deformed mesh
+    mesh=Mesh(mesh)
+    V_new = VectorFunctionSpace(mesh, 'CG', 1)
+    U = project(U, V_new)
+    boundary_mesh = BoundaryMesh(mesh, 'exterior')
+    boundary_ds = Measure("ds", domain=mesh)
+    bmV = VectorFunctionSpace(boundary_mesh, 'CG', 1)
+
+    # 2. Compute the Viscous Stress Tensor
+    epsilon = 0.5 * (grad(U) + grad(U).T)
+    sigma = 2 * nu * epsilon
+
+    # 3. Compute Boundary Stress
+    n = FacetNormal(mesh)
+    F = -sigma * n
+
+    # 4. Compute WSS
+    Fn = inner(F, n)
+    WSS_vector = F - (Fn * n)
+
+    # 5. Return WSS Vector
+    vector = VectorFunctionSpace(mesh, 'CG', 1)
+    scaling = FacetArea(mesh)  # Normalise the computed stress relative to the size of the element
+    w = TestFunction(vector)
+    Ftv = Function(vector)
+
+    Ltv = 1 / (2 * scaling) * inner(w, WSS_vector) * boundary_ds
+    assemble(Ltv, tensor=Ftv.vector())
+    WSS_on_boundary = interpolate(Ftv, bmV)
+
+    return WSS_on_boundary
+
+
 def save_flow_metrics(counter, saved_time_steps_per_cycle, U, U_accumulated, time, timestep_counter,
                       TKE_accumulated, viz_tke, V, KE_accumulated, viz_ke,
                       tstep, save_metrics_frequency,
@@ -547,13 +601,13 @@ def save_flow_metrics(counter, saved_time_steps_per_cycle, U, U_accumulated, tim
     viz_ke.write(KE_current_projected, time)
 
 
-def save_wall_metrics(counter, stress, WSS_mean_avg, TAWSS_avg, U_b1, twssg, tau_prev, dt, TWSSG_avg, t, viz_wss,
+def save_wall_metrics(counter, stress_vector, WSS_mean_avg, TAWSS_avg, U_b1, twssg, tau_prev, dt, TWSSG_avg, t, viz_wss,
                       saved_time_steps_per_cycle, counters_to_save, RRT_avg, OSI_avg, ECAP_avg, index_variables_avg,
                       index_names, index_dict_cycle, index_dict, WSS_mean, newfolder,
-
+                      mesh, U_rel,
                       rho=1060):
     # Compute WSS and TAWSS
-    tau = stress()
+    tau = RelativeStress(mesh, U_rel)
     tau.vector()[:] = tau.vector()[:] * rho
     WSS_mean_avg.vector().axpy(1, tau.vector())
 
