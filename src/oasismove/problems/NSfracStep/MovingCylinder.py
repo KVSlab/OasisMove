@@ -166,8 +166,8 @@ def update_boundary_conditions(t, NS_expressions, **NS_namespace):
     NS_expressions["circle_y"].t = t
 
 
-def temporal_hook(t, St, F, A_ratio, tstep, save_solution_frequency, forces, q_, u_inf, D, viz_u, viz_p, u_vec,
-                  newfolder, p_, u_, **NS_namespace):
+def temporal_hook(mesh, t, dt, nu, St, F, A_ratio, tstep, save_solution_frequency, forces, q_, u_inf, D, viz_u, viz_p,
+                  u_vec, newfolder, p_, u_, **NS_namespace):
     # Save fluid velocity and pressure solution
     if tstep % save_solution_frequency == 0:
         assign(u_vec.sub(0), u_[0])
@@ -208,3 +208,11 @@ def temporal_hook(t, St, F, A_ratio, tstep, save_solution_frequency, forces, q_,
         lift_coeff = sum(drag_and_lift[1::2]) / factor
         data = [t, tstep, drag_coeff, lift_coeff, pressure_coeff]
         write_data_to_file(newfolder, data, "forces.txt")
+
+    # Compute mean velocity and Reynolds number at inlet
+    if tstep % 10 == 0:
+        h = mesh.hmin()
+        L = 62 * D
+        compute_flow_quantities(u_, L, nu, mesh, t, tstep, dt, h, outlet_area=1, boundary=None, outlet_ids=[],
+                                inlet_ids=[], id_wall=0, period=1.0, newfolder=None, dynamic_mesh=False,
+                                write_to_file=False)
