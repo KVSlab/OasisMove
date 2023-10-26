@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,8 +38,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -67,6 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="prev" title="Backflow stabilization" href="stenosis.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+    <meta name="docbuild:last-update" content="Oct 26, 2023"/>
   </head>
   
   
@@ -75,6 +77,15 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -135,13 +146,14 @@ const thebe_selector_output = ".output, .cell_output"
   
   
   
+  
     
     
       
     
     
-    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+    <img src="_static/logo.png" class="logo__image only-light" alt="OasisMove - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="OasisMove - Home"/>`);</script>
   
   
 </a></div>
@@ -340,10 +352,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
@@ -351,7 +363,7 @@ document.write(`
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -962,7 +974,7 @@ Journal of Fluid Mechanics, 385, 255-286.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingCylinder.temporal_hook">
-<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCylinder.</span></span><span class="sig-name descname"><span class="pre">temporal_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">St</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A_ratio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_solution_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_vec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCylinder.html#temporal_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCylinder.temporal_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingCylinder.</span></span><span class="sig-name descname"><span class="pre">temporal_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">St</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">F</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A_ratio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_solution_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forces</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">q_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">D</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_vec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingCylinder.html#temporal_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingCylinder.temporal_hook" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -1027,7 +1039,7 @@ Journal of Computational Physics, 430, 110040.</p>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingTaylorGreen3D.temporal_hook">
-<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingTaylorGreen3D.</span></span><span class="sig-name descname"><span class="pre">temporal_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_solution_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_vec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#temporal_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.temporal_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingTaylorGreen3D.</span></span><span class="sig-name descname"><span class="pre">temporal_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_solution_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_vec</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingTaylorGreen3D.html#temporal_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.temporal_hook" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -1104,7 +1116,7 @@ turbulent nature (Doctoral dissertation, Université Montpellier II-Sciences et 
 
 <dl class="py function">
 <dt class="sig sig-object py" id="oasismove.problems.NSfracStep.MovingWall.temporal_hook">
-<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingWall.</span></span><span class="sig-name descname"><span class="pre">temporal_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_solution_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_vec</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#temporal_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.temporal_hook" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">oasismove.problems.NSfracStep.MovingWall.</span></span><span class="sig-name descname"><span class="pre">temporal_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_solution_frequency</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">viz_p</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">u_vec</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">NS_namespace</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/NSfracStep/MovingWall.html#temporal_hook"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.NSfracStep.MovingWall.temporal_hook" title="Permalink to this definition">#</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -1214,11 +1226,10 @@ Remember pressure is computed in between timesteps.</p>
 
               
               
-                <footer class="bd-footer-article">
-                  
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
 <div class="prev-next-area">
     <a class="left-prev"
        href="stenosis.html"
@@ -1229,10 +1240,7 @@ Remember pressure is computed in between timesteps.</p>
         <p class="prev-next-title">Backflow stabilization</p>
       </div>
     </a>
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
@@ -1282,7 +1290,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Aug 11, 2023.
+  Last updated on Oct 26, 2023.
   <br/>
 </p>
   </div>
@@ -1300,8 +1308,8 @@ By Henrik A. Kjeldsberg
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
 
   <footer class="bd-footer">
   </footer>
