@@ -267,6 +267,30 @@ def create_bcs(NS_expressions, dynamic_mesh, x_, cardiac_cycle, backflow_facets,
         return dict(u0=bc_u0, u1=bc_u1, u2=bc_u2, p=bc_p)
 
 
+def get_file_paths_atrium(folder):
+    """
+    Create folder where data and solutions (velocity, mesh, pressure) is stored
+
+    Args:
+        folder (str): Path to data storage location
+
+    Returns:
+        files (dict): Contains filepaths for respective solution files
+    """
+    common_path = path.join(folder, "Solutions")
+    if MPI.rank(MPI.comm_world) == 0:
+        if not path.exists(common_path):
+            makedirs(common_path)
+    values = ["u", "p", "mesh", "u_mean", 'brt']
+
+    files = {}
+    for value in values:
+        file_value = path.join(common_path, f"{value}.h5")
+        files[value] = file_value
+
+    return files
+
+
 def pre_solve_hook(u_components, id_in, id_out, dynamic_mesh, V, Q, cardiac_cycle, dt,
                    save_solution_after_cycle, mesh_path, mesh, newfolder, velocity_degree,
                    restart_folder, **NS_namespace):
@@ -306,7 +330,7 @@ def pre_solve_hook(u_components, id_in, id_out, dynamic_mesh, V, Q, cardiac_cycl
 
     if restart_folder is None:
         # Get files to store results
-        files = get_file_paths(newfolder)
+        files = get_file_paths_atrium(newfolder)
         NS_parameters.update(dict(files=files))
     else:
         files = NS_namespace["files"]
