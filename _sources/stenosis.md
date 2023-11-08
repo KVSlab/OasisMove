@@ -14,7 +14,7 @@ implementation of backflow stabilization is general, and works for both rigid an
 name: stenosis-fig
 ---
 A schematic of the two-dimensional stenosis model with a slight eccentricity of the stenosis, borrowed from 
-Varghese et al. {cite}`varghese2007direct`.
+Varghese et al.
 ```
 
 ## Problem description
@@ -46,14 +46,14 @@ rather common in cardiovascular flows, particularly in blood flow in large vesse
 left atrium. Because backflow is a naturally occurring physiologic phenomenon, careful treatment is necessary to
 realistically model backflow without artificially altering the local flow dynamics. To achieve this we consider the
 first backflow stabilization method first proposed by Bazilevs et al. {cite}`bazilevs2009patient` and rigorously tested
-by Moghadam et al. {cite}`esmaily2011comparison`. In short, the method modifies the weak formulation of the
+by Moghadam et al. In short, the method modifies the weak formulation of the
 Navier-Stokes equations by adding a backflow stabilization term for the Neumann boundaries, in this case the outlet.
 Specifically, the following convective traction term is added to the weak form on each Neumann boundary to be
 stabilized:
 
 ```{math}
 :label: eq-weak
--\beta \int_{\partial \Omega} (\mathbf u \cdot \mathbf n)\_\mathbf u \cdot \mathbf v \, \text{d}s,
+    -\beta \int_{\partial \Omega} (\mathbf u \cdot \mathbf n)\_\mathbf u \cdot \mathbf v \, \text{d}s,
 ```
 
 where $\beta$ is a positive coefficient between 0.0 and 1.0, $\mathbf u$ is the velocity vector, $\mathbf v$ is the
@@ -61,7 +61,7 @@ velocity test function, $\partial \Omega$ denotes the boundary, and $(\mathbf u 
 
 ```{math}
 :label: eq-weak2
-(\mathbf u \cdot \mathbf n)\_ \,=\, \frac{\mathbf u\cdot \mathbf n - \| \mathbf u \cdot \mathbf n\|}  {2}.
+    (\mathbf u \cdot \mathbf n)\_ \,=\, \frac{\mathbf u\cdot \mathbf n - \| \mathbf u \cdot \mathbf n\|}{2}.
 ```
 
 In OasisMove, the backflow stabilization method is applied by supplying the
@@ -119,8 +119,6 @@ name: vel-stenosis
 The velocity field for the stenosis problem without (top) and with (bottom) backflow stabilization, including vector 
 arrows that have been scaled by the velocity magnitude. 
 ```
-
-## References
 
 ```{bibliography} references.bib
 :filter: docname in docnames

@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -71,7 +71,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="prev" title="Interpolating to a higher function space" href="interpolation.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Oct 26, 2023"/>
+    <meta name="docbuild:last-update" content="Nov 08, 2023"/>
   </head>
   
   
@@ -397,7 +397,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backflow-stabilization-in-oasismove">Backflow stabilization in OasisMove</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-in-oasismove">Simulation in OasisMove</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
         </div>
@@ -412,16 +411,16 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="backflow-stabilization">
 <span id="tutorial-stenosis"></span><h1>Backflow stabilization<a class="headerlink" href="#backflow-stabilization" title="Permalink to this heading">#</a></h1>
 <p>Here we demonstrate simulation divergence due to backflow, and how we can stabilize the flow to prevent this in
-OasisMove, based on the first backflow stabilization method tested by Moghadam et al. <span id="id1">[<a class="reference internal" href="#id13" title="Mahdi Esmaily Moghadam, Yuri Bazilevs, Tain-Yen Hsia, Irene E Vignon-Clementel, Alison L Marsden, and Modeling of Congenital Hearts Alliance (MOCHA). A comparison of outlet boundary treatments for prevention of backflow divergence with relevance to blood flow simulations. Computational Mechanics, 48:277–291, 2011.">EMBH+11</a>]</span>. To
+OasisMove, based on the first backflow stabilization method tested by Moghadam et al. <span id="id1">[<a class="reference internal" href="#id11" title="Mahdi Esmaily Moghadam, Yuri Bazilevs, Tain-Yen Hsia, Irene E Vignon-Clementel, Alison L Marsden, and Modeling of Congenital Hearts Alliance (MOCHA). A comparison of outlet boundary treatments for prevention of backflow divergence with relevance to blood flow simulations. Computational Mechanics, 48:277–291, 2011.">EMBH+11</a>]</span>. To
 demonstrate this we will be investigating parabolic flow through an eccentric stenosis model in two-dimensions. The
-setup is inspired by the three-dimensional study of stenotic flow by Varghese et al. <span id="id2">[<a class="reference internal" href="#id14" title="Sonu S Varghese, Steven H Frankel, and Paul F Fischer. Direct numerical simulation of stenotic flows. part 1. steady flow. Journal of Fluid Mechanics, 582:253–280, 2007.">VFF07</a>]</span>, who
+setup is inspired by the three-dimensional study of stenotic flow by Varghese et al. <span id="id2">[<a class="reference internal" href="#id12" title="Sonu S Varghese, Steven H Frankel, and Paul F Fischer. Direct numerical simulation of stenotic flows. part 1. steady flow. Journal of Fluid Mechanics, 582:253–280, 2007.">VFF07</a>]</span>, who
 consider a longer stenosis model than presented here. Note that this is <em>not</em> a moving domain simulation, but the
 implementation of backflow stabilization is general, and works for both rigid and moving domains.</p>
 <figure class="align-default" id="stenosis-fig">
 <img alt="_images/stenosis_fig.png" src="_images/stenosis_fig.png" />
 <figcaption>
 <p><span class="caption-number">Fig. 9 </span><span class="caption-text">A schematic of the two-dimensional stenosis model with a slight eccentricity of the stenosis, borrowed from
-Varghese et al. <span id="id3">[<a class="reference internal" href="#id14" title="Sonu S Varghese, Steven H Frankel, and Paul F Fischer. Direct numerical simulation of stenotic flows. part 1. steady flow. Journal of Fluid Mechanics, 582:253–280, 2007.">VFF07</a>]</span>.</span><a class="headerlink" href="#stenosis-fig" title="Permalink to this image">#</a></p>
+Varghese et al.</span><a class="headerlink" href="#stenosis-fig" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="problem-description">
@@ -450,17 +449,17 @@ by changing the kinematic viscosity <span class="math notranslate nohighlight">\
 rather common in cardiovascular flows, particularly in blood flow in large vessels or at the mitral valve orifice in the
 left atrium. Because backflow is a naturally occurring physiologic phenomenon, careful treatment is necessary to
 realistically model backflow without artificially altering the local flow dynamics. To achieve this we consider the
-first backflow stabilization method first proposed by Bazilevs et al. <span id="id4">[<a class="reference internal" href="#id15" title="Y Bazilevs, JR Gohean, TJR Hughes, RD Moser, and Y25718211229 Zhang. Patient-specific isogeometric fluid–structure interaction analysis of thoracic aortic blood flow due to implantation of the jarvik 2000 left ventricular assist device. Computer Methods in Applied Mechanics and Engineering, 198(45-46):3534–3550, 2009.">BGH+09</a>]</span> and rigorously tested
-by Moghadam et al. <span id="id5">[<a class="reference internal" href="#id13" title="Mahdi Esmaily Moghadam, Yuri Bazilevs, Tain-Yen Hsia, Irene E Vignon-Clementel, Alison L Marsden, and Modeling of Congenital Hearts Alliance (MOCHA). A comparison of outlet boundary treatments for prevention of backflow divergence with relevance to blood flow simulations. Computational Mechanics, 48:277–291, 2011.">EMBH+11</a>]</span>. In short, the method modifies the weak formulation of the
+first backflow stabilization method first proposed by Bazilevs et al. <span id="id3">[<a class="reference internal" href="#id13" title="Y Bazilevs, JR Gohean, TJR Hughes, RD Moser, and Y25718211229 Zhang. Patient-specific isogeometric fluid–structure interaction analysis of thoracic aortic blood flow due to implantation of the jarvik 2000 left ventricular assist device. Computer Methods in Applied Mechanics and Engineering, 198(45-46):3534–3550, 2009.">BGH+09</a>]</span> and rigorously tested
+by Moghadam et al. In short, the method modifies the weak formulation of the
 Navier-Stokes equations by adding a backflow stabilization term for the Neumann boundaries, in this case the outlet.
 Specifically, the following convective traction term is added to the weak form on each Neumann boundary to be
 stabilized:</p>
 <div class="math notranslate nohighlight" id="equation-eq-weak">
-<span class="eqno">(12)<a class="headerlink" href="#equation-eq-weak" title="Permalink to this equation">#</a></span>\[-\beta \int_{\partial \Omega} (\mathbf u \cdot \mathbf n)\_\mathbf u \cdot \mathbf v \, \text{d}s,\]</div>
+<span class="eqno">(13)<a class="headerlink" href="#equation-eq-weak" title="Permalink to this equation">#</a></span>\[    -\beta \int_{\partial \Omega} (\mathbf u \cdot \mathbf n)\_\mathbf u \cdot \mathbf v \, \text{d}s,\]</div>
 <p>where <span class="math notranslate nohighlight">\(\beta\)</span> is a positive coefficient between 0.0 and 1.0, <span class="math notranslate nohighlight">\(\mathbf u\)</span> is the velocity vector, <span class="math notranslate nohighlight">\(\mathbf v\)</span> is the
 velocity test function, <span class="math notranslate nohighlight">\(\partial \Omega\)</span> denotes the boundary, and <span class="math notranslate nohighlight">\((\mathbf u \cdot \mathbf n)\_\)</span> is defined as:</p>
 <div class="math notranslate nohighlight" id="equation-eq-weak2">
-<span class="eqno">(13)<a class="headerlink" href="#equation-eq-weak2" title="Permalink to this equation">#</a></span>\[(\mathbf u \cdot \mathbf n)\_ \,=\, \frac{\mathbf u\cdot \mathbf n - \| \mathbf u \cdot \mathbf n\|}  {2}.\]</div>
+<span class="eqno">(14)<a class="headerlink" href="#equation-eq-weak2" title="Permalink to this equation">#</a></span>\[    (\mathbf u \cdot \mathbf n)\_ \,=\, \frac{\mathbf u\cdot \mathbf n - \| \mathbf u \cdot \mathbf n\|}{2}.\]</div>
 <p>In OasisMove, the backflow stabilization method is applied by supplying the
 <code class="docutils literal notranslate"><span class="pre">backflow_facets</span></code> argument, in addition to the <code class="docutils literal notranslate"><span class="pre">backflow_beta</span></code> parameter. The <code class="docutils literal notranslate"><span class="pre">backflow_beta</span></code> parameter determines the
 strength of the stabilization term and can be any float value between 0.0 and 1.0, while <code class="docutils literal notranslate"><span class="pre">backflow_facets</span></code> represents a
@@ -508,18 +507,15 @@ simulation without stabilization diverges at approximately <span class="math not
 arrows that have been scaled by the velocity magnitude.</span><a class="headerlink" href="#vel-stenosis" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-</section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
-<div class="docutils container" id="id6">
+<div class="docutils container" id="id4">
 <dl class="citation">
-<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id4">BGH+09</a></span></dt>
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id3">BGH+09</a></span></dt>
 <dd><p>Y Bazilevs, JR Gohean, TJR Hughes, RD Moser, and Y25718211229 Zhang. Patient-specific isogeometric fluid–structure interaction analysis of thoracic aortic blood flow due to implantation of the jarvik 2000 left ventricular assist device. <em>Computer Methods in Applied Mechanics and Engineering</em>, 198(45-46):3534–3550, 2009.</p>
 </dd>
-<dt class="label" id="id13"><span class="brackets">EMBH+11</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id5">2</a>)</span></dt>
+<dt class="label" id="id11"><span class="brackets"><a class="fn-backref" href="#id1">EMBH+11</a></span></dt>
 <dd><p>Mahdi Esmaily Moghadam, Yuri Bazilevs, Tain-Yen Hsia, Irene E Vignon-Clementel, Alison L Marsden, and Modeling of Congenital Hearts Alliance (MOCHA). A comparison of outlet boundary treatments for prevention of backflow divergence with relevance to blood flow simulations. <em>Computational Mechanics</em>, 48:277–291, 2011.</p>
 </dd>
-<dt class="label" id="id14"><span class="brackets">VFF07</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>)</span></dt>
+<dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id2">VFF07</a></span></dt>
 <dd><p>Sonu S Varghese, Steven H Frankel, and Paul F Fischer. Direct numerical simulation of stenotic flows. part 1. steady flow. <em>Journal of Fluid Mechanics</em>, 582:253–280, 2007.</p>
 </dd>
 </dl>
@@ -594,7 +590,6 @@ arrows that have been scaled by the velocity magnitude.</span><a class="headerli
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#backflow-stabilization-in-oasismove">Backflow stabilization in OasisMove</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-in-oasismove">Simulation in OasisMove</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 
@@ -627,7 +622,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Oct 26, 2023.
+  Last updated on Nov 08, 2023.
   <br/>
 </p>
   </div>
@@ -645,8 +640,8 @@ By Henrik A. Kjeldsberg
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -71,7 +71,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="prev" title="Tutorials" href="tutorials.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Oct 26, 2023"/>
+    <meta name="docbuild:last-update" content="Nov 08, 2023"/>
   </head>
   
   
@@ -396,7 +396,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem description</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-in-oasismove">Simulation in OasisMove</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
         </div>
@@ -420,9 +419,7 @@ file <a class="reference external" href="https://github.com/KVSlab/OasisMove/blo
 <p>In this problem the flow is purely wall driven, and is induced by a moving wall at <span class="math notranslate nohighlight">\(y = h(t)\)</span> on the top of the channel
 which remains parallel to the x-axis, defined as:</p>
 <div class="math notranslate nohighlight" id="equation-eq-wall-height">
-<span class="eqno">(3)<a class="headerlink" href="#equation-eq-wall-height" title="Permalink to this equation">#</a></span>\[\begin{equation}
-    h(t) = h_0 (1 + \epsilon e^{-i\omega t}),
-\end{equation}\]</div>
+<span class="eqno">(3)<a class="headerlink" href="#equation-eq-wall-height" title="Permalink to this equation">#</a></span>\[    h(t) = h_0 (1 + \epsilon e^{-i\omega t}),\]</div>
 <p>where <span class="math notranslate nohighlight">\(\omega\)</span> is the pulsation of the movement, <span class="math notranslate nohighlight">\(h_0\)</span> is the mean distance between the symmetry axis <span class="math notranslate nohighlight">\((y = 0)\)</span> and the
 moving wall, and <span class="math notranslate nohighlight">\(\epsilon\)</span> is the amplitude of the oscillations. Note that for small values of <span class="math notranslate nohighlight">\(\epsilon\)</span> the problem
 has a pseudo-analytical solution, which can be used to validate the numerical solution <span id="id2">[<a class="reference internal" href="#id9" title="F Nicoud. Hemodynamic changes induced by stenting in elastic arteries. Center for turbulence research annual research biefs, 2002.">Nic02</a>]</span>.
@@ -455,9 +452,6 @@ one period. Note that the solution has been transformed by scaling the length in
 <p><span class="caption-number">Fig. 1 </span><span class="caption-text">On top, the grid displacement, and on the bottom, the velocity field for the wall-driven channel flow, where the vector arrows have been scaled by the velocity magnitude.</span><a class="headerlink" href="#vel-wall" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-</section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <div class="docutils container" id="id3">
 <dl class="citation">
 <dt class="label" id="id5"><span class="brackets"><a class="fn-backref" href="#id1">Chn14</a></span></dt>
@@ -537,7 +531,6 @@ one period. Note that the solution has been transformed by scaling the length in
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem description</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-in-oasismove">Simulation in OasisMove</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 
@@ -570,7 +563,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Oct 26, 2023.
+  Last updated on Nov 08, 2023.
   <br/>
 </p>
   </div>
@@ -588,8 +581,8 @@ By Henrik A. Kjeldsberg
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

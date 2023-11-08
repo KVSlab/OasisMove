@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -71,7 +71,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="prev" title="Wall-driven channel flow" href="movingwall.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Oct 26, 2023"/>
+    <meta name="docbuild:last-update" content="Nov 08, 2023"/>
   </head>
   
   
@@ -397,7 +397,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-in-oasismove">Simulation in OasisMove</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adjusting-the-reynolds-number">Adjusting the Reynolds number</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
         </div>
@@ -439,14 +438,10 @@ file <a class="reference external" href="https://github.com/KVSlab/OasisMove/blo
 amplitude ratio <span class="math notranslate nohighlight">\(A_{ratio}\)</span>, the Strouhal number <span class="math notranslate nohighlight">\(St\)</span>, and the frequency ratio <span class="math notranslate nohighlight">\(F\)</span>. Based on these parameters, the
 frequency of the oscillations are defined as:</p>
 <div class="math notranslate nohighlight" id="equation-eq-freq">
-<span class="eqno">(4)<a class="headerlink" href="#equation-eq-freq" title="Permalink to this equation">#</a></span>\[\begin{align}
-f =  \frac{St U_{\infty}F}{D}.
-\end{align}\]</div>
+<span class="eqno">(4)<a class="headerlink" href="#equation-eq-freq" title="Permalink to this equation">#</a></span>\[    f =  \frac{St U_{\infty}F}{D}.\]</div>
 <p>Furthermore, the cylinder position followed a sinusoidal profile in the transverse direction to the flow:</p>
 <div class="math notranslate nohighlight" id="equation-eq-sine">
-<span class="eqno">(5)<a class="headerlink" href="#equation-eq-sine" title="Permalink to this equation">#</a></span>\[\begin{align}
-    \mathbf x(\mathbf \chi, t) =  (0, A \sin (2 \pi f t )), 
-\end{align}\]</div>
+<span class="eqno">(5)<a class="headerlink" href="#equation-eq-sine" title="Permalink to this equation">#</a></span>\[    \mathbf x( \mathbf X, t) =  (0, A \sin (2 \pi f t )), \]</div>
 <p>where <span class="math notranslate nohighlight">\(A = A_{ratio}D\)</span> is the amplitude.</p>
 </section>
 <section id="simulation-in-oasismove">
@@ -469,9 +464,7 @@ before it is complete.</p>
 pressure solution in <code class="docutils literal notranslate"><span class="pre">.xdmf</span></code> format, and the forces related to the simulation, including the drag (<span class="math notranslate nohighlight">\(C_D\)</span>) and lift (
 <span class="math notranslate nohighlight">\(C_L\)</span>) coefficient defined as:</p>
 <div class="math notranslate nohighlight" id="equation-eq-force">
-<span class="eqno">(6)<a class="headerlink" href="#equation-eq-force" title="Permalink to this equation">#</a></span>\[\begin{align}
-    C_D = \frac{2 F_D}{\rho U_\infty^2 D}, \qquad C_L = \frac{2F_L}{\rho U_\infty^2 D}, 
-\end{align}\]</div>
+<span class="eqno">(6)<a class="headerlink" href="#equation-eq-force" title="Permalink to this equation">#</a></span>\[    C_D = \frac{2 F_D}{\rho U_\infty^2 D}, \qquad C_L = \frac{2F_L}{\rho U_\infty^2 D}, \]</div>
 <p>stored in the <code class="docutils literal notranslate"><span class="pre">forces.txt</span></code> file. In <a class="reference internal" href="#vel-cylinder"><span class="std std-numref">Fig. 4</span></a> we display the resulting velocity field, where we have added
 vectors scaled by the velocity magnitude. Furthermore, the values saved in the <code class="docutils literal notranslate"><span class="pre">forces.txt</span></code> file can be plotted to
 visualize the drag and lift coefficient over time, as visualized in <a class="reference internal" href="#forces"><span class="std std-numref">Fig. 5</span></a>.</p>
@@ -508,12 +501,7 @@ wake of the cylinder.</p>
 <p>Note that changing the Reynolds number will effectively adjust the kinematic viscosity <span class="math notranslate nohighlight">\(\nu\)</span>, which is related to the
 Reynolds number by definition:</p>
 <div class="math notranslate nohighlight" id="equation-eq-re">
-<span class="eqno">(7)<a class="headerlink" href="#equation-eq-re" title="Permalink to this equation">#</a></span>\[\begin{align}
-    \text{Re } = \frac{U_{\infty} D}{\nu}
-\end{align}\]</div>
-</section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
+<span class="eqno">(7)<a class="headerlink" href="#equation-eq-re" title="Permalink to this equation">#</a></span>\[    \text{Re } = \frac{U_{\infty} D}{\nu}\]</div>
 <div class="docutils container" id="id2">
 <dl class="citation">
 <dt class="label" id="id7"><span class="brackets"><a class="fn-backref" href="#id1">BH99</a></span></dt>
@@ -591,7 +579,6 @@ Reynolds number by definition:</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-in-oasismove">Simulation in OasisMove</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#adjusting-the-reynolds-number">Adjusting the Reynolds number</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 
@@ -624,7 +611,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Oct 26, 2023.
+  Last updated on Nov 08, 2023.
   <br/>
 </p>
   </div>
@@ -642,8 +629,8 @@ By Henrik A. Kjeldsberg
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>

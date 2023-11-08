@@ -19,12 +19,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -38,9 +38,9 @@
     <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
@@ -71,7 +71,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="prev" title="Oscillating cylinder in free stream" href="movingcylinder.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Oct 26, 2023"/>
+    <meta name="docbuild:last-update" content="Nov 08, 2023"/>
   </head>
   
   
@@ -397,7 +397,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-in-oasismove">Simulation in OasisMove</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#increasing-the-spatial-and-temporal-resolution">Increasing the spatial and temporal resolution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
             </nav>
         </div>
@@ -420,18 +419,14 @@ but note that it has not been optimized for parallelization because of its inten
 <p>The problem has an analytical solution of the two-dimensional incompressible Navier–Stokes equations in the absence of
 body forces, <span class="math notranslate nohighlight">\(\mathbf{f} = 0\)</span>, namely:</p>
 <div class="math notranslate nohighlight" id="equation-eq-vortex">
-<span class="eqno">(8)<a class="headerlink" href="#equation-eq-vortex" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{align}
-    \mathbf u(\mathbf x,t) &amp;= (-\sin (2\pi  x_2), \sin(2\pi x_1))e^{-4\nu \pi^2 t}\\
-    p(\mathbf x,t) &amp;= -\cos(2\pi x_1)\cos(2\pi x_2)e^{-8\nu \pi^2 t}
-\end{align}\end{split}\]</div>
+<span class="eqno">(8)<a class="headerlink" href="#equation-eq-vortex" title="Permalink to this equation">#</a></span>\[\begin{split}    \mathbf u(\mathbf x,t) &amp;= (-\sin (2\pi  x_2), \sin(2\pi x_1))e^{-4\nu \pi^2 t}\\
+    p(\mathbf x,t) &amp;= -\cos(2\pi x_1)\cos(2\pi x_2)e^{-8\nu \pi^2 t}\end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mathbf x = (x_1, x_2)\)</span> are the Euclidean coordinates, and <span class="math notranslate nohighlight">\(\nu = 0.025\)</span> <span class="math notranslate nohighlight">\(\text{m}^2\)</span>/s. Furthermore, the mesh
 velocity <span class="math notranslate nohighlight">\(\mathbf w\)</span> is determined by the following displacement field:</p>
 <div class="math notranslate nohighlight" id="equation-eq-vortex-d">
-<span class="eqno">(9)<a class="headerlink" href="#equation-eq-vortex-d" title="Permalink to this equation">#</a></span>\[\begin{split}    \begin{align}
-    \mathbf x(\mathbf \chi,t) &amp;= \mathbf \chi + A_0 \sin \left(\frac{2 \pi t}{T_G}\right) \left(\sin\left(2\pi \frac{\chi_2 + L / 2}{L}\right),\sin\left(2\pi \frac{\chi_1 + L / 2}{L}\right)\right)\\
-    \mathbf w (\mathbf \chi, t) &amp;= \frac{\partial \mathbf x}{\partial t}
-    \end{align}\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathbf \chi = (\chi_1, \chi_2)\)</span> are the ALE coordinates, <span class="math notranslate nohighlight">\(A_0=0.08\)</span> is the amplitude, <span class="math notranslate nohighlight">\(T_G=4T\)</span> is the period
+<span class="eqno">(9)<a class="headerlink" href="#equation-eq-vortex-d" title="Permalink to this equation">#</a></span>\[\begin{split}    \mathbf x(\mathbf X , t) &amp;= \chi + A_0 \sin \left(\frac{2 \pi t}{T_G}\right) \left(\sin\left(2\pi \frac{\chi_2 + L / 2}{L}\right),\sin\left(2\pi \frac{\chi_1 + L / 2}{L}\right)\right)\\
+    \mathbf w(\mathbf X , t) &amp;= \frac{\partial \mathbf x}{\partial t}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf X= (X_1, X_2)\)</span> are the ALE coordinates, <span class="math notranslate nohighlight">\(A_0=0.08\)</span> is the amplitude, <span class="math notranslate nohighlight">\(T_G=4T\)</span> is the period
 length of the mesh motion, <span class="math notranslate nohighlight">\(T\)</span> is the length of one cycle, and <span class="math notranslate nohighlight">\(L=1\)</span>.</p>
 </section>
 <section id="simulation-in-oasismove">
@@ -476,17 +471,12 @@ we can run the following command:</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>When adjusting spatial and temporal resolution is important to know relationship between the cell size and the time-step size, which are closely related through the Courant number (<span class="math notranslate nohighlight">\(C\)</span>) given by the Courant-Friedrichs-Lewy (CFL) condition:</p>
-<div class="math notranslate nohighlight">
-\[
-\begin{align}
-C ={\frac  {u\,\Delta t}{\Delta x}} &lt; C_{\max },
-\end{align}
+<div class="math notranslate nohighlight" id="equation-eq-cfl-vortex">
+<span class="eqno">(10)<a class="headerlink" href="#equation-eq-cfl-vortex" title="Permalink to this equation">#</a></span>\[
+    C ={\frac  {u\,\Delta t}{\Delta x}} &lt; C_{\max },
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(u\)</span> is the velocity magnitude, <span class="math notranslate nohighlight">\(\Delta t\)</span> is the time step size, and <span class="math notranslate nohighlight">\(\Delta x\)</span> is the length interval. The general consensus is that <span class="math notranslate nohighlight">\(C_{\max} = 1\)</span>.</p>
 </div>
-</section>
-<section id="references">
-<h2>References<a class="headerlink" href="#references" title="Permalink to this heading">#</a></h2>
 <div class="docutils container" id="id2">
 <dl class="citation">
 <dt class="label" id="id12"><span class="brackets"><a class="fn-backref" href="#id1">HW07</a></span></dt>
@@ -564,7 +554,6 @@ C ={\frac  {u\,\Delta t}{\Delta x}} &lt; C_{\max },
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simulation-in-oasismove">Simulation in OasisMove</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#increasing-the-spatial-and-temporal-resolution">Increasing the spatial and temporal resolution</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">References</a></li>
 </ul>
   </nav></div>
 
@@ -597,7 +586,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Oct 26, 2023.
+  Last updated on Nov 08, 2023.
   <br/>
 </p>
   </div>
@@ -615,8 +604,8 @@ By Henrik A. Kjeldsberg
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+  <script src="_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
 
   <footer class="bd-footer">
   </footer>
