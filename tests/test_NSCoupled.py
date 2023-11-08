@@ -1,31 +1,50 @@
 import re
 import subprocess
 
+import pytest
+
 number = "[+-]?([0-9]+.[0-9]+e[+-][0-9]+)"
 
 
-def test_default_Coupled():
-    d = subprocess.check_output(
-        "mpirun -np 1 oasism NSCoupled problem=DrivenCavity Nx=50 Ny=50 testing=True", shell=True
-    )
-    match = re.search("Velocity in corner = " + number, str(d))
+@pytest.mark.parametrize("num_processors", [1])
+def test_default_Coupled(num_processors):
+    cmd = ["mpirun", "-np", f"{num_processors}", "oasismove", "NSCoupled", "problem=DrivenCavity", "testing=True"]
+
+    # Run OasisMove
+    result = subprocess.run(cmd, capture_output=True, text=True)
+
+    # Assert successful simulation
+    assert result.returncode == 0
+
+    # Get output (str)
+    output = result.stdout
+
+    match = re.search("Velocity in corner = " + number, str(output))
     err = match.groups()
-    err_value = eval(err[0])
     tol = 1e-16
 
-    assert abs(err_value) < tol
+    assert eval(err[0]) < tol
 
 
-def test_default_CR_Coupled():
-    d = subprocess.check_output(
-        "mpirun -np 1 oasism NSCoupled problem=DrivenCavity Nx=50 Ny=50 testing=True element=CR", shell=True
-    )
-    match = re.search("Velocity in corner = " + number, str(d))
+@pytest.mark.parametrize("num_processors", [1])
+def test_default_CR_Coupled(num_processors):
+    cmd = ["mpirun", "-np", f"{num_processors}", "oasismove", "NSCoupled", "problem=DrivenCavity", "testing=True",
+           "element=CR"]
+
+    # Run OasisMove
+    result = subprocess.run(cmd, capture_output=True, text=True)
+
+    # Assert successful simulation
+    assert result.returncode == 0
+
+    # Get output (str)
+    output = result.stdout
+
+    match = re.search("Velocity in corner = " + number, str(output))
     err = match.groups()
-    err_value = eval(err[0])
     tol = 0.4
 
-    assert abs(err_value) < tol
+    assert eval(err[0]) < tol
 
 
 if __name__ == '__main__':

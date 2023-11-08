@@ -5,7 +5,6 @@ _________________
 [![codecov](https://codecov.io/gh/KVSlab/OasisMove/branch/main/graph/badge.svg?token=ETTVXYFHJ2)](https://codecov.io/gh/KVSlab/OasisMove)
 [![CI](https://github.com/kvslab/oasismove/actions/workflows/check_and_test_package.yml/badge.svg)](https://github.com/kvslab/oasismove/actions/workflows/check_and_test_package.yml)
 [![GitHub pages](https://github.com/kvslab/oasismove/actions/workflows/deploy_pages.yml/badge.svg)](https://github.com/kvslab/oasismove/actions/workflows/deploy_pages.yml)
-[![status](https://joss.theoj.org/papers/ede99b68e725d714272be16964cbd4a8/status.svg)](https://joss.theoj.org/papers/ede99b68e725d714272be16964cbd4a8)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7868226.svg)](https://doi.org/10.5281/zenodo.7868226)
 _________________
 

@@ -16,14 +16,14 @@ problem. By default, the problem runs for $T=10$ using $\mathbb{P_1}$ elements, 
 argument `velocity_degree=1`. Assume we have run the problem using the default parameters:
 
 ``` console
-$ oasism NSfracStep solver=IPCS_ABCN problem=DrivenCavity 
+$ oasismove NSfracStep solver=IPCS_ABCN problem=DrivenCavity 
 ```
 
 To restart and continue the simulation until $T=20$ using $\mathbb{P_2}$ elements, we may simply pass
 the `velocity_degree=2` argument, in addition to the required parameters for restarting a simulation:
 
 ``` console
-$ oasism NSfracStep solver=IPCS_ABCN problem=DrivenCavity velocity_degree=2 restart_folder=results_driven_cavity/data/1/Checkpoint T=20 
+$ oasismove NSfracStep solver=IPCS_ABCN problem=DrivenCavity velocity_degree=2 restart_folder=results_driven_cavity/data/1/Checkpoint T=20 
 ```
 
 Note that the ability to interpolate to a higher function space can be computation-intensive, especially for large

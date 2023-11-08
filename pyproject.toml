@@ -10,7 +10,7 @@ license = { file = "LICENSE" }
 readme = "README.md"
 
 [project.scripts]
-oasism = "oasismove.run_oasis:main"
+oasismove = "oasismove.run_oasis:main"
 
 [project.optional-dependencies]
 test = [

@@ -1,6 +1,8 @@
 from oasismove.problems.NSfracStep import *
 from oasismove.problems.NSfracStep.MovingCommon import get_coordinate_map, get_visualization_writers
 
+comm = MPI.comm_world
+
 
 def problem_parameters(NS_parameters, **NS_namespace):
     """
@@ -196,7 +198,8 @@ def update_boundary_conditions(t, NS_expressions, **NS_namespace):
             value.update(t)
 
 
-def temporal_hook(t, tstep, save_solution_frequency, p_, u_, viz_u, viz_p, u_vec, **NS_namespace):
+def temporal_hook(mesh, dt, h0, eps, nu, t, tstep, save_solution_frequency, p_, u_, viz_u, viz_p, u_vec,
+                  **NS_namespace):
     # Write solution at time t
     if tstep % save_solution_frequency == 0:
         assign(u_vec.sub(0), u_[0])
@@ -204,3 +207,11 @@ def temporal_hook(t, tstep, save_solution_frequency, p_, u_, viz_u, viz_p, u_vec
 
         viz_u.write(u_vec, t)
         viz_p.write(p_, t)
+
+    # Compute mean velocity and Reynolds number at inlet
+    if tstep % 10 == 0:
+        h = mesh.hmin()
+        L = h0 * (1 + eps)
+        compute_flow_quantities(u_, L, nu, mesh, t, tstep, dt, h, outlet_area=1, boundary=None, outlet_ids=[],
+                                inlet_ids=[], id_wall=0, period=1.0, newfolder=None, dynamic_mesh=False,
+                                write_to_file=False)
