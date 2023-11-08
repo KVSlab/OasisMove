@@ -58,15 +58,12 @@ Ny = 50
 By adjusting `Nx` and `Ny` we adjust the resolution of the computational domain, which for the `DrivenCavity` problem is
 a 2D unit square mesh consisting of triangular elements. The parameters `Nx` and `Ny` determine the number of uniform
 cell intervals in the $x$ and $y$ direction, respectively. These parameters can also be used to compute the totan number
-of triangular cells (in 2D) or tetrehedral cells (in 3D) the computational domain consists of:
+of triangular cells in 2D: or tetrehedral cells (in 3D) the computational domain consists of:
 
 ```{math}
-\begin{align}
-    \text{Number of cells (2D) } &= 2 \times N_x \times N_y \\[0.5em] 
-    \text{Number of cells (3D) } &= 6 \times N_x \times N_y  \times N_z
-\end{align}
+    \text{Number of cells (2D) } &= 2 \times N_x \times N_y             \\
+    \text{Number of cells (3D) } &= 6 \times N_x \times N_y  \times N_z 
 ```
-
 ### `Fluid` parameters
 
 Fluid parameters are related to the fluid properties. In regard to the `DrivenCavity`

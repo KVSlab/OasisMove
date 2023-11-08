@@ -14,10 +14,8 @@ body forces, $\mathbf{f} = 0$, namely:
 
 ```{math}
 :label: eq-vortex
-\begin{align}
     \mathbf u(\mathbf x,t) &= (-\sin (2\pi  x_2), \sin(2\pi x_1))e^{-4\nu \pi^2 t}\\
     p(\mathbf x,t) &= -\cos(2\pi x_1)\cos(2\pi x_2)e^{-8\nu \pi^2 t}
-\end{align}
 ```
 
 where $\mathbf x = (x_1, x_2)$ are the Euclidean coordinates, and $\nu = 0.025$ $\text{m}^2$/s. Furthermore, the mesh
@@ -25,13 +23,11 @@ velocity $\mathbf w$ is determined by the following displacement field:
 
 ```{math}
 :label: eq-vortex-d
-    \begin{align}
-    \mathbf x(\mathbf \chi,t) &= \mathbf \chi + A_0 \sin \left(\frac{2 \pi t}{T_G}\right) \left(\sin\left(2\pi \frac{\chi_2 + L / 2}{L}\right),\sin\left(2\pi \frac{\chi_1 + L / 2}{L}\right)\right)\\
-    \mathbf w (\mathbf \chi, t) &= \frac{\partial \mathbf x}{\partial t}
-    \end{align}
+    \mathbf x(\mathbf X , t) &= \chi + A_0 \sin \left(\frac{2 \pi t}{T_G}\right) \left(\sin\left(2\pi \frac{\chi_2 + L / 2}{L}\right),\sin\left(2\pi \frac{\chi_1 + L / 2}{L}\right)\right)\\
+    \mathbf w(\mathbf X , t) &= \frac{\partial \mathbf x}{\partial t}
 ```
 
-where $\mathbf \chi = (\chi_1, \chi_2)$ are the ALE coordinates, $A_0=0.08$ is the amplitude, $T_G=4T$ is the period
+where $\mathbf X= (X_1, X_2)$ are the ALE coordinates, $A_0=0.08$ is the amplitude, $T_G=4T$ is the period
 length of the mesh motion, $T$ is the length of one cycle, and $L=1$.
 
 ## Simulation in OasisMove
@@ -84,15 +80,12 @@ $ oasismove NSfracStepMove problem=MovingVortex T=1 dt=0.001
 When adjusting spatial and temporal resolution is important to know relationship between the cell size and the time-step size, which are closely related through the Courant number ($C$) given by the Courant-Friedrichs-Lewy (CFL) condition:
      
 $$
-\begin{align}
-C ={\frac  {u\,\Delta t}{\Delta x}} < C_{\max },
-\end{align}
-$$
+    C ={\frac  {u\,\Delta t}{\Delta x}} < C_{\max },
+$$ (eq:cfl-vortex)
 where $u$ is the velocity magnitude, $\Delta t$ is the time step size, and $\Delta x$ is the length interval. The general consensus is that $C_{\max} = 1$.
 
 ```
 
-## References
 
 ```{bibliography} references.bib
 :filter: docname in docnames
