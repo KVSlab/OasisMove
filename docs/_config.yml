@@ -17,6 +17,7 @@ execute:
 
 # Define the name of the latex output file for PDF builds
 latex:
+  latex_engine: xelatex
   latex_documents:
     targetname: book.tex
 
@@ -39,6 +40,7 @@ sphinx:
   config:
     html_last_updated_fmt: "%b %d, %Y"
     suppress_warnings: [ "mystnb.unknown_mime_type" ]
+    mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 launch_buttons:
   notebook_interface: "jupyterlab"

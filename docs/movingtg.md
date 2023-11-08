@@ -17,13 +17,11 @@ absence of body forces, $\mathbf{f} = 0$, namely:
 
 ```{math}
 :label: eq-tg3d
-\begin{align}
-    \mathbf u(\mathbf x,t = 0) &= (u(\mathbf x),v(\mathbf x),w(\mathbf x)\\
+    \mathbf u(\mathbf x,t = 0) &= (u(\mathbf x),v(\mathbf x),w(\mathbf x))\\
     u(\mathbf x) &= + \sin(x) \cos(y) \cos(z) \\
     v(\mathbf x) &= -\cos(x) \sin(y) \cos(z) \\
     w(\mathbf x) &= 0 \\
     p(\mathbf x,t=0) &= \frac{1}{16}(\cos(2x) + \cos(2y)) (\cos(2z) + 2).
-\end{align}
 ```
 
 The domain boundaries are prescribed a movement described by the following mesh motion from Fehn et al.
@@ -31,20 +29,18 @@ The domain boundaries are prescribed a movement described by the following mesh 
 
 ```{math}
 :label: eq-tg3d-d
-    \begin{align}
-    \mathbf x(\mathbf \chi,t) &= \mathbf \chi + A_0 \sin \left(\frac{2 \pi t}{T_G}\right)
+    \mathbf x(\mathbf X,t) &= \mathbf X + A_0 \sin \left(\frac{2 \pi t}{T_G}\right)
         \begin{pmatrix}
-        \sin \left(2\pi \frac{\chi_2 + L / 2}{L}\right) \sin\left(2\pi \frac{\chi_3 + L / 2}{L}\right)  \\ 
-        \sin\left(2\pi \frac{\chi_1 + L / 2}{L}\right) \sin\left(2\pi \frac{\chi_3 + L / 2}{L}\right)    \\
-        \sin\left(2\pi \frac{\chi_1 + L / 2}{L}\right) \sin\left(2\pi \frac{\chi_2 + L / 2}{L}\right)    
+        \sin \left(2\pi \frac{X_2 + L / 2}{L}\right) \sin\left(2\pi \frac{X_3 + L / 2}{L}\right)  \\ 
+        \sin\left(2\pi \frac{X_1 + L / 2}{L}\right) \sin\left(2\pi \frac{X_3 + L / 2}{L}\right)    \\
+        \sin\left(2\pi \frac{X_1 + L / 2}{L}\right) \sin\left(2\pi \frac{X_2 + L / 2}{L}\right)    
         \end{pmatrix}\\
-        \mathbf w (\mathbf \chi, t) &= \frac{\partial \mathbf x}{\partial t}
-\end{align}
+        \mathbf w (\mathbf X, t) &= \frac{\partial \mathbf x}{\partial t}
 ```
 
-where $\mathbf \chi = (\chi_1, \chi_2)$ are the ALE coordinates, $A_0=\pi / 6$ is the amplitude, and $T_G=20$ is the
-period. Further parameters include the total simulation time $T$, and $L=1$ describing the height, width, and depth of
-the box mesh. By default, the Reynolds number is set to Re = $1/\nu=1600$.
+where $\mathbf X = (X_1, X_2, X_3)$ are the ALE coordinates, $A_0=\pi / 6$ is the amplitude, and $T_G=20$ is the period.
+Further parameters include the total simulation time $T$, and $L=1$ describing the height, width, and depth of the box
+mesh. By default, the Reynolds number is set to $\text{Re} = 1/\nu = 1600$.
 
 ## (HPC) Simulation in OasisMove
 
@@ -87,7 +83,7 @@ resolution parameters $N_x=32$, $N_y=32$, and $N_z=32$. In contrast to the 2D [m
 the number of tetrahedral cells are now computed using the following formula:
 
 ```{math}
-\text{Number of tetrahedral cells } = 6\times N_x \times N_y \times N_z,
+    \text{Number of tetrahedral cells } = 6\times N_x \times N_y \times N_z,
 ```
 
 resulting in a total of 196 608 cells using the default parameters. To increase the mesh resolution, we can supply these
@@ -97,8 +93,6 @@ we can run the following command:
 ``` console
 $ oasismove NSfracStepMove problem=MovingTaylorGreen3D Nx=50 Ny=50 Nz=50
 ```
-
-## References
 
 ```{bibliography} references.bib
 :filter: docname in docnames

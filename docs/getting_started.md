@@ -37,7 +37,6 @@ When loading a problem file, OasisMove will start by looking inside the `problem
 look in the current working directory. If the problem you have specified after `problem=` is not located in either locations, an error will occur.
 ```
 
-## References
 
 ```{bibliography} references.bib
 :filter: docname in docnames
