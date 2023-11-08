@@ -36,7 +36,7 @@ the `Checkpoint` folder:
 $ oasismove NSfracStep solver=IPCS_ABCN problem=DrivenCavity restart_folder=results_driven_cavity/data/1/Checkpoint 
 ```
 
-The simulation should now restart at the latest checkpoint, and continue as normal until $T=10.
+The simulation should now restart at the latest checkpoint, and continue as normal until $T=10$.
 
 ### Restarting a finished simulation
 

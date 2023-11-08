@@ -15,9 +15,7 @@ which remains parallel to the x-axis, defined as:
 
 ```{math}
 :label: eq-wall-height
-\begin{equation}
     h(t) = h_0 (1 + \epsilon e^{-i\omega t}),
-\end{equation}
 ```
 
 where $\omega$ is the pulsation of the movement, $h_0$ is the mean distance between the symmetry axis $(y = 0)$ and the
@@ -56,7 +54,6 @@ name: vel-wall
 On top, the grid displacement, and on the bottom, the velocity field for the wall-driven channel flow, where the vector arrows have been scaled by the velocity magnitude. 
 ```
 
-## References
 
 ```{bibliography} references.bib
 :filter: docname in docnames

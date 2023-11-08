@@ -36,18 +36,14 @@ frequency of the oscillations are defined as:
 
 ```{math}
 :label: eq-freq
-\begin{align}
-f =  \frac{St U_{\infty}F}{D}.
-\end{align}
+    f =  \frac{St U_{\infty}F}{D}.
 ```
 
 Furthermore, the cylinder position followed a sinusoidal profile in the transverse direction to the flow:
 
 ```{math}
 :label: eq-sine
-\begin{align}
-    \mathbf x(\mathbf \chi, t) =  (0, A \sin (2 \pi f t )), 
-\end{align}
+    \mathbf x( \mathbf X, t) =  (0, A \sin (2 \pi f t )), 
 ```
 
 where $A = A_{ratio}D$ is the amplitude.
@@ -78,9 +74,7 @@ $C_L$) coefficient defined as:
 
 ```{math}
 :label: eq-force
-\begin{align}
     C_D = \frac{2 F_D}{\rho U_\infty^2 D}, \qquad C_L = \frac{2F_L}{\rho U_\infty^2 D}, 
-\end{align}
 ```
 
 stored in the `forces.txt` file. In {numref}`vel-cylinder` we display the resulting velocity field, where we have added
@@ -127,12 +121,9 @@ Reynolds number by definition:
 
 ```{math}
 :label: eq-re
-\begin{align}
     \text{Re } = \frac{U_{\infty} D}{\nu}
-\end{align}
 ```
 
-## References
 
 ```{bibliography} references.bib
 :filter: docname in docnames
