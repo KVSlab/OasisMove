@@ -6,6 +6,7 @@ import pytest
 number = "[+-]?([0-9]+.[0-9]+e[+-][0-9]+)"
 
 
+@pytest.mark.skip(reason="Deprecated test of NSCoupled")
 @pytest.mark.parametrize("num_processors", [1])
 def test_default_Coupled(num_processors):
     cmd = ["mpirun", "-np", f"{num_processors}", "oasismove", "NSCoupled", "problem=DrivenCavity", "testing=True"]
@@ -26,6 +27,7 @@ def test_default_Coupled(num_processors):
     assert eval(err[0]) < tol
 
 
+@pytest.mark.skip(reason="Deprecated test of NSCoupled")
 @pytest.mark.parametrize("num_processors", [1])
 def test_default_CR_Coupled(num_processors):
     cmd = ["mpirun", "-np", f"{num_processors}", "oasismove", "NSCoupled", "problem=DrivenCavity", "testing=True",
