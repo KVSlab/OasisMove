@@ -286,7 +286,7 @@ def mesh_velocity_assemble(A_mesh, ui, bw, bw_tmp, a_mesh, bc_mesh, A_cache, **N
     bw[ui].axpy(1., bw_tmp[ui])
 
 
-def mesh_velocity_solve(A_mesh, bw, wx_, w_, dof_map, dt, coordinates, w_sol, ui, bc_mesh, OasisTimer, **NS_namespace):
+def mesh_velocity_solve(A_mesh, bw, wx_, w_, dof_map, dt, dx_, coordinates, w_sol, ui, bc_mesh, **NS_namespace):
     """Solve mesh equation."""
     [bc.apply(bw[ui]) for bc in bc_mesh[ui]]
     w_sol.solve(A_mesh, wx_[ui], bw[ui])
@@ -295,6 +295,7 @@ def mesh_velocity_solve(A_mesh, bw, wx_, w_, dof_map, dt, coordinates, w_sol, ui
     mesh_tolerance = 1e-15
     if mesh_tolerance < abs(arr.min()) + abs(arr.max()):
         coordinates[:, int(ui[-1])] += arr * dt
+        dx_[ui].axpy(dt, w_[ui].vector())
 
 
 def scalar_assemble(a_scalar, a_conv, Ta, dt, M, scalar_components, Schmidt_T, KT, nu, Schmidt, b, K, x_1, b0,
