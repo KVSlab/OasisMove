@@ -141,7 +141,7 @@ def get_solvers(use_krylov_solvers, krylov_solvers, krylov_solvers_w, scalar_com
 
 def assemble_first_inner_iter(A, a_conv, dt, M, scalar_components, les_model, nn_model, a_scalar, K, nu, nut_,
                               nunn_, u_components, LT, KT, NT, b_tmp, b0, x_1, x_2, u_ab, bcs, mesh, boundary, u, v,
-                              backflow_facets, backflow_beta, wx_, bw_tmp, bw0, **NS_namespace):
+                              backflow_facets, backflow_beta, wx_, bw_tmp, bw0, use_supg, **NS_namespace):
     """Called on first inner iteration of velocity/pressure system.
 
     Assemble convection matrix, compute rhs of tentative velocity and
@@ -163,7 +163,7 @@ def assemble_first_inner_iter(A, a_conv, dt, M, scalar_components, les_model, nn
     # Set up scalar matrix for rhs using the same convection as velocity
     if len(scalar_components) > 0:
         Ta = NS_namespace['Ta']
-        if a_scalar is a_conv:
+        if a_scalar is a_conv and not use_supg:
             Ta.zero()
             Ta.axpy(1., A, True)
 
@@ -299,9 +299,16 @@ def mesh_velocity_solve(A_mesh, bw, wx_, w_, dof_map, dt, dx_, coordinates, w_so
 
 
 def scalar_assemble(a_scalar, a_conv, Ta, dt, M, scalar_components, Schmidt_T, KT, nu, Schmidt, b, K, x_1, b0,
-                    les_model, nn_model, **NS_namespace):
+                    les_model, nn_model, use_supg, u_ab, u, v, mesh, **NS_namespace):
     """Assemble scalar equation."""
     # Just in case you want to use a different scalar convection
+    if use_supg:
+        # Define SUPG tau
+        tau = compute_tau(u_ab, mesh)
+
+        # Define advection term
+        a_scalar = a_conv + tau * dot(u_ab, grad(u)) * dot(u_ab, grad(v)) * dx
+
     if a_scalar is not a_conv:
         assemble(a_scalar, tensor=Ta)
         Ta *= -0.5  # Negative convection on the rhs
@@ -310,7 +317,8 @@ def scalar_assemble(a_scalar, a_conv, Ta, dt, M, scalar_components, Schmidt_T, K
     # Compute rhs for all scalars
     for ci in scalar_components:
         # Add diffusion
-        Ta.axpy(-0.5 * nu / Schmidt[ci], K, True)
+        if not use_supg:
+            Ta.axpy(-0.5 * nu / Schmidt[ci], K, True)
         if les_model != "NoModel":
             Ta.axpy(-0.5 / Schmidt_T[ci], KT[0], True)
         if nn_model != "NoModel":
@@ -322,7 +330,8 @@ def scalar_assemble(a_scalar, a_conv, Ta, dt, M, scalar_components, Schmidt_T, K
         b[ci].axpy(1., b0[ci])
 
         # Subtract diffusion
-        Ta.axpy(0.5 * nu / Schmidt[ci], K, True)
+        if not use_supg:
+            Ta.axpy(0.5 * nu / Schmidt[ci], K, True)
         if les_model != "NoModel":
             Ta.axpy(0.5 / Schmidt_T[ci], KT[0], True)
         if nn_model != "NoModel":
@@ -333,10 +342,11 @@ def scalar_assemble(a_scalar, a_conv, Ta, dt, M, scalar_components, Schmidt_T, K
     Ta.axpy(2. / dt, M, True)
 
 
-def scalar_solve(ci, scalar_components, Ta, b, x_, bcs, c_sol, nu, Schmidt, K, **NS_namespace):
+def scalar_solve(ci, scalar_components, Ta, b, x_, bcs, c_sol, nu, Schmidt, K, use_supg, **NS_namespace):
     """Solve scalar equation."""
 
-    Ta.axpy(0.5 * nu / Schmidt[ci], K, True)  # Add diffusion
+    if not use_supg:
+        Ta.axpy(0.5 * nu / Schmidt[ci], K, True)  # Add diffusion
     if len(scalar_components) > 1:
         # Reuse solver for all scalars. This requires the same matrix and vectors to be used by c_sol.
         Tb, bb, bx = NS_namespace['Tb'], NS_namespace['bb'], NS_namespace['bx']
@@ -354,4 +364,24 @@ def scalar_solve(ci, scalar_components, Ta, b, x_, bcs, c_sol, nu, Schmidt, K, *
     else:
         [bc.apply(Ta, b[ci]) for bc in bcs[ci]]
         c_sol.solve(Ta, x_[ci], b[ci])
-    Ta.axpy(-0.5 * nu / Schmidt[ci], K, True)  # Subtract diffusion
+
+    if not use_supg:
+        Ta.axpy(-0.5 * nu / Schmidt[ci], K, True)  # Subtract diffusion
+
+
+def compute_tau(u_ab, mesh):
+    """
+     Compute the stabilization parameter tau for a given mesh and velocity vector.
+
+     Args:
+         u_ab (ndarray): A 2D or 3D vector representing the convecting velocity.
+         mesh (Mesh): The mesh used to compute the cell diameter.
+
+     Returns:
+         tau (float): The stabilization parameter tau.
+    """
+    h = CellDiameter(mesh)
+    u_mag = sqrt(dot(u_ab, u_ab) + 1e-10)
+    tau = h / (2.0 * u_mag)
+
+    return tau

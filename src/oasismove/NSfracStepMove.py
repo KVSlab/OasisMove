@@ -224,7 +224,8 @@ while t < (T - tstep * DOLFIN_EPS) and not stop:
             mesh_velocity_solve(**vars())
         t0.stop()
 
-        b0 = dict((ui, assemble(v * f[i] * dx)) for i, ui in enumerate(u_components))
+        for i, ui in enumerate(u_components):
+            b0[ui] = assemble(v * f[i] * dx)
         A_cache.update_t(t)
 
     while udiff[0] > max_error and inner_iter < num_iter and compute_velocity_and_pressure:

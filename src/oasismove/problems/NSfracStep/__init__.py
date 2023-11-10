@@ -71,6 +71,9 @@ NS_parameters.update(
     backflow_facets=[],  # List of boundary IDs to add stabilization on
     backflow_beta=0.2,  # Stabilization strength
 
+    # Parameters related to SUPG stabilization
+    use_supg=False,
+
     # Solver parameters that will be transferred to dolfins parameters['krylov_solver']
     krylov_solvers=dict(
         monitor_convergence=False,
