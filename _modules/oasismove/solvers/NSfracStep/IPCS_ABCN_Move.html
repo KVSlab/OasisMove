@@ -486,7 +486,7 @@ document.write(`
 
 <div class="viewcode-block" id="assemble_first_inner_iter"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.assemble_first_inner_iter">[docs]</a><span class="k">def</span> <span class="nf">assemble_first_inner_iter</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">a_conv</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">scalar_components</span><span class="p">,</span> <span class="n">les_model</span><span class="p">,</span> <span class="n">nn_model</span><span class="p">,</span> <span class="n">a_scalar</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">nut_</span><span class="p">,</span>
                               <span class="n">nunn_</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">LT</span><span class="p">,</span> <span class="n">KT</span><span class="p">,</span> <span class="n">NT</span><span class="p">,</span> <span class="n">b_tmp</span><span class="p">,</span> <span class="n">b0</span><span class="p">,</span> <span class="n">x_1</span><span class="p">,</span> <span class="n">x_2</span><span class="p">,</span> <span class="n">u_ab</span><span class="p">,</span> <span class="n">bcs</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">boundary</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span>
-                              <span class="n">backflow_facets</span><span class="p">,</span> <span class="n">backflow_beta</span><span class="p">,</span> <span class="n">wx_</span><span class="p">,</span> <span class="n">bw_tmp</span><span class="p">,</span> <span class="n">bw0</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+                              <span class="n">backflow_facets</span><span class="p">,</span> <span class="n">backflow_beta</span><span class="p">,</span> <span class="n">wx_</span><span class="p">,</span> <span class="n">bw_tmp</span><span class="p">,</span> <span class="n">bw0</span><span class="p">,</span> <span class="n">use_supg</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Called on first inner iteration of velocity/pressure system.</span>
 
 <span class="sd">    Assemble convection matrix, compute rhs of tentative velocity and</span>
@@ -508,7 +508,7 @@ document.write(`
     <span class="c1"># Set up scalar matrix for rhs using the same convection as velocity</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scalar_components</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">Ta</span> <span class="o">=</span> <span class="n">NS_namespace</span><span class="p">[</span><span class="s1">&#39;Ta&#39;</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">a_scalar</span> <span class="ow">is</span> <span class="n">a_conv</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">a_scalar</span> <span class="ow">is</span> <span class="n">a_conv</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">use_supg</span><span class="p">:</span>
             <span class="n">Ta</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>
             <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 
@@ -644,9 +644,16 @@ document.write(`
 
 
 <div class="viewcode-block" id="scalar_assemble"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.scalar_assemble">[docs]</a><span class="k">def</span> <span class="nf">scalar_assemble</span><span class="p">(</span><span class="n">a_scalar</span><span class="p">,</span> <span class="n">a_conv</span><span class="p">,</span> <span class="n">Ta</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="n">scalar_components</span><span class="p">,</span> <span class="n">Schmidt_T</span><span class="p">,</span> <span class="n">KT</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">Schmidt</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">x_1</span><span class="p">,</span> <span class="n">b0</span><span class="p">,</span>
-                    <span class="n">les_model</span><span class="p">,</span> <span class="n">nn_model</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+                    <span class="n">les_model</span><span class="p">,</span> <span class="n">nn_model</span><span class="p">,</span> <span class="n">use_supg</span><span class="p">,</span> <span class="n">u_ab</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Assemble scalar equation.&quot;&quot;&quot;</span>
     <span class="c1"># Just in case you want to use a different scalar convection</span>
+    <span class="k">if</span> <span class="n">use_supg</span><span class="p">:</span>
+        <span class="c1"># Define SUPG tau</span>
+        <span class="n">tau</span> <span class="o">=</span> <span class="n">compute_tau</span><span class="p">(</span><span class="n">u_ab</span><span class="p">,</span> <span class="n">mesh</span><span class="p">)</span>
+
+        <span class="c1"># Define advection term</span>
+        <span class="n">a_scalar</span> <span class="o">=</span> <span class="n">a_conv</span> <span class="o">+</span> <span class="n">tau</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">u_ab</span><span class="p">,</span> <span class="n">grad</span><span class="p">(</span><span class="n">u</span><span class="p">))</span> <span class="o">*</span> <span class="n">dot</span><span class="p">(</span><span class="n">u_ab</span><span class="p">,</span> <span class="n">grad</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="o">*</span> <span class="n">dx</span>
+
     <span class="k">if</span> <span class="n">a_scalar</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">a_conv</span><span class="p">:</span>
         <span class="n">assemble</span><span class="p">(</span><span class="n">a_scalar</span><span class="p">,</span> <span class="n">tensor</span><span class="o">=</span><span class="n">Ta</span><span class="p">)</span>
         <span class="n">Ta</span> <span class="o">*=</span> <span class="o">-</span><span class="mf">0.5</span>  <span class="c1"># Negative convection on the rhs</span>
@@ -655,7 +662,8 @@ document.write(`
     <span class="c1"># Compute rhs for all scalars</span>
     <span class="k">for</span> <span class="n">ci</span> <span class="ow">in</span> <span class="n">scalar_components</span><span class="p">:</span>
         <span class="c1"># Add diffusion</span>
-        <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">/</span> <span class="n">Schmidt</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">K</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">use_supg</span><span class="p">:</span>
+            <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">/</span> <span class="n">Schmidt</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">K</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">les_model</span> <span class="o">!=</span> <span class="s2">&quot;NoModel&quot;</span><span class="p">:</span>
             <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">Schmidt_T</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">KT</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">nn_model</span> <span class="o">!=</span> <span class="s2">&quot;NoModel&quot;</span><span class="p">:</span>
@@ -667,7 +675,8 @@ document.write(`
         <span class="n">b</span><span class="p">[</span><span class="n">ci</span><span class="p">]</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">b0</span><span class="p">[</span><span class="n">ci</span><span class="p">])</span>
 
         <span class="c1"># Subtract diffusion</span>
-        <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">/</span> <span class="n">Schmidt</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">K</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">use_supg</span><span class="p">:</span>
+            <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">/</span> <span class="n">Schmidt</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">K</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">les_model</span> <span class="o">!=</span> <span class="s2">&quot;NoModel&quot;</span><span class="p">:</span>
             <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">/</span> <span class="n">Schmidt_T</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">KT</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">nn_model</span> <span class="o">!=</span> <span class="s2">&quot;NoModel&quot;</span><span class="p">:</span>
@@ -678,10 +687,11 @@ document.write(`
     <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">2.</span> <span class="o">/</span> <span class="n">dt</span><span class="p">,</span> <span class="n">M</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="scalar_solve"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.scalar_solve">[docs]</a><span class="k">def</span> <span class="nf">scalar_solve</span><span class="p">(</span><span class="n">ci</span><span class="p">,</span> <span class="n">scalar_components</span><span class="p">,</span> <span class="n">Ta</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">bcs</span><span class="p">,</span> <span class="n">c_sol</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">Schmidt</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
+<div class="viewcode-block" id="scalar_solve"><a class="viewcode-back" href="../../../../api.html#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.scalar_solve">[docs]</a><span class="k">def</span> <span class="nf">scalar_solve</span><span class="p">(</span><span class="n">ci</span><span class="p">,</span> <span class="n">scalar_components</span><span class="p">,</span> <span class="n">Ta</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">x_</span><span class="p">,</span> <span class="n">bcs</span><span class="p">,</span> <span class="n">c_sol</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">Schmidt</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">use_supg</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Solve scalar equation.&quot;&quot;&quot;</span>
 
-    <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">/</span> <span class="n">Schmidt</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">K</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># Add diffusion</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">use_supg</span><span class="p">:</span>
+        <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">/</span> <span class="n">Schmidt</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">K</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># Add diffusion</span>
     <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">scalar_components</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="c1"># Reuse solver for all scalars. This requires the same matrix and vectors to be used by c_sol.</span>
         <span class="n">Tb</span><span class="p">,</span> <span class="n">bb</span><span class="p">,</span> <span class="n">bx</span> <span class="o">=</span> <span class="n">NS_namespace</span><span class="p">[</span><span class="s1">&#39;Tb&#39;</span><span class="p">],</span> <span class="n">NS_namespace</span><span class="p">[</span><span class="s1">&#39;bb&#39;</span><span class="p">],</span> <span class="n">NS_namespace</span><span class="p">[</span><span class="s1">&#39;bx&#39;</span><span class="p">]</span>
@@ -699,7 +709,27 @@ document.write(`
     <span class="k">else</span><span class="p">:</span>
         <span class="p">[</span><span class="n">bc</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">Ta</span><span class="p">,</span> <span class="n">b</span><span class="p">[</span><span class="n">ci</span><span class="p">])</span> <span class="k">for</span> <span class="n">bc</span> <span class="ow">in</span> <span class="n">bcs</span><span class="p">[</span><span class="n">ci</span><span class="p">]]</span>
         <span class="n">c_sol</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">Ta</span><span class="p">,</span> <span class="n">x_</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">b</span><span class="p">[</span><span class="n">ci</span><span class="p">])</span>
-    <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">/</span> <span class="n">Schmidt</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">K</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># Subtract diffusion</span></div>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">use_supg</span><span class="p">:</span>
+        <span class="n">Ta</span><span class="o">.</span><span class="n">axpy</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">nu</span> <span class="o">/</span> <span class="n">Schmidt</span><span class="p">[</span><span class="n">ci</span><span class="p">],</span> <span class="n">K</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>  <span class="c1"># Subtract diffusion</span></div>
+
+
+<span class="k">def</span> <span class="nf">compute_tau</span><span class="p">(</span><span class="n">u_ab</span><span class="p">,</span> <span class="n">mesh</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">     Compute the stabilization parameter tau for a given mesh and velocity vector.</span>
+
+<span class="sd">     Args:</span>
+<span class="sd">         u_ab (ndarray): A 2D or 3D vector representing the convecting velocity.</span>
+<span class="sd">         mesh (Mesh): The mesh used to compute the cell diameter.</span>
+
+<span class="sd">     Returns:</span>
+<span class="sd">         tau (float): The stabilization parameter tau.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">CellDiameter</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+    <span class="n">u_mag</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">u_ab</span><span class="p">,</span> <span class="n">u_ab</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-10</span><span class="p">)</span>
+    <span class="n">tau</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="p">(</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">u_mag</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">tau</span>
 </pre></div>
 
                 </article>
