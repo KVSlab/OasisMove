@@ -34,7 +34,6 @@ import pickle
 from pprint import pprint
 
 import numpy as np
-
 from oasismove.common import *
 
 commandline_kwargs = parse_command_line()
@@ -112,8 +111,9 @@ q_ = dict((ui, Function(VV[ui], name=ui)) for ui in sys_comp)
 q_1 = dict((ui, Function(VV[ui], name=ui + "_1")) for ui in sys_comp)
 q_2 = dict((ui, Function(V, name=ui + "_2")) for ui in u_components)
 
-# Create dictionary for the wall solution at two timestep
+# Create dictionary for the mesh velocity and deformation
 w_ = dict((ui, Function(V, name=ui)) for ui in u_components)
+d_ = dict((ui, Function(V, name=ui)) for ui in u_components)
 
 # Read in previous solution if restarting
 init_from_restart(**vars())
@@ -123,8 +123,9 @@ u_ = as_vector([q_[ui] for ui in u_components])  # Velocity vector at t
 u_1 = as_vector([q_1[ui] for ui in u_components])  # Velocity vector at t - dt
 u_2 = as_vector([q_2[ui] for ui in u_components])  # Velocity vector at t - 2*dt
 
-# Create vectors of the segregated mesh velocity compinents
+# Create vectors of the segregated mesh velocity and deformation components
 wu_ = as_vector([w_[ui] for ui in u_components])  # Mesh velocity at t
+du_ = as_vector([d_[ui] for ui in u_components])  # Mesh velocity at t
 
 # Adams Bashforth projection of velocity at t - dt/2
 U_AB = 1.5 * u_1 - 0.5 * u_2
@@ -133,7 +134,8 @@ U_AB = 1.5 * u_1 - 0.5 * u_2
 x_ = dict((ui, q_[ui].vector()) for ui in sys_comp)  # Solution vectors t
 x_1 = dict((ui, q_1[ui].vector()) for ui in sys_comp)  # Solution vectors t - dt
 x_2 = dict((ui, q_2[ui].vector()) for ui in u_components)  # Solution vectors t - 2*dt
-wx_ = dict((ui, w_[ui].vector()) for ui in u_components)
+wx_ = dict((ui, w_[ui].vector()) for ui in u_components)  # Mesh velocity
+dx_ = dict((ui, d_[ui].vector()) for ui in u_components)  # Deformation
 
 # Create vectors to hold rhs of equations
 b = dict((ui, Vector(x_[ui])) for ui in sys_comp)  # rhs vectors (final)
