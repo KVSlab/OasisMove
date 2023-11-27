@@ -145,15 +145,16 @@ def save_checkpoint_solution_xdmf(q_, q_1, w_, d_, newfolder, u_components, mesh
 
     MPI.barrier(MPI.comm_world)
     # Store mesh velocity and deformation solution
-    for ui in w_:
-        checkpoint_path = path.join(checkpointfolder, ui.replace("u", "w") + '.xdmf')
-        with XDMFFile(MPI.comm_world, checkpoint_path) as f:
-            f.write_checkpoint(w_[ui], '/current')
+    if w_ is not None:
+        for ui in w_:
+            checkpoint_path = path.join(checkpointfolder, ui.replace("u", "w") + '.xdmf')
+            with XDMFFile(MPI.comm_world, checkpoint_path) as f:
+                f.write_checkpoint(w_[ui], '/current')
 
-        checkpoint_path = path.join(checkpointfolder, ui.replace("u", "d") + '.xdmf')
-        with XDMFFile(MPI.comm_world, checkpoint_path) as f:
-            f.write_checkpoint(d_[ui], '/current')
-        MPI.barrier(MPI.comm_world)
+            checkpoint_path = path.join(checkpointfolder, ui.replace("u", "d") + '.xdmf')
+            with XDMFFile(MPI.comm_world, checkpoint_path) as f:
+                f.write_checkpoint(d_[ui], '/current')
+            MPI.barrier(MPI.comm_world)
 
     # Store mesh and boundary
     MPI.barrier(MPI.comm_world)
@@ -248,14 +249,15 @@ def init_from_restart(restart_folder, sys_comp, uc_comp, u_components, q_, q_1, 
                         read_and_interpolate_solution(f, V, previous_velocity_degree, q_2, q_2_prev, ui,
                                                       velocity_degree, "/previous")
         # Load mesh velocity and deformation
-        for ui in u_components:
-            checkpoint_path = path.join(restart_folder, ui.replace("u", "w") + '.xdmf')
-            with XDMFFile(MPI.comm_world, checkpoint_path) as f:
-                f.read_checkpoint(w_[ui], "/current")
+        if w_ is not None:
+            for ui in u_components:
+                checkpoint_path = path.join(restart_folder, ui.replace("u", "w") + '.xdmf')
+                with XDMFFile(MPI.comm_world, checkpoint_path) as f:
+                    f.read_checkpoint(w_[ui], "/current")
 
-            checkpoint_path = path.join(restart_folder, ui.replace("u", "d") + '.xdmf')
-            with XDMFFile(MPI.comm_world, checkpoint_path) as f:
-                f.read_checkpoint(d_[ui], "/current")
+                checkpoint_path = path.join(restart_folder, ui.replace("u", "d") + '.xdmf')
+                with XDMFFile(MPI.comm_world, checkpoint_path) as f:
+                    f.read_checkpoint(d_[ui], "/current")
 
 
 def read_and_interpolate_solution(f, V, previous_velocity_degree, q_, q_prev, ui, velocity_degree, name):
