@@ -283,7 +283,6 @@ def mesh_velocity_assemble(A_mesh, ui, bw, bw_tmp, a_mesh, bc_mesh, A_cache, **N
     A_mesh.zero()
     A_mesh.axpy(1, A_cache[(a_mesh, tuple(bc_mesh[ui]))], True)
     bw[ui].zero()
-    bw[ui].axpy(1., bw_tmp[ui])
 
 
 def mesh_velocity_solve(A_mesh, bw, wx_, w_, dof_map, dt, dx_, coordinates, w_sol, ui, bc_mesh, **NS_namespace):

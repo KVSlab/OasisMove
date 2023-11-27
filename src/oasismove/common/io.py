@@ -9,6 +9,7 @@ from os import makedirs, listdir, remove, system, path
 from xml.etree import ElementTree as ET
 
 from dolfin import MPI, XDMFFile, HDF5File, FunctionSpace, Function, interpolate, MeshFunction
+
 from oasismove.problems import info_red
 
 __all__ = ["create_initial_folders", "save_solution", "save_tstep_solution_xdmf",
@@ -62,7 +63,8 @@ def create_initial_folders(folder, restart_folder, sys_comp, tstep, info_red,
     return newfolder, tstepfiles
 
 
-def save_solution(tstep, t, q_, q_1, folder, newfolder, save_step, checkpoint, NS_parameters, tstepfiles, u_,
+def save_solution(tstep, t, q_, q_1, w_, d_, folder, newfolder, save_step, checkpoint, NS_parameters, tstepfiles,
+                  u_,
                   u_components, output_timeseries_as_vector, mesh, AssignedVectorFunction, killtime, total_timer,
                   **NS_namespace):
     """Called at end of timestep. Check for kill and save solution if required."""
@@ -78,7 +80,7 @@ def save_solution(tstep, t, q_, q_1, folder, newfolder, save_step, checkpoint, N
 
     killoasis = check_if_kill(folder, killtime, total_timer)
     if tstep % checkpoint == 0 or killoasis:
-        save_checkpoint_solution_xdmf(q_, q_1, newfolder, u_components, mesh, NS_parameters)
+        save_checkpoint_solution_xdmf(q_, q_1, w_, d_, newfolder, u_components, mesh, NS_parameters)
 
     return killoasis
 
@@ -116,7 +118,7 @@ def save_tstep_solution_xdmf(tstep, q_, u_, newfolder, tstepfiles, output_timese
             pickle.dump(NS_parameters, f)
 
 
-def save_checkpoint_solution_xdmf(q_, q_1, newfolder, u_components, mesh, NS_parameters):
+def save_checkpoint_solution_xdmf(q_, q_1, w_, d_, newfolder, u_components, mesh, NS_parameters):
     """
     Overwrite solution in Checkpoint folder
     """
@@ -140,6 +142,18 @@ def save_checkpoint_solution_xdmf(q_, q_1, newfolder, u_components, mesh, NS_par
             f.write_checkpoint(q_[ui], '/current')
             if ui in u_components:
                 f.write_checkpoint(q_1[ui], '/previous', append=True)
+        MPI.barrier(MPI.comm_world)
+
+    MPI.barrier(MPI.comm_world)
+    # Store mesh velocity and deformation solution
+    for ui in w_:
+        checkpoint_path = path.join(checkpointfolder, ui.replace("u", "w") + '.xdmf')
+        with XDMFFile(MPI.comm_world, checkpoint_path) as f:
+            f.write_checkpoint(w_[ui], '/current')
+
+        checkpoint_path = path.join(checkpointfolder, ui.replace("u", "d") + '.xdmf')
+        with XDMFFile(MPI.comm_world, checkpoint_path) as f:
+            f.write_checkpoint(d_[ui], '/current')
         MPI.barrier(MPI.comm_world)
 
     # Store mesh and boundary
@@ -202,7 +216,7 @@ def check_if_reset_statistics(folder):
         return False
 
 
-def init_from_restart(restart_folder, sys_comp, uc_comp, u_components, q_, q_1, q_2, tstep, velocity_degree,
+def init_from_restart(restart_folder, sys_comp, uc_comp, u_components, q_, q_1, q_2, w_, d_, tstep, velocity_degree,
                       previous_velocity_degree, mesh, constrained_domain, V, Q, **NS_namespace):
     """Initialize solution from checkpoint files """
     if restart_folder:
@@ -219,6 +233,7 @@ def init_from_restart(restart_folder, sys_comp, uc_comp, u_components, q_, q_1, 
             q_prev = dict((ui, Function(VV_prev[ui], name=ui)) for ui in sys_comp)
             q_2_prev = dict((ui, Function(V_prev, name=ui + "_2")) for ui in u_components)
 
+        # Load velocity and pressure
         for ui in sys_comp:
             checkpoint_path = path.join(restart_folder, ui + '.xdmf')
             with XDMFFile(MPI.comm_world, checkpoint_path) as f:
@@ -233,6 +248,15 @@ def init_from_restart(restart_folder, sys_comp, uc_comp, u_components, q_, q_1, 
                         # Interpolate
                         read_and_interpolate_solution(f, V, previous_velocity_degree, q_2, q_2_prev, ui,
                                                       velocity_degree, "/previous")
+        # Load mesh velocity and deformation
+        for ui in u_components:
+            checkpoint_path = path.join(restart_folder, ui.replace("u", "w") + '.xdmf')
+            with XDMFFile(MPI.comm_world, checkpoint_path) as f:
+                f.read_checkpoint(w_[ui], "/current")
+
+            checkpoint_path = path.join(restart_folder, ui.replace("u", "d") + '.xdmf')
+            with XDMFFile(MPI.comm_world, checkpoint_path) as f:
+                f.read_checkpoint(d_[ui], "/current")
 
 
 def read_and_interpolate_solution(f, V, previous_velocity_degree, q_, q_prev, ui, velocity_degree, name):
