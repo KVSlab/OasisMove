@@ -64,8 +64,7 @@ def create_initial_folders(folder, restart_folder, sys_comp, tstep, info_red,
 
 
 def save_solution(tstep, t, q_, q_1, w_, d_, folder, newfolder, save_step, checkpoint, NS_parameters, tstepfiles,
-                  u_,
-                  u_components, output_timeseries_as_vector, mesh, AssignedVectorFunction, killtime, total_timer,
+                  u_, u_components, output_timeseries_as_vector, mesh, AssignedVectorFunction, killtime, total_timer,
                   **NS_namespace):
     """Called at end of timestep. Check for kill and save solution if required."""
     NS_parameters.update(t=t, tstep=tstep)
