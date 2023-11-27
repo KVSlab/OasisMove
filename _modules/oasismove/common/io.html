@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="" >
 
   <head>
     <meta charset="utf-8" />
@@ -18,12 +18,12 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=365ca57ee442770a23c6" rel="stylesheet" />
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
   <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
 <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
@@ -37,9 +37,9 @@
     <link rel="stylesheet" type="text/css" href="../../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6" />
-  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=365ca57ee442770a23c6"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Nov 10, 2023"/>
+    <meta name="docbuild:last-update" content="Nov 27, 2023"/>
   </head>
   
   
@@ -137,6 +137,7 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
@@ -300,6 +301,7 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -309,6 +311,7 @@ document.write(`
   </button>
 `);
 </script>
+
 
 <script>
 document.write(`
@@ -354,6 +357,7 @@ document.write(`
 <span class="kn">from</span> <span class="nn">xml.etree</span> <span class="kn">import</span> <span class="n">ElementTree</span> <span class="k">as</span> <span class="n">ET</span>
 
 <span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="n">MPI</span><span class="p">,</span> <span class="n">XDMFFile</span><span class="p">,</span> <span class="n">HDF5File</span><span class="p">,</span> <span class="n">FunctionSpace</span><span class="p">,</span> <span class="n">Function</span><span class="p">,</span> <span class="n">interpolate</span><span class="p">,</span> <span class="n">MeshFunction</span>
+
 <span class="kn">from</span> <span class="nn">oasismove.problems</span> <span class="kn">import</span> <span class="n">info_red</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;create_initial_folders&quot;</span><span class="p">,</span> <span class="s2">&quot;save_solution&quot;</span><span class="p">,</span> <span class="s2">&quot;save_tstep_solution_xdmf&quot;</span><span class="p">,</span>
@@ -407,8 +411,8 @@ document.write(`
     <span class="k">return</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">tstepfiles</span></div>
 
 
-<div class="viewcode-block" id="save_solution"><a class="viewcode-back" href="../../../api.html#oasismove.common.io.save_solution">[docs]</a><span class="k">def</span> <span class="nf">save_solution</span><span class="p">(</span><span class="n">tstep</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">q_</span><span class="p">,</span> <span class="n">q_1</span><span class="p">,</span> <span class="n">folder</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">save_step</span><span class="p">,</span> <span class="n">checkpoint</span><span class="p">,</span> <span class="n">NS_parameters</span><span class="p">,</span> <span class="n">tstepfiles</span><span class="p">,</span> <span class="n">u_</span><span class="p">,</span>
-                  <span class="n">u_components</span><span class="p">,</span> <span class="n">output_timeseries_as_vector</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">AssignedVectorFunction</span><span class="p">,</span> <span class="n">killtime</span><span class="p">,</span> <span class="n">total_timer</span><span class="p">,</span>
+<div class="viewcode-block" id="save_solution"><a class="viewcode-back" href="../../../api.html#oasismove.common.io.save_solution">[docs]</a><span class="k">def</span> <span class="nf">save_solution</span><span class="p">(</span><span class="n">tstep</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">q_</span><span class="p">,</span> <span class="n">q_1</span><span class="p">,</span> <span class="n">w_</span><span class="p">,</span> <span class="n">d_</span><span class="p">,</span> <span class="n">folder</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">save_step</span><span class="p">,</span> <span class="n">checkpoint</span><span class="p">,</span> <span class="n">NS_parameters</span><span class="p">,</span> <span class="n">tstepfiles</span><span class="p">,</span>
+                  <span class="n">u_</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">output_timeseries_as_vector</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">AssignedVectorFunction</span><span class="p">,</span> <span class="n">killtime</span><span class="p">,</span> <span class="n">total_timer</span><span class="p">,</span>
                   <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Called at end of timestep. Check for kill and save solution if required.&quot;&quot;&quot;</span>
     <span class="n">NS_parameters</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">tstep</span><span class="o">=</span><span class="n">tstep</span><span class="p">)</span>
@@ -423,7 +427,7 @@ document.write(`
 
     <span class="n">killoasis</span> <span class="o">=</span> <span class="n">check_if_kill</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">killtime</span><span class="p">,</span> <span class="n">total_timer</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">tstep</span> <span class="o">%</span> <span class="n">checkpoint</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">killoasis</span><span class="p">:</span>
-        <span class="n">save_checkpoint_solution_xdmf</span><span class="p">(</span><span class="n">q_</span><span class="p">,</span> <span class="n">q_1</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">NS_parameters</span><span class="p">)</span>
+        <span class="n">save_checkpoint_solution_xdmf</span><span class="p">(</span><span class="n">q_</span><span class="p">,</span> <span class="n">q_1</span><span class="p">,</span> <span class="n">w_</span><span class="p">,</span> <span class="n">d_</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">NS_parameters</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">killoasis</span></div>
 
@@ -461,7 +465,7 @@ document.write(`
             <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">NS_parameters</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="save_checkpoint_solution_xdmf"><a class="viewcode-back" href="../../../api.html#oasismove.common.io.save_checkpoint_solution_xdmf">[docs]</a><span class="k">def</span> <span class="nf">save_checkpoint_solution_xdmf</span><span class="p">(</span><span class="n">q_</span><span class="p">,</span> <span class="n">q_1</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">NS_parameters</span><span class="p">):</span>
+<div class="viewcode-block" id="save_checkpoint_solution_xdmf"><a class="viewcode-back" href="../../../api.html#oasismove.common.io.save_checkpoint_solution_xdmf">[docs]</a><span class="k">def</span> <span class="nf">save_checkpoint_solution_xdmf</span><span class="p">(</span><span class="n">q_</span><span class="p">,</span> <span class="n">q_1</span><span class="p">,</span> <span class="n">w_</span><span class="p">,</span> <span class="n">d_</span><span class="p">,</span> <span class="n">newfolder</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">NS_parameters</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Overwrite solution in Checkpoint folder</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -486,6 +490,19 @@ document.write(`
             <span class="k">if</span> <span class="n">ui</span> <span class="ow">in</span> <span class="n">u_components</span><span class="p">:</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write_checkpoint</span><span class="p">(</span><span class="n">q_1</span><span class="p">[</span><span class="n">ui</span><span class="p">],</span> <span class="s1">&#39;/previous&#39;</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
         <span class="n">MPI</span><span class="o">.</span><span class="n">barrier</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span>
+
+    <span class="n">MPI</span><span class="o">.</span><span class="n">barrier</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span>
+    <span class="c1"># Store mesh velocity and deformation solution</span>
+    <span class="k">if</span> <span class="n">w_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">ui</span> <span class="ow">in</span> <span class="n">w_</span><span class="p">:</span>
+            <span class="n">checkpoint_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">checkpointfolder</span><span class="p">,</span> <span class="n">ui</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.xdmf&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">XDMFFile</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">checkpoint_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write_checkpoint</span><span class="p">(</span><span class="n">w_</span><span class="p">[</span><span class="n">ui</span><span class="p">],</span> <span class="s1">&#39;/current&#39;</span><span class="p">)</span>
+
+            <span class="n">checkpoint_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">checkpointfolder</span><span class="p">,</span> <span class="n">ui</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.xdmf&#39;</span><span class="p">)</span>
+            <span class="k">with</span> <span class="n">XDMFFile</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">checkpoint_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                <span class="n">f</span><span class="o">.</span><span class="n">write_checkpoint</span><span class="p">(</span><span class="n">d_</span><span class="p">[</span><span class="n">ui</span><span class="p">],</span> <span class="s1">&#39;/current&#39;</span><span class="p">)</span>
+            <span class="n">MPI</span><span class="o">.</span><span class="n">barrier</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span>
 
     <span class="c1"># Store mesh and boundary</span>
     <span class="n">MPI</span><span class="o">.</span><span class="n">barrier</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span>
@@ -547,7 +564,7 @@ document.write(`
         <span class="k">return</span> <span class="kc">False</span></div>
 
 
-<div class="viewcode-block" id="init_from_restart"><a class="viewcode-back" href="../../../api.html#oasismove.common.io.init_from_restart">[docs]</a><span class="k">def</span> <span class="nf">init_from_restart</span><span class="p">(</span><span class="n">restart_folder</span><span class="p">,</span> <span class="n">sys_comp</span><span class="p">,</span> <span class="n">uc_comp</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">q_</span><span class="p">,</span> <span class="n">q_1</span><span class="p">,</span> <span class="n">q_2</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span> <span class="n">velocity_degree</span><span class="p">,</span>
+<div class="viewcode-block" id="init_from_restart"><a class="viewcode-back" href="../../../api.html#oasismove.common.io.init_from_restart">[docs]</a><span class="k">def</span> <span class="nf">init_from_restart</span><span class="p">(</span><span class="n">restart_folder</span><span class="p">,</span> <span class="n">sys_comp</span><span class="p">,</span> <span class="n">uc_comp</span><span class="p">,</span> <span class="n">u_components</span><span class="p">,</span> <span class="n">q_</span><span class="p">,</span> <span class="n">q_1</span><span class="p">,</span> <span class="n">q_2</span><span class="p">,</span> <span class="n">w_</span><span class="p">,</span> <span class="n">d_</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span> <span class="n">velocity_degree</span><span class="p">,</span>
                       <span class="n">previous_velocity_degree</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">constrained_domain</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">Q</span><span class="p">,</span> <span class="o">**</span><span class="n">NS_namespace</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize solution from checkpoint files &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">restart_folder</span><span class="p">:</span>
@@ -564,6 +581,7 @@ document.write(`
             <span class="n">q_prev</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">ui</span><span class="p">,</span> <span class="n">Function</span><span class="p">(</span><span class="n">VV_prev</span><span class="p">[</span><span class="n">ui</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="n">ui</span><span class="p">))</span> <span class="k">for</span> <span class="n">ui</span> <span class="ow">in</span> <span class="n">sys_comp</span><span class="p">)</span>
             <span class="n">q_2_prev</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">((</span><span class="n">ui</span><span class="p">,</span> <span class="n">Function</span><span class="p">(</span><span class="n">V_prev</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">ui</span> <span class="o">+</span> <span class="s2">&quot;_2&quot;</span><span class="p">))</span> <span class="k">for</span> <span class="n">ui</span> <span class="ow">in</span> <span class="n">u_components</span><span class="p">)</span>
 
+        <span class="c1"># Load velocity and pressure</span>
         <span class="k">for</span> <span class="n">ui</span> <span class="ow">in</span> <span class="n">sys_comp</span><span class="p">:</span>
             <span class="n">checkpoint_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">restart_folder</span><span class="p">,</span> <span class="n">ui</span> <span class="o">+</span> <span class="s1">&#39;.xdmf&#39;</span><span class="p">)</span>
             <span class="k">with</span> <span class="n">XDMFFile</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">checkpoint_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -577,7 +595,17 @@ document.write(`
                     <span class="k">if</span> <span class="n">ui</span> <span class="ow">in</span> <span class="n">u_components</span><span class="p">:</span>
                         <span class="c1"># Interpolate</span>
                         <span class="n">read_and_interpolate_solution</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">previous_velocity_degree</span><span class="p">,</span> <span class="n">q_2</span><span class="p">,</span> <span class="n">q_2_prev</span><span class="p">,</span> <span class="n">ui</span><span class="p">,</span>
-                                                      <span class="n">velocity_degree</span><span class="p">,</span> <span class="s2">&quot;/previous&quot;</span><span class="p">)</span></div>
+                                                      <span class="n">velocity_degree</span><span class="p">,</span> <span class="s2">&quot;/previous&quot;</span><span class="p">)</span>
+        <span class="c1"># Load mesh velocity and deformation</span>
+        <span class="k">if</span> <span class="n">w_</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ui</span> <span class="ow">in</span> <span class="n">u_components</span><span class="p">:</span>
+                <span class="n">checkpoint_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">restart_folder</span><span class="p">,</span> <span class="n">ui</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.xdmf&#39;</span><span class="p">)</span>
+                <span class="k">with</span> <span class="n">XDMFFile</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">checkpoint_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">read_checkpoint</span><span class="p">(</span><span class="n">w_</span><span class="p">[</span><span class="n">ui</span><span class="p">],</span> <span class="s2">&quot;/current&quot;</span><span class="p">)</span>
+
+                <span class="n">checkpoint_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">restart_folder</span><span class="p">,</span> <span class="n">ui</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;u&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;.xdmf&#39;</span><span class="p">)</span>
+                <span class="k">with</span> <span class="n">XDMFFile</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">,</span> <span class="n">checkpoint_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">read_checkpoint</span><span class="p">(</span><span class="n">d_</span><span class="p">[</span><span class="n">ui</span><span class="p">],</span> <span class="s2">&quot;/current&quot;</span><span class="p">)</span></div>
 
 
 <span class="k">def</span> <span class="nf">read_and_interpolate_solution</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">previous_velocity_degree</span><span class="p">,</span> <span class="n">q_</span><span class="p">,</span> <span class="n">q_prev</span><span class="p">,</span> <span class="n">ui</span><span class="p">,</span> <span class="n">velocity_degree</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
@@ -657,7 +685,7 @@ document.write(`
               
               
                 <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                  
 <div class="prev-next-area">
 </div>
                 </footer>
@@ -682,6 +710,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023.
@@ -693,7 +722,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Nov 10, 2023.
+  Last updated on Nov 27, 2023.
   <br/>
 </p>
   </div>
@@ -711,8 +740,8 @@ By Henrik A. Kjeldsberg
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=365ca57ee442770a23c6"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=365ca57ee442770a23c6"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
   <footer class="bd-footer">
   </footer>
