@@ -119,6 +119,9 @@ u_ = as_vector([q_[ui] for ui in u_components])  # Velocity vector at t
 u_1 = as_vector([q_1[ui] for ui in u_components])  # Velocity vector at t - dt
 u_2 = as_vector([q_2[ui] for ui in u_components])  # Velocity vector at t - 2*dt
 
+# Create temporary dictionary for the mesh velocity and deformation
+w_ = d_ = None
+
 # Adams Bashforth projection of velocity at t - dt/2
 U_AB = 1.5 * u_1 - 0.5 * u_2
 
