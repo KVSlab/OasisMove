@@ -68,7 +68,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="prev" title="Backflow stabilization" href="stenosis.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Nov 27, 2023"/>
+    <meta name="docbuild:last-update" content="Dec 07, 2023"/>
   </head>
   
   
@@ -741,9 +741,30 @@ and preconditioner_type</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="oasismove.problems.__init__.compute_flow_quantities">
 <span class="sig-prename descclassname"><span class="pre">oasismove.problems.__init__.</span></span><span class="sig-name descname"><span class="pre">compute_flow_quantities</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">L</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nu</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">t</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tstep</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">h</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlet_area</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">boundary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outlet_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inlet_ids</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_wall</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">period</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newfolder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dynamic_mesh</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">write_to_file</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/oasismove/problems/__init__.html#compute_flow_quantities"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#oasismove.problems.__init__.compute_flow_quantities" title="Permalink to this definition">#</a></dt>
-<dd><p>Compute max and mean Reynolds number using velocities U_max &amp; U_mean,
-kinematic viscosity (nu) and characteristic length (L)
-Also computes the CFL number, and fluxes through boundaries</p>
+<dd><p>Compute max and mean Reynolds numbers, CFL numbers, and fluxes through boundaries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>u</strong> (<em>Function</em>) – Velocity field.</p></li>
+<li><p><strong>L</strong> (<em>float</em>) – Characteristic length.</p></li>
+<li><p><strong>nu</strong> (<em>float</em>) – Kinematic viscosity of fluid.</p></li>
+<li><p><strong>mesh</strong> (<em>Mesh</em>) – Computational mesh.</p></li>
+<li><p><strong>t</strong> (<em>float</em>) – Current time.</p></li>
+<li><p><strong>tstep</strong> (<em>int</em>) – Current time step.</p></li>
+<li><p><strong>dt</strong> (<em>float</em>) – Time step size.</p></li>
+<li><p><strong>h</strong> (<em>float</em>) – Mesh element size.</p></li>
+<li><p><strong>outlet_area</strong> (<em>float</em>) – Area of the outlet, default is 1.</p></li>
+<li><p><strong>boundary</strong> (<em>MeshFunction</em>) – Boundary mesh function, default is None.</p></li>
+<li><p><strong>outlet_ids</strong> (<em>list of int</em>) – List of outlet boundary IDs, default is empty list.</p></li>
+<li><p><strong>inlet_ids</strong> (<em>list of int</em>) – List of inlet boundary IDs, default is empty list.</p></li>
+<li><p><strong>id_wall</strong> (<em>int</em>) – Wall boundary ID, default is 0.</p></li>
+<li><p><strong>period</strong> (<em>float</em>) – Period of oscillation, default is 1.0.</p></li>
+<li><p><strong>newfolder</strong> (<em>str</em>) – Directory for output files, default is None.</p></li>
+<li><p><strong>dynamic_mesh</strong> (<em>bool</em>) – Flag for dynamic mesh, default is False.</p></li>
+<li><p><strong>write_to_file</strong> (<em>bool</em>) – Flag to write results to file, default is False.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -1294,7 +1315,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Nov 27, 2023.
+  Last updated on Dec 07, 2023.
   <br/>
 </p>
   </div>

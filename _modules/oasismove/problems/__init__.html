@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Nov 27, 2023"/>
+    <meta name="docbuild:last-update" content="Dec 07, 2023"/>
   </head>
   
   
@@ -352,6 +352,7 @@ document.write(`
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">getpid</span><span class="p">,</span> <span class="n">path</span>
+
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">dolfin</span> <span class="kn">import</span> <span class="o">*</span>
 
@@ -474,27 +475,34 @@ document.write(`
 <div class="viewcode-block" id="compute_flow_quantities"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.compute_flow_quantities">[docs]</a><span class="k">def</span> <span class="nf">compute_flow_quantities</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">L</span><span class="p">,</span> <span class="n">nu</span><span class="p">,</span> <span class="n">mesh</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">outlet_area</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">boundary</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">outlet_ids</span><span class="o">=</span><span class="p">[],</span> <span class="n">inlet_ids</span><span class="o">=</span><span class="p">[],</span>
                             <span class="n">id_wall</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">newfolder</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">dynamic_mesh</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">write_to_file</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute max and mean Reynolds number using velocities U_max &amp; U_mean,</span>
-<span class="sd">    kinematic viscosity (nu) and characteristic length (L)</span>
-<span class="sd">    Also computes the CFL number, and fluxes through boundaries</span>
+<span class="sd">    Compute max and mean Reynolds numbers, CFL numbers, and fluxes through boundaries.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        u (Function): Velocity field.</span>
+<span class="sd">        L (float): Characteristic length.</span>
+<span class="sd">        nu (float): Kinematic viscosity of fluid.</span>
+<span class="sd">        mesh (Mesh): Computational mesh.</span>
+<span class="sd">        t (float): Current time.</span>
+<span class="sd">        tstep (int): Current time step.</span>
+<span class="sd">        dt (float): Time step size.</span>
+<span class="sd">        h (float): Mesh element size.</span>
+<span class="sd">        outlet_area (float): Area of the outlet, default is 1.</span>
+<span class="sd">        boundary (MeshFunction): Boundary mesh function, default is None.</span>
+<span class="sd">        outlet_ids (list of int): List of outlet boundary IDs, default is empty list.</span>
+<span class="sd">        inlet_ids (list of int): List of inlet boundary IDs, default is empty list.</span>
+<span class="sd">        id_wall (int): Wall boundary ID, default is 0.</span>
+<span class="sd">        period (float): Period of oscillation, default is 1.0.</span>
+<span class="sd">        newfolder (str): Directory for output files, default is None.</span>
+<span class="sd">        dynamic_mesh (bool): Flag for dynamic mesh, default is False.</span>
+<span class="sd">        write_to_file (bool): Flag to write results to file, default is False.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="c1"># Compute and printCFL number</span>
-    <span class="n">DG</span> <span class="o">=</span> <span class="n">FunctionSpace</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="s2">&quot;DG&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">U</span> <span class="o">=</span> <span class="n">project</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">inner</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">u</span><span class="p">)),</span> <span class="n">DG</span><span class="p">)</span>
-
-    <span class="n">U_mean</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">get_local</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-    <span class="n">U_max</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">get_local</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-
-    <span class="n">re_mean</span> <span class="o">=</span> <span class="n">U_mean</span> <span class="o">*</span> <span class="n">L</span> <span class="o">/</span> <span class="n">nu</span>
-    <span class="n">re_max</span> <span class="o">=</span> <span class="n">U_max</span> <span class="o">*</span> <span class="n">L</span> <span class="o">/</span> <span class="n">nu</span>
+    <span class="c1"># Compute boundary flow rates</span>
     <span class="n">flux_in</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">flux_out</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">flux_wall</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">re_outlet</span> <span class="o">=</span> <span class="mi">0</span>
-
     <span class="k">if</span> <span class="n">boundary</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="c1"># Compute Reynolds number at outlet</span>
         <span class="n">ds</span> <span class="o">=</span> <span class="n">Measure</span><span class="p">(</span><span class="s2">&quot;ds&quot;</span><span class="p">,</span> <span class="n">subdomain_data</span><span class="o">=</span><span class="n">boundary</span><span class="p">)</span>
         <span class="n">n</span> <span class="o">=</span> <span class="n">FacetNormal</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
         <span class="n">u_dot_n</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
@@ -511,27 +519,38 @@ document.write(`
     <span class="c1"># Compute Womersley number</span>
     <span class="n">omega</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">period</span>
     <span class="n">D_outlet</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">outlet_area</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-
-    <span class="n">womersley_number_outlet</span> <span class="o">=</span> <span class="n">D_outlet</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">omega</span> <span class="o">/</span> <span class="n">nu</span><span class="p">)</span>
+    <span class="n">womersley_number</span> <span class="o">=</span> <span class="n">D_outlet</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">omega</span> <span class="o">/</span> <span class="n">nu</span><span class="p">)</span>
 
     <span class="c1"># Recompute edge length if mesh has moved</span>
     <span class="k">if</span> <span class="n">dynamic_mesh</span><span class="p">:</span>
         <span class="n">h</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">hmin</span><span class="p">()</span>
 
-    <span class="n">cfl</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">get_local</span><span class="p">()</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">/</span> <span class="n">h</span>
-    <span class="n">max_cfl</span> <span class="o">=</span> <span class="n">cfl</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
-    <span class="n">mean_cfl</span> <span class="o">=</span> <span class="n">cfl</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="c1"># Compute velocity used to estimate max and mean velocity, CFL and Reynolds number</span>
+    <span class="n">DG</span> <span class="o">=</span> <span class="n">FunctionSpace</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="s2">&quot;DG&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">U</span> <span class="o">=</span> <span class="n">project</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">inner</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">u</span><span class="p">)),</span> <span class="n">DG</span><span class="p">)</span>
+    <span class="n">local_U</span> <span class="o">=</span> <span class="n">U</span><span class="o">.</span><span class="n">vector</span><span class="p">()</span><span class="o">.</span><span class="n">get_local</span><span class="p">()</span>
+    <span class="n">U_array</span> <span class="o">=</span> <span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">local_U</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">MPI</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">MPI</span><span class="o">.</span><span class="n">comm_world</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># Gather velocity arrays and compute max and mean velocity, CFL and Reynolds number</span>
+        <span class="n">U_gathered</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">U_array</span><span class="p">)</span>
+        <span class="n">U_mean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">U_gathered</span><span class="p">)</span>
+        <span class="n">U_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">U_gathered</span><span class="p">)</span>
+
+        <span class="n">cfl_mean</span> <span class="o">=</span> <span class="n">U_mean</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">/</span> <span class="n">h</span>
+        <span class="n">cfl_max</span> <span class="o">=</span> <span class="n">U_max</span> <span class="o">*</span> <span class="n">dt</span> <span class="o">/</span> <span class="n">h</span>
+
+        <span class="n">re_mean</span> <span class="o">=</span> <span class="n">U_mean</span> <span class="o">*</span> <span class="n">L</span> <span class="o">/</span> <span class="n">nu</span>
+        <span class="n">re_max</span> <span class="o">=</span> <span class="n">U_max</span> <span class="o">*</span> <span class="n">L</span> <span class="o">/</span> <span class="n">nu</span>
+
         <span class="n">info_green</span><span class="p">(</span>
             <span class="s1">&#39;Time = </span><span class="si">{0:2.4e}</span><span class="s1">, timestep = </span><span class="si">{1:6d}</span><span class="s1">, max Reynolds number=</span><span class="si">{2:2.3f}</span><span class="s1">, mean Reynolds number=</span><span class="si">{3:2.3f}</span><span class="s1">, outlet Reynolds number=</span><span class="si">{4:2.3f}</span><span class="s1">, Womersley number=</span><span class="si">{5:2.3f}</span><span class="s1">, max velocity=</span><span class="si">{6:2.3f}</span><span class="s1">, mean velocity=</span><span class="si">{7:2.3f}</span><span class="s1">, max CFL=</span><span class="si">{8:2.3f}</span><span class="s1">, mean CFL=</span><span class="si">{9:2.3f}</span><span class="s1">&#39;</span>
-                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span> <span class="n">re_max</span><span class="p">,</span> <span class="n">re_mean</span><span class="p">,</span> <span class="n">re_outlet</span><span class="p">,</span> <span class="n">womersley_number_outlet</span><span class="p">,</span> <span class="n">U_max</span><span class="p">,</span> <span class="n">U_mean</span><span class="p">,</span> <span class="n">max_cfl</span><span class="p">,</span>
-                        <span class="n">mean_cfl</span><span class="p">))</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span> <span class="n">re_max</span><span class="p">,</span> <span class="n">re_mean</span><span class="p">,</span> <span class="n">re_outlet</span><span class="p">,</span> <span class="n">womersley_number</span><span class="p">,</span> <span class="n">U_max</span><span class="p">,</span> <span class="n">U_mean</span><span class="p">,</span> <span class="n">cfl_max</span><span class="p">,</span> <span class="n">cfl_mean</span><span class="p">))</span>
 
-    <span class="k">if</span> <span class="n">write_to_file</span><span class="p">:</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span> <span class="n">re_max</span><span class="p">,</span> <span class="n">re_mean</span><span class="p">,</span> <span class="n">re_outlet</span><span class="p">,</span> <span class="n">womersley_number_outlet</span><span class="p">,</span> <span class="n">U_max</span><span class="p">,</span> <span class="n">U_mean</span><span class="p">,</span> <span class="n">max_cfl</span><span class="p">,</span>
-                <span class="n">mean_cfl</span><span class="p">]</span> <span class="o">+</span> <span class="n">flux_in</span> <span class="o">+</span> <span class="n">flux_out</span> <span class="o">+</span> <span class="n">flux_wall</span>
-        <span class="n">write_data_to_file</span><span class="p">(</span><span class="n">newfolder</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;flow_metrics.txt&quot;</span><span class="p">)</span></div>
+        <span class="k">if</span> <span class="n">write_to_file</span><span class="p">:</span>
+            <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span><span class="p">,</span> <span class="n">tstep</span><span class="p">,</span> <span class="n">re_max</span><span class="p">,</span> <span class="n">re_mean</span><span class="p">,</span> <span class="n">re_outlet</span><span class="p">,</span> <span class="n">womersley_number</span><span class="p">,</span> <span class="n">U_max</span><span class="p">,</span> <span class="n">U_mean</span><span class="p">,</span> <span class="n">cfl_max</span><span class="p">,</span>
+                    <span class="n">cfl_mean</span><span class="p">]</span> <span class="o">+</span> <span class="n">flux_in</span> <span class="o">+</span> <span class="n">flux_out</span> <span class="o">+</span> <span class="n">flux_wall</span>
+            <span class="n">write_data_to_file</span><span class="p">(</span><span class="n">newfolder</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="s2">&quot;flow_metrics.txt&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="write_data_to_file"><a class="viewcode-back" href="../../../api.html#oasismove.problems.__init__.write_data_to_file">[docs]</a><span class="k">def</span> <span class="nf">write_data_to_file</span><span class="p">(</span><span class="n">save_path</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
@@ -745,7 +764,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Nov 27, 2023.
+  Last updated on Dec 07, 2023.
   <br/>
 </p>
   </div>
