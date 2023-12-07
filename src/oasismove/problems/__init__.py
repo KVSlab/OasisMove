@@ -4,6 +4,7 @@
 import subprocess
 from collections import defaultdict
 from os import getpid, path
+
 import numpy as np
 from dolfin import *
 
@@ -126,27 +127,34 @@ def QC(u):
 def compute_flow_quantities(u, L, nu, mesh, t, tstep, dt, h, outlet_area=1, boundary=None, outlet_ids=[], inlet_ids=[],
                             id_wall=0, period=1.0, newfolder=None, dynamic_mesh=False, write_to_file=False):
     """
-    Compute max and mean Reynolds number using velocities U_max & U_mean,
-    kinematic viscosity (nu) and characteristic length (L)
-    Also computes the CFL number, and fluxes through boundaries
+    Compute max and mean Reynolds numbers, CFL numbers, and fluxes through boundaries.
+
+    Args:
+        u (Function): Velocity field.
+        L (float): Characteristic length.
+        nu (float): Kinematic viscosity of fluid.
+        mesh (Mesh): Computational mesh.
+        t (float): Current time.
+        tstep (int): Current time step.
+        dt (float): Time step size.
+        h (float): Mesh element size.
+        outlet_area (float): Area of the outlet, default is 1.
+        boundary (MeshFunction): Boundary mesh function, default is None.
+        outlet_ids (list of int): List of outlet boundary IDs, default is empty list.
+        inlet_ids (list of int): List of inlet boundary IDs, default is empty list.
+        id_wall (int): Wall boundary ID, default is 0.
+        period (float): Period of oscillation, default is 1.0.
+        newfolder (str): Directory for output files, default is None.
+        dynamic_mesh (bool): Flag for dynamic mesh, default is False.
+        write_to_file (bool): Flag to write results to file, default is False.
     """
 
-    # Compute and printCFL number
-    DG = FunctionSpace(mesh, "DG", 0)
-    U = project(sqrt(inner(u, u)), DG)
-
-    U_mean = U.vector().get_local().mean()
-    U_max = U.vector().get_local().max()
-
-    re_mean = U_mean * L / nu
-    re_max = U_max * L / nu
+    # Compute boundary flow rates
     flux_in = []
     flux_out = []
     flux_wall = []
     re_outlet = 0
-
     if boundary is not None:
-        # Compute Reynolds number at outlet
         ds = Measure("ds", subdomain_data=boundary)
         n = FacetNormal(mesh)
         u_dot_n = dot(u, n)
@@ -163,27 +171,38 @@ def compute_flow_quantities(u, L, nu, mesh, t, tstep, dt, h, outlet_area=1, boun
     # Compute Womersley number
     omega = 2 * np.pi / period
     D_outlet = np.sqrt(4 * outlet_area / np.pi)
-
-    womersley_number_outlet = D_outlet * np.sqrt(omega / nu)
+    womersley_number = D_outlet * np.sqrt(omega / nu)
 
     # Recompute edge length if mesh has moved
     if dynamic_mesh:
         h = mesh.hmin()
 
-    cfl = U.vector().get_local() * dt / h
-    max_cfl = cfl.max()
-    mean_cfl = cfl.mean()
+    # Compute velocity used to estimate max and mean velocity, CFL and Reynolds number
+    DG = FunctionSpace(mesh, "DG", 0)
+    U = project(sqrt(inner(u, u)), DG)
+    local_U = U.vector().get_local()
+    U_array = MPI.comm_world.gather(local_U, 0)
 
     if MPI.rank(MPI.comm_world) == 0:
+        # Gather velocity arrays and compute max and mean velocity, CFL and Reynolds number
+        U_gathered = np.concatenate(U_array)
+        U_mean = np.mean(U_gathered)
+        U_max = np.max(U_gathered)
+
+        cfl_mean = U_mean * dt / h
+        cfl_max = U_max * dt / h
+
+        re_mean = U_mean * L / nu
+        re_max = U_max * L / nu
+
         info_green(
             'Time = {0:2.4e}, timestep = {1:6d}, max Reynolds number={2:2.3f}, mean Reynolds number={3:2.3f}, outlet Reynolds number={4:2.3f}, Womersley number={5:2.3f}, max velocity={6:2.3f}, mean velocity={7:2.3f}, max CFL={8:2.3f}, mean CFL={9:2.3f}'
-                .format(t, tstep, re_max, re_mean, re_outlet, womersley_number_outlet, U_max, U_mean, max_cfl,
-                        mean_cfl))
+                .format(t, tstep, re_max, re_mean, re_outlet, womersley_number, U_max, U_mean, cfl_max, cfl_mean))
 
-    if write_to_file:
-        data = [t, tstep, re_max, re_mean, re_outlet, womersley_number_outlet, U_max, U_mean, max_cfl,
-                mean_cfl] + flux_in + flux_out + flux_wall
-        write_data_to_file(newfolder, data, "flow_metrics.txt")
+        if write_to_file:
+            data = [t, tstep, re_max, re_mean, re_outlet, womersley_number, U_max, U_mean, cfl_max,
+                    cfl_mean] + flux_in + flux_out + flux_wall
+            write_data_to_file(newfolder, data, "flow_metrics.txt")
 
 
 def write_data_to_file(save_path, data, filename):
