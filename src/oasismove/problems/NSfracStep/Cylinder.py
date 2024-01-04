@@ -9,9 +9,8 @@ import pickle
 from os import getcwd
 
 import matplotlib.pyplot as plt
-
-from ..Cylinder import *
-from ..NSfracStep import *
+from oasismove.problems.NSfracStep import *
+from oasismove.problems.Cylinder import *
 
 
 def problem_parameters(commandline_kwargs, NS_parameters, scalar_components,
@@ -35,13 +34,24 @@ def problem_parameters(commandline_kwargs, NS_parameters, scalar_components,
             plot_interval=10,
             velocity_degree=2,
             print_intermediate_info=100,
-            use_krylov_solvers=True)
+            use_krylov_solvers=True,
+            mesh_path="src/oasismove/mesh/cylinder.xml",
+        )
         NS_parameters['krylov_solvers'].update(dict(monitor_convergence=True))
         NS_parameters['velocity_krylov_solver'].update(dict(preconditioner_type='jacobi',
                                                             solver_type='bicgstab'))
 
     scalar_components.append("alfa")
     Schmidt["alfa"] = 0.1
+
+
+def mesh(mesh_path, dt, **NS_namespace):
+    # Import mesh
+    print(mesh_path)
+    mesh = Mesh(mesh_path)
+
+    print_mesh_information(mesh, dt, dim=2)
+    return mesh
 
 
 def create_bcs(V, Q, Um, H, **NS_namespace):
