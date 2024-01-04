@@ -5,8 +5,8 @@ __date__ = "2014-04-04"
 __copyright__ = "Copyright (C) 2014 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
-from ..Cylinder import *
-from ..NSCoupled import *
+from oasismove.problems.NSCoupled import *
+from oasismove.problems.Cylinder import *
 
 
 # Override some problem specific parameters
@@ -15,13 +15,24 @@ def problem_parameters(NS_parameters, scalar_components, **NS_namespace):
         omega=1.0,
         max_iter=100,
         plot_interval=10,
-        velocity_degree=2)
+        velocity_degree=2,
+        mesh_path="src/oasismove/mesh/cylinder.xml",
+    )
 
     scalar_components += ["c", "d"]
 
 
 def scalar_source(c_, d_, **NS_namespace):
     return {"c": -Constant(0.1) * c_ * c_, "d": -Constant(0.25) * c_ * d_ * d_}
+
+
+def mesh(mesh_path, dt, **NS_namespace):
+    # Import mesh
+    print(mesh_path)
+    mesh = Mesh(mesh_path)
+
+    print_mesh_information(mesh, dt, dim=2)
+    return mesh
 
 
 def create_bcs(VQ, Um, CG, V, element, **NS_namespace):
