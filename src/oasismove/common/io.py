@@ -114,6 +114,7 @@ def save_tstep_solution_xdmf(tstep, q_, u_, newfolder, tstepfiles, output_timese
     if MPI.rank(MPI.comm_world) == 0:
         if not path.exists(path.join(timefolder, "params.dat")):
             f = open(path.join(timefolder, 'params.dat'), 'wb')
+            NS_parameters.pop("mesh")
             pickle.dump(NS_parameters, f)
 
 

@@ -77,6 +77,7 @@ if restart_folder is not None:
     tstep = params["tstep"]
     previous_velocity_degree = params["velocity_degree"]
 
+
 # Import chosen functionality from solvers
 solver = importlib.import_module('.'.join(('oasismove.solvers.NSfracStep', solver)))
 vars().update({name: solver.__dict__[name] for name in solver.__all__})
