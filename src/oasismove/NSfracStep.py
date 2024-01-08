@@ -48,7 +48,7 @@ if problemspec is None:
     problemspec = importlib.util.find_spec(problemname)
 if problemspec is None:
     raise RuntimeError(problemname + ' not found')
-mesh_path = commandline_kwargs.get('mesh_path', None)
+
 # Import the problem module
 print('Importing problem module ' + problemname + ':\n' + problemspec.origin)
 problemmod = importlib.util.module_from_spec(problemspec)
