@@ -7,16 +7,18 @@ __license__ = "GNU Lesser GPL version 3 or any later version"
 
 from oasismove.problems.NSCoupled import *
 from oasismove.problems.Cylinder import *
-
+from pathlib import Path
 
 # Override some problem specific parameters
+
+
 def problem_parameters(NS_parameters, scalar_components, **NS_namespace):
     NS_parameters.update(
         omega=1.0,
         max_iter=100,
         plot_interval=10,
         velocity_degree=2,
-        mesh_path="src/oasismove/mesh/cylinder.xml",
+        mesh_path="src/oasismove/mesh/cylinder.xdmf",
     )
 
     scalar_components += ["c", "d"]
@@ -29,7 +31,12 @@ def scalar_source(c_, d_, **NS_namespace):
 def mesh(mesh_path, dt, **NS_namespace):
     # Import mesh
     print(mesh_path)
-    mesh = Mesh(mesh_path)
+    if Path(mesh_path).suffix == ".xml":
+        mesh = Mesh(mesh_path)
+    elif Path(mesh_path).suffix == ".xdmf":
+        mesh = Mesh()
+        with XDMFFile(mesh_path) as infile:
+            infile.read(mesh)
 
     print_mesh_information(mesh, dt, dim=2)
     return mesh

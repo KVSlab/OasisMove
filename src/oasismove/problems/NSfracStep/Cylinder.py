@@ -11,6 +11,7 @@ from os import getcwd
 import matplotlib.pyplot as plt
 from oasismove.problems.NSfracStep import *
 from oasismove.problems.Cylinder import *
+from pathlib import Path
 
 
 def problem_parameters(commandline_kwargs, NS_parameters, scalar_components,
@@ -23,7 +24,6 @@ def problem_parameters(commandline_kwargs, NS_parameters, scalar_components,
         NS_parameters.update(pickle.load(f))
         NS_parameters['restart_folder'] = restart_folder
         globals().update(NS_parameters)
-
     else:
         # Override some problem specific parameters
         NS_parameters.update(
@@ -35,7 +35,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, scalar_components,
             velocity_degree=2,
             print_intermediate_info=100,
             use_krylov_solvers=True,
-            mesh_path="src/oasismove/mesh/cylinder.xml",
+            mesh_path=commandline_kwargs["mesh_path"],
         )
         NS_parameters['krylov_solvers'].update(dict(monitor_convergence=True))
         NS_parameters['velocity_krylov_solver'].update(dict(preconditioner_type='jacobi',
@@ -48,7 +48,12 @@ def problem_parameters(commandline_kwargs, NS_parameters, scalar_components,
 def mesh(mesh_path, dt, **NS_namespace):
     # Import mesh
     print(mesh_path)
-    mesh = Mesh(mesh_path)
+    if Path(mesh_path).suffix == ".xml":
+        mesh = Mesh(mesh_path)
+    elif Path(mesh_path).suffix == ".xdmf":
+        mesh = Mesh()
+        with XDMFFile(mesh_path) as infile:
+            infile.read(mesh)
 
     print_mesh_information(mesh, dt, dim=2)
     return mesh

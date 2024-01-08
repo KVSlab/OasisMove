@@ -48,7 +48,7 @@ if problemspec is None:
     problemspec = importlib.util.find_spec(problemname)
 if problemspec is None:
     raise RuntimeError(problemname + ' not found')
-
+mesh_path = commandline_kwargs.get('mesh_path', None)
 # Import the problem module
 print('Importing problem module ' + problemname + ':\n' + problemspec.origin)
 problemmod = importlib.util.module_from_spec(problemspec)
@@ -76,6 +76,7 @@ if restart_folder is not None:
     t = params["t"]
     tstep = params["tstep"]
     previous_velocity_degree = params["velocity_degree"]
+
 
 # Import chosen functionality from solvers
 solver = importlib.import_module('.'.join(('oasismove.solvers.NSfracStep', solver)))
