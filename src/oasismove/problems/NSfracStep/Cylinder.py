@@ -27,10 +27,10 @@ def problem_parameters(commandline_kwargs, NS_parameters, scalar_components,
     else:
         # Override some problem specific parameters
         NS_parameters.update(
-            T=100,
+            T=0.01,
             dt=0.01,
-            checkpoint=50,
-            save_step=50,
+            checkpoint=1,
+            save_step=1,
             plot_interval=10,
             velocity_degree=2,
             print_intermediate_info=100,
@@ -59,22 +59,23 @@ def mesh(mesh_path, dt, **NS_namespace):
     return mesh
 
 
-def create_bcs(V, Q, Um, H, **NS_namespace):
+def create_bcs(V, Q, Um, R, **NS_namespace):
     inlet = Expression(
-        "4.*{0}*x[1]*({1}-x[1])/pow({1}, 2)".format(Um, H), degree=2)
-    ux = Expression("0.00*x[1]", degree=1)
-    uy = Expression("-0.00*(x[0]-{})".format(center), degree=1)
-    bc00 = DirichletBC(V, inlet, Inlet)
-    bc01 = DirichletBC(V, 0, Inlet)
-    bc10 = DirichletBC(V, ux, Cyl)
-    bc11 = DirichletBC(V, uy, Cyl)
+        f"Um*(R*R-(x[0]*x[0]+x[1]*x[1]))/(R*R)", R=R, Um=Um, degree=2)
+    ux = Expression("0.00", degree=2)
+    uy = Expression("0.00", degree=2)
+    bc_i0 = DirichletBC(V, 0, Inlet)
+    bc_i1 = DirichletBC(V, 0, Inlet)
+    bc_i2 = DirichletBC(V, inlet, Inlet)
+
     bc2 = DirichletBC(V, 0, Wall)
     bcp = DirichletBC(Q, 0, Outlet)
-    bca = DirichletBC(V, 1, Cyl)
-    return dict(u0=[bc00, bc10, bc2],
-                u1=[bc01, bc11, bc2],
+
+    return dict(u0=[bc_i0, bc2],
+                u1=[bc_i1, bc2],
+                u2=[bc_i2, bc2],
                 p=[bcp],
-                alfa=[bca])
+                alfa=[])
 
 
 def initialize(x_1, x_2, bcs, **NS_namespace):
@@ -83,76 +84,88 @@ def initialize(x_1, x_2, bcs, **NS_namespace):
     for ui in x_2:
         [bc.apply(x_2[ui]) for bc in bcs[ui]]
 
+xdmffile = XDMFFile(MPI.comm_world, "results/u.xdmf")
 
-def pre_solve_hook(mesh, V, newfolder, tstepfiles, tstep, ds, u_,
+
+def temporal_hook(mesh, V, newfolder, tstepfiles, tstep, ds, u_,
                    AssignedVectorFunction, **NS_namespace):
-    uv = AssignedVectorFunction(u_, name='Velocity')
-    omega = Function(V, name='omega')
+    global_uv = AssignedVectorFunction(u_, name='Velocity')
+    global_uv()
+    xdmffile.write_checkpoint(global_uv, "u", tstep, XDMFFile.Encoding.HDF5)
+    #omega = Function(V, name='omega')
     # Store omega each save_step
-    add_function_to_tstepfiles(omega, newfolder, tstepfiles, tstep)
-    ff = MeshFunction("size_t", mesh, mesh.ufl_cell().geometric_dimension() - 1)
-    Cyl.mark(ff, 1)
-    n = FacetNormal(mesh)
-    ds = ds[ff]
-
-    return dict(uv=uv, omega=omega, ds=ds, ff=ff, n=n)
-
-
-def temporal_hook(q_, u_, tstep, V, uv, p_, plot_interval, omega, ds,
-                  save_step, mesh, nu, Umean, D, n, **NS_namespace):
-    if tstep % plot_interval == 0:
-        uv()
-        plt.figure(1)
-        plot(uv, title='Velocity')
-        plt.figure(2)
-        plot(p_, title='Pressure')
-        plt.figure(3)
-        plot(q_['alfa'], title='alfa')
-        plt.show()
-
-    R = VectorFunctionSpace(mesh, 'R', 0)
-    c = TestFunction(R)
-    tau = -p_ * Identity(2) + nu * (grad(u_) + grad(u_).T)
-    forces = assemble(dot(dot(tau, n), c) * ds(1)).get_local() * 2 / Umean ** 2 / D
-
-    print("Cd = {}, CL = {}".format(*forces))
-
-    if tstep % save_step == 0:
-        try:
-            from fenicstools import StreamFunction
-            omega.assign(StreamFunction(u_, []))
-        except Exception:
-            omega.assign(project(curl(u_), V, solver_type='cg',
-                                 bcs=[DirichletBC(V, 0, DomainBoundary())]))
+    #add_function_to_tstepfiles(omega, newfolder, tstepfiles, tstep)
+    
+    
+    # ff = MeshFunction("size_t", mesh, mesh.topology().dim() - 1, 0)
+    # Inlet.mark(ff, 1)
+    # Outlet.mark(ff, 2)
+    # Wall.mark(ff, 3)
+    #breakpoint()
+    #n = FacetNormal(mesh)
+    #ds = ds[ff]
+    return {}
+    #return dict(uv=uv, omega=omega, ds=ds, ff=ff, n=n)
 
 
-def theend_hook(q_, u_, p_, uv, mesh, ds, V, nu, Umean, D, **NS_namespace):
-    uv()
-    plot(uv, title='Velocity')
-    plot(p_, title='Pressure')
-    plot(q_['alfa'], title='alfa')
-    R = VectorFunctionSpace(mesh, 'R', 0)
-    c = TestFunction(R)
-    tau = -p_ * Identity(2) + nu * (grad(u_) + grad(u_).T)
-    ff = MeshFunction("size_t", mesh, mesh.ufl_cell().geometric_dimension() - 1)
-    Cyl.mark(ff, 1)
-    n = FacetNormal(mesh)
-    ds = ds[ff]
-    forces = assemble(dot(dot(tau, n), c) * ds(1)).get_local() * 2 / Umean ** 2 / D
+#def temporal_hook(q_, u_, tstep, V, uv, p_, plot_interval, omega, ds,
+ #                 save_step, mesh, nu,, n, **NS_namespace):
+# if tstep % plot_interval == 0:
+#     uv()
+#     plt.figure(1)
+#     plot(uv, title='Velocity')
+#     plt.figure(2)
+#     plot(p_, title='Pressure')
+#     plt.figure(3)
+#     plot(q_['alfa'], title='alfa')
+#     plt.show()
 
-    print("Cd = {}, CL = {}".format(*forces))
+# R = VectorFunctionSpace(mesh, 'R', 0)
+# c = TestFunction(R)
+# tau = -p_ * Identity(2) + nu * (grad(u_) + grad(u_).T)
+# forces = assemble(dot(dot(tau, n), c) * ds(1)).get_local() * 2 / Umean ** 2 / D
 
-    try:
-        from fenicstools import Probes
-        from numpy import linspace, repeat, where, resize
-        xx = linspace(0, L, 10000)
-        x = resize(repeat(xx, 2), (10000, 2))
-        x[:, 1] = 0.2
-        probes = Probes(x.flatten(), V)
-        probes(u_[0])
-        nmax = where(probes.array() < 0)[0][-1]
-        print("L = ", x[nmax, 0] - 0.25)
-        print("dP = ", p_(Point(0.15, 0.2)) - p_(Point(0.25, 0.2)))
+# print("Cd = {}, CL = {}".format(*forces))
 
-    except Exception:
-        pass
+# if tstep % save_step == 0:
+#     try:
+#         from fenicstools import StreamFunction
+#         omega.assign(StreamFunction(u_, []))
+#     except Exception:
+#         omega.assign(project(curl(u_), V, solver_type='cg',
+#                              bcs=[DirichletBC(V, 0, DomainBoundary())]))
+
+
+#def theend_hook(q_, u_, p_, uv, mesh, ds, V, nu, Umean, D, **NS_namespace):
+    # uv()
+    # plot(uv, title='Velocity')
+    # plot(p_, title='Pressure')
+    # plot(q_['alfa'], title='alfa')
+    # R = VectorFunctionSpace(mesh, 'R', 0)
+    # c = TestFunction(R)
+    # tau = -p_ * Identity(2) + nu * (grad(u_) + grad(u_).T)
+    # ff = MeshFunction("size_t", mesh, mesh.ufl_cell().geometric_dimension() - 1)
+    # Cyl.mark(ff, 1)
+    # n = FacetNormal(mesh)
+    # ds = ds[ff]
+    # forces = assemble(dot(dot(tau, n), c) * ds(1)).get_local() * 2 / Umean ** 2 / D
+
+    # print("Cd = {}, CL = {}".format(*forces))
+
+    # try:
+    #     from fenicstools import Probes
+    #     from numpy import linspace, repeat, where, resize
+    #     xx = linspace(0, L, 10000)
+    #     x = resize(repeat(xx, 2), (10000, 2))
+    #     x[:, 1] = 0.2
+    #     probes = Probes(x.flatten(), V)
+    #     probes(u_[0])
+    #     nmax = where(probes.array() < 0)[0][-1]
+    #     print("L = ", x[nmax, 0] - 0.25)
+    #     print("dP = ", p_(Point(0.15, 0.2)) - p_(Point(0.25, 0.2)))
+
+    # except Exception:
+    #     pass
+
+def theend_hook(**NS_namespace):
+    xdmffile.close()
