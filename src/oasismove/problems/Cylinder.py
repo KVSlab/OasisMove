@@ -7,8 +7,8 @@ from dolfin import AutoSubDomain, near
 
 
 
-Um = 1
-nu = 4 * 10**(-3)
+Um = 5
+nu = 0.004/1000
 R = 1
 H = 2
 
