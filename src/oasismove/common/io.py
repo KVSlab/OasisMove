@@ -115,6 +115,7 @@ def save_tstep_solution_xdmf(tstep, q_, u_, newfolder, tstepfiles, output_timese
         if not path.exists(path.join(timefolder, "params.dat")):
             f = open(path.join(timefolder, 'params.dat'), 'wb')
             NS_parameters.pop("mesh", None)
+            NS_parameters.pop("inlet", None)
             pickle.dump(NS_parameters, f)
 
 
@@ -130,6 +131,7 @@ def save_checkpoint_solution_xdmf(q_, q_1, w_, d_, newfolder, u_components, mesh
                                        path.join(checkpointfolder, "params_old.dat")))
         f = open(path.join(checkpointfolder, "params.dat"), 'wb')
         NS_parameters.pop("mesh", None)
+        NS_parameters.pop("inlet", None)
         pickle.dump(NS_parameters, f)
 
     if MPI.rank(MPI.comm_world) == 0 and path.exists(path.join(checkpointfolder, "params_old.dat")):
