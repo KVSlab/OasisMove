@@ -30,8 +30,8 @@ def problem_parameters(commandline_kwargs, NS_parameters, scalar_components,
     else:
         # Override some problem specific parameters
         NS_parameters.update(
-            T=2,
-            dt=0.05,
+            T=1,
+            dt=0.025,
             checkpoint=1,
             save_step=1,
             plot_interval=10,

@@ -6,8 +6,8 @@ __license__ = "GNU Lesser GPL version 3 or any later version"
 from dolfin import AutoSubDomain, near
 
 
-
-Um = 5
+#  oasismove NSfracStep problem=Cylinder solver=IPCS_ABCN mesh_path=cylinder_uniform.xdmf
+Um = 1
 nu = 0.004/1000
 R = 1
 H = 2
