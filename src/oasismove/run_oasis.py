@@ -7,12 +7,12 @@ sys.path.append(os.getcwd())
 
 
 def main():
-    assert sys.argv[1] in ('NSfracStep', 'NSCoupled', 'NSfracStepMove')
+    assert sys.argv[1] in ("NSfracStep", "NSCoupled", "NSfracStepMove")
     solver = sys.argv.pop(1)
-    if solver == 'NSfracStep':
+    if solver == "NSfracStep":
         from oasismove import NSfracStep
 
-    elif solver == 'NSCoupled':
+    elif solver == "NSCoupled":
         from oasismove import NSCoupled
 
     elif solver == "NSfracStepMove":
@@ -23,5 +23,5 @@ def main():
         raise NotImplementedError
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

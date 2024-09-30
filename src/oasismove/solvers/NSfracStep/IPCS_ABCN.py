@@ -4,16 +4,39 @@ __copyright__ = "Copyright (C) 2013 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
 from dolfin import *
-from oasismove.solvers.NSfracStep import *
-from oasismove.solvers.NSfracStep import __all__
 from petsc4py import PETSc as _PETSc
 
 from oasismove.problems.NSfracStep import u_dot_n
+from oasismove.solvers.NSfracStep import *
+from oasismove.solvers.NSfracStep import __all__
 
 
-def setup(u_components, u, v, p, q, bcs, les_model, nn_model, nut_, nunn_, scalar_components, V, Q, x_, p_, u_,
-          velocity_update_solver, assemble_matrix, homogenize, GradFunction, DivFunction, LESsource, NNsource,
-          **NS_namespace):
+def setup(
+    u_components,
+    u,
+    v,
+    p,
+    q,
+    bcs,
+    les_model,
+    nn_model,
+    nut_,
+    nunn_,
+    scalar_components,
+    V,
+    Q,
+    x_,
+    p_,
+    u_,
+    velocity_update_solver,
+    assemble_matrix,
+    homogenize,
+    GradFunction,
+    DivFunction,
+    LESsource,
+    NNsource,
+    **NS_namespace
+):
     """Preassemble mass and diffusion matrices.
 
     Set up and prepare all equations to be solved. Called once, before
@@ -27,11 +50,14 @@ def setup(u_components, u, v, p, q, bcs, les_model, nn_model, nut_, nunn_, scala
     K = assemble_matrix(inner(grad(u), grad(v)) * dx)
 
     # Allocate stiffness matrix for LES that changes with time
-    KT = None if les_model == "NoModel" and nn_model == "NoModel" else (
-        Matrix(M), inner(grad(u), grad(v)))
+    KT = (
+        None
+        if les_model == "NoModel" and nn_model == "NoModel"
+        else (Matrix(M), inner(grad(u), grad(v)))
+    )
 
     # Pressure Laplacian.
-    Ap = assemble_matrix(inner(grad(q), grad(p)) * dx, bcs['p'])
+    Ap = assemble_matrix(inner(grad(q), grad(p)) * dx, bcs["p"])
 
     # if les_model == "NoModel":
     # if not Ap.id() == K.id():
@@ -46,14 +72,20 @@ def setup(u_components, u, v, p, q, bcs, les_model, nn_model, nut_, nunn_, scala
     A = Matrix(M)
 
     # Allocate Function for holding and computing the velocity divergence on Q
-    divu = DivFunction(u_, Q, name='divu',
-                       method=velocity_update_solver)
+    divu = DivFunction(u_, Q, name="divu", method=velocity_update_solver)
 
     # Allocate a dictionary of Functions for holding and computing pressure gradients
-    gradp = {ui: GradFunction(p_, V, i=i, name='dpd' + ('x', 'y', 'z')[i],
-                              bcs=homogenize(bcs[ui]),
-                              method=velocity_update_solver)
-             for i, ui in enumerate(u_components)}
+    gradp = {
+        ui: GradFunction(
+            p_,
+            V,
+            i=i,
+            name="dpd" + ("x", "y", "z")[i],
+            bcs=homogenize(bcs[ui]),
+            method=velocity_update_solver,
+        )
+        for i, ui in enumerate(u_components)
+    }
 
     # Create dictionary to be returned into global NS namespace
     d = dict(A=A, M=M, K=K, Ap=Ap, divu=divu, gradp=gradp)
@@ -75,22 +107,29 @@ def setup(u_components, u, v, p, q, bcs, les_model, nn_model, nut_, nunn_, scala
     u_ab = as_vector([Function(V) for i in range(len(u_components))])
     a_conv = inner(v, dot(u_ab, nabla_grad(u))) * dx
     a_scalar = a_conv
-    LT = None if les_model == "NoModel" else LESsource(
-        nut_, u_ab, V, name='LTd')
+    LT = None if les_model == "NoModel" else LESsource(nut_, u_ab, V, name="LTd")
 
-    NT = None if nn_model == "NoModel" else NNsource(
-        nunn_, u_ab, V, name='NTd')
+    NT = None if nn_model == "NoModel" else NNsource(nunn_, u_ab, V, name="NTd")
 
-    if bcs['p'] == []:
+    if bcs["p"] == []:
         attach_pressure_nullspace(Ap, x_, Q)
 
     d.update(u_ab=u_ab, a_conv=a_conv, a_scalar=a_scalar, LT=LT, KT=KT, NT=NT)
     return d
 
 
-def get_solvers(use_krylov_solvers, krylov_solvers, bcs,
-                x_, Q, scalar_components, velocity_krylov_solver,
-                pressure_krylov_solver, scalar_krylov_solver, **NS_namespace):
+def get_solvers(
+    use_krylov_solvers,
+    krylov_solvers,
+    bcs,
+    x_,
+    Q,
+    scalar_components,
+    velocity_krylov_solver,
+    pressure_krylov_solver,
+    scalar_krylov_solver,
+    **NS_namespace
+):
     """Return linear solvers.
 
     We are solving for
@@ -103,15 +142,15 @@ def get_solvers(use_krylov_solvers, krylov_solvers, bcs,
     """
     if use_krylov_solvers:
         # tentative velocity solver
-        u_prec = PETScPreconditioner(velocity_krylov_solver['preconditioner_type'])
-        u_sol = PETScKrylovSolver(velocity_krylov_solver['solver_type'], u_prec)
+        u_prec = PETScPreconditioner(velocity_krylov_solver["preconditioner_type"])
+        u_sol = PETScKrylovSolver(velocity_krylov_solver["solver_type"], u_prec)
         # u_sol = KrylovSolver(velocity_krylov_solver['solver_type'],
         #                     velocity_krylov_solver['preconditioner_type'])
         u_sol.parameters.update(krylov_solvers)
 
         # pressure solver
-        p_prec = PETScPreconditioner(pressure_krylov_solver['preconditioner_type'])
-        p_sol = PETScKrylovSolver(pressure_krylov_solver['solver_type'], p_prec)
+        p_prec = PETScPreconditioner(pressure_krylov_solver["preconditioner_type"])
+        p_sol = PETScKrylovSolver(pressure_krylov_solver["solver_type"], p_prec)
         # p_sol = KrylovSolver(pressure_krylov_solver['solver_type'],
         #                     pressure_krylov_solver['preconditioner_type'])
         p_sol.parameters.update(krylov_solvers)
@@ -120,8 +159,8 @@ def get_solvers(use_krylov_solvers, krylov_solvers, bcs,
         sols = [u_sol, p_sol, None]
         # scalar solver
         if len(scalar_components) > 0:
-            c_prec = PETScPreconditioner(scalar_krylov_solver['preconditioner_type'])
-            c_sol = PETScKrylovSolver(scalar_krylov_solver['solver_type'], c_prec)
+            c_prec = PETScPreconditioner(scalar_krylov_solver["preconditioner_type"])
+            c_sol = PETScKrylovSolver(scalar_krylov_solver["solver_type"], c_prec)
             c_sol.parameters.update(krylov_solvers)
             sols.append(c_sol)
         else:
@@ -144,9 +183,37 @@ def get_solvers(use_krylov_solvers, krylov_solvers, bcs,
     return sols
 
 
-def assemble_first_inner_iter(A, a_conv, dt, M, scalar_components, les_model, nn_model, a_scalar, K, nu, nut_, nunn_,
-                              u_components, LT, KT, NT, b_tmp, b0, x_1, x_2, u_ab, bcs, mesh, boundary, u, v,
-                              backflow_facets, backflow_beta, **NS_namespace):
+def assemble_first_inner_iter(
+    A,
+    a_conv,
+    dt,
+    M,
+    scalar_components,
+    les_model,
+    nn_model,
+    a_scalar,
+    K,
+    nu,
+    nut_,
+    nunn_,
+    u_components,
+    LT,
+    KT,
+    NT,
+    b_tmp,
+    b0,
+    x_1,
+    x_2,
+    u_ab,
+    bcs,
+    mesh,
+    boundary,
+    u,
+    v,
+    backflow_facets,
+    backflow_beta,
+    **NS_namespace
+):
     """Called on first inner iteration of velocity/pressure system.
 
     Assemble convection matrix, compute rhs of tentative velocity and
@@ -162,14 +229,14 @@ def assemble_first_inner_iter(A, a_conv, dt, M, scalar_components, les_model, nn
 
     A = assemble(a_conv, tensor=A)
     A *= -0.5  # Negative convection on the rhs
-    A.axpy(1. / dt, M, True)  # Add mass
+    A.axpy(1.0 / dt, M, True)  # Add mass
 
     # Set up scalar matrix for rhs using the same convection as velocity
     if len(scalar_components) > 0:
-        Ta = NS_namespace['Ta']
+        Ta = NS_namespace["Ta"]
         if a_scalar is a_conv:
             Ta.zero()
-            Ta.axpy(1., A, True)
+            Ta.axpy(1.0, A, True)
 
     # Add diffusion and compute rhs for all velocity components
     A.axpy(-0.5 * nu, K, True)
@@ -184,38 +251,41 @@ def assemble_first_inner_iter(A, a_conv, dt, M, scalar_components, les_model, nn
     for i, ui in enumerate(u_components):
         # Start with body force
         b_tmp[ui].zero()
-        b_tmp[ui].axpy(1., b0[ui])
+        b_tmp[ui].axpy(1.0, b0[ui])
         # Add transient, convection and diffusion
-        b_tmp[ui].axpy(1., A * x_1[ui])
+        b_tmp[ui].axpy(1.0, A * x_1[ui])
         if les_model != "NoModel":
             LT.assemble_rhs(i)
-            b_tmp[ui].axpy(1., LT.vector())
+            b_tmp[ui].axpy(1.0, LT.vector())
         if nn_model != "NoModel":
             NT.assemble_rhs(i)
-            b_tmp[ui].axpy(1., NT.vector())
+            b_tmp[ui].axpy(1.0, NT.vector())
 
     # Reset matrix for lhs
-    A *= -1.
-    A.axpy(2. / dt, M, True)
+    A *= -1.0
+    A.axpy(2.0 / dt, M, True)
 
     # Add backflow stabilization
     for ID in backflow_facets:
         ds = Measure("ds", domain=mesh, subdomain_data=boundary)
         n = FacetNormal(mesh)
         B = assemble(u_dot_n(u_ab, n) * dot(u, v) * ds(ID))
-        as_backend_type(A).mat().axpy(-backflow_beta * 0.5, as_backend_type(B).mat(),
-                                      _PETSc.Mat.Structure.SUBSET_NONZERO_PATTERN)
+        as_backend_type(A).mat().axpy(
+            -backflow_beta * 0.5,
+            as_backend_type(B).mat(),
+            _PETSc.Mat.Structure.SUBSET_NONZERO_PATTERN,
+        )
         for i, ui in enumerate(u_components):
             b_tmp[ui].axpy(backflow_beta * 0.5, B * x_1[ui])
 
-    [bc.apply(A) for bc in bcs['u0']]
+    [bc.apply(A) for bc in bcs["u0"]]
 
 
 def attach_pressure_nullspace(Ap, x_, Q):
     """Create null space basis object and attach to Krylov solver."""
-    null_vec = Vector(x_['p'])
+    null_vec = Vector(x_["p"])
     Q.dofmap().set(null_vec, 1.0)
-    null_vec *= 1.0 / null_vec.norm('l2')
+    null_vec *= 1.0 / null_vec.norm("l2")
     Aa = as_backend_type(Ap)
     null_space = VectorSpaceBasis([null_vec])
     Aa.set_nullspace(null_space)
@@ -225,13 +295,14 @@ def attach_pressure_nullspace(Ap, x_, Q):
 def velocity_tentative_assemble(ui, b, b_tmp, p_, gradp, **NS_namespace):
     """Add pressure gradient to rhs of tentative velocity system."""
     b[ui].zero()
-    b[ui].axpy(1., b_tmp[ui])
+    b[ui].axpy(1.0, b_tmp[ui])
     gradp[ui].assemble_rhs(p_)
-    b[ui].axpy(-1., gradp[ui].rhs)
+    b[ui].axpy(-1.0, gradp[ui].rhs)
 
 
-def velocity_tentative_solve(ui, A, bcs, x_, x_2, u_sol, b, udiff,
-                             use_krylov_solvers, **NS_namespace):
+def velocity_tentative_solve(
+    ui, A, bcs, x_, x_2, u_sol, b, udiff, use_krylov_solvers, **NS_namespace
+):
     """Linear algebra solve of tentative velocity component."""
     # if use_krylov_solvers:
     # if ui == 'u0':
@@ -241,7 +312,7 @@ def velocity_tentative_solve(ui, A, bcs, x_, x_2, u_sol, b, udiff,
     [bc.apply(b[ui]) for bc in bcs[ui]]
     # x_2 only used on inner_iter 1, so use here as work vector
     x_2[ui].zero()
-    x_2[ui].axpy(1., x_[ui])
+    x_2[ui].axpy(1.0, x_[ui])
     t1 = Timer("Tentative Linear Algebra Solve")
     u_sol.solve(A, x_[ui], b[ui])
     t1.stop()
@@ -251,30 +322,30 @@ def velocity_tentative_solve(ui, A, bcs, x_, x_2, u_sol, b, udiff,
 def pressure_assemble(b, x_, dt, Ap, divu, **NS_namespace):
     """Assemble rhs of pressure equation."""
     divu.assemble_rhs()  # Computes div(u_)*q*dx
-    b['p'][:] = divu.rhs
-    b['p'] *= (-1. / dt)
-    b['p'].axpy(1., Ap * x_['p'])
+    b["p"][:] = divu.rhs
+    b["p"] *= -1.0 / dt
+    b["p"].axpy(1.0, Ap * x_["p"])
 
 
 def pressure_solve(dp_, x_, Ap, b, p_sol, bcs, **NS_namespace):
     """Solve pressure equation."""
-    [bc.apply(b['p']) for bc in bcs['p']]
+    [bc.apply(b["p"]) for bc in bcs["p"]]
     dp_.vector().zero()
-    dp_.vector().axpy(1., x_['p'])
+    dp_.vector().axpy(1.0, x_["p"])
     # KrylovSolvers use nullspace for normalization of pressure
-    if hasattr(Ap, 'null_space'):
-        p_sol.null_space.orthogonalize(b['p'])
+    if hasattr(Ap, "null_space"):
+        p_sol.null_space.orthogonalize(b["p"])
 
     t1 = Timer("Pressure Linear Algebra Solve")
-    p_sol.solve(Ap, x_['p'], b['p'])
+    p_sol.solve(Ap, x_["p"], b["p"])
     t1.stop()
     # LUSolver use normalize directly for normalization of pressure
-    if bcs['p'] == []:
-        normalize(x_['p'])
+    if bcs["p"] == []:
+        normalize(x_["p"])
 
     dpv = dp_.vector()
-    dpv.axpy(-1., x_['p'])
-    dpv *= -1.
+    dpv.axpy(-1.0, x_["p"])
+    dpv *= -1.0
 
 
 def velocity_update(u_components, bcs, gradp, dp_, dt, x_, **NS_namespace):
@@ -285,14 +356,33 @@ def velocity_update(u_components, bcs, gradp, dp_, dt, x_, **NS_namespace):
         [bc.apply(x_[ui]) for bc in bcs[ui]]
 
 
-def scalar_assemble(a_scalar, a_conv, Ta, dt, M, scalar_components, Schmidt_T, KT,
-                    nu, nut_, nunn_, Schmidt, b, K, x_1, b0, les_model, nn_model, **NS_namespace):
+def scalar_assemble(
+    a_scalar,
+    a_conv,
+    Ta,
+    dt,
+    M,
+    scalar_components,
+    Schmidt_T,
+    KT,
+    nu,
+    nut_,
+    nunn_,
+    Schmidt,
+    b,
+    K,
+    x_1,
+    b0,
+    les_model,
+    nn_model,
+    **NS_namespace
+):
     """Assemble scalar equation."""
     # Just in case you want to use a different scalar convection
     if a_scalar is not a_conv:
         assemble(a_scalar, tensor=Ta)
         Ta *= -0.5  # Negative convection on the rhs
-        Ta.axpy(1. / dt, M, True)  # Add mass
+        Ta.axpy(1.0 / dt, M, True)  # Add mass
 
     # Compute rhs for all scalars
     for ci in scalar_components:
@@ -305,8 +395,8 @@ def scalar_assemble(a_scalar, a_conv, Ta, dt, M, scalar_components, Schmidt_T, K
 
         # Compute rhs
         b[ci].zero()
-        b[ci].axpy(1., Ta * x_1[ci])
-        b[ci].axpy(1., b0[ci])
+        b[ci].axpy(1.0, Ta * x_1[ci])
+        b[ci].axpy(1.0, b0[ci])
 
         # Subtract diffusion
         Ta.axpy(0.5 * nu / Schmidt[ci], K, True)
@@ -316,28 +406,29 @@ def scalar_assemble(a_scalar, a_conv, Ta, dt, M, scalar_components, Schmidt_T, K
             Ta.axpy(0.5 / Schmidt_T[ci], KT[0], True)
 
     # Reset matrix for lhs - Note scalar matrix does not contain diffusion
-    Ta *= -1.
-    Ta.axpy(2. / dt, M, True)
+    Ta *= -1.0
+    Ta.axpy(2.0 / dt, M, True)
 
 
-def scalar_solve(ci, scalar_components, Ta, b, x_, bcs, c_sol,
-                 nu, Schmidt, K, **NS_namespace):
+def scalar_solve(
+    ci, scalar_components, Ta, b, x_, bcs, c_sol, nu, Schmidt, K, **NS_namespace
+):
     """Solve scalar equation."""
 
     Ta.axpy(0.5 * nu / Schmidt[ci], K, True)  # Add diffusion
     if len(scalar_components) > 1:
         # Reuse solver for all scalars. This requires the same matrix and vectors to be used by c_sol.
-        Tb, bb, bx = NS_namespace['Tb'], NS_namespace['bb'], NS_namespace['bx']
+        Tb, bb, bx = NS_namespace["Tb"], NS_namespace["bb"], NS_namespace["bx"]
         Tb.zero()
-        Tb.axpy(1., Ta, True)
+        Tb.axpy(1.0, Ta, True)
         bb.zero()
-        bb.axpy(1., b[ci])
+        bb.axpy(1.0, b[ci])
         bx.zero()
-        bx.axpy(1., x_[ci])
+        bx.axpy(1.0, x_[ci])
         [bc.apply(Tb, bb) for bc in bcs[ci]]
         c_sol.solve(Tb, bx, bb)
         x_[ci].zero()
-        x_[ci].axpy(1., bx)
+        x_[ci].axpy(1.0, bx)
 
     else:
         [bc.apply(Ta, b[ci]) for bc in bcs[ci]]

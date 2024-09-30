@@ -4,15 +4,25 @@ __copyright__ = "Copyright (C) 2013 " + __author__
 __license__ = "GNU Lesser GPL version 3 or any later version"
 
 from dolfin import *
+
 from oasismove.solvers import *
 
 """Define all functions required by fractional step solver."""
-__all__ = ["assemble_first_inner_iter", "mesh_velocity_assemble",
-           "mesh_velocity_solve", "velocity_tentative_assemble",
-           "velocity_tentative_solve", "pressure_assemble",
-           "pressure_solve", "velocity_update", "scalar_assemble",
-           "scalar_solve", "get_solvers", "setup",
-           "print_velocity_pressure_info"]
+__all__ = [
+    "assemble_first_inner_iter",
+    "mesh_velocity_assemble",
+    "mesh_velocity_solve",
+    "velocity_tentative_assemble",
+    "velocity_tentative_solve",
+    "pressure_assemble",
+    "pressure_solve",
+    "velocity_update",
+    "scalar_assemble",
+    "scalar_solve",
+    "get_solvers",
+    "setup",
+    "print_velocity_pressure_info",
+]
 
 
 def get_solvers(**NS_namespace):
@@ -70,11 +80,22 @@ def velocity_update(**NS_namespace):
     pass
 
 
-def print_velocity_pressure_info(num_iter, print_velocity_pressure_convergence, norm,
-                                 info_blue, inner_iter, udiff, dp_, **NS_namespace):
+def print_velocity_pressure_info(
+    num_iter,
+    print_velocity_pressure_convergence,
+    norm,
+    info_blue,
+    inner_iter,
+    udiff,
+    dp_,
+    **NS_namespace
+):
     if num_iter > 1 and print_velocity_pressure_convergence:
         if inner_iter == 1:
-            info_blue('  Inner iterations velocity pressure:')
-            info_blue('                 error u  error p')
-        info_blue('    Iter = {0:4d}, {1:2.2e} {2:2.2e}'.format(
-            inner_iter, udiff[0], norm(dp_.vector())))
+            info_blue("  Inner iterations velocity pressure:")
+            info_blue("                 error u  error p")
+        info_blue(
+            "    Iter = {0:4d}, {1:2.2e} {2:2.2e}".format(
+                inner_iter, udiff[0], norm(dp_.vector())
+            )
+        )

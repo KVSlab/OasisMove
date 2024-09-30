@@ -18,13 +18,20 @@ We assume that the axial directon is x direction in this script.
 """
 
 
-def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace):
+def problem_parameters(
+    commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace
+):
     if "restart_folder" in commandline_kwargs.keys():
         restart_folder = commandline_kwargs["restart_folder"]
         restart_folder = path.join(getcwd(), restart_folder)
-        f = open(path.join(path.dirname(path.abspath(__file__)), restart_folder, 'params.dat'), 'r')
+        f = open(
+            path.join(
+                path.dirname(path.abspath(__file__)), restart_folder, "params.dat"
+            ),
+            "r",
+        )
         NS_parameters.update(pickle.load(f))
-        NS_parameters['restart_folder'] = restart_folder
+        NS_parameters["restart_folder"] = restart_folder
         globals().update(NS_parameters)
     else:
         Lx = 10  # length of pipe in x direction
@@ -34,7 +41,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
         # Override some problem specific parameters
         T = 2000  # use over 2000 for dt=0.01
         dt = 0.01
-        nu = 1 / 7 * 1.e-3
+        nu = 1 / 7 * 1.0e-3
         Re_tau = 180
         NS_parameters.update(
             save_solution_after_tstep=100000,
@@ -48,7 +55,8 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             dt=dt,
             velocity_degree=1,
             folder="straightpipe_results",
-            use_krylov_solvers=True)
+            use_krylov_solvers=True,
+        )
 
     NS_expressions.update(dict(constrained_domain=PeriodicDomain(Lx)))
     if MPI.rank(MPI.comm_world) == 0:
@@ -72,7 +80,7 @@ class PeriodicDomain(SubDomain):
 
 # Specify body force
 def body_force(utau, D, **NS_namespace):
-    return Constant((4 * (utau ** 2) / D, 0., 0.))
+    return Constant((4 * (utau**2) / D, 0.0, 0.0))
 
 
 def pre_solve_hook(mesh, V, velocity_degree, newfolder, MPI, **NS_namespace):
@@ -85,8 +93,11 @@ def pre_solve_hook(mesh, V, velocity_degree, newfolder, MPI, **NS_namespace):
     solution_mesh_path = path.join(solution_path, "mesh.h5")
     solution_velocity_path = path.join(solution_path, "u.h5")
     solution_pressure_path = path.join(solution_path, "p.h5")
-    solution_files = {"solution_mesh": solution_mesh_path, "solution_v": solution_velocity_path,
-                      "solution_p": solution_pressure_path}
+    solution_files = {
+        "solution_mesh": solution_mesh_path,
+        "solution_v": solution_velocity_path,
+        "solution_p": solution_pressure_path,
+    }
 
     # Save mesh as HDF5 file for post processing
     with HDF5File(MPI.comm_world, solution_mesh_path, "w") as mesh_file:
@@ -101,7 +112,14 @@ def pre_solve_hook(mesh, V, velocity_degree, newfolder, MPI, **NS_namespace):
     u_mean1 = Function(V)
     u_mean2 = Function(V)
 
-    return dict(solution_files=solution_files, U=U, u_mean=u_mean, u_mean0=u_mean0, u_mean1=u_mean1, u_mean2=u_mean2)
+    return dict(
+        solution_files=solution_files,
+        U=U,
+        u_mean=u_mean,
+        u_mean0=u_mean0,
+        u_mean1=u_mean1,
+        u_mean2=u_mean2,
+    )
 
 
 def create_bcs(V, sys_comp, **NS_namespace):
@@ -110,9 +128,9 @@ def create_bcs(V, sys_comp, **NS_namespace):
     # The following numbering should be consistent with the numbering in the mesh file (mf.xdmf)
     bc_dict = {"inlet": 1, "outlet": 2, "wall": 3}
     bc = [DirichletBC(V, Constant(0), mf, bc_dict["wall"])]
-    bcs['u0'] = bc
-    bcs['u1'] = bc
-    bcs['u2'] = bc
+    bcs["u0"] = bc
+    bcs["u1"] = bc
+    bcs["u2"] = bc
     return bcs
 
 
@@ -132,29 +150,44 @@ class RandomStreamVector(UserExpression):
 def initialize(V, q_1, q_2, utau, D, Lx, bcs, restart_folder, nu, **NS_namespace):
     if restart_folder is None:
         #  Initialize using a perturbed flow. Create random streamfunction
-        Vv = VectorFunctionSpace(V.mesh(), V.ufl_element().family(),
-                                 V.ufl_element().degree())
+        Vv = VectorFunctionSpace(
+            V.mesh(), V.ufl_element().family(), V.ufl_element().degree()
+        )
         psi = interpolate(RandomStreamVector(element=Vv.ufl_element()), Vv)
-        u0 = project(curl(psi), Vv, solver_type='cg')
-        u0x = project(u0[0], V, bcs=bcs['u0'], solver_type='cg')
-        u1x = project(u0[1], V, bcs=bcs['u0'], solver_type='cg')
-        u2x = project(u0[2], V, bcs=bcs['u0'], solver_type='cg')
+        u0 = project(curl(psi), Vv, solver_type="cg")
+        u0x = project(u0[0], V, bcs=bcs["u0"], solver_type="cg")
+        u1x = project(u0[1], V, bcs=bcs["u0"], solver_type="cg")
+        u2x = project(u0[2], V, bcs=bcs["u0"], solver_type="cg")
         # Create base flow / paraboric flow
-        r = interpolate(Expression("(x[1])*(x[1]) + (x[2])*(x[2])", element=V.ufl_element()), V)
-        uu = project((utau * utau * (D * D - r * r) / D / Lx), V, bcs=bcs['u0'], solver_type='cg')
+        r = interpolate(
+            Expression("(x[1])*(x[1]) + (x[2])*(x[2])", element=V.ufl_element()), V
+        )
+        uu = project(
+            (utau * utau * (D * D - r * r) / D / Lx), V, bcs=bcs["u0"], solver_type="cg"
+        )
         # initialize vectors at two timesteps
-        q_1['u0'].vector()[:] = uu.vector()[:]
-        q_1['u0'].vector().axpy(1.0, u0x.vector())
-        q_1['u1'].vector()[:] = u1x.vector()[:]
-        q_1['u2'].vector()[:] = u2x.vector()[:]
-        q_2['u0'].vector()[:] = q_1['u0'].vector()[:]
-        q_2['u1'].vector()[:] = q_1['u1'].vector()[:]
-        q_2['u2'].vector()[:] = q_1['u2'].vector()[:]
+        q_1["u0"].vector()[:] = uu.vector()[:]
+        q_1["u0"].vector().axpy(1.0, u0x.vector())
+        q_1["u1"].vector()[:] = u1x.vector()[:]
+        q_1["u2"].vector()[:] = u2x.vector()[:]
+        q_2["u0"].vector()[:] = q_1["u0"].vector()[:]
+        q_2["u1"].vector()[:] = q_1["u1"].vector()[:]
+        q_2["u2"].vector()[:] = q_1["u2"].vector()[:]
 
 
-def temporal_hook(u_, p_, tstep, save_solution_after_tstep, save_solution_step, U, solution_files, u_mean0, u_mean1,
-                  u_mean2,
-                  **NS_namespace):
+def temporal_hook(
+    u_,
+    p_,
+    tstep,
+    save_solution_after_tstep,
+    save_solution_step,
+    U,
+    solution_files,
+    u_mean0,
+    u_mean1,
+    u_mean2,
+    **NS_namespace
+):
     # save velocity and pressure in the entire domain
     if tstep % save_solution_step == 0 and tstep >= save_solution_after_tstep:
         file_mode = "w" if tstep == save_solution_after_tstep else "a"
@@ -164,12 +197,16 @@ def temporal_hook(u_, p_, tstep, save_solution_after_tstep, save_solution_step, 
         assign(U.sub(2), u_[2])
 
         # Save velocity
-        viz_u = HDF5File(MPI.comm_world, solution_files["solution_v"], file_mode=file_mode)
+        viz_u = HDF5File(
+            MPI.comm_world, solution_files["solution_v"], file_mode=file_mode
+        )
         viz_u.write(U, "/velocity", tstep)
         viz_u.close()
 
         # Save pressure
-        viz_p = HDF5File(MPI.comm_world, solution_files["solution_p"], file_mode=file_mode)
+        viz_p = HDF5File(
+            MPI.comm_world, solution_files["solution_p"], file_mode=file_mode
+        )
         viz_p.write(p_, "/pressure", tstep)
         viz_p.close()
 
@@ -179,8 +216,18 @@ def temporal_hook(u_, p_, tstep, save_solution_after_tstep, save_solution_step, 
         u_mean2.vector().axpy(1, u_[2].vector())
 
 
-def theend_hook(newfolder, u_mean, u_mean0, u_mean1, u_mean2, T, dt, save_solution_after_tstep, save_solution_step,
-                **NS_namespace):
+def theend_hook(
+    newfolder,
+    u_mean,
+    u_mean0,
+    u_mean1,
+    u_mean2,
+    T,
+    dt,
+    save_solution_after_tstep,
+    save_solution_step,
+    **NS_namespace
+):
     # Compute mean velocity
     path_to_u_mean = path.join(newfolder, "Solutions", "u_mean.h5")
     NumTStepForAverage = (T / dt - save_solution_after_tstep) / save_solution_step + 1

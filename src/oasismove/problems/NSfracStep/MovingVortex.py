@@ -2,10 +2,15 @@ import pickle
 from os import getcwd
 
 from oasismove.problems.NSfracStep import *
-from oasismove.problems.NSfracStep.MovingCommon import get_coordinate_map, get_visualization_writers
+from oasismove.problems.NSfracStep.MovingCommon import (
+    get_coordinate_map,
+    get_visualization_writers,
+)
 
 
-def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace):
+def problem_parameters(
+    commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace
+):
     """
     Problem file for running CFD simulation for the MovingVortex problem inspired by the problem by Fehn et al.[1],
     resembling the 2D Taylor-Green vortex. The problem solves the N-S equations in the absence of body forces, with a
@@ -20,9 +25,14 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
     if "restart_folder" in commandline_kwargs.keys():
         restart_folder = commandline_kwargs["restart_folder"]
         restart_folder = path.join(getcwd(), restart_folder)
-        f = open(path.join(path.dirname(path.abspath(__file__)), restart_folder, 'params.dat'), 'rb')
+        f = open(
+            path.join(
+                path.dirname(path.abspath(__file__)), restart_folder, "params.dat"
+            ),
+            "rb",
+        )
         NS_parameters.update(pickle.load(f))
-        NS_parameters['restart_folder'] = restart_folder
+        NS_parameters["restart_folder"] = restart_folder
         globals().update(NS_parameters)
     else:
         # Read final time from command line
@@ -51,26 +61,34 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             velocity_degree=1,
             pressure_degree=1,
             use_krylov_solvers=True,
-            krylov_solvers={'monitor_convergence': False,
-                            'report': False,
-                            'relative_tolerance': 1e-8,
-                            'absolute_tolerance': 1e-8}
+            krylov_solvers={
+                "monitor_convergence": False,
+                "report": False,
+                "relative_tolerance": 1e-8,
+                "absolute_tolerance": 1e-8,
+            },
         )
 
     # Define analytical and initial state expressions
-    NS_expressions.update(dict(
-        exact_fields=dict(
-            u0='-sin(2*pi*x[1])*exp(-4*pi*pi*nu*t)',
-            u1=' sin(2*pi*x[0])*exp(-4*pi*pi*nu*t)',
-            p=' -cos(2*pi*x[0])*cos(2*pi*x[1])*exp(-8*pi*pi*nu*t)'),
-        initial_fields=dict(
-            u0='-sin(2*pi*x[1])*exp(-4*pi*pi*nu*t)',
-            u1=' sin(2*pi*x[0])*exp(-4*pi*pi*nu*t)',
-            p=' -cos(2*pi*x[0])*cos(2*pi*x[1])*exp(-8*pi*pi*nu*t)'),
-        initial_fields_w=dict(
-            w0='A*2*pi / T_G * cos(2*pi*t/T_G)*sin(2*pi*(x[1] + L/2)/L)',
-            w1='A*2*pi / T_G * cos(2*pi*t/T_G)*sin(2*pi*(x[0] + L/2)/L)'),
-        total_error=np.zeros(3)))
+    NS_expressions.update(
+        dict(
+            exact_fields=dict(
+                u0="-sin(2*pi*x[1])*exp(-4*pi*pi*nu*t)",
+                u1=" sin(2*pi*x[0])*exp(-4*pi*pi*nu*t)",
+                p=" -cos(2*pi*x[0])*cos(2*pi*x[1])*exp(-8*pi*pi*nu*t)",
+            ),
+            initial_fields=dict(
+                u0="-sin(2*pi*x[1])*exp(-4*pi*pi*nu*t)",
+                u1=" sin(2*pi*x[0])*exp(-4*pi*pi*nu*t)",
+                p=" -cos(2*pi*x[0])*cos(2*pi*x[1])*exp(-8*pi*pi*nu*t)",
+            ),
+            initial_fields_w=dict(
+                w0="A*2*pi / T_G * cos(2*pi*t/T_G)*sin(2*pi*(x[1] + L/2)/L)",
+                w1="A*2*pi / T_G * cos(2*pi*t/T_G)*sin(2*pi*(x[0] + L/2)/L)",
+            ),
+            total_error=np.zeros(3),
+        )
+    )
 
 
 def mesh(Nx, Ny, L, dt, **params):
@@ -94,22 +112,20 @@ def pre_boundary_condition(mesh, **NS_namespace):
 
 def create_bcs(V, t, dt, nu, sys_comp, boundary, initial_fields, **NS_namespace):
     for i, ui in enumerate(sys_comp):
-        if 'IPCS' in NS_parameters['solver']:
-            deltat = dt / 2. if ui == 'p' else 0.
+        if "IPCS" in NS_parameters["solver"]:
+            deltat = dt / 2.0 if ui == "p" else 0.0
         else:
-            deltat = 0.
-        ue = Expression((initial_fields[ui]),
-                        degree=4,
-                        t=t - deltat, nu=nu)
+            deltat = 0.0
+        ue = Expression((initial_fields[ui]), degree=4, t=t - deltat, nu=nu)
         NS_expressions["bc_%s" % ui] = ue
 
     bcs = dict((ui, []) for ui in sys_comp)
     bc0 = DirichletBC(V, NS_expressions["bc_u0"], boundary, 1)
     bc1 = DirichletBC(V, NS_expressions["bc_u1"], boundary, 1)
 
-    bcs['u0'] = [bc0]
-    bcs['u1'] = [bc1]
-    bcs['p'] = []
+    bcs["u0"] = [bc0]
+    bcs["u1"] = [bc1]
+    bcs["p"] = []
 
     return bcs
 
@@ -121,22 +137,22 @@ def initialize(q_, q_1, q_2, VV, t, nu, dt, initial_fields, **NS_namespace):
 
     """
     for ui in q_:
-        if 'IPCS' in NS_parameters['solver']:
-            deltat = dt / 2. if ui == 'p' else 0.
+        if "IPCS" in NS_parameters["solver"]:
+            deltat = dt / 2.0 if ui == "p" else 0.0
         else:
-            deltat = 0.
-        vv = interpolate(Expression((initial_fields[ui]),
-                                    degree=4,
-                                    t=t - deltat, nu=nu), VV[ui])
+            deltat = 0.0
+        vv = interpolate(
+            Expression((initial_fields[ui]), degree=4, t=t - deltat, nu=nu), VV[ui]
+        )
         q_[ui].vector()[:] = vv.vector()[:]
-        if not ui == 'p':
+        if not ui == "p":
             q_1[ui].vector()[:] = vv.vector()[:]
             deltat = -dt
-            vv = interpolate(Expression((initial_fields[ui]),
-                                        degree=4,
-                                        t=t - deltat, nu=nu), VV[ui])
+            vv = interpolate(
+                Expression((initial_fields[ui]), degree=4, t=t - deltat, nu=nu), VV[ui]
+            )
             q_2[ui].vector()[:] = vv.vector()[:]
-    q_1['p'].vector()[:] = q_['p'].vector()[:]
+    q_1["p"].vector()[:] = q_["p"].vector()[:]
 
 
 class Walls(UserExpression):
@@ -160,22 +176,43 @@ class Walls(UserExpression):
     def eval(self, values, _, **kwargs):
         self.counter += 1
         N = (self.coor + 1) % 2
-        values[:] = 2 * np.pi / self.T_G * self.A * np.cos(2 * np.pi * self.t / self.T_G) * sin(
-            2 * np.pi * (self.map[self.counter][N] + self.L / 2) / self.L)
+        values[:] = (
+            2
+            * np.pi
+            / self.T_G
+            * self.A
+            * np.cos(2 * np.pi * self.t / self.T_G)
+            * sin(2 * np.pi * (self.map[self.counter][N] + self.L / 2) / self.L)
+        )
         if self.counter == self.max:
             self.counter = -1
 
 
-def pre_solve_hook(V, mesh, t, nu, L, w_, T_G, A0, newfolder, velocity_degree, u_components, boundary, exact_fields,
-                   **NS_namespace):
+def pre_solve_hook(
+    V,
+    mesh,
+    t,
+    nu,
+    L,
+    w_,
+    T_G,
+    A0,
+    newfolder,
+    velocity_degree,
+    u_components,
+    boundary,
+    exact_fields,
+    **NS_namespace,
+):
     # Create exact solution
-    ue_x = Expression(exact_fields['u0'], nu=nu, t=t,
-                      degree=4)
-    ue_y = Expression(exact_fields['u1'], nu=nu, t=t, degree=4)
-    pe = Expression(exact_fields['p'], nu=nu, t=t, degree=4)
+    ue_x = Expression(exact_fields["u0"], nu=nu, t=t, degree=4)
+    ue_y = Expression(exact_fields["u1"], nu=nu, t=t, degree=4)
+    pe = Expression(exact_fields["p"], nu=nu, t=t, degree=4)
 
     # Visualization files
-    viz_p, viz_u, viz_ue = get_visualization_writers(newfolder, ["pressure", "velocity", "velocity_exact"])
+    viz_p, viz_u, viz_ue = get_visualization_writers(
+        newfolder, ["pressure", "velocity", "velocity_exact"]
+    )
 
     # Extract dof map and coordinates
     VV = VectorFunctionSpace(mesh, "CG", velocity_degree)
@@ -202,26 +239,59 @@ def pre_solve_hook(V, mesh, t, nu, L, w_, T_G, A0, newfolder, velocity_degree, u
 
     bc_mesh["u0"] = [bc0]
     bc_mesh["u1"] = [bc1]
-    return dict(viz_p=viz_p, viz_ue=viz_ue, ue_vec=ue_vec, viz_u=viz_u, u_vec=u_vec, dof_map=dof_map,
-                bc_mesh=bc_mesh, coordinates=coordinates, ue_x=ue_x, ue_y=ue_y, pe=pe)
+    return dict(
+        viz_p=viz_p,
+        viz_ue=viz_ue,
+        ue_vec=ue_vec,
+        viz_u=viz_u,
+        u_vec=u_vec,
+        dof_map=dof_map,
+        bc_mesh=bc_mesh,
+        coordinates=coordinates,
+        ue_x=ue_x,
+        ue_y=ue_y,
+        pe=pe,
+    )
 
 
 def update_boundary_conditions(t, dt, NS_expressions, **NS_namespace):
     for key, value in NS_expressions.items():
         if "bc" in key:
-            if 'IPCS' in NS_parameters['solver'] and 'p' in key:
-                deltat_ = dt / 2.
+            if "IPCS" in NS_parameters["solver"] and "p" in key:
+                deltat_ = dt / 2.0
             else:
-                deltat_ = 0.
+                deltat_ = 0.0
             if "w" in key:
                 value.update(t - deltat_)
             else:
                 value.t = t - deltat_
 
 
-def temporal_hook(u_, q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue, initial_fields, tstep,
-                  save_solution_frequency, sys_comp, compute_error, total_error, ue_x, ue_y, pe, testing,
-                  **NS_namespace):
+def temporal_hook(
+    u_,
+    q_,
+    t,
+    nu,
+    VV,
+    dt,
+    u_vec,
+    ue_vec,
+    p_,
+    viz_u,
+    viz_p,
+    viz_ue,
+    initial_fields,
+    tstep,
+    save_solution_frequency,
+    sys_comp,
+    compute_error,
+    total_error,
+    ue_x,
+    ue_y,
+    pe,
+    testing,
+    **NS_namespace,
+):
     """Function called at end of timestep.
 
     Plot solution and compute error by comparing to analytical solution.
@@ -239,30 +309,30 @@ def temporal_hook(u_, q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue
     ue_x.t = t
     ue_y.t = t
     pe.t = t - dt / 2
-    uxx = interpolate(ue_x, VV['u0'])
-    uyy = interpolate(ue_y, VV['u1'])
-    pp = interpolate(pe, VV['p'])
+    uxx = interpolate(ue_x, VV["u0"])
+    uyy = interpolate(ue_y, VV["u1"])
+    pp = interpolate(pe, VV["p"])
     ues = []
     if tstep % compute_error == 0:
         err = {}
         for i, ui in enumerate(sys_comp):
-            if 'IPCS' in NS_parameters['solver']:
-                deltat_ = dt / 2. if ui == 'p' else 0.
+            if "IPCS" in NS_parameters["solver"]:
+                deltat_ = dt / 2.0 if ui == "p" else 0.0
             else:
-                deltat_ = 0.
-            ue = Expression((initial_fields[ui]),
-                            element=VV[ui].ufl_element(),
-                            t=t - deltat_, nu=nu)
+                deltat_ = 0.0
+            ue = Expression(
+                (initial_fields[ui]), element=VV[ui].ufl_element(), t=t - deltat_, nu=nu
+            )
 
-            if ui == 'u0':
+            if ui == "u0":
                 ue = uxx
                 assign(ue_vec.sub(0), ue)
-            elif ui == 'u1':
+            elif ui == "u1":
                 ue = uyy
                 assign(ue_vec.sub(1), ue)
-            elif ui == 'p':
+            elif ui == "p":
                 ue = pp
-                pp.rename("p", 'p')
+                pp.rename("p", "p")
 
             if "u" in ui:
                 ues.append(ue)
@@ -275,16 +345,18 @@ def temporal_hook(u_, q_, t, nu, VV, dt, u_vec, ue_vec, p_, viz_u, viz_p, viz_ue
         viz_ue.write(ue_vec, t)
 
 
-def theend_hook(q_, t, dt, nu, VV, sys_comp, total_error, initial_fields, **NS_namespace):
+def theend_hook(
+    q_, t, dt, nu, VV, sys_comp, total_error, initial_fields, **NS_namespace
+):
     final_error = np.zeros(len(sys_comp))
     for i, ui in enumerate(sys_comp):
-        if 'IPCS' in NS_parameters['solver'] and ui == "p":
-            deltat = dt / 2.
+        if "IPCS" in NS_parameters["solver"] and ui == "p":
+            deltat = dt / 2.0
         else:
-            deltat = 0.
-        ue = Expression((initial_fields[ui]),
-                        element=VV[ui].ufl_element(),
-                        t=t - deltat, nu=nu)
+            deltat = 0.0
+        ue = Expression(
+            (initial_fields[ui]), element=VV[ui].ufl_element(), t=t - deltat, nu=nu
+        )
         ue = interpolate(ue, VV[ui])
         final_error[i] = errornorm(q_[ui], ue)
 

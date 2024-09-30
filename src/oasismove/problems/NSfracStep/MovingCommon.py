@@ -1,23 +1,22 @@
 from os import path
 
-from dolfin import DirichletBC
-from dolfin import UserExpression, XDMFFile, MPI
+from dolfin import MPI, DirichletBC, UserExpression, XDMFFile
 
 
 def get_coordinate_map(V, boundary, w_, facet_id):
     """
-     Create a mapping of coordinates for a given function space and boundary.
+    Create a mapping of coordinates for a given function space and boundary.
 
-     Args:
-         V (dolfin.function.Functionspace): A FunctionSpace object representing the field on which the map is created.
-         boundary (dolfin.cpp.mesh.MeshFunction): A MeshFunction defining with marked boundaries for the mesh.
-         w_ (dict): A dict containing the mesh velocity at the current time step.
-         facet_id (int): An integer representing the id of the boundary facets.
+    Args:
+        V (dolfin.function.Functionspace): A FunctionSpace object representing the field on which the map is created.
+        boundary (dolfin.cpp.mesh.MeshFunction): A MeshFunction defining with marked boundaries for the mesh.
+        w_ (dict): A dict containing the mesh velocity at the current time step.
+        facet_id (int): An integer representing the id of the boundary facets.
 
-     Returns:
-         counter_max (int): An integer count of the number of elements in the field `V`.
-         x_hat_map (dict): A dict mapping coordinates to elements in the field `V`.
-     """
+    Returns:
+        counter_max (int): An integer count of the number of elements in the field `V`.
+        x_hat_map (dict): A dict mapping coordinates to elements in the field `V`.
+    """
     box_counter = Counter(element=V.ufl_element())
     bc_tmp = DirichletBC(V, box_counter, boundary, facet_id)
     bc_tmp.apply(w_["u0"].vector())
@@ -43,7 +42,7 @@ class Counter(UserExpression):
         super().__init__(**kwargs)
 
     def get_map(self):
-        """ Returns the map that associates each unique integer with a node coordinate. """
+        """Returns the map that associates each unique integer with a node coordinate."""
         return self.map
 
     def eval(self, _, x):
@@ -72,7 +71,9 @@ def get_visualization_writers(newfolder, list_of_quantities):
     """
     writers = []
     for quantity in list_of_quantities:
-        viz = XDMFFile(MPI.comm_world, path.join(newfolder, "Solutions", f"{quantity}.xdmf"))
+        viz = XDMFFile(
+            MPI.comm_world, path.join(newfolder, "Solutions", f"{quantity}.xdmf")
+        )
         viz.parameters["rewrite_function_mesh"] = True
         viz.parameters["flush_output"] = True
         viz.parameters["functions_share_mesh"] = True

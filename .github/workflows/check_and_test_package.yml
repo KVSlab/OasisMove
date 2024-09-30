@@ -1,96 +1,78 @@
-name: CI
+name: OasisMove CI
 
 on:
   push:
-    # The CI is executed on every push on every branch
     branches:
       - main
   pull_request:
-    # The CI is executed on every pull request to the main branch
     branches:
       - main
-
   schedule:
-    # The CI is executed every day at 8am
-    - cron: "0 8 * * *"
+    - cron: '0 8 * * *'
 
 env:
-  CACHE_NUMBER: 3 # Increase to reset cache
+  CACHE_NUMBER: 4 # Increase to reset cache
 
 jobs:
-  check-code:
+  run-lint-check:
     name: Check code
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
-      - name: Upgrade pip and setuptools
-        run: python3 -m pip install pip setuptools --upgrade
+      - name: Install dependencies and OasisMove
+        run: |
+          python -m pip install --upgrade pip setuptools
+          python -m pip install '.[test]'
 
-      - name: Install OasisMove
-        run: python3 -m pip install .[test]
+      - name: Run linting and checks
+        run: |
+          bash linting.sh
 
-      - name: Check code with Flake8
-        run: python3 -m flake8
-
-  test-code:
-    needs: check-code
+  run-tests:
+    needs: run-lint-check
     strategy:
       matrix:
         include:
           - os: ubuntu-latest
             label: linux-64
-            prefix: /usr/share/miniconda3/envs/oasismove
-          - os: macos-latest
+            prefix: /usr/share/miniconda3/envs/oasismove-env
+          - os: macos-13
             label: osx-64
-            prefix: /Users/runner/miniconda3/envs/oasismove
+            prefix: /Users/runner/miniconda3/envs/oasismove-env
 
-    name: Test OasisMove on ${{ matrix.label }}
+    name: Test OasisMove on ${{ matrix.os}}
     runs-on: ${{ matrix.os }}
-
-    # https://github.com/marketplace/actions/setup-miniconda#use-a-default-shell
     defaults:
-      run:
-        shell: bash -l {0}
+      run: # https://github.com/marketplace/actions/setup-miniconda#use-a-default-shell
+        shell: bash -el {0}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Upgrade pip and setuptools
-        run: |
-          python3 -m pip install pip setuptools --upgrade
-
-      # See: https://github.com/marketplace/actions/setup-miniconda
-      - name: Setup Mambaforge
-        uses: conda-incubator/setup-miniconda@v2
+      - uses: actions/checkout@v4
+      - uses: mamba-org/setup-micromamba@v1
         with:
-          miniforge-variant: Mambaforge
-          miniforge-version: latest
-          channels: conda-forge
-          activate-environment: oasismove
-          use-mamba: true
+          environment-file: environment.yml
+          init-shell: bash
+          cache-environment: true
 
-      - name: Set cache date
-        run: echo "DATE=$(date +'%Y%m%d')" >> $GITHUB_ENV
-
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         with:
           path: ${{ matrix.prefix }}
-          key: ${{ matrix.label }}-conda-${{ hashFiles('environment.yml') }}-${{ env.DATE }}-${{ env.CACHE_NUMBER }}
-        id: cache
+          key: ${{ matrix.label }}-${{ env.CACHE_NUMBER }}-${{ hashFiles('environment.yml') }}
+          restore-keys: ${{ matrix.label }}-${{ env.CACHE_NUMBER }}-
 
-      - name: Update environment
-        run: mamba env update -n oasismove -f environment.yml
-        if: steps.cache.outputs.cache-hit != 'true'
 
       - name: Install OasisMove
-        run: python3 -m pip install --editable .[test]
+        run: |
+          python -m pip install '.[test]'
 
       - name: Run tests
-        run: python3 -m pytest tests
+        run: |
+          python -m pytest tests
 
       - name: Upload coverage report to codecov
         if: matrix.os == 'ubuntu-latest'

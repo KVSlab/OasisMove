@@ -1,6 +1,6 @@
 import os
 
-from dolfin import Mesh, DOLFIN_EPS
+from dolfin import DOLFIN_EPS, Mesh
 
 if not os.path.isfile("mesh/nozzle_2d.xml"):
     try:
@@ -15,8 +15,10 @@ mesh = Mesh("mesh/nozzle_2d.xml")
 
 # walls = 0
 def walls(x, on_boundary):
-    return on_boundary and (x[1] > 0.006 - DOLFIN_EPS or
-                            (x[1] > 0.002 - DOLFIN_EPS and x[0] < 0.1 and x[0] > -0.1))
+    return on_boundary and (
+        x[1] > 0.006 - DOLFIN_EPS
+        or (x[1] > 0.002 - DOLFIN_EPS and x[0] < 0.1 and x[0] > -0.1)
+    )
 
 
 # inlet = 1

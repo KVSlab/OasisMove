@@ -8,15 +8,36 @@ differencing solver with pressure correction in rotational form.
 """
 from dolfin import *
 
-
 from .IPCS_ABCN import *  # reuse code from IPCS_ABCN
 from .IPCS_ABCN import __all__, attach_pressure_nullspace
 
 
-def setup(u_components, u, v, p, q, nu, nut_, LESsource,
-          bcs, scalar_components, V, Q, x_, u_, p_, q_1, q_2,
-          velocity_update_solver, assemble_matrix, les_model,
-          DivFunction, GradFunction, homogenize, **NS_namespace):
+def setup(
+    u_components,
+    u,
+    v,
+    p,
+    q,
+    nu,
+    nut_,
+    LESsource,
+    bcs,
+    scalar_components,
+    V,
+    Q,
+    x_,
+    u_,
+    p_,
+    q_1,
+    q_2,
+    velocity_update_solver,
+    assemble_matrix,
+    les_model,
+    DivFunction,
+    GradFunction,
+    homogenize,
+    **NS_namespace
+):
     """Set up all equations to be solved."""
 
     # Mass matrix
@@ -26,11 +47,10 @@ def setup(u_components, u, v, p, q, nu, nut_, LESsource,
     K = assemble_matrix(inner(grad(u), grad(v)) * dx)
 
     # Allocate stiffness matrix for LES that changes with time
-    KT = None if les_model == "NoModel" else (
-        Matrix(M), inner(grad(u), grad(v)))
+    KT = None if les_model == "NoModel" else (Matrix(M), inner(grad(u), grad(v)))
 
     # Pressure Laplacian. Either reuse K or assemble new
-    Ap = assemble_matrix(inner(grad(q), grad(p)) * dx, bcs['p'])
+    Ap = assemble_matrix(inner(grad(q), grad(p)) * dx, bcs["p"])
 
     # if les_model == "NoModel":
     #    if not Ap.id() == K.id():
@@ -42,27 +62,36 @@ def setup(u_components, u, v, p, q, nu, nut_, LESsource,
     A = Matrix(M)
 
     # Allocate Function for holding and computing the velocity divergence on Q
-    divu = DivFunction(u_, Q, name='divu',
-                       method=velocity_update_solver)
+    divu = DivFunction(u_, Q, name="divu", method=velocity_update_solver)
 
     # Allocate a dictionary of Functions for holding and computing pressure gradients
-    gradp = {ui: GradFunction(p_, V, i=i, name='dpd' + ('x', 'y', 'z')[i],
-                              bcs=homogenize(bcs[ui]),
-                              method=velocity_update_solver)
-             for i, ui in enumerate(u_components)}
+    gradp = {
+        ui: GradFunction(
+            p_,
+            V,
+            i=i,
+            name="dpd" + ("x", "y", "z")[i],
+            bcs=homogenize(bcs[ui]),
+            method=velocity_update_solver,
+        )
+        for i, ui in enumerate(u_components)
+    }
 
     # Check first if we are starting from two equal velocities (u_1=u_2)
-    initial_u1_norm = sum([q_1[ui].vector().norm('l2') for ui in u_components])
-    initial_u2_norm = sum([q_2[ui].vector().norm('l2') for ui in u_components])
+    initial_u1_norm = sum([q_1[ui].vector().norm("l2") for ui in u_components])
+    initial_u2_norm = sum([q_2[ui].vector().norm("l2") for ui in u_components])
 
     # In that case use Euler on first iteration
-    beta = Constant(2.0) if abs(initial_u1_norm -
-                                initial_u2_norm) > DOLFIN_EPS_LARGE else Constant(3.0)
+    beta = (
+        Constant(2.0)
+        if abs(initial_u1_norm - initial_u2_norm) > DOLFIN_EPS_LARGE
+        else Constant(3.0)
+    )
 
     # Create dictionary to be returned into global NS namespace
     d = dict(A=A, M=M, K=K, Ap=Ap, divu=divu, gradp=gradp, beta=beta)
 
-    if bcs['p'] == []:
+    if bcs["p"] == []:
         attach_pressure_nullspace(Ap, x_, Q)
 
     # Allocate coefficient matrix and work vectors for scalars. Matrix differs from velocity in boundary conditions only
@@ -81,17 +110,38 @@ def setup(u_components, u, v, p, q, nu, nut_, LESsource,
     u_convecting = as_vector([Function(V) for i in range(len(u_components))])
     a_conv = inner(v, dot(u_convecting, nabla_grad(u))) * dx  # Faster version
     a_scalar = inner(v, dot(u_, nabla_grad(u))) * dx
-    LT = None if les_model == "NoModel" else LESsource(
-        (nu + nut_), u_convecting, V, name='LTd')
-    d.update(u_convecting=u_convecting, a_conv=a_conv,
-             a_scalar=a_scalar, LT=LT, KT=KT)
+    LT = (
+        None
+        if les_model == "NoModel"
+        else LESsource((nu + nut_), u_convecting, V, name="LTd")
+    )
+    d.update(u_convecting=u_convecting, a_conv=a_conv, a_scalar=a_scalar, LT=LT, KT=KT)
     return d
 
 
-def assemble_first_inner_iter(A, a_conv, dt, M, scalar_components, KT, LT,
-                              a_scalar, K, nu, u_components, les_model, nut_,
-                              b_tmp, b0, x_1, x_2, u_convecting,
-                              bcs, beta, **NS_namespace):
+def assemble_first_inner_iter(
+    A,
+    a_conv,
+    dt,
+    M,
+    scalar_components,
+    KT,
+    LT,
+    a_scalar,
+    K,
+    nu,
+    u_components,
+    les_model,
+    nut_,
+    b_tmp,
+    b0,
+    x_1,
+    x_2,
+    u_convecting,
+    bcs,
+    beta,
+    **NS_namespace
+):
     """Called on first inner iteration of velocity/pressure system.
 
     Assemble convection matrix, compute rhs of tentative velocity and
@@ -109,73 +159,73 @@ def assemble_first_inner_iter(A, a_conv, dt, M, scalar_components, KT, LT,
 
     # Set up scalar matrix
     if len(scalar_components) > 0:
-        Ta = NS_namespace['Ta']
+        Ta = NS_namespace["Ta"]
         if a_scalar is a_conv:
             Ta.zero()
-            Ta.axpy(1., A, True)
+            Ta.axpy(1.0, A, True)
         else:
             assemble(a_scalar, tensor=Ta)
 
     # Compute rhs for all velocity components
     for ui in u_components:
         b_tmp[ui].zero()  # start with body force
-        b_tmp[ui].axpy(1., b0[ui])
+        b_tmp[ui].axpy(1.0, b0[ui])
         b_tmp[ui].axpy(4.0 / (beta(0) * dt), M * x_1[ui])
         b_tmp[ui].axpy(-1.0 / (beta(0) * dt), M * x_2[ui])
         if les_model != "NoModel":
             LT.assemble_rhs(i)
-            b_tmp[ui].axpy(1., LT.vector())
+            b_tmp[ui].axpy(1.0, LT.vector())
 
     A.axpy(nu, K, True)
     if les_model != "NoModel":
         assemble(nut_ * KT[1] * dx, tensor=KT[0])
-        A.axpy(1., KT[0], True)
+        A.axpy(1.0, KT[0], True)
 
     A.axpy(3.0 / beta(0) / dt, M, True)
-    [bc.apply(A) for bc in bcs['u0']]
+    [bc.apply(A) for bc in bcs["u0"]]
 
 
 def velocity_tentative_assemble(ui, b, b_tmp, x_, gradp, p_, **NS_namespace):
     """Add pressure gradient to rhs of tentative velocity system."""
     b[ui].zero()
-    b[ui].axpy(1., b_tmp[ui])
+    b[ui].axpy(1.0, b_tmp[ui])
     gradp[ui].assemble_rhs(p_)
-    b[ui].axpy(-1., gradp[ui].rhs)
+    b[ui].axpy(-1.0, gradp[ui].rhs)
 
 
 def pressure_assemble(b, dt, divu, beta, Ap, x_, nu, u_, q, **NS_namespace):
     """Assemble rhs of pressure equation."""
     divu()  # Both computes div(u_) and the rhs div(u_)*q*dx
-    b['p'][:] = divu.rhs
-    b['p'] *= (-3.0 / beta(0) / dt)
-    b['p'].axpy(1., Ap * x_['p'])
+    b["p"][:] = divu.rhs
+    b["p"] *= -3.0 / beta(0) / dt
+    b["p"].axpy(1.0, Ap * x_["p"])
     # There's a small difference here from BDFPC in the assembling of divu
-    b['p'].axpy(-nu, Ap * divu.vector())  # This is fast
+    b["p"].axpy(-nu, Ap * divu.vector())  # This is fast
     # b['p'].axpy(-nu, assemble(inner(grad(div(u_)), grad(q))*dx)) # This is exact
 
 
 def pressure_solve(dp_, x_, Ap, b, p_sol, bcs, nu, divu, Q, beta, **NS_namespace):
     """Solve pressure equation."""
-    [bc.apply(b['p']) for bc in bcs['p']]
+    [bc.apply(b["p"]) for bc in bcs["p"]]
     dp_.vector().zero()
-    dp_.vector().axpy(1., x_['p'])
+    dp_.vector().axpy(1.0, x_["p"])
 
     # KrylovSolvers use nullspace for normalization of pressure
-    if hasattr(Ap, 'null_space'):
-        Ap.null_space.orthogonalize(b['p'])
+    if hasattr(Ap, "null_space"):
+        Ap.null_space.orthogonalize(b["p"])
 
     t1 = Timer("Pressure Linear Algebra Solve")
-    p_sol.solve(Ap, x_['p'], b['p'])
+    p_sol.solve(Ap, x_["p"], b["p"])
     t1.stop()
     # LUSolver use normalize directly for normalization of pressure
-    if hasattr(p_sol, 'normalize'):
-        normalize(x_['p'])
+    if hasattr(p_sol, "normalize"):
+        normalize(x_["p"])
 
     dpv = dp_.vector()
     dpv *= -1
-    dpv.axpy(1.0, x_['p'])
+    dpv.axpy(1.0, x_["p"])
     dpv.axpy(nu, divu.vector())
-    dpv *= (beta(0) / 3.0)  # To reuse code from IPCS_ABCN
+    dpv *= beta(0) / 3.0  # To reuse code from IPCS_ABCN
 
 
 def velocity_update(u_components, bcs, dp_, dt, x_, gradp, beta, **NS_namespace):

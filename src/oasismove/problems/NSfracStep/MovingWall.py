@@ -1,5 +1,8 @@
 from oasismove.problems.NSfracStep import *
-from oasismove.problems.NSfracStep.MovingCommon import get_coordinate_map, get_visualization_writers
+from oasismove.problems.NSfracStep.MovingCommon import (
+    get_coordinate_map,
+    get_visualization_writers,
+)
 
 comm = MPI.comm_world
 
@@ -40,7 +43,7 @@ def problem_parameters(NS_parameters, **NS_namespace):
         velocity_degree=1,
         pressure_degree=1,
         use_krylov_solvers=True,
-        max_error=1e-8
+        max_error=1e-8,
     )
 
 
@@ -71,14 +74,20 @@ def pre_boundary_condition(mesh, h0, eps, scale, **NS_namespace):
     return dict(boundary=boundary)
 
 
-def create_bcs(V, Q, w_, sigma, h0, eps, sys_comp, boundary, NS_expressions, **NS_namespace):
+def create_bcs(
+    V, Q, w_, sigma, h0, eps, sys_comp, boundary, NS_expressions, **NS_namespace
+):
     counter_left, left_coordinate_map = get_coordinate_map(V, boundary, w_, 2)
     counter_right, right_coordinate_map = get_coordinate_map(V, boundary, w_, 4)
 
     # Create inlet expressions
     movingwall = MovingWall(0, sigma, h0, eps, element=V.ufl_element())
-    leftwall = MovingSideWall(0, sigma, h0, eps, left_coordinate_map, counter_left, element=V.ufl_element())
-    rightwall = MovingSideWall(0, sigma, h0, eps, right_coordinate_map, counter_right, element=V.ufl_element())
+    leftwall = MovingSideWall(
+        0, sigma, h0, eps, left_coordinate_map, counter_left, element=V.ufl_element()
+    )
+    rightwall = MovingSideWall(
+        0, sigma, h0, eps, right_coordinate_map, counter_right, element=V.ufl_element()
+    )
     noslip = Constant(0.0)
 
     # Store expressions
@@ -100,16 +109,18 @@ def create_bcs(V, Q, w_, sigma, h0, eps, sys_comp, boundary, NS_expressions, **N
     bcp_out = DirichletBC(Q, Constant(0), boundary, 4)
 
     bcs = dict((ui, []) for ui in sys_comp)
-    bcs['u0'] = [bcu_movingwall_x, bcu_leftwall_x]
-    bcs['u1'] = [bcu_movingwall_y, bcu_bottomwall, bcu_leftwall_y]
+    bcs["u0"] = [bcu_movingwall_x, bcu_leftwall_x]
+    bcs["u1"] = [bcu_movingwall_y, bcu_bottomwall, bcu_leftwall_y]
     bcs["p"] = [bcp_out]
 
     return bcs
 
 
-def pre_solve_hook(V, mesh, newfolder, velocity_degree, u_components, boundary, **NS_namespace):
+def pre_solve_hook(
+    V, mesh, newfolder, velocity_degree, u_components, boundary, **NS_namespace
+):
     # Visualization files
-    viz_p, viz_u = get_visualization_writers(newfolder, ['pressure', 'velocity'])
+    viz_p, viz_u = get_visualization_writers(newfolder, ["pressure", "velocity"])
 
     # Extract dof map and coordinates
     VV = VectorFunctionSpace(mesh, "CG", velocity_degree)
@@ -142,7 +153,14 @@ def pre_solve_hook(V, mesh, newfolder, velocity_degree, u_components, boundary, 
     bc_mesh["u0"] = [bcu_walls_x, bc_left_wall_x] + rigid_bc_x
     bc_mesh["u1"] = [bcu_walls_y, bc_left_wall_y] + rigid_bc_y
 
-    return dict(viz_p=viz_p, viz_u=viz_u, u_vec=u_vec, bc_mesh=bc_mesh, dof_map=dof_map, coordinates=coordinates)
+    return dict(
+        viz_p=viz_p,
+        viz_u=viz_u,
+        u_vec=u_vec,
+        bc_mesh=bc_mesh,
+        dof_map=dof_map,
+        coordinates=coordinates,
+    )
 
 
 class MovingWall(UserExpression):
@@ -162,7 +180,7 @@ class MovingWall(UserExpression):
         turbulent nature (Doctoral dissertation, Université Montpellier II-Sciences et Techniques du Languedoc).
         """
         self.t = t
-        self.value = - self.sigma * self.h0 * self.eps * np.sin(self.sigma * t)
+        self.value = -self.sigma * self.h0 * self.eps * np.sin(self.sigma * t)
 
     def eval(self, value, _):
         value[:] = self.value
@@ -186,7 +204,9 @@ class MovingSideWall(UserExpression):
     def eval(self, values, _, **kwargs):
         self.counter += 1
         scaling = self.map[self.counter][1] / (self.h0 * (1 + self.eps))
-        values[:] = - scaling * self.sigma * self.h0 * self.eps * np.sin(self.sigma * self.t)
+        values[:] = (
+            -scaling * self.sigma * self.h0 * self.eps * np.sin(self.sigma * self.t)
+        )
         if self.counter == self.max:
             self.counter = -1
 
@@ -198,8 +218,22 @@ def update_boundary_conditions(t, NS_expressions, **NS_namespace):
             value.update(t)
 
 
-def temporal_hook(mesh, dt, h0, eps, nu, t, tstep, save_solution_frequency, p_, u_, viz_u, viz_p, u_vec,
-                  **NS_namespace):
+def temporal_hook(
+    mesh,
+    dt,
+    h0,
+    eps,
+    nu,
+    t,
+    tstep,
+    save_solution_frequency,
+    p_,
+    u_,
+    viz_u,
+    viz_p,
+    u_vec,
+    **NS_namespace
+):
     # Write solution at time t
     if tstep % save_solution_frequency == 0:
         assign(u_vec.sub(0), u_[0])
@@ -212,6 +246,22 @@ def temporal_hook(mesh, dt, h0, eps, nu, t, tstep, save_solution_frequency, p_, 
     if tstep % 10 == 0:
         h = mesh.hmin()
         L = h0 * (1 + eps)
-        compute_flow_quantities(u_, L, nu, mesh, t, tstep, dt, h, outlet_area=1, boundary=None, outlet_ids=[],
-                                inlet_ids=[], id_wall=0, period=1.0, newfolder=None, dynamic_mesh=False,
-                                write_to_file=False)
+        compute_flow_quantities(
+            u_,
+            L,
+            nu,
+            mesh,
+            t,
+            tstep,
+            dt,
+            h,
+            outlet_area=1,
+            boundary=None,
+            outlet_ids=[],
+            inlet_ids=[],
+            id_wall=0,
+            period=1.0,
+            newfolder=None,
+            dynamic_mesh=False,
+            write_to_file=False,
+        )

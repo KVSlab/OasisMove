@@ -6,7 +6,9 @@ from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 
 
 # Override some problem specific parameters
-def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace):
+def problem_parameters(
+    commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace
+):
     """
     Problem file for running CFD simulation for a stenosis model with a slight eccentricity in a 2D domain.
     The stenotic and eccentricity model is inspired by the 3D stenotic flow research by  Varghese et al.[1], where we
@@ -25,9 +27,14 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
     if "restart_folder" in commandline_kwargs.keys():
         restart_folder = commandline_kwargs["restart_folder"]
         restart_folder = path.join(os.getcwd(), restart_folder)
-        f = open(path.join(path.dirname(path.abspath(__file__)), restart_folder, 'params.dat'), 'rb')
+        f = open(
+            path.join(
+                path.dirname(path.abspath(__file__)), restart_folder, "params.dat"
+            ),
+            "rb",
+        )
         NS_parameters.update(pickle.load(f))
-        NS_parameters['restart_folder'] = restart_folder
+        NS_parameters["restart_folder"] = restart_folder
         globals().update(NS_parameters)
     else:
         NS_parameters.update(
@@ -53,7 +60,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             print_intermediate_info=100,
             velocity_degree=1,
             pressure_degree=1,
-            use_krylov_solvers=True
+            use_krylov_solvers=True,
         )
 
 
@@ -99,7 +106,12 @@ def pre_boundary_condition(mesh, D, x0, x1, **NS_namespace):
     x0 = x0 * D
     x1 = x1 * D
     wall = AutoSubDomain(
-        lambda x, b: (b and not near(x[0], x0 - 1000 * DOLFIN_EPS) and not near(x[0], x1 + 1000 * DOLFIN_EPS)))
+        lambda x, b: (
+            b
+            and not near(x[0], x0 - 1000 * DOLFIN_EPS)
+            and not near(x[0], x1 + 1000 * DOLFIN_EPS)
+        )
+    )
     inlet = AutoSubDomain(lambda x, b: (b and (near(x[0], x0))))
     outlet = AutoSubDomain(lambda x, b: (b and (near(x[0], x1))))
 
@@ -129,23 +141,25 @@ def create_bcs(V, Q, D, U0, boundary, sys_comp, **NS_namespace):
     bc_out = DirichletBC(Q, Constant(0), boundary, 3)
 
     bcs = dict((ui, []) for ui in sys_comp)
-    bcs['u0'] = [bc_wall, bc_in_x]
-    bcs['u1'] = [bc_wall, bc_in_y]
-    bcs['p'] = [bc_out]
+    bcs["u0"] = [bc_wall, bc_in_x]
+    bcs["u1"] = [bc_wall, bc_in_y]
+    bcs["p"] = [bc_out]
 
     return bcs
 
 
 def pre_solve_hook(V, mesh, newfolder, velocity_degree, **NS_namespace):
     # Get visualization files
-    viz_p, viz_u = get_visualization_writers(newfolder, ['pressure', 'velocity'])
+    viz_p, viz_u = get_visualization_writers(newfolder, ["pressure", "velocity"])
     Vv = VectorFunctionSpace(mesh, "CG", velocity_degree)
     u_vec = Function(Vv, name="u")
 
     return dict(viz_u=viz_u, viz_p=viz_p, u_vec=u_vec)
 
 
-def temporal_hook(tstep, u_vec, u_, save_solution_frequency, viz_p, viz_u, p_, t, T, **NS_namespace):
+def temporal_hook(
+    tstep, u_vec, u_, save_solution_frequency, viz_p, viz_u, p_, t, T, **NS_namespace
+):
     if tstep % save_solution_frequency == 0:
         assign(u_vec.sub(0), u_[0])
         assign(u_vec.sub(1), u_[1])
@@ -158,6 +172,6 @@ def temporal_hook(tstep, u_vec, u_, save_solution_frequency, viz_p, viz_u, p_, t
         max_vel = max(u_x)
         mean_vel = np.mean(u_x)
         info_green(
-            f"Time = {t:2.4e} \t Timestep = {tstep:6d} \t Max velocity={max_vel:2.2f} \t" +
-            f"Mean velocity={mean_vel:2.3f} \t End time = {T:2.4e}"
+            f"Time = {t:2.4e} \t Timestep = {tstep:6d} \t Max velocity={max_vel:2.2f} \t"
+            + f"Mean velocity={mean_vel:2.3f} \t End time = {T:2.4e}"
         )

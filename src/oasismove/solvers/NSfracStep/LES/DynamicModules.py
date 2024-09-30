@@ -1,14 +1,27 @@
-__author__ = 'Joakim Boe <joakim.bo@mn.uio.no>'
-__date__ = '2015-02-04'
-__copyright__ = 'Copyright (C) 2015 ' + __author__
-__license__ = 'GNU Lesser GPL version 3 or any later version'
+__author__ = "Joakim Boe <joakim.bo@mn.uio.no>"
+__date__ = "2015-02-04"
+__copyright__ = "Copyright (C) 2015 " + __author__
+__license__ = "GNU Lesser GPL version 3 or any later version"
 
 import numpy as np
 from dolfin import solve
 
 
-def lagrange_average(u_CG1, dt, CG1, tensdim, delta_CG1_sq, dim,
-                     Sijmats, G_matr, J1=None, J2=None, Aij=None, Bij=None, **NS_namespace):
+def lagrange_average(
+    u_CG1,
+    dt,
+    CG1,
+    tensdim,
+    delta_CG1_sq,
+    dim,
+    Sijmats,
+    G_matr,
+    J1=None,
+    J2=None,
+    Aij=None,
+    Bij=None,
+    **NS_namespace
+):
     """
     Function for Lagrange Averaging two tensors
     AijBij and BijBij, PDE's are solved implicitly.
@@ -25,8 +38,11 @@ def lagrange_average(u_CG1, dt, CG1, tensdim, delta_CG1_sq, dim,
     """
 
     # Update eps
-    eps = (dt * (J1.vector().array() * J2.vector().array()) ** (1. / 8.)
-           / (1.5 * np.sqrt(delta_CG1_sq.vector().array())))
+    eps = (
+        dt
+        * (J1.vector().array() * J2.vector().array()) ** (1.0 / 8.0)
+        / (1.5 * np.sqrt(delta_CG1_sq.vector().array()))
+    )
     eps = eps / (1.0 + eps)
 
     # Compute tensor contractions
@@ -60,12 +76,13 @@ def lagrange_average(u_CG1, dt, CG1, tensdim, delta_CG1_sq, dim,
     J2.vector().apply("insert")
 
     # Apply ramp function on J1 to remove negative values, but not set to 0.
-    J1.vector().set_local(J1.vector().array().clip(min=1E-32))
+    J1.vector().set_local(J1.vector().array().clip(min=1e-32))
     J1.vector().apply("insert")
 
 
-def tophatfilter(G_matr, G_under, unfiltered=None, filtered=None, N=1,
-                 weight=0.5, **NS_namespace):
+def tophatfilter(
+    G_matr, G_under, unfiltered=None, filtered=None, N=1, weight=0.5, **NS_namespace
+):
     """
     Filtering a CG1 function for applying a generalized top hat filter.
     uf = int(G*u)/int(G).
@@ -86,8 +103,9 @@ def tophatfilter(G_matr, G_under, unfiltered=None, filtered=None, N=1,
     filtered.vector().axpy(1.0, vec_)
 
 
-def compute_Lij(Lij, uiuj_pairs, tensdim, G_matr, G_under,
-                u=None, uf=None, Qij=None, **NS_namespace):
+def compute_Lij(
+    Lij, uiuj_pairs, tensdim, G_matr, G_under, u=None, uf=None, Qij=None, **NS_namespace
+):
     """
     Manually compute the tensor Lij = F(uiuj)-F(ui)F(uj)
     """
@@ -109,8 +127,21 @@ def compute_Lij(Lij, uiuj_pairs, tensdim, G_matr, G_under,
         Lij[i].vector().axpy(-1.0, uf[j].vector() * uf[k].vector())
 
 
-def compute_Mij(Mij, G_matr, G_under, Sijmats, Sijcomps, Sijfcomps, delta_CG1_sq,
-                tensdim, alphaval=None, u_nf=None, u_f=None, Nij=None, **NS_namespace):
+def compute_Mij(
+    Mij,
+    G_matr,
+    G_under,
+    Sijmats,
+    Sijcomps,
+    Sijfcomps,
+    delta_CG1_sq,
+    tensdim,
+    alphaval=None,
+    u_nf=None,
+    u_f=None,
+    Nij=None,
+    **NS_namespace
+):
     """
     Manually compute the tensor Mij = 2*delta**2*(F(|S|Sij)-alpha**2*F(|S|)F(Sij)
     """
@@ -139,10 +170,22 @@ def compute_Mij(Mij, G_matr, G_under, Sijmats, Sijcomps, Sijfcomps, delta_CG1_sq
         uf = u_f[0].vector()
         vf = u_f[1].vector()
         wf = u_f[2].vector()
-        bu = [Ax * u, 0.5 * (Ay * u + Ax * v), 0.5 * (Az * u + Ax * w),
-              Ay * v, 0.5 * (Az * v + Ay * w), Az * w]
-        buf = [Ax * uf, 0.5 * (Ay * uf + Ax * vf), 0.5 * (Az * uf + Ax * wf),
-               Ay * vf, 0.5 * (Az * vf + Ay * wf), Az * wf]
+        bu = [
+            Ax * u,
+            0.5 * (Ay * u + Ax * v),
+            0.5 * (Az * u + Ax * w),
+            Ay * v,
+            0.5 * (Az * v + Ay * w),
+            Az * w,
+        ]
+        buf = [
+            Ax * uf,
+            0.5 * (Ay * uf + Ax * vf),
+            0.5 * (Az * uf + Ax * wf),
+            Ay * vf,
+            0.5 * (Az * vf + Ay * wf),
+            Az * wf,
+        ]
 
     for i in range(tensdim):
         # Solve for the different components of Sij
@@ -168,8 +211,10 @@ def compute_Mij(Mij, G_matr, G_under, Sijmats, Sijcomps, Sijfcomps, delta_CG1_sq
             Nij[i].vector().axpy(1.0, Mij[i].vector())
 
         # Compute 2*delta**2*(F(|S|Sij) - alpha**2*F(|S|)F(Sij)) and add to Mij[i]
-        Mij[i].vector().set_local(deltasq * (Mij[i].vector().array() -
-                                             (alpha ** 2) * magSf * Sijf[i].vector().array()))
+        Mij[i].vector().set_local(
+            deltasq
+            * (Mij[i].vector().array() - (alpha**2) * magSf * Sijf[i].vector().array())
+        )
         Mij[i].vector().apply("insert")
 
     # Return magS for use when updating nut_
@@ -189,8 +234,18 @@ def compute_Qij(Qij, uiuj_pairs, tensdim, G_matr, G_under, uf=None, **NS_namespa
         Qij[i].vector().axpy(-1.0, uf[j].vector() * uf[k].vector())
 
 
-def compute_Nij(Nij, G_matr, G_under, tensdim, Sijmats, Sijfcomps, delta_CG1_sq,
-                alphaval=None, u_f=None, **NS_namespace):
+def compute_Nij(
+    Nij,
+    G_matr,
+    G_under,
+    tensdim,
+    Sijmats,
+    Sijfcomps,
+    delta_CG1_sq,
+    alphaval=None,
+    u_f=None,
+    **NS_namespace
+):
     """
     Function for computing Nij in ScaleDepLagrangian
     """
@@ -211,8 +266,14 @@ def compute_Nij(Nij, G_matr, G_under, tensdim, Sijmats, Sijfcomps, delta_CG1_sq,
         uf = u_f[0].vector()
         vf = u_f[1].vector()
         wf = u_f[2].vector()
-        buf = [Ax * uf, 0.5 * (Ay * uf + Ax * vf), 0.5 * (Az * uf + Ax * wf),
-               Ay * vf, 0.5 * (Az * vf + Ay * wf), Az * wf]
+        buf = [
+            Ax * uf,
+            0.5 * (Ay * uf + Ax * vf),
+            0.5 * (Az * uf + Ax * wf),
+            Ay * vf,
+            0.5 * (Az * vf + Ay * wf),
+            Az * wf,
+        ]
 
     for i in range(tensdim):
         # Solve for the diff. components of F(F(Sij)))
@@ -225,8 +286,10 @@ def compute_Nij(Nij, G_matr, G_under, tensdim, Sijmats, Sijfcomps, delta_CG1_sq,
         # Filter Nij = F(|S|Sij) --> F(F(|S|Sij))
         tophatfilter(unfiltered=Nij[i], filtered=Nij[i], weight=1, **vars())
         # Compute 2*delta**2*(F(F(|S|Sij)) - alpha**2*F(F(|S))F(F(Sij)))
-        Nij[i].vector().set_local(deltasq * (Nij[i].vector().array() -
-                                             (alpha ** 2) * magSf * Sijf[i].vector().array()))
+        Nij[i].vector().set_local(
+            deltasq
+            * (Nij[i].vector().array() - (alpha**2) * magSf * Sijf[i].vector().array())
+        )
         Nij[i].vector().apply("insert")
 
 
@@ -236,16 +299,20 @@ def tensor_inner(tensdim, A=None, B=None, **NS_namespace):
     A numpy array is returned.
     """
     if tensdim == 3:
-        contraction = (A[0].vector().array() * B[0].vector().array()
-                       + 2 * A[1].vector().array() * B[1].vector().array()
-                       + A[2].vector().array() * B[2].vector().array())
+        contraction = (
+            A[0].vector().array() * B[0].vector().array()
+            + 2 * A[1].vector().array() * B[1].vector().array()
+            + A[2].vector().array() * B[2].vector().array()
+        )
     else:
-        contraction = (A[0].vector().array() * B[0].vector().array()
-                       + 2 * A[1].vector().array() * B[1].vector().array()
-                       + 2 * A[2].vector().array() * B[2].vector().array()
-                       + A[3].vector().array() * B[3].vector().array()
-                       + 2 * A[4].vector().array() * B[4].vector().array()
-                       + A[5].vector().array() * B[5].vector().array())
+        contraction = (
+            A[0].vector().array() * B[0].vector().array()
+            + 2 * A[1].vector().array() * B[1].vector().array()
+            + 2 * A[2].vector().array() * B[2].vector().array()
+            + A[3].vector().array() * B[3].vector().array()
+            + 2 * A[4].vector().array() * B[4].vector().array()
+            + A[5].vector().array() * B[5].vector().array()
+        )
     return contraction
 
 
@@ -269,7 +336,16 @@ def mag(Sij, tensdim, **NS_namespace):
         S12 = Sij[4].vector().array()
         S22 = Sij[5].vector().array()
         # Compute |S|
-        magS = np.sqrt(2 * (S00 * S00 + 2 * S01 * S01 + 2 * S02 * S02 + S11 * S11 +
-                            2 * S12 * S12 + S22 * S22))
+        magS = np.sqrt(
+            2
+            * (
+                S00 * S00
+                + 2 * S01 * S01
+                + 2 * S02 * S02
+                + S11 * S11
+                + 2 * S12 * S12
+                + S22 * S22
+            )
+        )
 
     return magS
