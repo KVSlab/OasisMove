@@ -3,9 +3,8 @@ name: GitHub pages
 on:
   # Trigger the workflow on push to main branch
   push:
-#    branches:
-#      - main
-#      - update-books
+    branches:
+      - main
 
 # This job installs dependencies, build the book, and pushes it to `gh-pages`
 jobs:
