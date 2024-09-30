@@ -15,52 +15,49 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.5ea377869091fd0449014c60fc090103.min.css" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/scripts/sphinx-book-theme.js"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'api';</script>
     <link rel="index" title="Index" href="genindex.html" />
@@ -68,7 +65,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="prev" title="Backflow stabilization" href="stenosis.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
-    <meta name="docbuild:last-update" content="Dec 12, 2023"/>
+    <meta name="docbuild:last-update" content="Sep 30, 2024"/>
   </head>
   
   
@@ -76,28 +73,23 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
   
   <input type="checkbox"
           class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
   
   <div class="search-button__wrapper">
     <div class="search-button__overlay"></div>
@@ -119,12 +111,20 @@ const thebe_selector_output = ".output, .cell_output"
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -140,6 +140,8 @@ const thebe_selector_output = ".output, .cell_output"
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
 
+  
+    
   
 
 <a class="navbar-brand logo" href="index.html">
@@ -158,7 +160,18 @@ const thebe_selector_output = ".output, .cell_output"
   
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -213,7 +226,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -222,14 +235,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -354,10 +367,10 @@ const thebe_selector_output = ".output, .cell_output"
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
   </button>
 `);
 </script>
@@ -365,14 +378,14 @@ document.write(`
 
 <script>
 document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -393,9 +406,157 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-oasismove.solvers.NSfracStep.IPCS_ABCN_Move">OasisMove Solvers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-oasismove.common.io">Common methods</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-oasismove.problems.__init__">OasisMove problems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-oasismove.solvers.NSfracStep.IPCS_ABCN_Move">OasisMove Solvers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.assemble_first_inner_iter"><code class="docutils literal notranslate"><span class="pre">assemble_first_inner_iter()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.get_solvers"><code class="docutils literal notranslate"><span class="pre">get_solvers()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.mesh_velocity_assemble"><code class="docutils literal notranslate"><span class="pre">mesh_velocity_assemble()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.mesh_velocity_solve"><code class="docutils literal notranslate"><span class="pre">mesh_velocity_solve()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.pressure_assemble"><code class="docutils literal notranslate"><span class="pre">pressure_assemble()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.pressure_solve"><code class="docutils literal notranslate"><span class="pre">pressure_solve()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.print_velocity_pressure_info"><code class="docutils literal notranslate"><span class="pre">print_velocity_pressure_info()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.scalar_assemble"><code class="docutils literal notranslate"><span class="pre">scalar_assemble()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.scalar_solve"><code class="docutils literal notranslate"><span class="pre">scalar_solve()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.setup"><code class="docutils literal notranslate"><span class="pre">setup()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_tentative_assemble"><code class="docutils literal notranslate"><span class="pre">velocity_tentative_assemble()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_tentative_solve"><code class="docutils literal notranslate"><span class="pre">velocity_tentative_solve()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_update"><code class="docutils literal notranslate"><span class="pre">velocity_update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-oasismove.common.io">Common methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.check_if_kill"><code class="docutils literal notranslate"><span class="pre">check_if_kill()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.check_if_reset_statistics"><code class="docutils literal notranslate"><span class="pre">check_if_reset_statistics()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.create_initial_folders"><code class="docutils literal notranslate"><span class="pre">create_initial_folders()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.init_from_restart"><code class="docutils literal notranslate"><span class="pre">init_from_restart()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.merge_visualization_files"><code class="docutils literal notranslate"><span class="pre">merge_visualization_files()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.merge_xml_files"><code class="docutils literal notranslate"><span class="pre">merge_xml_files()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.save_checkpoint_solution_xdmf"><code class="docutils literal notranslate"><span class="pre">save_checkpoint_solution_xdmf()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.save_solution"><code class="docutils literal notranslate"><span class="pre">save_solution()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.save_tstep_solution_xdmf"><code class="docutils literal notranslate"><span class="pre">save_tstep_solution_xdmf()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.AssignedVectorFunction"><code class="docutils literal notranslate"><span class="pre">AssignedVectorFunction</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.CG1Function"><code class="docutils literal notranslate"><span class="pre">CG1Function</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.CG1Function.bound"><code class="docutils literal notranslate"><span class="pre">CG1Function.bound()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.DivFunction"><code class="docutils literal notranslate"><span class="pre">DivFunction</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.DivFunction.assemble_rhs"><code class="docutils literal notranslate"><span class="pre">DivFunction.assemble_rhs()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.GradFunction"><code class="docutils literal notranslate"><span class="pre">GradFunction</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.GradFunction.assemble_rhs"><code class="docutils literal notranslate"><span class="pre">GradFunction.assemble_rhs()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.LESsource"><code class="docutils literal notranslate"><span class="pre">LESsource</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.LESsource.assemble_rhs"><code class="docutils literal notranslate"><span class="pre">LESsource.assemble_rhs()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.Mat_cache_dict"><code class="docutils literal notranslate"><span class="pre">Mat_cache_dict</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.Mat_cache_dict.update_t"><code class="docutils literal notranslate"><span class="pre">Mat_cache_dict.update_t()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.NNsource"><code class="docutils literal notranslate"><span class="pre">NNsource</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.NNsource.assemble_rhs"><code class="docutils literal notranslate"><span class="pre">NNsource.assemble_rhs()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.OasisFunction"><code class="docutils literal notranslate"><span class="pre">OasisFunction</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.OasisFunction.assemble_rhs"><code class="docutils literal notranslate"><span class="pre">OasisFunction.assemble_rhs()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.Solver_cache_dict"><code class="docutils literal notranslate"><span class="pre">Solver_cache_dict</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.assemble_matrix"><code class="docutils literal notranslate"><span class="pre">assemble_matrix()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.homogenize"><code class="docutils literal notranslate"><span class="pre">homogenize()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-oasismove.problems.__init__">OasisMove problems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.OasisMemoryUsage"><code class="docutils literal notranslate"><span class="pre">OasisMemoryUsage</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.OasisTimer"><code class="docutils literal notranslate"><span class="pre">OasisTimer</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.OasisXDMFFile"><code class="docutils literal notranslate"><span class="pre">OasisXDMFFile</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.Omega"><code class="docutils literal notranslate"><span class="pre">Omega()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.QC"><code class="docutils literal notranslate"><span class="pre">QC()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.Strain"><code class="docutils literal notranslate"><span class="pre">Strain()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.add_function_to_tstepfiles"><code class="docutils literal notranslate"><span class="pre">add_function_to_tstepfiles()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.body_force"><code class="docutils literal notranslate"><span class="pre">body_force()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.compute_flow_quantities"><code class="docutils literal notranslate"><span class="pre">compute_flow_quantities()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.compute_volume"><code class="docutils literal notranslate"><span class="pre">compute_volume()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.create_bcs"><code class="docutils literal notranslate"><span class="pre">create_bcs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.getMemoryUsage"><code class="docutils literal notranslate"><span class="pre">getMemoryUsage()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.info_blue"><code class="docutils literal notranslate"><span class="pre">info_blue()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.info_green"><code class="docutils literal notranslate"><span class="pre">info_green()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.info_red"><code class="docutils literal notranslate"><span class="pre">info_red()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.initialize"><code class="docutils literal notranslate"><span class="pre">initialize()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.omega"><code class="docutils literal notranslate"><span class="pre">omega()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.post_import_problem"><code class="docutils literal notranslate"><span class="pre">post_import_problem()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.pre_solve_hook"><code class="docutils literal notranslate"><span class="pre">pre_solve_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.print_mesh_information"><code class="docutils literal notranslate"><span class="pre">print_mesh_information()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.problem_parameters"><code class="docutils literal notranslate"><span class="pre">problem_parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.recursive_update"><code class="docutils literal notranslate"><span class="pre">recursive_update()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.scalar_hook"><code class="docutils literal notranslate"><span class="pre">scalar_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.scalar_source"><code class="docutils literal notranslate"><span class="pre">scalar_source()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.strain"><code class="docutils literal notranslate"><span class="pre">strain()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.theend_hook"><code class="docutils literal notranslate"><span class="pre">theend_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.u_dot_n"><code class="docutils literal notranslate"><span class="pre">u_dot_n()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.write_data_to_file"><code class="docutils literal notranslate"><span class="pre">write_data_to_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCommon.Counter"><code class="docutils literal notranslate"><span class="pre">Counter</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCommon.Counter.map"><code class="docutils literal notranslate"><span class="pre">Counter.map</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCommon.Counter.counter"><code class="docutils literal notranslate"><span class="pre">Counter.counter</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCommon.Counter.eval"><code class="docutils literal notranslate"><span class="pre">Counter.eval()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCommon.Counter.get_map"><code class="docutils literal notranslate"><span class="pre">Counter.get_map()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCommon.get_coordinate_map"><code class="docutils literal notranslate"><span class="pre">get_coordinate_map()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCommon.get_visualization_writers"><code class="docutils literal notranslate"><span class="pre">get_visualization_writers()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCylinder.create_bcs"><code class="docutils literal notranslate"><span class="pre">create_bcs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCylinder.mesh"><code class="docutils literal notranslate"><span class="pre">mesh()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCylinder.pre_boundary_condition"><code class="docutils literal notranslate"><span class="pre">pre_boundary_condition()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCylinder.pre_solve_hook"><code class="docutils literal notranslate"><span class="pre">pre_solve_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCylinder.problem_parameters"><code class="docutils literal notranslate"><span class="pre">problem_parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCylinder.temporal_hook"><code class="docutils literal notranslate"><span class="pre">temporal_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCylinder.update_boundary_conditions"><code class="docutils literal notranslate"><span class="pre">update_boundary_conditions()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.PeriodicDomain"><code class="docutils literal notranslate"><span class="pre">PeriodicDomain</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.PeriodicDomain.inside"><code class="docutils literal notranslate"><span class="pre">PeriodicDomain.inside()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.PeriodicDomain.map"><code class="docutils literal notranslate"><span class="pre">PeriodicDomain.map()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.initialize"><code class="docutils literal notranslate"><span class="pre">initialize()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.mesh"><code class="docutils literal notranslate"><span class="pre">mesh()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.near"><code class="docutils literal notranslate"><span class="pre">near()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.pre_boundary_condition"><code class="docutils literal notranslate"><span class="pre">pre_boundary_condition()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.pre_solve_hook"><code class="docutils literal notranslate"><span class="pre">pre_solve_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.problem_parameters"><code class="docutils literal notranslate"><span class="pre">problem_parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.temporal_hook"><code class="docutils literal notranslate"><span class="pre">temporal_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.update_boundary_conditions"><code class="docutils literal notranslate"><span class="pre">update_boundary_conditions()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.MovingSideWall"><code class="docutils literal notranslate"><span class="pre">MovingSideWall</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.MovingSideWall.eval"><code class="docutils literal notranslate"><span class="pre">MovingSideWall.eval()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.MovingSideWall.update"><code class="docutils literal notranslate"><span class="pre">MovingSideWall.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.MovingWall"><code class="docutils literal notranslate"><span class="pre">MovingWall</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.MovingWall.eval"><code class="docutils literal notranslate"><span class="pre">MovingWall.eval()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.MovingWall.update"><code class="docutils literal notranslate"><span class="pre">MovingWall.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.create_bcs"><code class="docutils literal notranslate"><span class="pre">create_bcs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.mesh"><code class="docutils literal notranslate"><span class="pre">mesh()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.pre_boundary_condition"><code class="docutils literal notranslate"><span class="pre">pre_boundary_condition()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.pre_solve_hook"><code class="docutils literal notranslate"><span class="pre">pre_solve_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.problem_parameters"><code class="docutils literal notranslate"><span class="pre">problem_parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.temporal_hook"><code class="docutils literal notranslate"><span class="pre">temporal_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.update_boundary_conditions"><code class="docutils literal notranslate"><span class="pre">update_boundary_conditions()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.Walls"><code class="docutils literal notranslate"><span class="pre">Walls</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.Walls.eval"><code class="docutils literal notranslate"><span class="pre">Walls.eval()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.Walls.update"><code class="docutils literal notranslate"><span class="pre">Walls.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.create_bcs"><code class="docutils literal notranslate"><span class="pre">create_bcs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.initialize"><code class="docutils literal notranslate"><span class="pre">initialize()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.mesh"><code class="docutils literal notranslate"><span class="pre">mesh()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.pre_boundary_condition"><code class="docutils literal notranslate"><span class="pre">pre_boundary_condition()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.pre_solve_hook"><code class="docutils literal notranslate"><span class="pre">pre_solve_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.problem_parameters"><code class="docutils literal notranslate"><span class="pre">problem_parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.temporal_hook"><code class="docutils literal notranslate"><span class="pre">temporal_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.theend_hook"><code class="docutils literal notranslate"><span class="pre">theend_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.update_boundary_conditions"><code class="docutils literal notranslate"><span class="pre">update_boundary_conditions()</span></code></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -405,7 +566,7 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section id="api-reference">
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this heading">#</a></h1>
@@ -755,8 +916,8 @@ and preconditioner_type</p>
 <li><p><strong>h</strong> (<em>float</em>) – Mesh element size.</p></li>
 <li><p><strong>outlet_area</strong> (<em>float</em>) – Area of the outlet, default is 1.</p></li>
 <li><p><strong>boundary</strong> (<em>MeshFunction</em>) – Boundary mesh function, default is None.</p></li>
-<li><p><strong>outlet_ids</strong> (<em>list of int</em>) – List of outlet boundary IDs, default is empty list.</p></li>
-<li><p><strong>inlet_ids</strong> (<em>list of int</em>) – List of inlet boundary IDs, default is empty list.</p></li>
+<li><p><strong>outlet_ids</strong> (<em>list</em><em> of </em><em>int</em>) – List of outlet boundary IDs, default is empty list.</p></li>
+<li><p><strong>inlet_ids</strong> (<em>list</em><em> of </em><em>int</em>) – List of inlet boundary IDs, default is empty list.</p></li>
 <li><p><strong>id_wall</strong> (<em>int</em>) – Wall boundary ID, default is 0.</p></li>
 <li><p><strong>period</strong> (<em>float</em>) – Period of oscillation, default is 1.0.</p></li>
 <li><p><strong>newfolder</strong> (<em>str</em>) – Directory for output files, default is None.</p></li>
@@ -1252,7 +1413,7 @@ Remember pressure is computed in between timesteps.</p>
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
     <a class="left-prev"
@@ -1273,15 +1434,164 @@ Remember pressure is computed in between timesteps.</p>
               
                 <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-oasismove.solvers.NSfracStep.IPCS_ABCN_Move">OasisMove Solvers</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-oasismove.common.io">Common methods</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-oasismove.problems.__init__">OasisMove problems</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-oasismove.solvers.NSfracStep.IPCS_ABCN_Move">OasisMove Solvers</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.assemble_first_inner_iter"><code class="docutils literal notranslate"><span class="pre">assemble_first_inner_iter()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.get_solvers"><code class="docutils literal notranslate"><span class="pre">get_solvers()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.mesh_velocity_assemble"><code class="docutils literal notranslate"><span class="pre">mesh_velocity_assemble()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.mesh_velocity_solve"><code class="docutils literal notranslate"><span class="pre">mesh_velocity_solve()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.pressure_assemble"><code class="docutils literal notranslate"><span class="pre">pressure_assemble()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.pressure_solve"><code class="docutils literal notranslate"><span class="pre">pressure_solve()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.print_velocity_pressure_info"><code class="docutils literal notranslate"><span class="pre">print_velocity_pressure_info()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.scalar_assemble"><code class="docutils literal notranslate"><span class="pre">scalar_assemble()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.scalar_solve"><code class="docutils literal notranslate"><span class="pre">scalar_solve()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.setup"><code class="docutils literal notranslate"><span class="pre">setup()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_tentative_assemble"><code class="docutils literal notranslate"><span class="pre">velocity_tentative_assemble()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_tentative_solve"><code class="docutils literal notranslate"><span class="pre">velocity_tentative_solve()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.solvers.NSfracStep.IPCS_ABCN_Move.velocity_update"><code class="docutils literal notranslate"><span class="pre">velocity_update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-oasismove.common.io">Common methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.check_if_kill"><code class="docutils literal notranslate"><span class="pre">check_if_kill()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.check_if_reset_statistics"><code class="docutils literal notranslate"><span class="pre">check_if_reset_statistics()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.create_initial_folders"><code class="docutils literal notranslate"><span class="pre">create_initial_folders()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.init_from_restart"><code class="docutils literal notranslate"><span class="pre">init_from_restart()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.merge_visualization_files"><code class="docutils literal notranslate"><span class="pre">merge_visualization_files()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.merge_xml_files"><code class="docutils literal notranslate"><span class="pre">merge_xml_files()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.save_checkpoint_solution_xdmf"><code class="docutils literal notranslate"><span class="pre">save_checkpoint_solution_xdmf()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.save_solution"><code class="docutils literal notranslate"><span class="pre">save_solution()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.io.save_tstep_solution_xdmf"><code class="docutils literal notranslate"><span class="pre">save_tstep_solution_xdmf()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.AssignedVectorFunction"><code class="docutils literal notranslate"><span class="pre">AssignedVectorFunction</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.CG1Function"><code class="docutils literal notranslate"><span class="pre">CG1Function</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.CG1Function.bound"><code class="docutils literal notranslate"><span class="pre">CG1Function.bound()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.DivFunction"><code class="docutils literal notranslate"><span class="pre">DivFunction</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.DivFunction.assemble_rhs"><code class="docutils literal notranslate"><span class="pre">DivFunction.assemble_rhs()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.GradFunction"><code class="docutils literal notranslate"><span class="pre">GradFunction</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.GradFunction.assemble_rhs"><code class="docutils literal notranslate"><span class="pre">GradFunction.assemble_rhs()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.LESsource"><code class="docutils literal notranslate"><span class="pre">LESsource</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.LESsource.assemble_rhs"><code class="docutils literal notranslate"><span class="pre">LESsource.assemble_rhs()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.Mat_cache_dict"><code class="docutils literal notranslate"><span class="pre">Mat_cache_dict</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.Mat_cache_dict.update_t"><code class="docutils literal notranslate"><span class="pre">Mat_cache_dict.update_t()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.NNsource"><code class="docutils literal notranslate"><span class="pre">NNsource</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.NNsource.assemble_rhs"><code class="docutils literal notranslate"><span class="pre">NNsource.assemble_rhs()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.OasisFunction"><code class="docutils literal notranslate"><span class="pre">OasisFunction</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.OasisFunction.assemble_rhs"><code class="docutils literal notranslate"><span class="pre">OasisFunction.assemble_rhs()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.Solver_cache_dict"><code class="docutils literal notranslate"><span class="pre">Solver_cache_dict</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.assemble_matrix"><code class="docutils literal notranslate"><span class="pre">assemble_matrix()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.common.utilities.homogenize"><code class="docutils literal notranslate"><span class="pre">homogenize()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-oasismove.problems.__init__">OasisMove problems</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.OasisMemoryUsage"><code class="docutils literal notranslate"><span class="pre">OasisMemoryUsage</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.OasisTimer"><code class="docutils literal notranslate"><span class="pre">OasisTimer</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.OasisXDMFFile"><code class="docutils literal notranslate"><span class="pre">OasisXDMFFile</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.Omega"><code class="docutils literal notranslate"><span class="pre">Omega()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.QC"><code class="docutils literal notranslate"><span class="pre">QC()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.Strain"><code class="docutils literal notranslate"><span class="pre">Strain()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.add_function_to_tstepfiles"><code class="docutils literal notranslate"><span class="pre">add_function_to_tstepfiles()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.body_force"><code class="docutils literal notranslate"><span class="pre">body_force()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.compute_flow_quantities"><code class="docutils literal notranslate"><span class="pre">compute_flow_quantities()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.compute_volume"><code class="docutils literal notranslate"><span class="pre">compute_volume()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.create_bcs"><code class="docutils literal notranslate"><span class="pre">create_bcs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.getMemoryUsage"><code class="docutils literal notranslate"><span class="pre">getMemoryUsage()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.info_blue"><code class="docutils literal notranslate"><span class="pre">info_blue()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.info_green"><code class="docutils literal notranslate"><span class="pre">info_green()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.info_red"><code class="docutils literal notranslate"><span class="pre">info_red()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.initialize"><code class="docutils literal notranslate"><span class="pre">initialize()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.omega"><code class="docutils literal notranslate"><span class="pre">omega()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.post_import_problem"><code class="docutils literal notranslate"><span class="pre">post_import_problem()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.pre_solve_hook"><code class="docutils literal notranslate"><span class="pre">pre_solve_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.print_mesh_information"><code class="docutils literal notranslate"><span class="pre">print_mesh_information()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.problem_parameters"><code class="docutils literal notranslate"><span class="pre">problem_parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.recursive_update"><code class="docutils literal notranslate"><span class="pre">recursive_update()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.scalar_hook"><code class="docutils literal notranslate"><span class="pre">scalar_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.scalar_source"><code class="docutils literal notranslate"><span class="pre">scalar_source()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.strain"><code class="docutils literal notranslate"><span class="pre">strain()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.theend_hook"><code class="docutils literal notranslate"><span class="pre">theend_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.u_dot_n"><code class="docutils literal notranslate"><span class="pre">u_dot_n()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.__init__.write_data_to_file"><code class="docutils literal notranslate"><span class="pre">write_data_to_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCommon.Counter"><code class="docutils literal notranslate"><span class="pre">Counter</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCommon.Counter.map"><code class="docutils literal notranslate"><span class="pre">Counter.map</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCommon.Counter.counter"><code class="docutils literal notranslate"><span class="pre">Counter.counter</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCommon.Counter.eval"><code class="docutils literal notranslate"><span class="pre">Counter.eval()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCommon.Counter.get_map"><code class="docutils literal notranslate"><span class="pre">Counter.get_map()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCommon.get_coordinate_map"><code class="docutils literal notranslate"><span class="pre">get_coordinate_map()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCommon.get_visualization_writers"><code class="docutils literal notranslate"><span class="pre">get_visualization_writers()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCylinder.create_bcs"><code class="docutils literal notranslate"><span class="pre">create_bcs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCylinder.mesh"><code class="docutils literal notranslate"><span class="pre">mesh()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCylinder.pre_boundary_condition"><code class="docutils literal notranslate"><span class="pre">pre_boundary_condition()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCylinder.pre_solve_hook"><code class="docutils literal notranslate"><span class="pre">pre_solve_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCylinder.problem_parameters"><code class="docutils literal notranslate"><span class="pre">problem_parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCylinder.temporal_hook"><code class="docutils literal notranslate"><span class="pre">temporal_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingCylinder.update_boundary_conditions"><code class="docutils literal notranslate"><span class="pre">update_boundary_conditions()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.PeriodicDomain"><code class="docutils literal notranslate"><span class="pre">PeriodicDomain</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.PeriodicDomain.inside"><code class="docutils literal notranslate"><span class="pre">PeriodicDomain.inside()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.PeriodicDomain.map"><code class="docutils literal notranslate"><span class="pre">PeriodicDomain.map()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.initialize"><code class="docutils literal notranslate"><span class="pre">initialize()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.mesh"><code class="docutils literal notranslate"><span class="pre">mesh()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.near"><code class="docutils literal notranslate"><span class="pre">near()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.pre_boundary_condition"><code class="docutils literal notranslate"><span class="pre">pre_boundary_condition()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.pre_solve_hook"><code class="docutils literal notranslate"><span class="pre">pre_solve_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.problem_parameters"><code class="docutils literal notranslate"><span class="pre">problem_parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.temporal_hook"><code class="docutils literal notranslate"><span class="pre">temporal_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingTaylorGreen3D.update_boundary_conditions"><code class="docutils literal notranslate"><span class="pre">update_boundary_conditions()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.MovingSideWall"><code class="docutils literal notranslate"><span class="pre">MovingSideWall</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.MovingSideWall.eval"><code class="docutils literal notranslate"><span class="pre">MovingSideWall.eval()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.MovingSideWall.update"><code class="docutils literal notranslate"><span class="pre">MovingSideWall.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.MovingWall"><code class="docutils literal notranslate"><span class="pre">MovingWall</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.MovingWall.eval"><code class="docutils literal notranslate"><span class="pre">MovingWall.eval()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.MovingWall.update"><code class="docutils literal notranslate"><span class="pre">MovingWall.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.create_bcs"><code class="docutils literal notranslate"><span class="pre">create_bcs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.mesh"><code class="docutils literal notranslate"><span class="pre">mesh()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.pre_boundary_condition"><code class="docutils literal notranslate"><span class="pre">pre_boundary_condition()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.pre_solve_hook"><code class="docutils literal notranslate"><span class="pre">pre_solve_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.problem_parameters"><code class="docutils literal notranslate"><span class="pre">problem_parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.temporal_hook"><code class="docutils literal notranslate"><span class="pre">temporal_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingWall.update_boundary_conditions"><code class="docutils literal notranslate"><span class="pre">update_boundary_conditions()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.Walls"><code class="docutils literal notranslate"><span class="pre">Walls</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.Walls.eval"><code class="docutils literal notranslate"><span class="pre">Walls.eval()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.Walls.update"><code class="docutils literal notranslate"><span class="pre">Walls.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.create_bcs"><code class="docutils literal notranslate"><span class="pre">create_bcs()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.initialize"><code class="docutils literal notranslate"><span class="pre">initialize()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.mesh"><code class="docutils literal notranslate"><span class="pre">mesh()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.pre_boundary_condition"><code class="docutils literal notranslate"><span class="pre">pre_boundary_condition()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.pre_solve_hook"><code class="docutils literal notranslate"><span class="pre">pre_solve_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.problem_parameters"><code class="docutils literal notranslate"><span class="pre">problem_parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.temporal_hook"><code class="docutils literal notranslate"><span class="pre">temporal_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.theend_hook"><code class="docutils literal notranslate"><span class="pre">theend_hook()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#oasismove.problems.NSfracStep.MovingVortex.update_boundary_conditions"><code class="docutils literal notranslate"><span class="pre">update_boundary_conditions()</span></code></a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 
@@ -1315,7 +1625,7 @@ By Henrik A. Kjeldsberg
   
   <div class="footer-item">
     <p class="last-updated">
-  Last updated on Dec 12, 2023.
+  Last updated on Sep 30, 2024.
   <br/>
 </p>
   </div>
@@ -1333,8 +1643,8 @@ By Henrik A. Kjeldsberg
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
 
   <footer class="bd-footer">
   </footer>
