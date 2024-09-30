@@ -32,6 +32,9 @@ def outlet(x, on_bnd):
 
 
 def walls(x, on_bnd):
-    return on_bnd and (x[1] < tol or x[1] > 1 - tol
-                       or (x[1] > 0.2 - tol and x[0] < 0.5)
-                       or (x[1] < 0.8 + tol and x[0] > 0.5))
+    return on_bnd and (
+        x[1] < tol
+        or x[1] > 1 - tol
+        or (x[1] > 0.2 - tol and x[0] < 0.5)
+        or (x[1] < 0.8 + tol and x[0] > 0.5)
+    )

@@ -7,7 +7,7 @@ from dolfin import BoxMesh, Point
 
 # Create a mesh
 h = 0.5
-L = 1.
+L = 1.0
 
 
 def mesh(N=20, **params):
@@ -28,6 +28,7 @@ def outlet(x, on_bnd):
 
 
 def walls(x, on_bnd):
-    return (abs(x[1] * (1 - x[1]) * x[2] * (1 - x[2])) < tol
-            or ((x[0] < tol and (x[1] > h - tol or x[2] < (1 - h + tol)))
-                or (x[0] > L - tol and (x[1] < 1 - h + tol or x[2] > h - tol))))
+    return abs(x[1] * (1 - x[1]) * x[2] * (1 - x[2])) < tol or (
+        (x[0] < tol and (x[1] > h - tol or x[2] < (1 - h + tol)))
+        or (x[0] > L - tol and (x[1] < 1 - h + tol or x[2] > h - tol))
+    )

@@ -7,7 +7,9 @@ from oasismove.problems.NSfracStep.MovingCommon import get_visualization_writers
 comm = MPI.comm_world
 
 
-def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace):
+def problem_parameters(
+    commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace
+):
     """
     Problem file for running CFD simulation for the oscillating cylinder in a rectangular 2D domain, as described
     by Blackburn and Henderson [1].The cylinder is prescribed an oscillatory motion and is placed in a free stream,
@@ -21,9 +23,14 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
     if "restart_folder" in commandline_kwargs.keys():
         restart_folder = commandline_kwargs["restart_folder"]
         restart_folder = path.join(os.getcwd(), restart_folder)
-        f = open(path.join(path.dirname(path.abspath(__file__)), restart_folder, 'params.dat'), 'rb')
+        f = open(
+            path.join(
+                path.dirname(path.abspath(__file__)), restart_folder, "params.dat"
+            ),
+            "rb",
+        )
         NS_parameters.update(pickle.load(f))
-        NS_parameters['restart_folder'] = restart_folder
+        NS_parameters["restart_folder"] = restart_folder
         globals().update(NS_parameters)
 
     else:
@@ -50,7 +57,7 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             print_intermediate_info=100,
             velocity_degree=1,
             pressure_degree=1,
-            use_krylov_solvers=True
+            use_krylov_solvers=True,
         )
 
 
@@ -74,7 +81,9 @@ def pre_boundary_condition(D, Re, u_inf, mesh, **NS_namespace):
     # Mark geometry
     inlet = AutoSubDomain(lambda x, b: b and x[0] <= L1 + DOLFIN_EPS)
     walls = AutoSubDomain(lambda x, b: b and (near(x[1], -H) or near(x[1], H)))
-    circle = AutoSubDomain(lambda x, b: b and (-H / 2 <= x[1] <= H / 2) and (L1 / 2 <= x[0] <= L2 / 2))
+    circle = AutoSubDomain(
+        lambda x, b: b and (-H / 2 <= x[1] <= H / 2) and (L1 / 2 <= x[0] <= L2 / 2)
+    )
     outlet = AutoSubDomain(lambda x, b: b and (x[0] > L2 - DOLFIN_EPS * 1000))
 
     boundary = MeshFunction("size_t", mesh, mesh.topology().dim() - 1)
@@ -90,7 +99,9 @@ def pre_boundary_condition(D, Re, u_inf, mesh, **NS_namespace):
     return dict(boundary=boundary, nu=nu)
 
 
-def create_bcs(V, Q, D, u_inf, St, F, A_ratio, sys_comp, boundary, NS_expressions, **NS_namespace):
+def create_bcs(
+    V, Q, D, u_inf, St, F, A_ratio, sys_comp, boundary, NS_expressions, **NS_namespace
+):
     info_red("Creating boundary conditions")
 
     f_v = St * u_inf / D  # Fixed-cylinder vortex shredding frequency
@@ -101,8 +112,13 @@ def create_bcs(V, Q, D, u_inf, St, F, A_ratio, sys_comp, boundary, NS_expression
     print("Amplitude is %.4f " % y_max)
 
     NS_expressions["circle_x"] = Constant(0)
-    NS_expressions["circle_y"] = Expression('2 * pi * f_o * y_max* cos(2 * pi * f_o * t)',
-                                            degree=2, t=0, y_max=y_max, f_o=f_o)
+    NS_expressions["circle_y"] = Expression(
+        "2 * pi * f_o * y_max* cos(2 * pi * f_o * t)",
+        degree=2,
+        t=0,
+        y_max=y_max,
+        f_o=f_o,
+    )
 
     bcu_in_x = DirichletBC(V, Constant(u_inf), boundary, 1)
     bcu_in_y = DirichletBC(V, Constant(0), boundary, 1)
@@ -116,16 +132,27 @@ def create_bcs(V, Q, D, u_inf, St, F, A_ratio, sys_comp, boundary, NS_expression
     bcp_out = DirichletBC(Q, Constant(0), boundary, 4)
 
     bcs = dict((ui, []) for ui in sys_comp)
-    bcs['u0'] = [bcu_circle_x, bcu_in_x, bcu_wall_x]
-    bcs['u1'] = [bcu_circle_y, bcu_in_y, bcu_wall_y]
+    bcs["u0"] = [bcu_circle_x, bcu_in_x, bcu_wall_x]
+    bcs["u1"] = [bcu_circle_y, bcu_in_y, bcu_wall_y]
     bcs["p"] = [bcp_out]
 
     return bcs
 
 
-def pre_solve_hook(V, p_, u_, velocity_degree, nu, mesh, newfolder, u_components, boundary, **NS_namespace):
+def pre_solve_hook(
+    V,
+    p_,
+    u_,
+    velocity_degree,
+    nu,
+    mesh,
+    newfolder,
+    u_components,
+    boundary,
+    **NS_namespace
+):
     # Visualization files
-    viz_p, viz_u = get_visualization_writers(newfolder, ['pressure', 'velocity'])
+    viz_p, viz_u = get_visualization_writers(newfolder, ["pressure", "velocity"])
 
     # Extract dof map and coordinates
     VV = VectorFunctionSpace(mesh, "CG", velocity_degree)
@@ -151,14 +178,21 @@ def pre_solve_hook(V, p_, u_, velocity_degree, nu, mesh, newfolder, u_components
 
     ds = Measure("ds", subdomain_data=boundary)
 
-    R = VectorFunctionSpace(mesh, 'R', 0)
+    R = VectorFunctionSpace(mesh, "R", 0)
     c = TestFunction(R)
     n = FacetNormal(mesh)
     tau = -p_ * Identity(2) + nu * (grad(u_) + grad(u_).T)
     forces = dot(dot(tau, n), c) * ds(3)
 
-    return dict(dof_map=dof_map, bc_mesh=bc_mesh, viz_p=viz_p, viz_u=viz_u, u_vec=u_vec, forces=forces,
-                coordinates=coordinates)
+    return dict(
+        dof_map=dof_map,
+        bc_mesh=bc_mesh,
+        viz_p=viz_p,
+        viz_u=viz_u,
+        u_vec=u_vec,
+        forces=forces,
+        coordinates=coordinates,
+    )
 
 
 def update_boundary_conditions(t, NS_expressions, **NS_namespace):
@@ -166,8 +200,28 @@ def update_boundary_conditions(t, NS_expressions, **NS_namespace):
     NS_expressions["circle_y"].t = t
 
 
-def temporal_hook(mesh, t, dt, nu, St, F, A_ratio, tstep, save_solution_frequency, forces, q_, u_inf, D, viz_u, viz_p,
-                  u_vec, newfolder, p_, u_, **NS_namespace):
+def temporal_hook(
+    mesh,
+    t,
+    dt,
+    nu,
+    St,
+    F,
+    A_ratio,
+    tstep,
+    save_solution_frequency,
+    forces,
+    q_,
+    u_inf,
+    D,
+    viz_u,
+    viz_p,
+    u_vec,
+    newfolder,
+    p_,
+    u_,
+    **NS_namespace
+):
     # Save fluid velocity and pressure solution
     if tstep % save_solution_frequency == 0:
         assign(u_vec.sub(0), u_[0])
@@ -178,8 +232,10 @@ def temporal_hook(mesh, t, dt, nu, St, F, A_ratio, tstep, save_solution_frequenc
 
     # Compute drag and lift coefficients
     rho = 1000
-    factor = 1 / 2 * rho * u_inf ** 2 * D
-    drag_and_lift_local = assemble(forces).get_local() * rho  # Times constant fluid density
+    factor = 1 / 2 * rho * u_inf**2 * D
+    drag_and_lift_local = (
+        assemble(forces).get_local() * rho
+    )  # Times constant fluid density
     drag_and_lift = comm.gather(drag_and_lift_local, 0)
 
     f_v = St * u_inf / D  # Fixed-cylinder vortex shredding frequency
@@ -199,7 +255,7 @@ def temporal_hook(mesh, t, dt, nu, St, F, A_ratio, tstep, save_solution_frequenc
     except Exception:
         pass
 
-    pressure_coeff = 1 + 2 * (p_180 - p_0) / (rho * u_inf ** 2)
+    pressure_coeff = 1 + 2 * (p_180 - p_0) / (rho * u_inf**2)
 
     # Store forces to file
     if MPI.rank(MPI.comm_world) == 0:
@@ -213,6 +269,22 @@ def temporal_hook(mesh, t, dt, nu, St, F, A_ratio, tstep, save_solution_frequenc
     if tstep % 10 == 0:
         h = mesh.hmin()
         L = 62 * D
-        compute_flow_quantities(u_, L, nu, mesh, t, tstep, dt, h, outlet_area=1, boundary=None, outlet_ids=[],
-                                inlet_ids=[], id_wall=0, period=1.0, newfolder=None, dynamic_mesh=False,
-                                write_to_file=False)
+        compute_flow_quantities(
+            u_,
+            L,
+            nu,
+            mesh,
+            t,
+            tstep,
+            dt,
+            h,
+            outlet_area=1,
+            boundary=None,
+            outlet_ids=[],
+            inlet_ids=[],
+            id_wall=0,
+            period=1.0,
+            newfolder=None,
+            dynamic_mesh=False,
+            write_to_file=False,
+        )

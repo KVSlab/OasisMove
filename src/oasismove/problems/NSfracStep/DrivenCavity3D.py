@@ -7,15 +7,21 @@ from oasismove.problems.NSfracStep import *
 
 
 # Override some problem specific parameters
-def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace):
+def problem_parameters(
+    commandline_kwargs, NS_parameters, NS_expressions, **NS_namespace
+):
     if "restart_folder" in commandline_kwargs.keys():
         restart_folder = commandline_kwargs["restart_folder"]
         restart_folder = path.join(getcwd(), restart_folder)
 
-        f = open(path.join(path.dirname(path.abspath(__file__)), restart_folder,
-                           'params.dat'), 'rb')
+        f = open(
+            path.join(
+                path.dirname(path.abspath(__file__)), restart_folder, "params.dat"
+            ),
+            "rb",
+        )
         NS_parameters.update(pickle.load(f))
-        NS_parameters['restart_folder'] = restart_folder
+        NS_parameters["restart_folder"] = restart_folder
         globals().update(NS_parameters)
 
     else:
@@ -40,7 +46,8 @@ def problem_parameters(commandline_kwargs, NS_parameters, NS_expressions, **NS_n
             print_intermediate_info=100,
             velocity_degree=1,
             pressure_degree=1,
-            use_krylov_solvers=True)
+            use_krylov_solvers=True,
+        )
 
     NS_expressions.update(dict(constrained_domain=PeriodicDomain()))
 
@@ -73,10 +80,7 @@ def create_bcs(V, **NS_namespace):
     bc00 = DirichletBC(V, 1, top)
     bc01 = DirichletBC(V, 0, top)
 
-    return dict(u0=[bc00, bc0],
-                u1=[bc01, bc0],
-                u2=[bc01, bc0],
-                p=[])
+    return dict(u0=[bc00, bc0], u1=[bc01, bc0], u2=[bc01, bc0], p=[])
 
 
 def initialize(x_1, x_2, bcs, **NS_namespace):

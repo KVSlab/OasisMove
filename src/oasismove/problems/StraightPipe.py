@@ -1,5 +1,14 @@
 import numpy as np
-from dolfin import MPI, Mesh, MeshValueCollection, XDMFFile, cpp, Measure, assemble, Constant
+from dolfin import (
+    MPI,
+    Constant,
+    Measure,
+    Mesh,
+    MeshValueCollection,
+    XDMFFile,
+    assemble,
+    cpp,
+)
 
 """
 Author : Kei Yamamoto <keiya@math.uio.no>
@@ -48,9 +57,21 @@ volume = assemble(Constant(1) * dx(mesh))
 
 if MPI.rank(MPI.comm_world) == 0:
     print("=== Mesh information ===")
-    print("X range: {} to {} (delta: {:.4f})".format(min(xmin), max(xmax), max(xmax) - min(xmin)))
-    print("Y range: {} to {} (delta: {:.4f})".format(min(ymin), max(ymax), max(ymax) - min(ymin)))
-    print("Z range: {} to {} (delta: {:.4f})".format(min(zmin), max(zmax), max(zmax) - min(zmin)))
+    print(
+        "X range: {} to {} (delta: {:.4f})".format(
+            min(xmin), max(xmax), max(xmax) - min(xmin)
+        )
+    )
+    print(
+        "Y range: {} to {} (delta: {:.4f})".format(
+            min(ymin), max(ymax), max(ymax) - min(ymin)
+        )
+    )
+    print(
+        "Z range: {} to {} (delta: {:.4f})".format(
+            min(zmin), max(zmax), max(zmax) - min(zmin)
+        )
+    )
     print("Number of cells: {}".format(sum(num_cells)))
     print("Number of cells per processor: {}".format(int(np.mean(num_cells))))
     print("Number of edges: {}".format(sum(num_edges)))

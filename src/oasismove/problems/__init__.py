@@ -12,8 +12,7 @@ from dolfin import *
 def getMemoryUsage(rss=True):
     mypid = str(getpid())
     rss = "rss" if rss else "vsz"
-    process = subprocess.Popen(['ps', '-o', rss, mypid],
-                               stdout=subprocess.PIPE)
+    process = subprocess.Popen(["ps", "-o", rss, mypid], stdout=subprocess.PIPE)
     out, _ = process.communicate()
     mymemory = out.split()[1]
     return eval(mymemory) / 1024
@@ -28,9 +27,9 @@ parameters["form_compiler"]["cpp_optimize_flags"] = "-O3"
 # Default parameters for all solvers
 NS_parameters = dict(
     nu=0.01,  # Kinematic viscosity
-    folder='results',  # Relative folder for storing results
+    folder="results",  # Relative folder for storing results
     velocity_degree=2,  # default velocity degree
-    pressure_degree=1  # default pressure degree
+    pressure_degree=1,  # default pressure degree
 )
 
 NS_expressions = {}
@@ -42,12 +41,10 @@ scalar_components = []
 
 # With diffusivities given as a Schmidt number defined by:
 #   Schmidt = nu / D (= momentum diffusivity / mass diffusivity)
-Schmidt = defaultdict(lambda: 1.)
+Schmidt = defaultdict(lambda: 1.0)
 Schmidt_T = defaultdict(lambda: 0.7)  # Turbulent Schmidt number (LES)
 
-Scalar = defaultdict(lambda: dict(Schmidt=1.0,
-                                  family="CG",
-                                  degree=1))
+Scalar = defaultdict(lambda: dict(Schmidt=1.0, family="CG", degree=1))
 
 # The following helper functions are available in dolfin
 # They are redefined here for printing only on process 0.
@@ -89,18 +86,20 @@ class OasisMemoryUsage:
         self.memory = MPI.sum(MPI.comm_world, getMemoryUsage())
         self.memory_vm = MPI.sum(MPI.comm_world, getMemoryUsage(False))
         if MPI.rank(MPI.comm_world) == 0 and verbose:
-            info_blue('{0:26s}  {1:10d} MB {2:10d} MB {3:10d} MB {4:10d} MB'
-                      .format(s,
-                              int(self.memory - self.prev),
-                              int(self.memory),
-                              int(self.memory_vm - self.prev_vm),
-                              int(self.memory_vm))
-                      )
+            info_blue(
+                "{0:26s}  {1:10d} MB {2:10d} MB {3:10d} MB {4:10d} MB".format(
+                    s,
+                    int(self.memory - self.prev),
+                    int(self.memory),
+                    int(self.memory_vm - self.prev_vm),
+                    int(self.memory_vm),
+                )
+            )
 
 
 # Print memory use up til now
 initial_memory_use = getMemoryUsage()
-oasis_memory = OasisMemoryUsage('Start')
+oasis_memory = OasisMemoryUsage("Start")
 
 
 # Convenience functions
@@ -124,8 +123,25 @@ def QC(u):
     return Omega(u) - Strain(u)
 
 
-def compute_flow_quantities(u, L, nu, mesh, t, tstep, dt, h, outlet_area=1, boundary=None, outlet_ids=[], inlet_ids=[],
-                            id_wall=0, period=1.0, newfolder=None, dynamic_mesh=False, write_to_file=False):
+def compute_flow_quantities(
+    u,
+    L,
+    nu,
+    mesh,
+    t,
+    tstep,
+    dt,
+    h,
+    outlet_area=1,
+    boundary=None,
+    outlet_ids=[],
+    inlet_ids=[],
+    id_wall=0,
+    period=1.0,
+    newfolder=None,
+    dynamic_mesh=False,
+    write_to_file=False,
+):
     """
     Compute max and mean Reynolds numbers, CFL numbers, and fluxes through boundaries.
 
@@ -196,20 +212,46 @@ def compute_flow_quantities(u, L, nu, mesh, t, tstep, dt, h, outlet_area=1, boun
         re_max = U_max * L / nu
 
         info_green(
-            'Time = {0:2.4e}, timestep = {1:6d}, max Reynolds number={2:2.3f}, mean Reynolds number={3:2.3f}, outlet Reynolds number={4:2.3f}, Womersley number={5:2.3f}, max velocity={6:2.3f}, mean velocity={7:2.3f}, max CFL={8:2.3f}, mean CFL={9:2.3f}'
-                .format(t, tstep, re_max, re_mean, re_outlet, womersley_number, U_max, U_mean, cfl_max, cfl_mean))
+            "Time = {0:2.4e}, timestep = {1:6d}, max Reynolds number={2:2.3f}, mean Reynolds number={3:2.3f}, outlet Reynolds number={4:2.3f}, Womersley number={5:2.3f}, max velocity={6:2.3f}, mean velocity={7:2.3f}, max CFL={8:2.3f}, mean CFL={9:2.3f}".format(
+                t,
+                tstep,
+                re_max,
+                re_mean,
+                re_outlet,
+                womersley_number,
+                U_max,
+                U_mean,
+                cfl_max,
+                cfl_mean,
+            )
+        )
 
         if write_to_file:
-            data = [t, tstep, re_max, re_mean, re_outlet, womersley_number, U_max, U_mean, cfl_max,
-                    cfl_mean] + flux_in + flux_out + flux_wall
+            data = (
+                [
+                    t,
+                    tstep,
+                    re_max,
+                    re_mean,
+                    re_outlet,
+                    womersley_number,
+                    U_max,
+                    U_mean,
+                    cfl_max,
+                    cfl_mean,
+                ]
+                + flux_in
+                + flux_out
+                + flux_wall
+            )
             write_data_to_file(newfolder, data, "flow_metrics.txt")
 
 
 def write_data_to_file(save_path, data, filename):
     data_path = path.join(save_path, filename)
     with open(data_path, "ab") as f:
-        np.savetxt(f, data, fmt=" %.16f ", newline=' ')
-        f.write(b'\n')
+        np.savetxt(f, data, fmt=" %.16f ", newline=" ")
+        f.write(b"\n")
 
 
 def print_mesh_information(mesh, dt=None, u_mean=None, dim=3):
@@ -245,10 +287,22 @@ def print_mesh_information(mesh, dt=None, u_mean=None, dim=3):
 
     if MPI.rank(MPI.comm_world) == 0:
         print("=== Mesh information ===")
-        print("X range: {} to {} (delta: {:.4f})".format(min(xmin), max(xmax), max(xmax) - min(xmin)))
-        print("Y range: {} to {} (delta: {:.4f})".format(min(ymin), max(ymax), max(ymax) - min(ymin)))
+        print(
+            "X range: {} to {} (delta: {:.4f})".format(
+                min(xmin), max(xmax), max(xmax) - min(xmin)
+            )
+        )
+        print(
+            "Y range: {} to {} (delta: {:.4f})".format(
+                min(ymin), max(ymax), max(ymax) - min(ymin)
+            )
+        )
         if dim == 3:
-            print("Z range: {} to {} (delta: {:.4f})".format(min(zmin), max(zmax), max(zmax) - min(zmin)))
+            print(
+                "Z range: {} to {} (delta: {:.4f})".format(
+                    min(zmin), max(zmax), max(zmax) - min(zmin)
+                )
+            )
         print("Number of cells: {}".format(sum(num_cells)))
         print("Number of cells per processor: {}".format(int(np.mean(num_cells))))
         print("Number of edges: {}".format(sum(num_edges)))
@@ -279,9 +333,10 @@ class OasisXDMFFile(XDMFFile, object):
 def add_function_to_tstepfiles(function, newfolder, tstepfiles, tstep):
     name = function.name()
     tstepfolder = path.join(newfolder, "Timeseries")
-    tstepfiles[name] = OasisXDMFFile(MPI.comm_world,
-                                     path.join(tstepfolder,
-                                               '{}_from_tstep_{}.xdmf'.format(name, tstep)))
+    tstepfiles[name] = OasisXDMFFile(
+        MPI.comm_world,
+        path.join(tstepfolder, "{}_from_tstep_{}.xdmf".format(name, tstep)),
+    )
     tstepfiles[name].function = function
     tstepfiles[name].parameters["rewrite_function_mesh"] = False
 
@@ -326,10 +381,12 @@ def problem_parameters(**NS_namespace):
     pass
 
 
-def post_import_problem(NS_parameters, mesh, commandline_kwargs, NS_expressions, **NS_namespace):
+def post_import_problem(
+    NS_parameters, mesh, commandline_kwargs, NS_expressions, **NS_namespace
+):
     """Called after importing from problem."""
-    dynamic_mesh = NS_parameters['dynamic_mesh']
-    restart_folder = NS_parameters['restart_folder']
+    dynamic_mesh = NS_parameters["dynamic_mesh"]
+    restart_folder = NS_parameters["restart_folder"]
     # Update NS_parameters with all parameters modified through command line
     for key, val in commandline_kwargs.items():
         if isinstance(val, dict):
@@ -346,13 +403,15 @@ def post_import_problem(NS_parameters, mesh, commandline_kwargs, NS_expressions,
     if restart_folder is not None:
         # Get mesh information
         mesh = Mesh()
-        filename = path.join(restart_folder, 'mesh.h5')
+        filename = path.join(restart_folder, "mesh.h5")
         with HDF5File(MPI.comm_world, filename, "r") as f:
             f.read(mesh, "mesh", False)
-            boundary = MeshFunction("size_t", mesh, mesh.geometry().dim() - 1, mesh.domains())
+            boundary = MeshFunction(
+                "size_t", mesh, mesh.geometry().dim() - 1, mesh.domains()
+            )
             f.read(boundary, "boundary")
 
-    assert (isinstance(mesh, Mesh))
+    assert isinstance(mesh, Mesh)
 
     # Returned dictionary to be updated in the NS namespace
     d = dict(mesh=mesh, boundary=boundary)

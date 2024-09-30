@@ -17,6 +17,8 @@ test = [
     "flake8",
     "pytest",
     "pytest-cov",
+    "isort",
+    "black"
 ]
 docs = [
     "jupyter-book",

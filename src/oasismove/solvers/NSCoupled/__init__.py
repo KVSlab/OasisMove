@@ -8,24 +8,23 @@ from dolfin import *
 from oasismove.solvers import *
 
 """Define all functions required by coupled solver."""
-__all__ = ["NS_assemble", "NS_solve", "scalar_assemble",
-           "scalar_solve", "get_solvers", "setup",
-           "print_velocity_pressure_info",
-           "elements"]
+__all__ = [
+    "NS_assemble",
+    "NS_solve",
+    "scalar_assemble",
+    "scalar_solve",
+    "get_solvers",
+    "setup",
+    "print_velocity_pressure_info",
+    "elements",
+]
 
 elements = {
-    "TaylorHood":
-        dict(family={"u": "CG", "p": "CG"},
-             degree={"u": 2, "p": 1},
-             bubble=False),
-    "MINI":
-        dict(family={"u": "CG", "p": "CG"},
-             degree={"u": 1, "p": 1},
-             bubble=True),
-    "CR":
-        dict(family={"u": "CR", "p": "DG"},
-             degree={"u": 1, "p": 0},
-             bubble=False)
+    "TaylorHood": dict(
+        family={"u": "CG", "p": "CG"}, degree={"u": 2, "p": 1}, bubble=False
+    ),
+    "MINI": dict(family={"u": "CG", "p": "CG"}, degree={"u": 1, "p": 1}, bubble=True),
+    "CR": dict(family={"u": "CR", "p": "DG"}, degree={"u": 1, "p": 0}, bubble=False),
 }
 
 
@@ -47,7 +46,7 @@ def get_solvers(**NS_namespace):
        - scalars
 
     """
-    up_sol, c_sol = LUSolver('mumps'), LUSolver('mumps')
+    up_sol, c_sol = LUSolver("mumps"), LUSolver("mumps")
     # up_sol, c_sol = LUSolver('umfpack'), LUSolver('umfpack')
     # up_sol, c_sol = LUSolver('petsc'), LUSolver('petsc')
     return up_sol, c_sol

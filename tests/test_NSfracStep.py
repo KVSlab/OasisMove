@@ -19,8 +19,20 @@ def test_spatial_rate_of_convergence(num_processors, solver):
 
     for n in N:
         # Set resolution
-        cmd = ["mpirun", "-np", f"{num_processors}", "oasismove", "NSfracStep", f"solver={solver}",
-               "problem=TaylorGreen2D", "compute_error=1e8", f"T={T}", f"dt={dt}", f"Nx={n}", f"Ny={n}"]
+        cmd = [
+            "mpirun",
+            "-np",
+            f"{num_processors}",
+            "oasismove",
+            "NSfracStep",
+            f"solver={solver}",
+            "problem=TaylorGreen2D",
+            "compute_error=1e8",
+            f"T={T}",
+            f"dt={dt}",
+            f"Nx={n}",
+            f"Ny={n}",
+        ]
 
         # Run OasisMove
         result = subprocess.run(cmd, capture_output=True, text=True)
@@ -31,15 +43,16 @@ def test_spatial_rate_of_convergence(num_processors, solver):
         # Get output (str)
         output = result.stdout
 
-        match = re.search("Final Error: u0=" + number + " u1="
-                          + number + " p=" + number, str(output))
+        match = re.search(
+            "Final Error: u0=" + number + " u1=" + number + " p=" + number, str(output)
+        )
         err = match.groups()
         u0_err.append(eval(err[0]))
         p_err.append(eval(err[2]))
 
     p_conv = []
     u_conv = []
-    dx = [math.sqrt(2 * (1. / n) ** 2) for n in N]
+    dx = [math.sqrt(2 * (1.0 / n) ** 2) for n in N]
     for i in range(len(dx) - 1):
         u_conv.append(math.log(u0_err[i] / u0_err[i + 1]) / math.log(dx[i] / dx[i + 1]))
         p_conv.append(math.log(p_err[i] / p_err[i + 1]) / math.log(dx[i] / dx[i + 1]))
@@ -51,8 +64,18 @@ def test_spatial_rate_of_convergence(num_processors, solver):
 @pytest.mark.parametrize("solver", ["IPCS_ABCN", "IPCS_ABE", "Chorin", "BDFPC_Fast"])
 @pytest.mark.parametrize("num_processors", [1, 2])
 def test_TaylorGreen2D(num_processors, solver):
-    cmd = ["mpirun", "-np", f"{num_processors}", "oasismove", "NSfracStep", f"solver={solver}",
-           "problem=TaylorGreen2D", "T=0.01", "Nx=30", "Ny=30"]
+    cmd = [
+        "mpirun",
+        "-np",
+        f"{num_processors}",
+        "oasismove",
+        "NSfracStep",
+        f"solver={solver}",
+        "problem=TaylorGreen2D",
+        "T=0.01",
+        "Nx=30",
+        "Ny=30",
+    ]
 
     if num_processors > 1 and solver == "Chorin":  # Uses direct solver
         return
@@ -64,8 +87,9 @@ def test_TaylorGreen2D(num_processors, solver):
     assert result.returncode == 0
     output = result.stdout
 
-    match = re.search("Final Error: u0=" + number +
-                      " u1=" + number + " p=" + number, str(output))
+    match = re.search(
+        "Final Error: u0=" + number + " u1=" + number + " p=" + number, str(output)
+    )
     err = match.groups()
     if "IPCS_AB" in solver:
         for e in err:
@@ -83,8 +107,18 @@ def test_TaylorGreen2D(num_processors, solver):
     elif "BDFPC" in solver:
         slow = "BDFPC"
     if slow is not None:
-        cmd_slow = ["mpirun", "-np", "1", "oasismove", "NSfracStep", f"solver={slow}",
-                    "problem=TaylorGreen2D", "T=0.01", "Nx=30", "Ny=30"]
+        cmd_slow = [
+            "mpirun",
+            "-np",
+            "1",
+            "oasismove",
+            "NSfracStep",
+            f"solver={slow}",
+            "problem=TaylorGreen2D",
+            "T=0.01",
+            "Nx=30",
+            "Ny=30",
+        ]
 
         # Run OasisMove
         result_slow = subprocess.run(cmd_slow, capture_output=True, text=True)
@@ -93,8 +127,9 @@ def test_TaylorGreen2D(num_processors, solver):
         assert result_slow.returncode == 0
         output = result_slow.stdout
 
-        match2 = re.search("Final Error: u0=" + number +
-                           " u1=" + number + " p=" + number, str(output))
+        match2 = re.search(
+            "Final Error: u0=" + number + " u1=" + number + " p=" + number, str(output)
+        )
         err2 = match2.groups()
 
     if "BDFPC" in solver:
@@ -108,8 +143,20 @@ def test_TaylorGreen2D(num_processors, solver):
 @pytest.mark.parametrize("solver", ["IPCS_ABCN", "IPCS_ABE"])
 @pytest.mark.parametrize("num_processors", [1, 2])
 def test_DrivenCavity(num_processors, solver):
-    cmd = ["mpirun", "-np", f"{num_processors}", "oasismove", "NSfracStep", "problem=DrivenCavity", "T=0.01", "Nx=10",
-           "Ny=10", "plot_interval=10000", f"solver={solver}", "testing=True"]
+    cmd = [
+        "mpirun",
+        "-np",
+        f"{num_processors}",
+        "oasismove",
+        "NSfracStep",
+        "problem=DrivenCavity",
+        "T=0.01",
+        "Nx=10",
+        "Ny=10",
+        "plot_interval=10000",
+        f"solver={solver}",
+        "testing=True",
+    ]
 
     # Run OasisMove
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -124,8 +171,20 @@ def test_DrivenCavity(num_processors, solver):
     err = match.groups()
 
     # Make sure the optimized version gives the same result as naive
-    cmd_naive = ["mpirun", "-np", "1", "oasismove", "NSfracStep", "problem=DrivenCavity", "T=0.01", "Nx=10", "Ny=10",
-                 "plot_interval=10000", "solver=IPCS", "testing=True"]
+    cmd_naive = [
+        "mpirun",
+        "-np",
+        "1",
+        "oasismove",
+        "NSfracStep",
+        "problem=DrivenCavity",
+        "T=0.01",
+        "Nx=10",
+        "Ny=10",
+        "plot_interval=10000",
+        "solver=IPCS",
+        "testing=True",
+    ]
     # Run OasisMove
     result_naive = subprocess.run(cmd_naive, capture_output=True, text=True)
 
@@ -137,11 +196,11 @@ def test_DrivenCavity(num_processors, solver):
 
     match2 = re.search("Velocity norm = " + number, str(output))
     err2 = match2.groups()
-    tol = 1E-9 if solver == "IPCS_ABCN" else 5E-3
+    tol = 1e-9 if solver == "IPCS_ABCN" else 5e-3
     assert abs(eval(err[0]) - eval(err2[0])) < tol
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     test_DrivenCavity(1)
     test_TaylorGreen2D(1, "IPCS_ABCN")
     test_spatial_rate_of_convergence(1, "BDFPC_Fast")
